@@ -6,12 +6,13 @@ import * as dotenv from "dotenv";
 
 const app = express();
 
+dotenv.config();
+
 mongoose
   .connect(`${process.env.DATABASE_URL}`)
   .then(() => console.log("MongoDB Connected.."))
   .catch((err) => console.log(err));
 
-dotenv.config();
 app.use(cors());
 app.use(bodyParser.json({ limit: "20mb" }));
 app.use(bodyParser.urlencoded({ limit: "20mb", extended: true }));
