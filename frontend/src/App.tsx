@@ -5,18 +5,20 @@ import store from './store';
 import logo from './logo.svg';
 import './App.css';
 import SampleComponent from "./components/Sample/SampleComponent";
+import SignIn from "./views/auth/SignIn";
 
 function App() {
   return (
       <Provider store={store}>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo}
-                 className="App-logo"
-                 alt="logo"/>
-          </header>
-          <SampleComponent />
-        </div>
+          <SignIn />
+        {/*<div className="App">*/}
+        {/*  <header className="App-header">*/}
+        {/*    <img src={logo}*/}
+        {/*         className="App-logo"*/}
+        {/*         alt="logo"/>*/}
+        {/*  </header>*/}
+        {/*  <SampleComponent />*/}
+        {/*</div>*/}
       </Provider>
   );
 }
