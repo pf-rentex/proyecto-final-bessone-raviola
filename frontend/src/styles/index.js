@@ -13,14 +13,14 @@ module.exports = {
         transparent: 'transparent',
         current: 'currentColor',
         white: '#FFFFFF',
-        lightGray: '#D7DFE2',
         gray: colors.coolGray,
         blue: colors.lightBlue,
         red: colors.rose,
         pink: colors.fuchsia,
     },
     fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
+        primary: ['Fredoka One', 'sans-serif'],
+        secondary: ['Poppins', 'sans-serif'],
         serif: ['Merriweather', 'serif'],
     },
     extend: {

@@ -5,7 +5,7 @@ import {ReactComponent as Bkg} from '../../assets/realtor.svg';
 import {ReactComponent as AppLogo} from '../../assets/logo.svg';
 import {ReactComponent as Footer} from '../../assets/waves.svg';
 
-const SignIn = () => {
+const Login = () => {
   return (
       <section className="absolute w-full h-full bg-gradient-to-b from-bg-gradient-1 to-bg-gradient-2">
         <div className="container mx-auto h-full">
@@ -18,7 +18,8 @@ const SignIn = () => {
                 </h1>
                 <p className="text-2xl text-blue-700 w-10/12">Accede y gestiona
                   <span className="font-bold"> todos</span> los aspectos de tu alquiler de forma
-                  <span className="font-bold"> segura</span></p>
+                  <span className="font-bold"> segura</span>
+                </p>
 
                 <Bkg className="self-center pr-10"/>
               </div>
@@ -34,11 +35,11 @@ const SignIn = () => {
                   <div className="btn-wrapper text-center px-6">
                     <CustomButton color="secondary"
                                   text="Sign in with Google">
-                      <AiFillGoogleCircle />
+                      <AiFillGoogleCircle/>
                     </CustomButton>
                     <CustomButton color="secondary"
                                   text="Sign in with Facebook">
-                      <FaFacebook />
+                      <FaFacebook/>
                     </CustomButton>
                   </div>
                 </div>
@@ -83,4 +84,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Login;
