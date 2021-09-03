@@ -4,10 +4,11 @@ import {AiFillGoogleCircle, FaFacebook} from "react-icons/all";
 import {ReactComponent as Bkg} from '../../assets/realtor.svg';
 import {ReactComponent as AppLogo} from '../../assets/logo.svg';
 import {ReactComponent as Footer} from '../../assets/waves.svg';
+import Blob from "../../components/commons/Blob";
 
 const Login = () => {
   return (
-      <section className="absolute w-full h-full bg-gradient-to-b from-bg-gradient-1 to-bg-gradient-2">
+      <section className="absolute w-full h-full bg-gradient-to-b from-bg-gradient-1 to-bg-gradient-2 overflow-hidden">
         <div className="container mx-auto h-full">
           <div className="flex content-center items-center justify-center h-full">
             <div className="w-full flex justify-between lg:px-20">
@@ -21,9 +22,9 @@ const Login = () => {
                   <span className="font-bold"> segura</span>
                 </p>
 
-                <Bkg className="self-center pr-10"/>
+                <Bkg className="self-center pr-10 z-10"/>
+                <Blob size="medium" color='white' class="mt-40 ml-40"/>
               </div>
-
               <div className="relative flex flex-col w-full pb-5 xl:w-6/12 content-center break-words mb-3 px-4 mx-4 shadow-2xl rounded-xl bg-white border-0 text-center">
                 <div className="flex justify-center my-3">
                   <AppLogo/>
