@@ -15,7 +15,7 @@ const CustomButton = (
     }: IButtonProps ) => {
 
   return (
-      <button className={`bg-${color} shadow-md w-full rounded-md px-5 py-2 flex content-center my-5 focus:shadow-sm outline-none`}>
+      <button className={`bg-${color} shadow-md w-full rounded-md px-5 py-2 flex content-center my-3 focus:shadow-sm outline-none`}>
             <span className="text-2xl pr-4">
                 {children}
             </span>

@@ -24,6 +24,9 @@ module.exports = {
         serif: ['Merriweather', 'serif'],
     },
     extend: {
+        boxShadow: {
+            'inner-xl': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.4)',
+        },
         colors: {
           'myOwn': '#004e7d',
         },
