@@ -7,15 +7,12 @@ const contractSchema = new mongoose.Schema({
     expenses: Number,
     monthlyFee: Number,
     status: String,
-    property: {
-        propertyId: Number
-    },
-    tenant: {
-        tenantId: Number
-    },
-    rentalAgent: {
-        rentalAgentId: Number
-    }
+    propertyId: Number,
+    tenantId: Number,
+    rentalAgentId: Number,
+    createdAt: Date,
+    updatedAt: Date,
+    deletedAt: Date
 });
 
 const Contract = mongoose.model( 'Contract', contractSchema);

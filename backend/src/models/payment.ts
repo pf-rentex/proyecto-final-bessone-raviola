@@ -5,9 +5,10 @@ const paymentSchema =  new mongoose.Schema({
     status: String,
     paymentDate: Date,
     amount: Number,
-    contract: {
-        contractId: Number
-    },
+    contractId: Number,
+    createdAt: Date,
+    updatedAt: Date,
+    deletedAt: Date
 });
 
 const Payment = mongoose.model( 'Payment', paymentSchema);

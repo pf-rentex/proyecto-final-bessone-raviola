@@ -7,9 +7,10 @@ const propertySchema = new mongoose.Schema({
     description: String,
     features: [Features],
     pictures: [File],
-    rentalAgent: {
-        rentalAgentId: Number
-    }
+    rentalAgentId: Number,
+    createdAt: Date,
+    updatedAt: Date,
+    deletedAt: Date
 });
 
 const Property = mongoose.model( 'Property', propertySchema);

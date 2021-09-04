@@ -6,12 +6,11 @@ const complaintSchema =  new mongoose.Schema({
     startDate: Date,
     endDate: Date,
     amount: Number,
-    contract: {
-        contractId: Number
-    },
-    property: {
-        propertyId: Number
-    }
+    contractId: Number, 
+    propertyId: Number,
+    createdAt: Date,
+    updatedAt: Date,
+    deletedAt: Date
 });
 
 const Complaint = mongoose.model( 'Complaint', complaintSchema);

@@ -2,12 +2,11 @@ import  mongoose  from "mongoose";
 
 const rentalAgentSchema =  new mongoose.Schema({
     isVerified: Boolean,
-    owner: {
-        ownerId: Number
-    },
-    realEstate: {
-        realEstateId: Number
-    }
+    ownerId: Number,
+    realEstateId: Number,
+    createdAt: Date,
+    updatedAt: Date,
+    deletedAt: Date
 });
 
 const RentalAgent = mongoose.model( 'RentalAgent', rentalAgentSchema);
