@@ -4,21 +4,30 @@ import FacebookIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import GoogleIcon from 'react-native-vector-icons/AntDesign';
 import VectorImage from 'react-native-vector-image';
 import LinearGradient from 'react-native-linear-gradient';
-import styles from "./LoginStyles";
+import styles from "./styles";
+import Footer from "../../components/auth/Footer";
+import BetweenLinesText from "../../components/common/BetweenLinesText";
 
-const Login = () => {
+const Login = ({navigation}) => {
   let [email, setEmail] = useState<string>('');
   let [password, setPassword] = useState<string>('');
   const [keyboardStatus, setKeyboardStatus] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
+    setKeyboardListeners();
+    return function cleanup() {
+      setKeyboardStatus(undefined);
+    }
+  }, []);
+
+  const setKeyboardListeners = () => {
     Keyboard.addListener("keyboardDidShow", () => {
       setKeyboardStatus(true);
     });
     Keyboard.addListener('keyboardDidHide', () => {
       setKeyboardStatus(false);
-    })
-  }, []);
+    });
+  }
 
   return (
       <LinearGradient colors={['#15ABFF', '#C9F0FD']}
@@ -30,11 +39,10 @@ const Login = () => {
         }
 
         <View style={{marginTop: keyboardStatus ? 50 : 100, flex: 12, justifyContent: 'center',}}>
-          <View style={styles.withHorizontalLine}>
-            <View style={styles.line}></View>
-            <Text style={styles.title}>Login</Text>
-            <View style={styles.line}></View>
-          </View>
+
+          <BetweenLinesText text="Login"
+                            isTitle={true}/>
+
           <TextInput
               value={email}
               onChangeText={(txt) => setEmail(txt)}
@@ -58,17 +66,10 @@ const Login = () => {
             </TouchableOpacity>
           </View>
 
-          <View style={styles.withHorizontalLine}>
-            <View style={styles.line}></View>
-            <Text style={{
-              color: 'black',
-              fontSize: 18,
-              marginHorizontal: 12,
-            }}>Or Sign in with
-            </Text>
-            <View style={styles.line}></View>
-          </View>
+          <BetweenLinesText text="Or sign in using"/>
+
           <View style={styles.socialCTAContainer}>
+
             <TouchableOpacity style={styles.socialCTA}>
               <View style={styles.socialCTAGoogleIcon}>
                 <GoogleIcon name="google"
@@ -86,19 +87,10 @@ const Login = () => {
           </View>
 
         </View>
-        {!keyboardStatus &&
-        <View style={styles.footer}>
-            <View style={styles.footerContainer}>
-                <Text style={{
-                  textAlign: 'center',
-                  color: '#222222',
-                  fontSize: 20,
-                }}>Don't Have an account?
-                </Text>
-                <Text style={{color: '#2B99FF', fontSize: 20}}> Register</Text>
-            </View>
-        </View>
-        }
+        {!keyboardStatus && <Footer action={() => navigation.navigate('RegisterStepOne')}
+                                    text="Don't have an account?"
+                                    linkText="Register"
+        />}
       </LinearGradient>
   );
 }

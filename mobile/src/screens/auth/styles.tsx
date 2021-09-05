@@ -16,21 +16,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row'
   },
-  withHorizontalLine: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginHorizontal: 65,
-  },
-  line: {
-    borderWidth: 1,
-    height: 0,
-    borderEndWidth: 0,
-    borderStartWidth: 0,
-    borderBottomWidth: 0,
-    borderColor: '#000',
-    flex: 1
-  },
   title: {
     color: 'white',
     fontWeight: 'bold',
@@ -38,6 +23,13 @@ export default StyleSheet.create({
     letterSpacing: 2,
     fontSize: 27,
     textAlign: 'center',
+  },
+  subtitle: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#21577E',
+    marginVertical: 25
   },
   input: {
     backgroundColor: 'white',
@@ -67,13 +59,6 @@ export default StyleSheet.create({
     letterSpacing: 3,
     fontSize: 22
   },
-  betweenLinesText: {
-    color: '#414141',
-    fontSize: 15,
-    fontWeight: '600',
-    letterSpacing: 0.5,
-    marginHorizontal: 12,
-  },
   socialCTAContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -102,22 +87,4 @@ export default StyleSheet.create({
     fontSize: 18,
     paddingHorizontal: 8
   },
-  footer: {
-    flex: 1,
-  },
-  footerContainer: {
-    flexDirection: "row",
-    alignSelf: 'center',
-  },
-  footerText: {
-    textAlign: 'center',
-    color: '#222222',
-    fontSize: 18,
-  },
-  footerLink: {
-    paddingHorizontal: 8,
-    color: '#2B99FF',
-    fontWeight: 'bold',
-    fontSize: 20,
-  }
 });
