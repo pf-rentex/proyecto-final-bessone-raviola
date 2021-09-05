@@ -23,16 +23,20 @@ export default StyleSheet.create({
     marginHorizontal: 65,
   },
   line: {
-    borderWidth: 0.8,
+    borderWidth: 1,
     height: 0,
-    borderColor: '#333333',
+    borderEndWidth: 0,
+    borderStartWidth: 0,
+    borderBottomWidth: 0,
+    borderColor: '#000',
     flex: 1
   },
   title: {
     color: 'white',
     fontWeight: 'bold',
     paddingHorizontal: 22,
-    fontSize: 25,
+    letterSpacing: 2,
+    fontSize: 27,
     textAlign: 'center',
   },
   input: {
@@ -58,7 +62,17 @@ export default StyleSheet.create({
   mainCTAText: {
     textAlign: 'center',
     color: 'white',
-    fontSize: 25
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    letterSpacing: 3,
+    fontSize: 22
+  },
+  betweenLinesText: {
+    color: '#414141',
+    fontSize: 15,
+    fontWeight: '600',
+    letterSpacing: 0.5,
+    marginHorizontal: 12,
   },
   socialCTAContainer: {
     flexDirection: 'row',
@@ -90,11 +104,20 @@ export default StyleSheet.create({
   },
   footer: {
     flex: 1,
-
   },
   footerContainer: {
     flexDirection: "row",
-    flex: 1,
-    justifyContent: 'center'
+    alignSelf: 'center',
+  },
+  footerText: {
+    textAlign: 'center',
+    color: '#222222',
+    fontSize: 18,
+  },
+  footerLink: {
+    paddingHorizontal: 8,
+    color: '#2B99FF',
+    fontWeight: 'bold',
+    fontSize: 20,
   }
 });
