@@ -15,11 +15,11 @@ const CustomButton = (
     }: IButtonProps ) => {
 
   return (
-      <button className={`bg-${color} shadow-md w-full rounded-md px-5 py-2 flex content-center my-3 focus:shadow-sm outline-none`}>
+      <button className={`bg-${color} shadow-md w-full rounded-md px-5 py-2 flex content-center my-3 focus:shadow-sm outline-none align-items-center justify-center content-center align-middle justify-items-center items-center`}>
             <span className="text-2xl pr-4">
                 {children}
             </span>
-        <span className={`text-md font-medium text-center text-${color === 'primary' ? 'white' : 'gray-800'} flex-1`}>{text}</span>
+        <span className={`text-sm font-sm  text-${color === 'primary' ? 'white' : 'gray-800'} flex-1`}>{text}</span>
       </button>
   );
 };

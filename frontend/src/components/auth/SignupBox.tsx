@@ -27,12 +27,12 @@ const SignupBox = ({onToggleMode}: ISignupBoxProps) => {
 
   return (
       <div className="relative flex flex-col w-full pb-5 xl:w-6/12 content-center break-words mb-3 px-4 mx-4 shadow-2xl rounded-xl bg-white border-0 text-center z-10">
-        <div className="flex justify-center mt-2">
+        <div className="flex justify-center py-2 mt-3">
           <AppLogo/>
         </div>
-        <div className="rounded-t mb-0 px-6 py-1">
+        <div className="rounded-t mb-0 px-6 py-2">
           <div className="text-center mb-3">
-            <h6 className="text-gray-600 text-lg font-bold">Sign up</h6>
+            <h6 className="text-gray-600 text-md font-bold">Sign up</h6>
           </div>
           <div className="btn-wrapper text-center px-6">
             <CustomButton color="secondary"
@@ -71,11 +71,11 @@ const SignupBox = ({onToggleMode}: ISignupBoxProps) => {
                      style={{transition: 'all 0.15s ease 0s'}}/>
             </div>
 
-            <span className="flex items-center justify-center space-x-3 mt-4 mb-2">
-                        <span className="h-px bg-gray-400 flex-1"></span>
-                        <span className="font-normal text-sm text-gray-600">Seleccione la opción que corresponda</span>
-                        <span className="h-px bg-gray-400 flex-1"></span>
-                  </span>
+            <span className="flex items-center justify-center space-x-3 mt-5 mb-2">
+                <span className="h-px bg-gray-400 flex-1"></span>
+                <span className="font-normal text-xs text-gray-600">Seleccione el tipo de usuario que corresponda</span>
+                <span className="h-px bg-gray-400 flex-1"></span>
+            </span>
 
             <div className="flex place-content-between">
               <CustomRadioInput name='user_type'
@@ -92,7 +92,7 @@ const SignupBox = ({onToggleMode}: ISignupBoxProps) => {
             <div className="flex place-content-between">
               <CustomRadioInput name='user_type'
                                 id={UserType.owner}
-                                text='Soy dueño de un inmueble'
+                                text='Dueño'
                                 onSelect={() => selectUserType(UserType.owner)}
                                 isChecked={userType === UserType.owner} />
             </div>
