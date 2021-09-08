@@ -7,6 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import styles from "./styles";
 import Footer from "../../components/auth/Footer";
 import BetweenLinesText from "../../components/common/BetweenLinesText";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const Login = ({navigation}) => {
   let [email, setEmail] = useState<string>('');
@@ -38,7 +39,7 @@ const Login = ({navigation}) => {
         </View>
         }
 
-        <View style={{marginTop: keyboardStatus ? 50 : 100, flex: 12, justifyContent: 'center',}}>
+        <View style={{marginTop: keyboardStatus ? hp(2) : hp(3), flex: 10, justifyContent: 'center',}}>
 
           <BetweenLinesText text="Login"
                             isTitle={true}/>
@@ -73,14 +74,14 @@ const Login = ({navigation}) => {
             <TouchableOpacity style={styles.socialCTA}>
               <View style={styles.socialCTAGoogleIcon}>
                 <GoogleIcon name="google"
-                            size={20}
+                            size={15}
                             color="white"/>
               </View>
               <Text style={styles.socialCTAText}>Google</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.socialCTA}>
               <FacebookIcon name="facebook"
-                            size={35}
+                            size={30}
                             color="#111111"/>
               <Text style={styles.socialCTAText}>Facebook</Text>
             </TouchableOpacity>

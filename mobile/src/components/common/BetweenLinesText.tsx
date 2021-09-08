@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from "react-native";
+import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
 
 interface IBetweenLinesText {
   text: string;
@@ -13,7 +14,7 @@ const BetweenLinesText = ({text, isTitle = false}: IBetweenLinesText) => {
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection: 'row',
-      marginHorizontal: 65,
+      marginHorizontal: wp('10%'),
     },
     line: {
       borderWidth: 1,
@@ -26,17 +27,17 @@ const BetweenLinesText = ({text, isTitle = false}: IBetweenLinesText) => {
     },
     text: {
       color: '#414141',
-      fontSize: 15,
+      fontSize: hp('1.5%'),
       letterSpacing: 0.5,
       textTransform: 'uppercase',
-      marginHorizontal: 12,
+      marginHorizontal: wp('1.4%'),
     },
     title: {
       color: 'white',
       fontWeight: 'bold',
-      paddingHorizontal: 22,
+      paddingHorizontal: wp('4%'),
       letterSpacing: 2,
-      fontSize: 27,
+      fontSize: hp('3%'),
       textAlign: 'center',
     },
   });

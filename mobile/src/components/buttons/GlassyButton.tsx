@@ -1,6 +1,7 @@
 import React, {ReactNode} from 'react';
 import LinearGradient from "react-native-linear-gradient";
 import {StyleSheet, Text, TouchableOpacity} from "react-native";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 interface IGlassyButtonProps {
   text: string;
@@ -15,8 +16,8 @@ const GlassyButton = ({text, children, onClicked}: IGlassyButtonProps) => {
       margin: 15,
     },
     background: {
-      width: 120,
-      height: 120,
+      width: wp(24),
+      height: wp(24),
       margin: 10,
       borderRadius: 10,
       alignContent: 'center',
