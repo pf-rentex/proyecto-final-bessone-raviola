@@ -5,12 +5,12 @@ import store from './store';
 // import logo from './logo.svg';
 import './App.css';
 // import SampleComponent from "./components/Sample/SampleComponent";
-import Login from "./views/auth/Login";
+import Auth from "./views/auth/Auth";
 
 function App() {
   return (
       <Provider store={store}>
-          <Login />
+          <Auth />
         {/*<div className="App">*/}
         {/*  <header className="App-header">*/}
         {/*    <img src={logo}*/}

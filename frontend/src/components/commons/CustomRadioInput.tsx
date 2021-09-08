@@ -12,7 +12,7 @@ const CustomRadioInput = ({id, name, isChecked, onSelect, text}: ICustomCheckbox
 
   return (
       <div onClick={() => onSelect()}
-          className={`rounded-lg flex w-36 h-10 px-2 py-2 my-2 mx-2 ${isChecked ? 'bg-blue-500 shadow-inner-xl': 'bg-gray-300 shadow-lg' } place-content-center cursor-pointer hover:opacity-75`}>
+          className={`rounded-lg flex w-32 h-12 px-2 py-2 my-2 mx-2 ${isChecked ? 'bg-blue-500 shadow-inner-xl': 'bg-gray-300 shadow-lg' } place-content-center cursor-pointer hover:opacity-75`}>
         <input type="radio"
                name={name}
                className="hidden w-0"
