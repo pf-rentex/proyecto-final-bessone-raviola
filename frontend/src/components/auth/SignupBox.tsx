@@ -22,7 +22,6 @@ const SignupBox = ({onToggleMode}: ISignupBoxProps) => {
   }, []);
 
   const selectUserType = (type: UserType) => {
-    console.log(`Selected userType was: ${userType} now changing to ${type}`)
     setUserType(type);
   }
 
@@ -81,12 +80,12 @@ const SignupBox = ({onToggleMode}: ISignupBoxProps) => {
             <div className="flex place-content-between">
               <CustomRadioInput name='user_type'
                                 id={UserType.realEstate}
-                                text='Soy una inmobiliaria'
+                                text='Inmobiliaria'
                                 onSelect={() => selectUserType(UserType.realEstate)}
                                 isChecked={userType === UserType.realEstate} />
               <CustomRadioInput name='user_type'
                                 id={UserType.tenant}
-                                text='Soy inquilino'
+                                text='Inquilino'
                                 onSelect={() => selectUserType(UserType.tenant)}
                                 isChecked={userType === UserType.tenant} />
             </div>
