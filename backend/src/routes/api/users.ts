@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
 
   //Check for existing user
   User.findOne({ email: email }).then((user) => {
-    if (user) res.status(400).json({ msg: "User Already exists" });
+    if (user) return res.status(400).json({ msg: "User Already exists" });
 
     const newUser = new User({
       name,
@@ -61,4 +61,4 @@ router.post("/", (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;
