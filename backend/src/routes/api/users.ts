@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import bcryptjs from "bcryptjs";
 import jsonwebtoken from "jsonwebtoken";
 import User from "../../models/user";
-import { UserType as UserTypes } from "../../types/userTypes";
+import { UserType } from "../../types/userTypes";
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router.post("/", async (req: Request, res: Response) => {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
-  if (!Object.values(UserTypes).includes(userType)) {
+  if (!Object.values(UserType).includes(userType)) {
     return res.status(400).json({ msg: "Invalid user type" });
   }
 
