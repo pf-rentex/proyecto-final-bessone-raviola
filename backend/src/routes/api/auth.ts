@@ -3,6 +3,7 @@ import bcryptjs from "bcryptjs";
 import jsonwebtoken from "jsonwebtoken";
 import auth from "../../middlewares/auth";
 import User from "../../models/user";
+import { getUserRequest } from "../../middlewares/auth";
 
 const router = express.Router();
 
@@ -43,7 +44,7 @@ router.post("/", async (req: Request, res: Response) => {
 //@route    Get api/auth/user
 //@desc     Get user data
 //@access   Private
-router.get("/user", auth, (req: Request, res: Response) => {
+router.get("/user", auth, (req: getUserRequest, res: Response) => {
   User.findById(req.user.id)
     .select("-password")
     .then((user) => res.json(user));

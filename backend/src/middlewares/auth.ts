@@ -1,7 +1,15 @@
 import jsonwebtoken from "jsonwebtoken";
+import { Request, Response, NextFunction } from "express";
 
-function auth(req, res, next) {
-  const token = req.header("x-auth-token");
+export interface getUserRequest extends Request {
+  user: {
+    id: string;
+  };
+  headers: Request.headers;
+}
+
+function auth(req: getUserRequest, res: Response, next: NextFunction) {
+  const token = req.headers["x-auth-token"];
 
   //Check for token
   if (!token)
