@@ -7,15 +7,22 @@ import LinearGradient from 'react-native-linear-gradient';
 import styles from "./styles";
 import Footer from "../../components/auth/Footer";
 import BetweenLinesText from "../../components/common/BetweenLinesText";
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-const Login = ({navigation}) => {
+interface ILoginProps {
+  salutation: string;
+  triggerGetSalutation: Function;
+  navigation: any;
+}
+
+const Login = ({ navigation }: ILoginProps) => {
   let [email, setEmail] = useState<string>('');
   let [password, setPassword] = useState<string>('');
   const [keyboardStatus, setKeyboardStatus] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
     setKeyboardListeners();
+
     return function cleanup() {
       setKeyboardStatus(undefined);
     }

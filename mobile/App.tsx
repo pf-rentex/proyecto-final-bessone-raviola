@@ -1,6 +1,8 @@
 import React from 'react';
 import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
 import StackNavigator from "./src/router/StackNavigator";
+import {Provider} from 'react-redux';
+import store from './src/store';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -11,10 +13,12 @@ const App = () => {
   };
 
   return (
-      <SafeAreaView style={backgroundStyle}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'}/>
-         <StackNavigator />
-      </SafeAreaView>
+      <Provider store={store}>
+        <SafeAreaView style={backgroundStyle}>
+          <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'}/>
+           <StackNavigator />
+        </SafeAreaView>
+      </Provider>
   );
 };
 
