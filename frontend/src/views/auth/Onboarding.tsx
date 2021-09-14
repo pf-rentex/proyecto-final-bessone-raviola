@@ -4,9 +4,11 @@ import { ReactComponent as OwnerLogo } from "../../assets/owner.svg";
 import { ReactComponent as TenantLogo } from "../../assets/tenant.svg";
 import { ReactComponent as Footer } from "../../assets/waves.svg";
 import RealEstateOnboardingBox from "../../components/auth/RealEstateOnboardingBox";
+import TenantOnboardingBox from "../../components/auth/TenantOnboardingBox";
+import OwnerOnboardingBox from "../../components/auth/OwnerOnboardingBox";
 
 const Onboarding = () => {
-  const [userType] = useState("tenant");
+  const [userType] = useState("owner");
 
   const renderLogo = (userType: string) => {
     switch (userType) {
@@ -43,10 +45,8 @@ const Onboarding = () => {
       case "tenant":
         return (
           <h3 className="p-3 text-xs lg:text-base font-semibold text-white">
-            Estas a un paso de encontrar tu hogar ideal, sólo necesitamos un
-            poco
-            <br />
-            más de información acerca de ti
+            Estas a un paso de encontrar tu hogar ideal, <br /> sólo necesitamos
+            un poco más de información acerca de ti
           </h3>
         );
       default:
@@ -61,9 +61,22 @@ const Onboarding = () => {
     }
   };
 
+  const renderBox = (userType: string) => {
+    switch (userType) {
+      case "realEstate":
+        return <RealEstateOnboardingBox />;
+      case "owner":
+        return <OwnerOnboardingBox />;
+      case "tenant":
+        return <TenantOnboardingBox />;
+      default:
+        return <RealEstateOnboardingBox />;
+    }
+  };
+
   return (
     <section className="absolute w-full h-full bg-gradient-to-b from-bg-gradient-1 to-bg-gradient-2 overflow-hidden">
-      <div className="container flex items-center lg:block mx-auto h-full">
+      <div className="container flex items-center justify-center lg:block mx-auto h-full">
         <div className="flex flex-col items-center">
           <div className="mt-5">{renderLogo(userType)}</div>
           <div className="divide-y-2 divide-blue-800 text-center">
@@ -72,7 +85,7 @@ const Onboarding = () => {
             </h1>
             {renderWelcomeMessage(userType)}
           </div>
-          <RealEstateOnboardingBox />
+          {renderBox(userType)}
         </div>
       </div>
       <footer className="absolute invisible lg:visible w-screen bottom-0">

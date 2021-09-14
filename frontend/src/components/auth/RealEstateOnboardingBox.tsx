@@ -5,8 +5,8 @@ import { FaCircleNotch, FaCheckCircle, FaTimesCircle } from "react-icons/all";
 const RealEstateOnboardingBox = () => {
   return (
     <div className="flex flex-row p-5 xl:w-6/12 break-words mb-3 mx-4 shadow-2xl rounded-xl bg-white border-0 text-center content-center">
-      <div className="w-12/12 xl:w-8/12 flex justify-center">
-        <form className="lg:w-4/5">
+      <div className="w-full xl:w-8/12 flex justify-center">
+        <form className="w-full lg:w-4/5">
           <div className="relative w-full mt-6 mb-3">
             <input
               type="text"
@@ -64,13 +64,13 @@ const RealEstateOnboardingBox = () => {
               }}
             />
           </div>
-          <div className="w-6/12 mx-auto my-5">
+          <div className="lg:w-6/12 mx-auto my-5">
             <CustomButton text="Continuar" />
           </div>
         </form>
       </div>
       <div className="hidden lg:flex lg:w-4/12">
-        <div className="w-52 h-52 lg:self-end">
+        <div className="w-52 h-52 lg:self-center">
           <OnboardingImage />
         </div>
       </div>
