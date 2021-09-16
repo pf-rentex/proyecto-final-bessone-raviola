@@ -8,7 +8,7 @@ import TenantOnboardingBox from "../../components/auth/TenantOnboardingBox";
 import OwnerOnboardingBox from "../../components/auth/OwnerOnboardingBox";
 
 const Onboarding = () => {
-  const [userType] = useState("owner");
+  const [userType] = useState("realEstate");
 
   const renderLogo = (userType: string) => {
     switch (userType) {
