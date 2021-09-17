@@ -80,9 +80,8 @@ const OwnerOnboardingBox = () => {
                 <p className="text-red-500 text-xs text-left">
                   Al parecer, no se encuentra registrado como persona habilitada
                   para alquilar propiedades en el padrón de AFIP. Tu perfil no
-                  será
-                  <span className="font-bold underline">verificado</span> hasta
-                  que podamos validar esta información
+                  será <span className="font-bold underline">verificado</span>{" "}
+                  hasta que podamos validar esta información
                 </p>
               </div>
               <div className="hidden lg:flex">
