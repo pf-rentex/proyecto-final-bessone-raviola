@@ -1,5 +1,8 @@
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import {StyleSheet} from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -12,7 +15,7 @@ export default StyleSheet.create({
     paddingVertical: hp(2),
     height: 20,
     justifyContent: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   title: {
     color: 'white',
@@ -22,32 +25,72 @@ export default StyleSheet.create({
     fontSize: hp('3%'),
     textAlign: 'center',
   },
+  onboardingTitle: {
+    color: '#00639B',
+    fontWeight: 'bold',
+    fontSize: hp('5%'),
+  },
+  onboardingBox: {
+    position: 'absolute',
+    top: 250,
+    width: 400,
+    height: 600,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    display: 'flex',
+    flexDirection: 'column',
+    alignSelf: 'center',
+    justifyContent: 'space-evenly',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+
+    elevation: 24,
+  },
+  onboardingMsg: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginHorizontal: 50,
+    fontSize: 15,
+  },
+  divider: {
+    borderBottomColor: '#00639B',
+    opacity: 0.5,
+    borderBottomWidth: 1,
+    width: '70%',
+    marginVertical: 5,
+  },
   subtitle: {
     textAlign: 'center',
     fontSize: hp('1.8%'),
     fontWeight: 'bold',
     color: '#21577E',
-    marginVertical: hp('3%')
+    marginVertical: hp('3%'),
   },
   input: {
-    backgroundColor: 'white',
+    backgroundColor: '#f5f5f5',
     paddingVertical: hp('1.4%'),
     paddingHorizontal: wp('2%'),
     color: 'black',
     fontSize: hp('2.3%'),
     marginHorizontal: wp('10%'),
     marginTop: hp('3%'),
-    borderRadius: 6
+    borderRadius: 6,
   },
   mainCTAContainer: {
     marginVertical: hp('5%'),
-    paddingHorizontal: wp('10%')
+    paddingHorizontal: wp('10%'),
   },
   mainCTA: {
     backgroundColor: '#135E88',
     paddingVertical: hp('1.5%'),
     borderRadius: 12,
-    elevation: 6
+    elevation: 6,
   },
   mainCTAText: {
     textAlign: 'center',
@@ -55,7 +98,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     textTransform: 'uppercase',
     letterSpacing: 3,
-    fontSize: hp('2%')
+    fontSize: hp('2%'),
   },
   socialCTAContainer: {
     flexDirection: 'row',
@@ -71,7 +114,7 @@ export default StyleSheet.create({
     paddingHorizontal: wp('2%'),
     paddingVertical: hp('1%'),
     elevation: 6,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   socialCTAGoogleIcon: {
     borderRadius: 15,
@@ -80,10 +123,10 @@ export default StyleSheet.create({
     height: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   socialCTAText: {
     fontSize: hp('1.5%'),
-    paddingHorizontal: wp('2%')
+    paddingHorizontal: wp('2%'),
   },
 });
