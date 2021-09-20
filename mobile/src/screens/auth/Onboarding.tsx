@@ -71,18 +71,7 @@ const Onboarding = () => {
 
   return (
     <LinearGradient colors={['#15ABFF', '#C9F0FD']} style={styles.container}>
-      <View
-        style={{
-          position: 'absolute',
-          top: 50,
-          left: 0,
-          right: 0,
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}>
+      <View style={styles.header}>
         <VectorImage
           style={{width: 80, height: 80}}
           source={renderLogo(userType)}
