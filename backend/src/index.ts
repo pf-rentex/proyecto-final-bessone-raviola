@@ -5,6 +5,9 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import users from "./routes/api/users";
 import auth from "./routes/api/auth";
+import tenants from "./routes/api/tenants";
+import owners from "./routes/api/owners";
+import realEstates from "./routes/api/realestates";
 
 const app = express();
 
@@ -21,6 +24,9 @@ app.use(bodyParser.urlencoded({ limit: "20mb", extended: true }));
 
 app.use("/api/users", users);
 app.use("/api/auth", auth);
+app.use("/api/tenants", tenants);
+app.use("/api/owners", owners);
+app.use("/api/realEstates", realEstates);
 
 const PORT = process.env.PORT || 5000;
 
