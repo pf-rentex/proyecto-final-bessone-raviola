@@ -32,7 +32,7 @@ export default StyleSheet.create({
   },
   header: {
     position: 'absolute',
-    top: 50,
+    top: hp('5%'),
     left: 0,
     right: 0,
     marginLeft: 'auto',
@@ -42,7 +42,7 @@ export default StyleSheet.create({
   },
   onboardingBox: {
     position: 'absolute',
-    top: 250,
+    top: hp('28%'),
     width: wp('85%'),
     height: hp('70%'),
     backgroundColor: 'white',
