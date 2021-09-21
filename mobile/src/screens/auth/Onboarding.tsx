@@ -73,7 +73,7 @@ const Onboarding = () => {
     <LinearGradient colors={['#15ABFF', '#C9F0FD']} style={styles.container}>
       <View style={styles.header}>
         <VectorImage
-          style={{width: 80, height: 80}}
+          style={styles.onboardingLogo}
           source={renderLogo(userType)}
         />
         <Text style={styles.onboardingTitle}>Bienvenido!</Text>

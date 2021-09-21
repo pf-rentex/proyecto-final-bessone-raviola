@@ -28,7 +28,7 @@ export default StyleSheet.create({
   onboardingTitle: {
     color: '#00639B',
     fontWeight: 'bold',
-    fontSize: hp('5%'),
+    fontSize: wp('7.5%'),
   },
   header: {
     position: 'absolute',
@@ -42,10 +42,11 @@ export default StyleSheet.create({
   },
   onboardingBox: {
     position: 'absolute',
-    top: hp('28%'),
+    top: hp('26%'),
     width: wp('85%'),
-    height: hp('70%'),
+    height: hp('68%'),
     backgroundColor: 'white',
+    paddingVertical: 10,
     borderRadius: 10,
     display: 'flex',
     flexDirection: 'column',
@@ -66,7 +67,11 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     marginHorizontal: 50,
-    fontSize: 15,
+    fontSize: wp('2.5%'),
+  },
+  onboardingLogo: {
+    width: 70,
+    height: 70,
   },
   divider: {
     borderBottomColor: '#00639B',
