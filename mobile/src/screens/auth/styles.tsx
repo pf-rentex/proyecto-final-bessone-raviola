@@ -28,7 +28,7 @@ export default StyleSheet.create({
   onboardingTitle: {
     color: '#00639B',
     fontWeight: 'bold',
-    fontSize: wp('7.5%'),
+    fontSize: hp('5.5%'),
   },
   header: {
     position: 'absolute',
@@ -40,18 +40,16 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  onboardingHeader: {
+    alignItems: 'center',
+    marginTop: hp('2%'),
+  },
   onboardingBox: {
-    position: 'absolute',
-    top: hp('26%'),
-    width: wp('85%'),
-    height: hp('68%'),
     backgroundColor: 'white',
-    paddingVertical: 10,
-    borderRadius: 10,
-    display: 'flex',
-    flexDirection: 'column',
-    alignSelf: 'center',
     justifyContent: 'space-evenly',
+    marginHorizontal: wp(3),
+    marginVertical: hp(2),
+    borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -67,7 +65,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     marginHorizontal: 50,
-    fontSize: wp('2.5%'),
+    fontSize: hp('1.4%'),
   },
   onboardingLogo: {
     width: 70,
