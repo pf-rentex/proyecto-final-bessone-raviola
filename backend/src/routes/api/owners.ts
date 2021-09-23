@@ -39,36 +39,37 @@ router.post("/", async (req: Request, res: Response) => {
   }
 });
 
-//@route    Get api/owners/getOwners
+//@route    Get api/owners/
 //@desc     Search owners
 //@access   Public
-router.get("/getOwners", async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
   const owners = await Owner.find();
   res.json(owners);
 });
 
-//@route    Get api/owners/getOwner
+//@route    Get api/owners/:cuit
 //@desc     Search owner
 //@access   Public
-router.get("/getOwner", async (req: Request, res: Response) => {
-  const { cuit } = req.headers;
+router.get("/:cuit", async (req: Request, res: Response) => {
+  const { cuit } = req.params;
   
   //Check for existing owner
-  const owner = await Owner.findOne({ cuit: cuit });
+  const owner = await Owner.findOne({ cuit });
   
   if (!owner){
-    return res.status(400).json({ msg: "The Owner not exists"});
+    return res.status(400).json({ msg: "The Owner does not exist"});
   } 
   else {
     res.json(owner);
   }
 });
 
-//@route    Put api/owners/updateOwner
+//@route    Put api/owners/:id
 //@desc     Modify owner
 //@access   Public
-router.put("/updateOwner", async (req: Request, res: Response) => {
+router.put("/:id", async (req: Request, res: Response) => {
   const { name, lastname, address, phone, dni, cuit, email } = req.body;
+  const { id } = req.params;
 
   //Simple validation
   if (!fieldsAreValid(req.body)) {
@@ -76,20 +77,20 @@ router.put("/updateOwner", async (req: Request, res: Response) => {
   }
 
   //Check for existing owner
-  const existingOwner = await Owner.findOne({ cuit: cuit });
+  const existingOwner = await Owner.findOne({ id: id });
   if (!existingOwner) {
     return res.status(400).json({ msg: "The Owner does not exist"});
   }
   else {
     try{
-      await existingOwner.updateOne({
+      await Owner.updateOne({id: id}, {
         name: name,
-      lastname: lastname,
-      address: address,
-      phone: phone,
-      dni: dni,
-      cuit: cuit,
-      email: email,
+        lastname: lastname,
+        address: address,
+        phone: phone,
+        dni: dni,
+        cuit: cuit,
+        email: email,
       });
 
       return res.status(200).json({ msg: "Owner updated"});
@@ -101,13 +102,13 @@ router.put("/updateOwner", async (req: Request, res: Response) => {
   }
 }); 
 
-//@route    Delete api/owners/deleteOwner
+//@route    Delete api/owners/:id
 //@desc     Delete owner
 //@access   Public
-router.delete("/deleteOwner", async (req: Request, res: Response) => {
-  const { cuit } = req.headers;
+router.delete("/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
 
-  const existingOwner = await Owner.findOne({ cuit: cuit });
+  const existingOwner = await Owner.findOne({ id: id });
   if(existingOwner)
   { 
 
@@ -121,8 +122,8 @@ router.delete("/deleteOwner", async (req: Request, res: Response) => {
 
 
 const fieldsAreValid = (body): boolean => {
-    const { name, lastname, address, phone, dni, cuit, email } = body;
-    return !!name && !!lastname && !!address && !!phone && !!dni &&!!cuit && !!email;
+  const { name, lastname, address, phone, dni, cuit, email } = body;
+  return !!name && !!lastname && !!address && !!phone && !!dni && !!cuit && !!email;
 };
   
 export default router;

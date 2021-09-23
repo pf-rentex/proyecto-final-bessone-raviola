@@ -40,35 +40,36 @@ router.post("/", async (req: Request, res: Response) => {
   }
 });
 
-//@route    Get api/tenants/getTenants
+//@route    Get api/tenants/
 //@desc     Search tenants
 //@access   Public
-router.get("/getTenants", async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
   const tenants = await Tenant.find();
   res.json(tenants);
 });
 
-//@route    Get api/tenants/getTenant
+//@route    Get api/tenants/:dni
 //@desc     Search tenant
 //@access   Public
-router.get("/getTenant", async (req: Request, res: Response) => {
-  const { dni } = req.headers;
+router.get("/:dni", async (req: Request, res: Response) => {
+  const { dni } = req.params;
   
-  //Check for existing owner
-  const tenant = await Tenant.findOne({ dni: dni });
+  //Check for existing tenant
+  const tenant = await Tenant.findOne({ dni });
   if (!tenant) {
-    return res.status(400).json({ msg: "The Tenant not exists"});
+    return res.status(400).json({ msg: "The Tenant does not exist"});
   } 
   else {
     res.json(tenant);
   }
 });
 
-//@route    Put api/tenants/updateTenant
+//@route    Put api/tenants/:id
 //@desc     Modify tenant
 //@access   Public
-router.put("/updateTenant", async (req: Request, res: Response) => {
+router.put("/:id", async (req: Request, res: Response) => {
   const { name, lastname, email, dni, birthDate, address, phone} = req.body;
+  const { id } = req.params;
 
   //Simple validation
   if (!fieldsAreValid(req.body)) {
@@ -76,13 +77,13 @@ router.put("/updateTenant", async (req: Request, res: Response) => {
   }
 
   //Check for existing tenant
-  const existingTenant = await Tenant.findOne({ dni: dni });
+  const existingTenant = await Tenant.findOne({ id: id });
   if (!existingTenant) {
     return res.status(400).json({ msg: "The Tenant does not exist"});
   }
   else {
     try {
-     await existingTenant.updateOne({
+     await Tenant.updateOne({id: id}, {
         name: name,
         lastname: lastname,
         email: email,
@@ -100,13 +101,13 @@ router.put("/updateTenant", async (req: Request, res: Response) => {
   }
 }); 
 
-//@route    Delete api/tenants/deleteTenant
+//@route    Delete api/tenants/:id
 //@desc     Delete tenant
 //@access   Public
-router.delete("/deleteTenant", async (req: Request, res: Response) => {
-  const { dni } = req.headers;
+router.delete("/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
 
-  const existingTenant = await Tenant.findOne({ dni: dni });
+  const existingTenant = await Tenant.findOne({ id: id });
   if(existingTenant)
   { 
     await existingTenant.remove();
@@ -120,7 +121,7 @@ router.delete("/deleteTenant", async (req: Request, res: Response) => {
 
 const fieldsAreValid = (body): boolean => {
     const { name, lastname, email, dni, birthDate, address, phone } = body;
-    return !!name && !!lastname && !!email && !!dni && !!birthDate &&!!address && !!phone;
+    return !!name && !!lastname && !!email && !!dni && !!birthDate && !!address && !!phone;
 };
   
 export default router;

@@ -40,24 +40,24 @@ router.post("/", async (req: Request, res: Response) => {
   }
 });
 
-//@route    Get api/realEstates/getRealEstates
+//@route    Get api/realEstates/
 //@desc     Search realEstates
 //@access   Public
-router.get("/getRealEstates", async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
   const realEstates = await RealEstate.find();
   res.json(realEstates);
 });
 
-//@route    Get api/realEstates/getRealEstate
+//@route    Get api/realEstates/:cuit
 //@desc     Search realEstate
 //@access   Public
-router.get("/getRealEstate", async (req: Request, res: Response) => {
-  const { cuit } = req.headers;
+router.get("/:cuit", async (req: Request, res: Response) => {
+  const { cuit } = req.params;
 
   //Check for existing realEstate
-  const realEstate = await RealEstate.findOne({ cuit: cuit });
+  const realEstate = await RealEstate.findOne({ cuit });
   if (!realEstate) {
-    return res.status(400).json({ msg: "The RealEstate not exists"});
+    return res.status(400).json({ msg: "The RealEstate does not exist"});
 
   } 
   else {
@@ -65,11 +65,12 @@ router.get("/getRealEstate", async (req: Request, res: Response) => {
   }
 })
 
-//@route    Put api/realEstates/updateRealEstate
+//@route    Put api/realEstates/:id
 //@desc     Modify realEstate
 //@access   Public
-router.put("/updateRealEstate", async (req: Request, res: Response) => {
+router.put("/:id", async (req: Request, res: Response) => {
   const { ownerName, ownerLastname, ownerDni, address, phone, cuit, email, businessName } = req.body;
+  const { id } = req.params;
 
   //Simple validation
   if (!fieldsAreValid(req.body)) {
@@ -78,14 +79,14 @@ router.put("/updateRealEstate", async (req: Request, res: Response) => {
   }
 
   //Check for existing realEstate
-  const existingRealEstate = await RealEstate.findOne({ cuit: cuit });
+  const existingRealEstate = await RealEstate.findOne({ id: id });
   if (!existingRealEstate) {
     return res.status(400).json({ msg: "The RealEstate does not exist"});
 
   } 
   else {
     try{
-      await existingRealEstate.updateOne({
+      await RealEstate.updateOne({id: id}, {
         ownerName: ownerName,
         ownerLastname: ownerLastname,
         ownerDni: ownerDni,
@@ -104,13 +105,13 @@ router.put("/updateRealEstate", async (req: Request, res: Response) => {
   } 
 });  
 
-//@route    Delete api/realEstates/deleteRealEstate
+//@route    Delete api/realEstates/:id
 //@desc     Delete realEstate
 //@access   Public
-router.delete("/deleteRealEstate", async (req: Request, res: Response) => {
-  const { cuit } = req.headers;
+router.delete("/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
 
-  const existingRealEstate = await RealEstate.findOne({ cuit: cuit });
+  const existingRealEstate = await RealEstate.findOne({ id: id });
   if(existingRealEstate)
   {  
     await existingRealEstate.remove();
@@ -125,7 +126,7 @@ router.delete("/deleteRealEstate", async (req: Request, res: Response) => {
 
 const fieldsAreValid = (body): boolean => {
   const { ownerName, ownerLastname, ownerDni, address, phone, cuit, email, businessName } = body;
-  return !!ownerName && !!ownerLastname && !!ownerDni && !!address && !!phone &&!!cuit && !!email && !!businessName;
+  return !!ownerName && !!ownerLastname && !!ownerDni && !!address && !!phone && !!cuit && !!email && !!businessName;
 
 };
   
