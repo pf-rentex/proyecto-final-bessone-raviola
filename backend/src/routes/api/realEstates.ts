@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import RealEstate from "../../models/realEstate";
+import auth from "../../middlewares/auth";
 
 const router = express.Router();
 
@@ -65,12 +66,11 @@ router.get("/:cuit", async (req: Request, res: Response) => {
   }
 })
 
-//@route    Put api/realEstates/:id
+//@route    Put api/realEstates
 //@desc     Modify realEstate
 //@access   Public
-router.put("/:id", async (req: Request, res: Response) => {
+router.put("/", auth, async (req: Request, res: Response) => {
   const { ownerName, ownerLastname, ownerDni, address, phone, cuit, email, businessName } = req.body;
-  const { id } = req.params;
 
   //Simple validation
   if (!fieldsAreValid(req.body)) {
@@ -79,14 +79,14 @@ router.put("/:id", async (req: Request, res: Response) => {
   }
 
   //Check for existing realEstate
-  const existingRealEstate = await RealEstate.findOne({ id: id });
+  const existingRealEstate = await RealEstate.findOne({ id: req.user.id });
   if (!existingRealEstate) {
     return res.status(400).json({ msg: "The RealEstate does not exist"});
 
   } 
   else {
     try{
-      await RealEstate.updateOne({id: id}, {
+      await RealEstate.updateOne({id: req.user.id}, {
         ownerName: ownerName,
         ownerLastname: ownerLastname,
         ownerDni: ownerDni,

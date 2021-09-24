@@ -3,6 +3,7 @@ import bcryptjs from "bcryptjs";
 import jsonwebtoken from "jsonwebtoken";
 import User from "../../models/user";
 import { UserType } from "../../types/userTypes";
+import auth from "../../middlewares/auth";
 
 const router = express.Router();
 
@@ -57,12 +58,11 @@ router.post("/", async (req: Request, res: Response) => {
   }
 });
 
-//@route    Put api/users/:id
+//@route    Put api/users
 //@desc     Modify user
 //@access   Public
-router.put("/:id", async (req: Request, res: Response) => {
+router.put("/", auth, async (req: Request, res: Response) => {
   const { name, email, password, userType } = req.body;
-  const { id } = req.params;
 
   //Simple validation
   if (!fieldsAreValid(req.body)) {
@@ -70,18 +70,18 @@ router.put("/:id", async (req: Request, res: Response) => {
   }
   
   //Check for existing user
-  const existingUser = await User.findOne({ id: id });
+  const existingUser = await User.findOne({ id: req.user.id });
   if (!existingUser) {
     return res.status(400).json({ msg: "The User does not exist"});
   }
   else {
     try {
 
-      /// hashear Password
+      /// Hago el hash de la password.
       const hash: string = await bcryptjs.hash(password, 10);
       existingUser.password= hash;
 
-      await User.updateOne({id: id}, {
+      await User.updateOne({ id: req.user.id }, {
         name: name,
         email: email,
         password: existingUser.password,

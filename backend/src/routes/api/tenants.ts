@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import Tenant from "../../models/tenant";
+import auth from "../../middlewares/auth";
 
 const router = express.Router();
 
@@ -64,12 +65,11 @@ router.get("/:dni", async (req: Request, res: Response) => {
   }
 });
 
-//@route    Put api/tenants/:id
+//@route    Put api/tenants
 //@desc     Modify tenant
 //@access   Public
-router.put("/:id", async (req: Request, res: Response) => {
+router.put("/", auth, async (req: Request, res: Response) => {
   const { name, lastname, email, dni, birthDate, address, phone} = req.body;
-  const { id } = req.params;
 
   //Simple validation
   if (!fieldsAreValid(req.body)) {
@@ -77,13 +77,13 @@ router.put("/:id", async (req: Request, res: Response) => {
   }
 
   //Check for existing tenant
-  const existingTenant = await Tenant.findOne({ id: id });
+  const existingTenant = await Tenant.findOne({ id: req.user.id });
   if (!existingTenant) {
     return res.status(400).json({ msg: "The Tenant does not exist"});
   }
   else {
     try {
-     await Tenant.updateOne({id: id}, {
+     await Tenant.updateOne({id: req.user.id}, {
         name: name,
         lastname: lastname,
         email: email,

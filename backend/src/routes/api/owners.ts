@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import Owner from "../../models/owner";
+import auth from "../../middlewares/auth";
 
 const router = express.Router();
 
@@ -64,12 +65,11 @@ router.get("/:cuit", async (req: Request, res: Response) => {
   }
 });
 
-//@route    Put api/owners/:id
+//@route    Put api/owners
 //@desc     Modify owner
 //@access   Public
-router.put("/:id", async (req: Request, res: Response) => {
+router.put("/", auth, async (req: Request, res: Response) => {
   const { name, lastname, address, phone, dni, cuit, email } = req.body;
-  const { id } = req.params;
 
   //Simple validation
   if (!fieldsAreValid(req.body)) {
@@ -77,13 +77,13 @@ router.put("/:id", async (req: Request, res: Response) => {
   }
 
   //Check for existing owner
-  const existingOwner = await Owner.findOne({ id: id });
+  const existingOwner = await Owner.findOne({ id: req.user.id });
   if (!existingOwner) {
     return res.status(400).json({ msg: "The Owner does not exist"});
   }
   else {
     try{
-      await Owner.updateOne({id: id}, {
+      await Owner.updateOne({id: req.user.id}, {
         name: name,
         lastname: lastname,
         address: address,
