@@ -63,7 +63,7 @@ router.post("/", async (req: Request, res: Response) => {
 router.put("/:id", async (req: Request, res: Response) => {
   const { name, email, password, userType } = req.body;
   const { id } = req.params;
-  debugger;
+
   //Simple validation
   if (!fieldsAreValid(req.body)) {
     return res.status(400).json({ msg: "Please enter all fields" });  
@@ -78,13 +78,13 @@ router.put("/:id", async (req: Request, res: Response) => {
     try {
 
       /// hashear Password
-      //const hash: string = await bcryptjs.hash(existingUser.password, 10);
-      //existingUser.password = hash;
+      const hash: string = await bcryptjs.hash(password, 10);
+      existingUser.password= hash;
 
       await User.updateOne({id: id}, {
         name: name,
         email: email,
-        password: password,
+        password: existingUser.password,
         userType: userType,
       });
   
