@@ -1,5 +1,5 @@
 name: Frontend Jest Test Suite
-on: push
+on: [push]
 jobs:
   Jest runner:
     env:
