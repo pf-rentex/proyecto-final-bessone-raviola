@@ -3,7 +3,7 @@ name: Tests
 on: [push]
 
 jobs:
-  Jest Runner:
+  Jest_Runner:
     runs-on: ubuntu-latest
 
     steps:
