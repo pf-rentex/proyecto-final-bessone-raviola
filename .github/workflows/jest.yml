@@ -1,0 +1,16 @@
+name: Jest Runner
+on: push
+jobs:
+  job1:
+    env:
+      working-directory: ./frontend
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Install modules
+          run: yarn
+          working-directory: ${{ env.working-directory }}
+        - name: Run tests
+          run: yarn test
+          working-directory: ${{ env.working-directory }}
