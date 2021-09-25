@@ -2,10 +2,6 @@ name: Tests
 
 on: [push]
 
-defaults:
-  run:
-    working-directory: ./frontend
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,4 +9,5 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Run Jest
-        uses: stefanoeb/jest-action@1.0.3
+        working-directory: ./frontend
+        run: yarn test
