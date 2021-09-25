@@ -3,14 +3,21 @@ name: Tests
 on: [push]
 
 jobs:
-  build:
+  Jest Runner:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
-      - name: install deps
+      - name: Front install deps
         working-directory: ./frontend
         run: yarn install
-      - name: run tests
+      - name: Front run tests
         working-directory: ./frontend
+        run: yarn test
+
+      - name: Back install deps
+          working-directory: ./backend
+          run: yarn install
+      - name: Back run tests
+        working-directory: ./backend
         run: yarn test
