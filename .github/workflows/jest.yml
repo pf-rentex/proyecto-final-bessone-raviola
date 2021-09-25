@@ -8,7 +8,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - name: Run Jest
+      - name: install deps
         working-directory: ./frontend
-      - run: yarn install
-      - run: yarn test
+        run: yarn install
+      - name: run tests
+        working-directory: ./frontend
+        run: yarn test
