@@ -16,8 +16,8 @@ jobs:
         run: yarn test
 
       - name: Back install deps
-          working-directory: ./backend
-          run: yarn install
+        working-directory: ./backend
+        run: yarn install
       - name: Back run tests
         working-directory: ./backend
         run: yarn test
