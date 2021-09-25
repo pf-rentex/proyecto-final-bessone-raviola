@@ -14,7 +14,6 @@ jobs:
       - name: Front run tests
         working-directory: ./frontend
         run: yarn test
-
       - name: Back install deps
         working-directory: ./backend
         run: yarn install
