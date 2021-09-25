@@ -1,7 +1,7 @@
-name: Jest Runner
+name: Frontend Jest Test Suite
 on: push
 jobs:
-  job1:
+  Jest runner:
     env:
       working-directory: ./frontend
     build:
@@ -10,7 +10,5 @@ jobs:
         - uses: actions/checkout@v2
         - name: Install modules
           run: yarn
-          working-directory: ${{ env.working-directory }}
         - name: Run tests
           run: yarn test
-          working-directory: ${{ env.working-directory }}
