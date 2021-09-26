@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Custom Radio Input renders button 1`] = `
+<div>
+  <div
+    class="rounded-lg flex w-32 h-12 px-2 py-2 my-2 mx-2 bg-blue-500 shadow-inner-xl place-content-center cursor-pointer hover:opacity-75"
+  >
+    <label>
+      <input
+        checked=""
+        class="hidden w-0"
+        hidden=""
+        id="id"
+        name="test"
+        type="radio"
+        value="id"
+      />
+      <span
+        class="select-none radio text-left text-xs leading-4 font-bold text-gray-100 self-center text-start rounded-lg"
+      >
+        radio
+      </span>
+    </label>
+  </div>
+</div>
+`;
