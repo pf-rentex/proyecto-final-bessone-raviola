@@ -1,5 +1,6 @@
 import express from "express";
-import { registerUser } from "../../controllers/users";
+import { deleteUser, registerUser, updateUser } from '../../controllers/users';
+import auth from "../../middlewares/auth";
 
 const router = express.Router();
 
@@ -7,5 +8,15 @@ const router = express.Router();
 //@desc     Register new user
 //@access   Public
 router.post("/", registerUser);
+
+//@route    Put api/users
+//@desc     Modify user
+//@access   Public
+router.put("/", auth, updateUser);
+
+//@route    Delete api/users/:id
+//@desc     Delete user
+//@access   Public
+router.delete("/:id", deleteUser);
 
 export default router;
