@@ -39,15 +39,16 @@ const registerUser = async (req: Request, res: Response) => {
     if (!token) {
       return res.status(400).json({ msg: "Error generating token" });
     }
-    res.json({
-      token,
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        type: user.userType,
-      },
-    });
+    res.status(201)
+        .json({
+          token,
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            type: user.userType,
+          },
+        });
   } catch (error) {
     return res.status(400).json({ msg: `Error registering user: ${error}` });
   }
@@ -87,22 +88,20 @@ const updateUser = async (req: Request, res: Response) => {
 };
 
 const deleteUser = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const {id} = req.params;
 
-  const existingUser = await User.findOne({ id: id });
-  if(existingUser)
-  {
+  const existingUser = await User.findOne({id: id});
+  if (existingUser) {
     await existingUser.remove();
-    return res.status(200).json({ msg: "User removed"});
-  }
-  else {
-    return res.status(400).json({ msg: "The User does not exist"});
+    return res.status(200).json({msg: "User removed"});
+  } else {
+    return res.status(400).json({msg: "The User does not exist"});
   }
 };
 
 const fieldsAreValid = (body): boolean => {
-  const { name, email, password, userType } = body;
+  const {name, email, password, userType} = body;
   return !!name && !!email && !!password && !!userType;
 };
 
-export { registerUser, updateUser, deleteUser };
+export {registerUser, updateUser, deleteUser};
