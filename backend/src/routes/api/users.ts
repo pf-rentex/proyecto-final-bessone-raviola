@@ -3,6 +3,7 @@ import bcryptjs from "bcryptjs";
 import jsonwebtoken from "jsonwebtoken";
 import User from "../../models/user";
 import { UserType } from "../../types/userTypes";
+import auth from "../../middlewares/auth";
 
 const router = express.Router();
 
@@ -54,6 +55,61 @@ router.post("/", async (req: Request, res: Response) => {
     });
   } catch (error) {
     return res.status(400).json({ msg: `Error registering user: ${error}` });
+  }
+});
+
+//@route    Put api/users
+//@desc     Modify user
+//@access   Public
+router.put("/", auth, async (req: Request, res: Response) => {
+  const { name, email, password, userType } = req.body;
+
+  //Simple validation
+  if (!fieldsAreValid(req.body)) {
+    return res.status(400).json({ msg: "Please enter all fields" });  
+  }
+  
+  //Check for existing user
+  const existingUser = await User.findOne({ id: req.user.id });
+  if (!existingUser) {
+    return res.status(400).json({ msg: "The User does not exist"});
+  }
+  else {
+    try {
+
+      /// Hago el hash de la password.
+      const hash: string = await bcryptjs.hash(password, 10);
+      existingUser.password= hash;
+
+      await User.updateOne({ id: req.user.id }, {
+        name: name,
+        email: email,
+        password: existingUser.password,
+        userType: userType,
+      });
+  
+      return res.status(200).json({ msg: "User updated"});
+    }
+    catch (error) {
+      return res.status(400).json({ msg: `Error registering user: ${error}` });
+    }
+  }
+});
+
+//@route    Delete api/users/:id
+//@desc     Delete user
+//@access   Public
+router.delete("/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const existingUser = await User.findOne({ id: id });
+  if(existingUser)
+  { 
+    await existingUser.remove();
+    return res.status(200).json({ msg: "User removed"});
+  }
+  else {
+    return res.status(400).json({ msg: "The User does not exist"});
   }
 });
 
