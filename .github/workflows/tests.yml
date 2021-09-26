@@ -1,0 +1,26 @@
+name: Test suites
+
+on: [push]
+
+jobs:
+  Frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Front install deps
+        working-directory: ./frontend
+        run: npm install
+      - name: run tests
+        working-directory: ./frontend
+        run: npm run test
+
+  Backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install deps
+        working-directory: ./backend
+        run: npm install
+      - name: run tests
+        working-directory: ./backend
+        run: npm run test
