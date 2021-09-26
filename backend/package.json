@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "env TS_NODE_PROJECT=\"tsconfig.json\" mocha --require ts-node/register 'src/tests/**/*.ts' --timeout 10000",
+    "test": "mocha --require ts-node/register 'src/tests/**/*.ts' --silent",
     "tsc": "tsc",
     "watch": "nodemon -r dotenv/config src/index.ts",
     "check-types": "tsc --noemit",
