@@ -2,45 +2,76 @@ import React from "react";
 import { ReactComponent as RealtorLogo } from "../assets/realtor.svg";
 import { ReactComponent as HomeSearchLogo } from "../assets/home_search.svg";
 import { ReactComponent as SecurityLogo } from "../assets/security.svg";
+import { ReactComponent as TenantRent } from "../assets/tenant_feature_1.svg";
+import { ReactComponent as TenantManagement } from "../assets/tenant_feature_2.svg";
+import { ReactComponent as TenantTracking } from "../assets/tenant_feature_3.svg";
+import { ReactComponent as REOwnerPublication } from "../assets/re_owner_feature_1.svg";
+import { ReactComponent as REOwnerVerification } from "../assets/re_owner_feature_2.svg";
+import { ReactComponent as REOwnerManagement } from "../assets/re_owner_feature_3.svg";
+import { ReactComponent as AppDownload } from "../assets/app_download.svg";
 import CustomButton from "../components/commons/Button/CustomButton";
-import Blob from "../components/commons/Blob";
 import Wave from "../components/commons/Wave";
-import { AiOutlineSearch, AiFillHome } from "react-icons/all";
+import InfoSection from "../components/home/InfoSection";
+import FeatureSection from "../components/home/FeatureSection";
+import { AiOutlineSearch, AiFillHome, HiDownload } from "react-icons/all";
+
+let tenantFeatures = [
+  {
+    logo: <TenantRent className="h-72" />,
+    title: "ALQUILER",
+    text: "Luego de encontrar tu hogar ideal, podés concretar tu alquiler en pocos y sencillos pasos",
+  },
+  {
+    logo: <TenantManagement className="h-72" />,
+    title: "GESTIÓN",
+    text: "Gestioná todo lo relacionado a tu alquiler, desde reclamos y pagos hasta la renovación/rescisión de tu contrato",
+  },
+  {
+    logo: <TenantTracking className="h-72" />,
+    title: "GESTIÓN",
+    text: "Gestioná todo lo relacionado a tu alquiler, desde reclamos y pagos hasta la renovación/rescisión de tu contrato",
+  },
+];
+
+let ownerFeatures = [
+  {
+    logo: <REOwnerPublication className="h-72" />,
+    title: "PUBLICACIÓN",
+    text: "Publicá tus propiedades y sus características para que todos los usuarios de la plataforma puedan visualizarlas",
+  },
+  {
+    logo: <REOwnerVerification className="h-72 lg:h-72" />,
+    title: "VERIFICACIÓN",
+    text: "Verificá tu inscripción en AFIP. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sagittis eros sit amet nulla tempus semper",
+  },
+  {
+    logo: <REOwnerManagement className="h-72 lg:h-72" />,
+    title: "ORGANIZACIÓN",
+    text: "La información de todos tus clientes centralizada y sincronizada en todos tus dispositivos. Lorem ipsum dolor sit amet, consectetur",
+  },
+];
 
 const Home = () => {
   return (
     <React.Fragment>
       {/* Section 1 */}
       <section className="w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 overflow-hidden">
-        <div className="container mx-auto px-5 lg:px-10 mt-16">
-          <div className="flex flex-col lg:flex-row-reverse items-center">
-            <div className="lg:flex lg:w-6/12 lg:justify-center">
-              <RealtorLogo className="h-80 z-10 lg:h-auto" />
-              <Blob
-                size="medium"
-                color="#7DC5EE"
-                class="hidden lg:block"
-                opacity="0.8"
-              />
-            </div>
-
-            <div className="lg:flex lg:flex-col lg:w-6/12 mt-10 lg:my-auto">
-              <h1 className="font-medium text-white text-4xl lg:text-5xl text-center lg:text-left">
-                Gestionar tu alquiler nunca fue{" "}
-                <span className="font-bold text-primary">tan fácil</span>
-              </h1>
-              <p className="text-center text-white my-5 lg:text-left lg:text-xl">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-                sagittis eros sit amet nulla tempus semper. Nullam tincidunt
-                nulla ut faucibus tempor. Sed quis rutrum ex. Maecenas quis
-                lectus id libero efficitur luctus.
-              </p>
-
-              <div className="w-6/12 mx-auto">
-                <CustomButton text="COMENZÁ AHORA" />
+        <div className="container mx-auto px-5 lg:px-10 mt-16 lg:my-40">
+          <InfoSection
+            logo={<RealtorLogo className="h-80 z-10 lg:h-auto" />}
+            title={
+              <div>
+                Gestionar tu alquiler nunca fue
+                <span className="font-bold text-blue-400"> tan fácil</span>
               </div>
+            }
+            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sagittis eros sit amet nulla tempus semper. Nullam tincidunt nulla ut faucibus tempor. Sed quis rutrum ex. Maecenas quis lectus id libero efficitur luctus."
+            reverse={true}
+          >
+            <div className="w-6/12 mx-auto">
+              <CustomButton text="COMENZÁ AHORA" />
             </div>
-          </div>
+          </InfoSection>
         </div>
 
         <Wave fromColor="#12498A" toColor="#76BBFF" />
@@ -48,87 +79,97 @@ const Home = () => {
 
       {/* Section 2 */}
       <section className="w-full bg-gradient-to-b from-bg-gradient-5 to-bg-gradient-6 overflow-hidden">
-        <div className="container mx-auto px-5 lg:px-10 mt-16">
-          <div className="flex flex-col lg:flex-row items-center">
-            <div className="lg:flex lg:w-6/12 lg:justify-center">
-              <HomeSearchLogo className="h-60 z-10 lg:h-auto" />
-              <Blob
-                size="medium"
-                color="#7DC5EE"
-                class="hidden lg:block"
-                opacity="0.8"
-              />
-            </div>
-
-            <div className="lg:flex lg:flex-col lg:w-6/12 mt-10 lg:my-auto">
-              <h1 className="font-thin text-blue-700 text-4xl lg:text-5xl text-center lg:text-left">
+        <div className="container mx-auto px-5 lg:px-10 mt-16 lg:my-40 space-y-60">
+          <InfoSection
+            logo={<HomeSearchLogo className="h-60 z-10 lg:h-auto" />}
+            reverse={false}
+            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+            sagittis eros sit amet nulla tempus semper. Nullam tincidunt
+            nulla ut faucibus tempor. Sed quis rutrum ex. Maecenas quis
+            lectus id libero efficitur luctus."
+            title={
+              <div>
                 Encuentra tu{" "}
                 <span className="font-bold text-blue-800">hogar ideal</span>
-              </h1>
-              <p className="text-center text-white my-5 lg:text-left lg:text-xl">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-                sagittis eros sit amet nulla tempus semper. Nullam tincidunt
-                nulla ut faucibus tempor. Sed quis rutrum ex. Maecenas quis
-                lectus id libero efficitur luctus.
-              </p>
-              <div className="flex justify-evenly">
-                <div className="w-100 lg:w-4/12">
-                  <CustomButton text="Publicar mi propiedad" color="alt">
-                    <AiFillHome className="text-white" />
-                  </CustomButton>
-                </div>
-                <div className="w-100 lg:w-4/12">
-                  <CustomButton text="Buscar inmuebles" color="alt">
-                    <AiOutlineSearch className="text-white" />
-                  </CustomButton>
-                </div>
+              </div>
+            }
+          >
+            <div className="lg:flex justify-evenly">
+              <div className="w-100 lg:w-4/12">
+                <CustomButton text="Publicar mi propiedad" color="alt">
+                  <AiFillHome className="text-white" />
+                </CustomButton>
+              </div>
+              <div className="w-100 lg:w-4/12">
+                <CustomButton text="Buscar inmuebles" color="alt">
+                  <AiOutlineSearch className="text-white" />
+                </CustomButton>
               </div>
             </div>
-          </div>
-          <div className="flex flex-col lg:flex-row-reverse items-center mt-60">
-            <div className="lg:flex lg:w-6/12 lg:justify-center">
-              <SecurityLogo className="h-60 z-10 lg:h-auto" />
-              <Blob
-                size="medium"
-                color="#7DC5EE"
-                class="hidden lg:block"
-                opacity="0.8"
-              />
-            </div>
-
-            <div className="lg:flex lg:flex-col lg:w-6/12 mt-10 lg:my-auto">
-              <h1 className="font-thin text-blue-700 text-4xl lg:text-5xl text-center lg:text-left">
+          </InfoSection>
+          <InfoSection
+            logo={<SecurityLogo className="h-60 z-10 lg:h-auto" />}
+            reverse={true}
+            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+            sagittis eros sit amet nulla tempus semper. Nullam tincidunt
+            nulla ut faucibus tempor. Sed quis rutrum ex. Maecenas quis
+            lectus id libero efficitur luctus."
+            title={
+              <div>
                 La <span className="font-bold text-blue-800">seguridad</span> de
                 tus datos es nuestra prioridad
-              </h1>
-              <p className="text-center text-white my-5 lg:text-left lg:text-xl">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-                sagittis eros sit amet nulla tempus semper. Nullam tincidunt
-                nulla ut faucibus tempor. Sed quis rutrum ex. Maecenas quis
-                lectus id libero efficitur luctus.
-              </p>
-              <div className="flex justify-evenly">
-                <a href="#" className="text-white my-auto">
-                  publicar mi propiedad
-                </a>
-                <div className="w-6/12 lg:w-4/12">
-                  <CustomButton text="Buscar inmuebles" color="alt">
-                    <AiOutlineSearch className="text-white" />
-                  </CustomButton>
-                </div>
+              </div>
+            }
+          >
+            <div className="lg:flex justify-evenly">
+              <div className="w-100 lg:w-4/12">
+                <CustomButton text="Publicar mi propiedad" color="alt">
+                  <AiFillHome className="text-white" />
+                </CustomButton>
+              </div>
+              <div className="w-100 lg:w-4/12">
+                <CustomButton text="Buscar inmuebles" color="alt">
+                  <AiOutlineSearch className="text-white" />
+                </CustomButton>
               </div>
             </div>
-          </div>
+          </InfoSection>
         </div>
         <Wave fromColor="#18ACFF" toColor="#A7DFFF" />
       </section>
 
       {/* Section 3 */}
       <section className="w-full bg-gradient-to-b from-bg-gradient-7 to-bg-gradient-8 overflow-hidden">
-        <div className="container mx-auto px-5 lg:px-10 mt-16">
-          <h1 className="flex justify-center text-5xl font-extrabold text-blue-900">
-            INQUILINO
-          </h1>
+        <div className="container mx-auto px-5 lg:px-10 mt-16 lg:my-40">
+          <FeatureSection title="INQUILINO" features={tenantFeatures} />
+          <FeatureSection
+            title="INMOBILIARIA/PROPIETARIO"
+            features={ownerFeatures}
+          />
+        </div>
+        <Wave fromColor="#12498A" toColor="#70C6FF" />
+      </section>
+
+      {/* Section 4 */}
+      <section className="w-full bg-gradient-to-b from-bg-gradient-9 to-bg-gradient-10 overflow-hidden">
+        <div className="container mx-auto px-5 lg:px-10 mt-16 lg:my-40">
+          <div className="flex flex-col lg:flex-row items-center">
+            <AppDownload className="h-96 lg:h-full" />
+            <div className="flex flex-col items-center lg:w-6/12 divide-y-2 divide-blue-900 divide-solid">
+              <h1 className="text-center text-2xl lg:text-4xl text-blue-900 mb-10">
+                Descargá nuestra <span className="font-bold">APP</span> mobile y
+                comenzá a disfrutar de una{" "}
+                <span className="font-bold">
+                  experiencia de alquiler diferente
+                </span>
+              </h1>
+              <div className="w-full py-5 lg:px-40 lg:py-10">
+                <CustomButton text="DESCARGAR" color="alt">
+                  <HiDownload className="text-white" />
+                </CustomButton>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </React.Fragment>

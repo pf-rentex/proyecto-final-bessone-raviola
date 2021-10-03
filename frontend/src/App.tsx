@@ -12,6 +12,8 @@ function App() {
       {/* Header simulation */}
       <div style={{ height: 70, backgroundColor: "#20323A" }}></div>
       <Router />
+      {/* Footer simulation */}
+      <div style={{ height: 250, backgroundColor: "#20323A" }}></div>
     </Provider>
   );
 }

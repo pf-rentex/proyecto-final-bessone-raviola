@@ -16,4 +16,7 @@ module.exports = {
 
   "bg-gradient-7": "#A7DFFF",
   "bg-gradient-8": "#00A3FF",
+
+  "bg-gradient-9": "#70C6FF",
+  "bg-gradient-10": "#026BB8",
 };
