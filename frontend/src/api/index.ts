@@ -1,7 +1,18 @@
 import axios from "axios";
+import { IRegisterFormData } from "../components/auth/SignupBox";
+import {ILoginFormData} from "../components/auth/LoginBox";
 
 // Replace base URL with server URL.
 const API = axios.create({ baseURL: 'http://localhost:5000' });
 
+API.interceptors.request.use((req) => {
+  const profile = localStorage.getItem('profile');
+  if (profile) {
+    req.headers.Authorization = `Bearer ${JSON.parse(profile).token}`;
+  }
+  return req;
+});
+
 // Make all API requests here.
-// i.e: export const fetchData = () => API.get('/url');
+export const register = (formData: IRegisterFormData) => API.post('/api/users', formData);
+export const authenticate = (formData: ILoginFormData) => API.post('/api/auth', formData);
