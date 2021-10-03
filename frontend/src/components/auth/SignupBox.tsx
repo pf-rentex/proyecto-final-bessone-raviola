@@ -1,29 +1,76 @@
 import React, {useEffect, useState} from 'react';
 import {ReactComponent as AppLogo} from "../../assets/logo.svg";
+import {connect, useDispatch} from "react-redux";
 import CustomButton from "../commons/Button/CustomButton";
+import { ReactComponent as Spinner } from "../../assets/loader.svg";
 import {AiFillGoogleCircle, FaFacebook} from "react-icons/all";
 import CustomRadioInput from "../commons/CustomRadioInput";
+import {registerUser, setSignupError} from "../../actions/auth";
+import { useHistory } from 'react-router-dom';
 
 enum UserType {
-  realEstate= 'real_estate',
+  realEstate= 'realEstate',
   tenant = 'tenant',
   owner = 'owner',
 }
 interface ISignupBoxProps {
   onToggleMode: Function;
+  errors: string;
+  register: Function;
+  setSignupError: Function;
 }
 
-const SignupBox = ({onToggleMode}: ISignupBoxProps) => {
+export interface IRegisterFormData {
+  email: string;
+  password: string;
+  repeatPassword: string;
+  userType: UserType;
+}
 
-  const [userType, setUserType] = useState<UserType | null>(null);
+const initialFormData: IRegisterFormData = {
+  email: '',
+  password: '',
+  repeatPassword: '',
+  userType: UserType.realEstate
+}
 
-  useEffect(() => {
-    setUserType(UserType.realEstate);
-  }, []);
+const SignupBox = ({onToggleMode, errors, register, setSignupError}: ISignupBoxProps) => {
+  const [form, setForm] = useState<IRegisterFormData>(initialFormData);
+  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const selectUserType = (type: UserType) => {
-    setUserType(type);
+    setForm({...form, userType: type});
   }
+
+  useEffect(() => {
+      setPasswordsMatch(form.password === form.repeatPassword)
+  }, [form.password, form.repeatPassword])
+
+  useEffect(() => {
+    setSubmitting(false);
+  }, [errors]);
+
+  const onFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSignupError()
+    setForm({ ...form, [e.target.name]: e.target.value});
+  }
+
+  const onSubmit = () => {
+    if (isValid()) {
+      setSubmitting(true);
+      register(form, history);
+    } else {
+      setSignupError('Rellena todos los campos')
+    }
+  }
+
+  const isValid = (): boolean => {
+    return form.email.length > 0 && form.password.length > 0 && passwordsMatch;
+  }
+
 
   return (
       <div className="relative flex flex-col w-full pb-5 xl:w-6/12 content-center break-words mb-3 px-4 mx-4 shadow-2xl rounded-xl bg-white border-0 text-center z-10">
@@ -54,22 +101,43 @@ const SignupBox = ({onToggleMode}: ISignupBoxProps) => {
           <form>
             <div className="relative w-full mt-5 mb-3">
               <input type="email"
+                     onChange={onFormChange}
+                     name="email"
                      className="px-3 py-2 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
                      placeholder="Email"
                      style={{transition: 'all 0.15s ease 0s'}}/>
             </div>
             <div className="relative w-full mt-5 mb-3">
               <input type="password"
-                     className="px-3 py-2 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
+                     onChange={onFormChange}
+                     name="password"
+                     className={
+                       `${!passwordsMatch ? 'outline-error' : '' } px-3 py-2 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full`
+                     }
                      placeholder="Password"
                      style={{transition: 'all 0.15s ease 0s'}}/>
             </div>
             <div className="relative w-full mt-5 mb-3">
               <input type="password"
-                     className="px-3 py-2 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
+                     onChange={onFormChange}
+                     name="repeatPassword"
+                     className={
+                       `${!passwordsMatch ? 'outline-error' : '' } px-3 py-2 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full`
+                     }
                      placeholder="Repeat password"
                      style={{transition: 'all 0.15s ease 0s'}}/>
             </div>
+
+            {!passwordsMatch && (
+                <div className="w-full text-left">
+                  <span className="text-red-700 font-semibold text-sm text-left">Las contraseñas no coinciden</span>
+                </div>
+            )}
+            {errors && (
+                <div className="w-full text-left">
+                  <span className="text-red-700 font-semibold text-sm text-left">{errors}</span>
+                </div>
+            )}
 
             <span className="flex items-center justify-center space-x-3 mt-5 mb-2">
                 <span className="h-px bg-gray-400 flex-1"></span>
@@ -82,23 +150,29 @@ const SignupBox = ({onToggleMode}: ISignupBoxProps) => {
                                 id={UserType.realEstate}
                                 text='Inmobiliaria'
                                 onSelect={() => selectUserType(UserType.realEstate)}
-                                isChecked={userType === UserType.realEstate} />
+                                isChecked={form.userType === UserType.realEstate} />
               <CustomRadioInput name='user_type'
                                 id={UserType.tenant}
                                 text='Inquilino'
                                 onSelect={() => selectUserType(UserType.tenant)}
-                                isChecked={userType === UserType.tenant} />
+                                isChecked={form.userType === UserType.tenant} />
             </div>
             <div className="flex place-content-between">
               <CustomRadioInput name='user_type'
                                 id={UserType.owner}
                                 text='Dueño'
                                 onSelect={() => selectUserType(UserType.owner)}
-                                isChecked={userType === UserType.owner} />
+                                isChecked={form.userType === UserType.owner} />
             </div>
 
             <div className="text-center mt-4">
-              <CustomButton text="Sign up"/>
+              <CustomButton text="Sign up"
+                            callback={onSubmit}
+                            disabled={submitting && !errors}>
+                {submitting && !errors && (
+                    <Spinner />
+                )}
+              </CustomButton>
 
               <p className="text-sm text-gray-700">Already registered?
                 <a href="/login"
@@ -112,4 +186,8 @@ const SignupBox = ({onToggleMode}: ISignupBoxProps) => {
   );
 };
 
-export default SignupBox;
+const mapStateToProps = (state: any) => ({
+  errors: state.auth.register.errors,
+});
+
+export default connect(mapStateToProps, {register: registerUser, setSignupError})(SignupBox);
