@@ -28,8 +28,8 @@ let tenantFeatures = [
   },
   {
     logo: <TenantTracking className="h-72" />,
-    title: "GESTIÓN",
-    text: "Gestioná todo lo relacionado a tu alquiler, desde reclamos y pagos hasta la renovación/rescisión de tu contrato",
+    title: "SEGUIMIENTO",
+    text: "Mantenete informado sobre las operaciones de tu alquiler a través de notificaciones personalizadas",
   },
 ];
 
