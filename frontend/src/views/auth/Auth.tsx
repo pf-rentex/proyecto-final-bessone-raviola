@@ -7,8 +7,7 @@ import LoginBox from "../../components/auth/LoginBox";
 import SignupBox from "../../components/auth/SignupBox";
 
 const Auth = () => {
-
-  const [isSignup, setIsSignup] = useState(false);
+  const [isSignup, setIsSignup] = useState<boolean>(false);
 
   const toggleMode = () => {
     setIsSignup(!isSignup);
