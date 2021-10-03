@@ -79,7 +79,7 @@ const Home = () => {
 
       {/* Section 2 */}
       <section className="w-full bg-gradient-to-b from-bg-gradient-5 to-bg-gradient-6 overflow-hidden">
-        <div className="container mx-auto px-5 lg:px-10 mt-16 lg:my-40 space-y-60">
+        <div className="container mx-auto px-5 lg:px-10 mt-16 lg:my-40 space-y-32 lg:space-y-60">
           <InfoSection
             logo={<HomeSearchLogo className="h-60 z-10 lg:h-auto" />}
             reverse={false}
