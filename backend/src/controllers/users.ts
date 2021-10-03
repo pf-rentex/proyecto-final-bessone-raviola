@@ -6,11 +6,15 @@ import User from "../models/user";
 
 
 const registerUser = async (req: Request, res: Response) => {
-  const { name, email, password, userType } = req.body;
+  const { email, password, repeatPassword, userType } = req.body;
 
   //Simple validation
   if (!fieldsAreValid(req.body)) {
     return res.status(400).json({ msg: "Please enter all fields" });
+  }
+
+  if (!isValidEmail(email)) {
+    return res.status(422).json({ msg: "Invalid email" });
   }
 
   if (!Object.values(UserType).includes(userType)) {
@@ -22,7 +26,6 @@ const registerUser = async (req: Request, res: Response) => {
   if (existingUser) return res.status(400).json({ msg: "User Already exists" });
 
   const newUser = new User({
-    name,
     email,
     password,
     userType,
@@ -100,8 +103,13 @@ const deleteUser = async (req: Request, res: Response) => {
 };
 
 const fieldsAreValid = (body): boolean => {
-  const {name, email, password, userType} = body;
-  return !!name && !!email && !!password && !!userType;
+  const { email, password, userType} = body;
+  return !!email && !!password && !!userType;
 };
+
+const isValidEmail = (email): boolean => {
+  const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  return emailRegexp.test(email);
+}
 
 export {registerUser, updateUser, deleteUser};
