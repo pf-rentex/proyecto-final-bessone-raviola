@@ -95,7 +95,7 @@ const LoginBox = ({onToggleMode, authenticate, setLoginError, errors}: ILoginBox
             </div>
             {errors && (
                 <div className="w-full text-left">
-                  <span className="text-red-700 font-semibold text-sm text-left">{errors}</span>
+                  <span className="text-red-700 font-semibold text-xs text-left">{errors}</span>
                 </div>
             )}
             <div className="text-center mt-10">
