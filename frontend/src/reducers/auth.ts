@@ -1,6 +1,12 @@
-import {AUTH_REGISTER, AUTH_LOGIN, LOGOUT, SET_LOGIN_ERROR, SET_SIGNUP_ERROR} from "../constants/actionTypes";
+import {
+  AUTH_LOGIN,
+  AUTH_REGISTER, LOAD_USER,
+  LOGOUT,
+  SET_LOGIN_ERROR,
+  SET_SIGNUP_ERROR
+} from "../constants/actionTypes";
 
-interface IProfileData {
+export interface IProfileData {
   token: string;
   user: {
     id: string;
@@ -14,6 +20,7 @@ interface IProfileData {
 
 export interface IAuthState {
   profile: null | IProfileData;
+  isAuthenticated: boolean;
   register: {
     errors: string;
   }
@@ -24,6 +31,7 @@ export interface IAuthState {
 
 const initialState: IAuthState = {
   profile: null,
+  isAuthenticated: !!localStorage.getItem('profile'),
   register: {
     errors: '',
   },
@@ -37,30 +45,59 @@ const authReducer = (state: IAuthState = initialState, action: { type: string; d
   switch (action.type) {
 
     case AUTH_REGISTER:
-      console.log('here my man')
-      console.log(action.data);
-      localStorage.setItem('profile', JSON.stringify({ ...action?.data }))
+      setProfileToStorage({...action?.data});
       // @ts-ignore
-      return {...state, profile: action?.data};
+      return {
+        ...state,
+        profile: action?.data,
+        isAuthenticated: true,
+      };
 
     case AUTH_LOGIN:
-      console.log('response was', action?.data);
-      console.log({action});
-      return {...state, profile: action?.data};
+      setProfileToStorage({...action?.data});
+      return {
+        ...state,
+        profile: action?.data,
+        isAuthenticated: true,
+      };
+
+    case LOAD_USER:
+      return {
+        ...state,
+        profile: action?.data,
+      }
 
     case SET_LOGIN_ERROR:
-      return {...state, login: { errors: action?.data } };
+      return {
+        ...state,
+        login: {
+          errors: action?.data,
+        }
+      };
 
     case SET_SIGNUP_ERROR:
-      return {...state, register: { errors: action?.data } };
+      return {
+        ...state,
+        register: {
+          errors: action?.data
+        }
+      };
 
     case LOGOUT:
       localStorage.clear();
-      return {...state, authData: null };
+      return {
+        ...state,
+        profile: null,
+        isAuthenticated: false,
+      };
 
     default:
       return state;
   }
+}
+
+const setProfileToStorage = (data: IProfileData) => {
+  localStorage.setItem('profile', JSON.stringify(data));
 }
 
 export default authReducer;
