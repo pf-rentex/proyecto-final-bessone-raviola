@@ -1,4 +1,11 @@
-import {AUTH_LOGIN, AUTH_REGISTER, SET_LOGIN_ERROR, SET_SIGNUP_ERROR} from "../constants/actionTypes";
+import {
+  AUTH_LOGIN,
+  AUTH_REGISTER,
+  LOAD_USER,
+  LOGOUT,
+  SET_LOGIN_ERROR,
+  SET_SIGNUP_ERROR
+} from "../constants/actionTypes";
 import {Dispatch} from "redux";
 import {History} from 'history';
 import * as api from '../api';
@@ -6,7 +13,7 @@ import * as api from '../api';
 import {IRegisterFormData} from "../components/auth/SignupBox";
 import {ILoginFormData} from "../components/auth/LoginBox";
 
-export const registerUser = (formData: IRegisterFormData, history: History) => async (dispatch: Dispatch<any>) => {
+export const signup = (formData: IRegisterFormData, history: History) => async (dispatch: Dispatch<any>) => {
   try {
     const {data} = await api.register(formData);
 
@@ -58,4 +65,17 @@ export const setLoginError = (message: string = '') => async (dispatch: Dispatch
     data: message,
   }
   dispatch(action);
+}
+
+export const loadUser = () => async (dispatch: Dispatch<any>) => {
+
+  try {
+    const { data } = await api.getUserData();
+    console.log('loaded user')
+    console.log({data})
+
+    dispatch({type: LOAD_USER, data});
+  } catch (e) {
+    dispatch({ type: LOGOUT });
+  }
 }

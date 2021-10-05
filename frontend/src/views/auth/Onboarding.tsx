@@ -6,9 +6,16 @@ import { ReactComponent as Footer } from "../../assets/waves.svg";
 import RealEstateOnboardingBox from "../../components/auth/RealEstateOnboardingBox";
 import TenantOnboardingBox from "../../components/auth/TenantOnboardingBox";
 import OwnerOnboardingBox from "../../components/auth/OwnerOnboardingBox";
+import {useDispatch} from "react-redux";
+import {LOGOUT} from "../../constants/actionTypes";
 
-const Onboarding = () => {
+const Onboarding = (): JSX.Element => {
   const [userType] = useState("realEstate");
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch({type: LOGOUT});
+  }
 
   const renderLogo = (userType: string) => {
     switch (userType) {
@@ -76,6 +83,7 @@ const Onboarding = () => {
 
   return (
     <section className="absolute w-full h-full bg-gradient-to-b from-bg-gradient-1 to-bg-gradient-2 overflow-hidden">
+      <a className="text-md text-blue-900 cursor-pointer px-2 py-3" onClick={logout} >Logout</a>
       <div className="container flex items-center justify-center lg:block mx-auto h-full">
         <div className="flex flex-col items-center">
           <div className="mt-5">{renderLogo(userType)}</div>

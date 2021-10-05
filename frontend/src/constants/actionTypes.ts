@@ -5,6 +5,8 @@ export const FETCH_ALL = 'FETCH_ALL';
 
 export const AUTH_REGISTER = 'AUTH/REGISTER';
 export const AUTH_LOGIN = 'AUTH/AUTHENTICATE';
+export const LOAD_USER = 'AUTH/LOAD_USER';
+
 export const SET_LOGIN_ERROR = 'AUTH/SET_LOGIN_ERROR';
 export const SET_SIGNUP_ERROR = 'AUTH/SET_SIGNUP_ERROR';
 
