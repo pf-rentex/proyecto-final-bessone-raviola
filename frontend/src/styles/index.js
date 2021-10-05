@@ -28,7 +28,7 @@ module.exports = {
             'inner-xl': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.4)',
         },
         outline: {
-            error: '2px solid #e31212',
+            error: '1.5px solid #e31212',
         },
         colors: {
           'myOwn': '#004e7d',
