@@ -9,7 +9,7 @@ export interface getUserRequest extends Request {
 }
 
 function auth(req: getUserRequest, res: Response, next: NextFunction) {
-  const token = req.headers["x-auth-token"];
+  const token = req.headers.authorization;
 
   //Check for token
   if (!token)
