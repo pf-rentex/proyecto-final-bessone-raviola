@@ -6,17 +6,41 @@ import styles from '../styles';
 import GoogleIcon from 'react-native-vector-icons/AntDesign';
 import FacebookIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BetweenLinesText from '../../../components/common/BetweenLinesText';
+import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {UserType} from "./RegisterStepOne";
+import {ILoginFormData} from "../Login";
 
-const RegisterStepTwo = () => {
-  let [name, setName] = useState<string>('');
-  let [email, setEmail] = useState<string>('');
-  let [password, setPassword] = useState<string>('');
-  let [repeatPassword, setRepeatPassword] = useState<string>('');
+interface IRegisterStepTwoProps {
+  userType: UserType;
+  navigation: any;
+  route: any;
+}
+export interface IRegisterFormData {
+  email: string;
+  password: string;
+  repeatPassword: string;
+  userType: UserType;
+}
+
+const initialFormData = {
+  email: '',
+  password: '',
+  repeatPassword: '',
+  userType: UserType.realEstate,
+}
+
+const RegisterStepTwo = ({navigation, route}: IRegisterStepTwoProps) => {
+  const [form, setForm] = useState<IRegisterFormData>(initialFormData);
+
   const [keyboardStatus, setKeyboardStatus] = useState<boolean | undefined>(
     undefined,
   );
 
   useEffect(() => {
+    const { userType } = route.params;
+    if (userType) {
+      setForm({...form, userType});
+    }
     setKeyboardListeners();
     return function cleanup() {
       setKeyboardStatus(undefined);
@@ -33,7 +57,7 @@ const RegisterStepTwo = () => {
   };
 
   return (
-    <LinearGradient colors={['#15ABFF', '#C9F0FD']} style={styles.container}>
+    <LinearGradient colors={['#15ABFF', '#C9F0FD']} style={[styles.container, {paddingHorizontal: wp(12)}]}>
       {!keyboardStatus && (
         <View style={styles.header}>
           <VectorImage
