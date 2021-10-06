@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Keyboard, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Keyboard, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import FacebookIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import GoogleIcon from 'react-native-vector-icons/AntDesign';
 import VectorImage from 'react-native-vector-image';
@@ -7,26 +7,60 @@ import LinearGradient from 'react-native-linear-gradient';
 import styles from "./styles";
 import Footer from "../../components/auth/Footer";
 import BetweenLinesText from "../../components/common/BetweenLinesText";
-import { heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {loadUser, login, setLoginError} from "../../actions/auth";
+import {connect} from "react-redux";
 
 interface ILoginProps {
-  salutation: string;
-  triggerGetSalutation: Function;
+  authenticate: Function;
+  loadUser: Function;
+  errors: string;
+  isAuthenticated: boolean;
+  setLoginError: Function;
   navigation: any;
 }
 
-const Login = ({ navigation }: ILoginProps) => {
-  let [email, setEmail] = useState<string>('');
-  let [password, setPassword] = useState<string>('');
+export interface ILoginFormData {
+  email: string;
+  password: string;
+}
+
+const initialFormData: ILoginFormData = {
+  email: '',
+  password: '',
+}
+
+const Login = (
+    {
+      navigation,
+      authenticate,
+      errors,
+      isAuthenticated,
+      setLoginError,
+      loadUser
+    }: ILoginProps) => {
+  const [form, setForm] = useState<ILoginFormData>(initialFormData);
+  const [submitting, setSubmitting] = useState<boolean>(false);
+
   const [keyboardStatus, setKeyboardStatus] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
     setKeyboardListeners();
+    loadUser();
 
     return function cleanup() {
       setKeyboardStatus(undefined);
     }
   }, []);
+
+  useEffect(() => {
+    setSubmitting(false);
+
+    if (isAuthenticated) {
+      setSubmitting(true);
+      navigation.navigate('Onboarding');
+    }
+  }, [isAuthenticated])
 
   const setKeyboardListeners = () => {
     Keyboard.addListener("keyboardDidShow", () => {
@@ -35,6 +69,28 @@ const Login = ({ navigation }: ILoginProps) => {
     Keyboard.addListener('keyboardDidHide', () => {
       setKeyboardStatus(false);
     });
+  }
+
+  const onEmailChange = (text: string) => {
+    setLoginError();
+    setForm({...form, email: text});
+  }
+  const onPasswordChange = (text: string) => {
+    setLoginError();
+    setForm({...form, password: text});
+  }
+
+  const onSubmit = () => {
+    if (isValid()) {
+      setSubmitting(true);
+      authenticate(form, navigation);
+    } else {
+      setLoginError('Rellena todos los campos');
+    }
+  };
+
+  const isValid = (): boolean => {
+    return form.email.length > 0 && form.password.length > 0;
   }
 
   return (
@@ -46,30 +102,47 @@ const Login = ({ navigation }: ILoginProps) => {
         </View>
         }
 
-        <View style={{marginTop: keyboardStatus ? hp(2) : hp(3), flex: 10, justifyContent: 'center',}}>
+        <View style={{
+          marginTop: keyboardStatus ? hp(2) : hp(3),
+          flex: 10,
+          marginHorizontal: wp('10%'),
+          justifyContent: 'center',
+        }}>
 
           <BetweenLinesText text="Login"
                             isTitle={true}/>
 
           <TextInput
-              value={email}
-              onChangeText={(txt) => setEmail(txt)}
+              value={form.email}
+              onChangeText={onEmailChange}
               placeholder='Email'
               placeholderTextColor='gray'
               style={styles.input}>
           </TextInput>
           <TextInput
-              value={password}
+              value={form.password}
               textContentType="password"
               secureTextEntry={true}
-              onChangeText={(txt) => setPassword(txt)}
+              onChangeText={onPasswordChange}
               placeholder='Password'
               placeholderTextColor='gray'
               style={styles.input}>
           </TextInput>
-
+          {errors.length > 0 && (
+              <Text style={{
+                color: '#ba091d',
+                marginTop: hp(2)
+              }}>{errors}</Text>
+          )}
           <View style={styles.mainCTAContainer}>
-            <TouchableOpacity style={styles.mainCTA}>
+            <TouchableOpacity style={styles.mainCTA}
+                              onPress={onSubmit}>
+              {submitting && (
+                  <ActivityIndicator style={{
+                    left: wp(-15),
+                  }}
+                                     color="#fff"/>
+              )}
               <Text style={styles.mainCTAText}>Log in</Text>
             </TouchableOpacity>
           </View>
@@ -103,4 +176,9 @@ const Login = ({ navigation }: ILoginProps) => {
   );
 }
 
-export default Login;
+const mapStateToProps = (state: any) => ({
+  errors: state.auth.login.errors,
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, {authenticate: login, setLoginError, loadUser})(Login);
