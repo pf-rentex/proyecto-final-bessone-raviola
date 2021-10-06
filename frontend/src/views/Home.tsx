@@ -40,12 +40,12 @@ let ownerFeatures = [
     text: "Publicá tus propiedades y sus características para que todos los usuarios de la plataforma puedan visualizarlas",
   },
   {
-    logo: <REOwnerVerification className="h-72 lg:h-72" />,
+    logo: <REOwnerVerification className="h-72 xl:h-72" />,
     title: "VERIFICACIÓN",
     text: "Verificá tu inscripción en AFIP. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sagittis eros sit amet nulla tempus semper",
   },
   {
-    logo: <REOwnerManagement className="h-72 lg:h-72" />,
+    logo: <REOwnerManagement className="h-72 xl:h-72" />,
     title: "ORGANIZACIÓN",
     text: "La información de todos tus clientes centralizada y sincronizada en todos tus dispositivos. Lorem ipsum dolor sit amet, consectetur",
   },
@@ -56,9 +56,9 @@ const Home = () => {
     <React.Fragment>
       {/* Section 1 */}
       <section className="w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 overflow-hidden">
-        <div className="container mx-auto px-5 lg:px-10 mt-16 lg:my-40">
+        <div className="container mx-auto px-5 xl:px-10 mt-16 xl:my-40">
           <InfoSection
-            logo={<RealtorLogo className="h-80 z-10 lg:h-auto" />}
+            logo={<RealtorLogo className="h-80 z-10 xl:h-auto" />}
             title={
               <div>
                 Gestionar tu alquiler nunca fue
@@ -79,9 +79,9 @@ const Home = () => {
 
       {/* Section 2 */}
       <section className="w-full bg-gradient-to-b from-bg-gradient-5 to-bg-gradient-6 overflow-hidden">
-        <div className="container mx-auto px-5 lg:px-10 mt-16 lg:my-40 space-y-32 lg:space-y-60">
+        <div className="container mx-auto px-5 xl:px-10 mt-16 xl:my-40 space-y-32 xl:space-y-60">
           <InfoSection
-            logo={<HomeSearchLogo className="h-60 z-10 lg:h-auto" />}
+            logo={<HomeSearchLogo className="h-60 z-10 xl:h-auto" />}
             reverse={false}
             text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
             sagittis eros sit amet nulla tempus semper. Nullam tincidunt
@@ -94,13 +94,13 @@ const Home = () => {
               </div>
             }
           >
-            <div className="lg:flex justify-evenly">
-              <div className="w-100 lg:w-4/12">
+            <div className="xl:flex justify-evenly">
+              <div className="w-100 xl:w-4/12">
                 <CustomButton text="Publicar mi propiedad" color="alt">
                   <AiFillHome className="text-white" />
                 </CustomButton>
               </div>
-              <div className="w-100 lg:w-4/12">
+              <div className="w-100 xl:w-4/12">
                 <CustomButton text="Buscar inmuebles" color="alt">
                   <AiOutlineSearch className="text-white" />
                 </CustomButton>
@@ -108,7 +108,7 @@ const Home = () => {
             </div>
           </InfoSection>
           <InfoSection
-            logo={<SecurityLogo className="h-60 z-10 lg:h-auto" />}
+            logo={<SecurityLogo className="h-60 z-10 xl:h-auto" />}
             reverse={true}
             text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
             sagittis eros sit amet nulla tempus semper. Nullam tincidunt
@@ -121,13 +121,13 @@ const Home = () => {
               </div>
             }
           >
-            <div className="lg:flex justify-evenly">
-              <div className="w-100 lg:w-4/12">
+            <div className="xl:flex justify-evenly">
+              <div className="w-100 xl:w-4/12">
                 <CustomButton text="Publicar mi propiedad" color="alt">
                   <AiFillHome className="text-white" />
                 </CustomButton>
               </div>
-              <div className="w-100 lg:w-4/12">
+              <div className="w-100 xl:w-4/12">
                 <CustomButton text="Buscar inmuebles" color="alt">
                   <AiOutlineSearch className="text-white" />
                 </CustomButton>
@@ -140,7 +140,7 @@ const Home = () => {
 
       {/* Section 3 */}
       <section className="w-full bg-gradient-to-b from-bg-gradient-7 to-bg-gradient-8 overflow-hidden">
-        <div className="container mx-auto px-5 lg:px-10 mt-16 lg:my-40">
+        <div className="container mx-auto px-5 xl:px-10 mt-16 xl:my-40">
           <FeatureSection title="INQUILINO" features={tenantFeatures} />
           <FeatureSection
             title="INMOBILIARIA/PROPIETARIO"
@@ -152,18 +152,18 @@ const Home = () => {
 
       {/* Section 4 */}
       <section className="w-full bg-gradient-to-b from-bg-gradient-9 to-bg-gradient-10 overflow-hidden">
-        <div className="container mx-auto px-5 lg:px-10 mt-16 lg:my-40">
-          <div className="flex flex-col lg:flex-row items-center">
-            <AppDownload className="h-96 lg:h-full" />
-            <div className="flex flex-col items-center lg:w-6/12 divide-y-2 divide-blue-900 divide-solid">
-              <h1 className="text-center text-2xl lg:text-4xl text-blue-900 mb-10">
+        <div className="container mx-auto px-5 xl:px-10 mt-16 xl:my-40">
+          <div className="flex flex-col xl:flex-row items-center">
+            <AppDownload className="h-96 xl:h-full" />
+            <div className="flex flex-col items-center xl:w-6/12 divide-y-2 divide-blue-900 divide-solid">
+              <h1 className="text-center text-2xl xl:text-4xl text-blue-900 mb-10">
                 Descargá nuestra <span className="font-bold">APP</span> mobile y
                 comenzá a disfrutar de una{" "}
                 <span className="font-bold">
                   experiencia de alquiler diferente
                 </span>
               </h1>
-              <div className="w-full py-5 lg:px-40 lg:py-10">
+              <div className="w-full py-5 xl:px-40 xl:py-10">
                 <CustomButton text="DESCARGAR" color="alt">
                   <HiDownload className="text-white" />
                 </CustomButton>

@@ -18,23 +18,23 @@ const InfoSection = ({
   return (
     <div
       className={`flex flex-col ${
-        reverse ? "lg:flex-row-reverse" : "lg:flex-row"
+        reverse ? "xl:flex-row-reverse" : "xl:flex-row"
       }  items-center`}
     >
-      <div className="lg:flex lg:w-6/12 lg:justify-center">
+      <div className="xl:flex xl:w-6/12 xl:justify-center">
         {logo}
         <Blob
           size="medium"
           color="#7DC5EE"
-          class="hidden lg:block"
+          class="hidden xl:block"
           opacity="0.8"
         />
       </div>
-      <div className="lg:flex lg:flex-col lg:w-6/12 mt-10 lg:my-auto">
-        <h1 className="font-medium text-white text-4xl lg:text-5xl text-center lg:text-left">
+      <div className="xl:flex xl:flex-col xl:w-6/12 mt-10 xl:my-auto">
+        <h1 className="font-medium text-white text-4xl xl:text-5xl text-center xl:text-left">
           {title}
         </h1>
-        <p className="text-center text-white my-5 lg:text-left lg:text-xl">
+        <p className="text-center text-white my-5 xl:text-left xl:text-xl">
           {text}
         </p>
         {children}
