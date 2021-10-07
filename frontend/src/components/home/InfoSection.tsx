@@ -27,7 +27,7 @@ const InfoSection = ({
           size="medium"
           color="#7DC5EE"
           class="hidden xl:block"
-          opacity="0.8"
+          opacity="0.4"
         />
       </div>
       <div className="xl:flex xl:flex-col xl:w-6/12 mt-10 xl:my-auto">

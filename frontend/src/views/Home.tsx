@@ -15,7 +15,7 @@ import InfoSection from "../components/home/InfoSection";
 import FeatureSection from "../components/home/FeatureSection";
 import { AiOutlineSearch, AiFillHome, HiDownload } from "react-icons/all";
 
-let tenantFeatures = [
+const tenantFeatures = [
   {
     logo: <TenantRent className="h-72" />,
     title: "ALQUILER",
@@ -33,7 +33,7 @@ let tenantFeatures = [
   },
 ];
 
-let ownerFeatures = [
+const ownerFeatures = [
   {
     logo: <REOwnerPublication className="h-72" />,
     title: "PUBLICACIÓN",
@@ -53,7 +53,7 @@ let ownerFeatures = [
 
 const Home = () => {
   return (
-    <React.Fragment>
+    <>
       {/* Section 1 */}
       <section className="w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 overflow-hidden">
         <div className="container mx-auto px-5 xl:px-10 mt-16 xl:my-40">
@@ -172,7 +172,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-    </React.Fragment>
+    </>
   );
 };
 
