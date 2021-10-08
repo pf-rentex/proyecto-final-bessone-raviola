@@ -8,15 +8,17 @@ import styles from "./styles";
 import Footer from "../../components/auth/Footer";
 import BetweenLinesText from "../../components/common/BetweenLinesText";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {loadUser, login, setLoginError} from "../../actions/auth";
+import {loadUser, login} from "../../actions/auth";
 import {connect} from "react-redux";
+import {clearErrors} from "../../actions/auth/error";
+import {IError} from "../../reducers/auth/error";
 
 interface ILoginProps {
-  authenticate: Function;
+  login: Function;
   loadUser: Function;
-  errors: string;
+  error: IError;
   isAuthenticated: boolean;
-  setLoginError: Function;
+  clearErrors: Function;
   navigation: any;
 }
 
@@ -33,10 +35,10 @@ const initialFormData: ILoginFormData = {
 const Login = (
     {
       navigation,
-      authenticate,
-      errors,
+      login,
+      error,
       isAuthenticated,
-      setLoginError,
+      clearErrors,
       loadUser
     }: ILoginProps) => {
   const [form, setForm] = useState<ILoginFormData>(initialFormData);
@@ -46,12 +48,28 @@ const Login = (
 
   useEffect(() => {
     setKeyboardListeners();
+    clearErrors();
     loadUser();
 
     return function cleanup() {
       setKeyboardStatus(undefined);
     }
   }, []);
+
+  useEffect(() => {
+
+      //Check for login error
+      if (error.id === "LOGIN_FAIL") {
+        this.setState({ msg: error.msg.msg });
+      } else {
+        this.setState({ msg: null });
+      }
+
+    //If authenticated redirect
+    if (isAuthenticated) {
+      this.props.history.push("/admin");
+    }
+  }, [error, isAuthenticated])
 
   useEffect(() => {
     setSubmitting(false);
@@ -72,20 +90,20 @@ const Login = (
   }
 
   const onEmailChange = (text: string) => {
-    setLoginError();
+    // setLoginError();
     setForm({...form, email: text});
   }
   const onPasswordChange = (text: string) => {
-    setLoginError();
+    // setLoginError();
     setForm({...form, password: text});
   }
 
   const onSubmit = () => {
     if (isValid()) {
       setSubmitting(true);
-      authenticate(form, navigation);
+      login(form, navigation);
     } else {
-      setLoginError('Rellena todos los campos');
+      // setLoginError('Rellena todos los campos');
     }
   };
 
@@ -177,8 +195,12 @@ const Login = (
 }
 
 const mapStateToProps = (state: any) => ({
-  errors: state.auth.login.errors,
+  error: state.error,
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, {authenticate: login, setLoginError, loadUser})(Login);
+export default connect(mapStateToProps, {
+  login,
+  clearErrors,
+  loadUser
+})(Login);
