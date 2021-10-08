@@ -1,11 +1,13 @@
-import {
-  AUTH_LOGIN,
-  AUTH_REGISTER, LOAD_USER,
-  LOGOUT,
-  SET_LOGIN_ERROR,
-  SET_SIGNUP_ERROR
-} from "../constants/actionTypes";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  AUTH_ERROR,
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS, REGISTER_FAIL,
+  REGISTER_SUCCESS,
+  USER_LOADED,
+  USER_LOADING
+} from "../../actions/types";
 
 export interface IProfileData {
   token: string;
@@ -22,73 +24,48 @@ export interface IProfileData {
 export interface IAuthState {
   profile: null | IProfileData;
   isAuthenticated: boolean;
-  register: {
-    errors: string;
-  }
-  login: {
-    errors: string;
-  }
+  isLoading: boolean;
 }
 
 const initialState: IAuthState = {
   profile: null,
   isAuthenticated: false,
-  register: {
-    errors: '',
-  },
-  login: {
-    errors: '',
-  }
+  isLoading: false,
 };
 
 const authReducer = (state: IAuthState = initialState, action: { type: string; data: IProfileData }) => {
 
   switch (action.type) {
-
-    case AUTH_REGISTER:
-      setProfileToStorage({...action?.data});
-      // @ts-ignore
+    case USER_LOADING:
       return {
         ...state,
-        profile: action?.data,
-        isAuthenticated: true,
+        isLoading: true,
       };
 
-    case AUTH_LOGIN:
+    case USER_LOADED:
+      return {
+        ...state,
+        isAuthenticated: true,
+        isLoading: false,
+        profile: action.data,
+      };
+
+    case LOGIN_SUCCESS:
+    case REGISTER_SUCCESS:
       (async () => {
         await setProfileToStorage({...action?.data});
       })()
-
       return {
         ...state,
-        profile: action?.data,
+        ...action.data,
         isAuthenticated: true,
+        isLoading: false,
       };
 
-    case LOAD_USER:
-      return {
-        ...state,
-        isAuthenticated: true,
-        profile: action?.data,
-      }
-
-    case SET_LOGIN_ERROR:
-      return {
-        ...state,
-        login: {
-          errors: action?.data,
-        }
-      };
-
-    case SET_SIGNUP_ERROR:
-      return {
-        ...state,
-        register: {
-          errors: action?.data
-        }
-      };
-
-    case LOGOUT:
+    case AUTH_ERROR:
+    case LOGIN_FAIL:
+    case LOGOUT_SUCCESS:
+    case REGISTER_FAIL:
       (async () => {
         await AsyncStorage.removeItem('profile');
       })();
@@ -96,6 +73,7 @@ const authReducer = (state: IAuthState = initialState, action: { type: string; d
         ...state,
         profile: null,
         isAuthenticated: false,
+        isLoading: false,
       };
 
     default:
