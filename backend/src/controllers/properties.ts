@@ -3,10 +3,16 @@ import Property from '../models/property';
 
 const safeParams = (req) => {
     const params = req.query;
-    const whitelist = ['attributes', 'measurements', 'sorting'];
+    const whitelist = [
+        'attributes',
+        'measurements',
+        'sorting',
+        'skip',
+        'limit',
+    ];
 
     if (params.measurements) {
-        //Measurements keys (price, kms, etc.)
+        //Measurements keys (price, square mts, etc.)
         for (const measurementKey in params.measurements) {
             //Measurements comparison keys ($lt, $gt, etc.)
             for (const comparisonKey in params.measurements[measurementKey]) {
@@ -22,6 +28,14 @@ const safeParams = (req) => {
         }
     }
 
+    if (params.skip) {
+        params.skip = +params.skip;
+    }
+
+    if (params.limit) {
+        params.limit = +params.limit;
+    }
+
     return Object.keys(params)
         .filter((key) => whitelist.indexOf(key) >= 0)
         .reduce((res, key) => ((res[key] = params[key]), res), {});
@@ -34,43 +48,52 @@ const isEmptyObject = (obj) => {
 const getProperties = async (req: Request, res: Response) => {
     const request: any = await safeParams(req);
 
-    // No filters applied, return all properties
-    if (isEmptyObject(request)) {
-        const properties = await Property.find();
+    try {
+        // No filters applied, return all properties
+        if (isEmptyObject(request)) {
+            const properties = await Property.find();
+            return res.status(200).json({ properties });
+        }
+
+        const { attributes, measurements, sorting, skip, limit } = request;
+
+        const sortingKey = sorting ? Object.keys(sorting)[0] : null;
+        const sortingValue = sorting ? Object.values(sorting)[0] : null;
+
+        const query = [
+            ...(attributes
+                ? [
+                      {
+                          $match: {
+                              $and: Object.keys(attributes).map((key) => ({
+                                  [key]: attributes[key],
+                              })),
+                          },
+                      },
+                  ]
+                : []),
+            ...(measurements
+                ? [
+                      {
+                          $match: {
+                              $and: Object.keys(measurements).map((key) => ({
+                                  [key]: measurements[key],
+                              })),
+                          },
+                      },
+                  ]
+                : []),
+            ...(sorting ? [{ $sort: { [sortingKey]: sortingValue } }] : []),
+            ...(skip ? [{ $skip: skip }] : []),
+            ...(limit ? [{ $limit: limit }] : []),
+        ];
+
+        const properties = await Property.aggregate(query).exec();
+
         return res.status(200).json({ properties });
+    } catch (e) {
+        return res.status(500).json({ error: e.message });
     }
-
-    const { attributes, measurements, sorting } = request;
-
-    const sortingKey = sorting ? Object.keys(sorting)[0] : null;
-    const sortingValue = sorting ? Object.values(sorting)[0] : null;
-
-    const query = [
-        attributes
-            ? {
-                  $match: {
-                      $and: Object.keys(attributes).map((key) => ({
-                          [key]: attributes[key],
-                      })),
-                  },
-              }
-            : { $project: { _id: 0 } },
-        measurements
-            ? {
-                  $match: {
-                      $and: Object.keys(measurements).map((key) => ({
-                          [key]: measurements[key],
-                      })),
-                  },
-              }
-            : { $project: { _id: 0 } },
-        sorting
-            ? { $sort: { [sortingKey]: sortingValue } }
-            : { $project: { _id: 0 } },
-    ];
-    const properties = await Property.aggregate(query).exec();
-
-    return res.status(200).json({ properties });
 };
 
 const createProperty = async (req: Request, res: Response) => {
@@ -89,19 +112,6 @@ const createProperty = async (req: Request, res: Response) => {
     } catch (e) {
         res.status(500).json({ error: e.message });
     }
-};
-
-const cleanString = (word) => {
-    //DOWNCASE
-    word = word.toLowerCase();
-
-    //DIACRITICS
-    word = word.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-    //SPECIALCHARACTERS
-    word = word.replace(/[&/\\#,+()$~%.'":*-_?<>{}]/g, '');
-
-    return word;
 };
 
 export { getProperties, createProperty };
