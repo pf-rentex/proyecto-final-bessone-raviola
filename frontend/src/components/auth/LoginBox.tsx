@@ -5,46 +5,68 @@ import {AiFillGoogleCircle, FaFacebook} from "react-icons/all";
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {ReactComponent as Spinner} from "../../assets/loader.svg";
-import {login, setLoginError} from "../../actions/auth";
+import {loadUser, login} from "../../actions/auth";
+import {LOGIN_FAIL} from "../../actions/types";
+import {clearErrors, getErrors} from "../../actions/auth/error";
+import {IError} from "../../reducers/auth/error";
 
 interface ILoginBoxProps {
   onToggleMode: Function;
-  authenticate: Function;
-  setLoginError: Function;
-  errors: string;
+  login: Function;
+  loadUser: Function;
+  error: IError;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  clearErrors: Function;
+  getErrors: Function;
 }
 
 export interface ILoginFormData {
   email: string;
   password: string;
 }
+
 const initialFormData: ILoginFormData = {
   email: '',
   password: '',
 }
 
-const LoginBox = ({onToggleMode, authenticate, setLoginError, errors}: ILoginBoxProps) => {
+const LoginBox = ({
+                    onToggleMode,
+                    login,
+                    error,
+                    isAuthenticated,
+                    isLoading,
+                    clearErrors,
+                    getErrors,
+                    loadUser,
+                  }: ILoginBoxProps) => {
   const [form, setForm] = useState<ILoginFormData>(initialFormData);
-  const [submitting, setSubmitting] = useState<boolean>(false);
   const history = useHistory();
 
   const onFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginError();
-    setForm({ ...form, [e.target.name]: e.target.value});
+    clearErrors();
+    setForm({...form, [e.target.name]: e.target.value});
   }
 
   useEffect(() => {
-    setSubmitting(false);
-  }, [errors]);
+    clearErrors();
+    loadUser();
+  }, [clearErrors, loadUser]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push('Onboarding');
+    }
+  }, [isAuthenticated]);
 
   const onSubmit = () => {
     if (isValid()) {
-      setSubmitting(true);
-      authenticate(form, history);
+      login(form, history);
     } else {
-      setLoginError('Rellena todos los campos');
+      getErrors('Rellena todos los campos', 400, LOGIN_FAIL);
     }
-  }
+  };
 
   const isValid = (): boolean => {
     return form.email.length > 0 && form.password.length > 0;
@@ -93,22 +115,25 @@ const LoginBox = ({onToggleMode, authenticate, setLoginError, errors}: ILoginBox
                      placeholder="Password"
                      style={{transition: 'all 0.15s ease 0s'}}/>
             </div>
-            {errors && (
+            {error.msg.length > 0 && (
                 <div className="w-full text-left">
-                  <span className="text-red-700 font-semibold text-xs text-left">{errors}</span>
+                  <span className="text-red-700 font-semibold text-xs text-left">{error.msg}</span>
                 </div>
             )}
             <div className="text-center mt-10">
               <CustomButton text="Sign in"
                             callback={onSubmit}
-                            disabled={submitting && !errors}>
-                {submitting && !errors && (
-                    <Spinner />
+                            disabled={isLoading && (!error || error.msg.length === 0)}>
+                {isLoading && (!error || error.msg.length === 0) && (
+                    <Spinner/>
                 )}
               </CustomButton>
               <p className="text-sm text-gray-700">Don't have an account?
                 <a href="/register"
-                   onClick={ (e) => {e.preventDefault(); onToggleMode()} }
+                   onClick={(e) => {
+                     e.preventDefault();
+                     onToggleMode()
+                   }}
                    className="text-blue-600 px-2 underline">Register Here</a>
               </p>
             </div>
@@ -119,7 +144,14 @@ const LoginBox = ({onToggleMode, authenticate, setLoginError, errors}: ILoginBox
 };
 
 const mapStateToProps = (state: any) => ({
-  errors: state.auth.login.errors,
+  error: state.error,
+  isAuthenticated: state.auth.isAuthenticated,
+  isLoading: state.auth.isLoading,
 });
 
-export default connect(mapStateToProps, {authenticate: login, setLoginError})(LoginBox);
+export default connect(mapStateToProps, {
+  login,
+  clearErrors,
+  getErrors,
+  loadUser,
+})(LoginBox);

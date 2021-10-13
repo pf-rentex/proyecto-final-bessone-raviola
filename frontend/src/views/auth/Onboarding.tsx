@@ -7,14 +7,14 @@ import RealEstateOnboardingBox from "../../components/auth/RealEstateOnboardingB
 import TenantOnboardingBox from "../../components/auth/TenantOnboardingBox";
 import OwnerOnboardingBox from "../../components/auth/OwnerOnboardingBox";
 import {useDispatch} from "react-redux";
-import {LOGOUT} from "../../constants/actionTypes";
+import {LOGOUT_SUCCESS} from "../../actions/types";
 
 const Onboarding = (): JSX.Element => {
   const [userType] = useState("realEstate");
   const dispatch = useDispatch();
 
   const logout = () => {
-    dispatch({type: LOGOUT});
+    dispatch({type: LOGOUT_SUCCESS});
   }
 
   const renderLogo = (userType: string) => {
