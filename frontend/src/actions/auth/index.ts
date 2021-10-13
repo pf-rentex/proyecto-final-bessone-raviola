@@ -28,7 +28,6 @@ export const signup =
       dispatch({type: CLEAR_ERRORS});
       history.push('Onboarding');
     } catch (error) {
-      console.log({error});
       const {msg, status} = error.response.data;
 
       if (msg) {
