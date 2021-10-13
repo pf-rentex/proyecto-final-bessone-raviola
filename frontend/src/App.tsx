@@ -1,12 +1,17 @@
-import { Provider } from "react-redux";
+import React, {useEffect} from "react";
+import {Provider} from "react-redux";
 import store from "./store";
 import Router from "./router/router";
 
-// import logo from './logo.svg';
 import "./App.css";
-// import SampleComponent from "./components/Sample/SampleComponent";
+import {loadUser} from "./actions/auth";
 
-function App() {
+const App = () => {
+
+  useEffect(() => {
+    // @ts-ignore
+    store.dispatch(loadUser())
+  }, []);
   return (
     <Provider store={store}>
       {/* Header simulation */}

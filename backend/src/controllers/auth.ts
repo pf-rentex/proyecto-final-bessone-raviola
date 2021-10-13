@@ -14,7 +14,7 @@ const authenticateUser = async (req: Request, res: Response) => {
 
   //Check for existing user
   const user = await User.findOne({ email: email });
-  if (!user) return res.status(400).json({ msg: 'User Does not exists' });
+  if (!user) return res.status(400).json({ msg: 'User does not exist' });
 
   //Validate password
   const isMatch = await bcryptjs.compare(password, user.password);

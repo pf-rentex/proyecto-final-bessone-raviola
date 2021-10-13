@@ -1,20 +1,31 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 interface IButtonProps {
   color?: "primary" | "secondary" | "alt";
   text: string;
+  disabled?: boolean;
+  callback?: Function;
   children?: React.ReactNode;
 }
 
 const CustomButton = ({
   color = "primary",
   text = "",
-  children = <></>,
-}: IButtonProps) => {
+  disabled = false,
+      callback = () => null,
+      children = <></>,
+    }: IButtonProps ) => {
+
+  const onClicked = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+    if (callback && !disabled) {
+      callback();
+    }
+  }
   return (
-    <button
-      className={`bg-${color} shadow-md w-full rounded-md px-5 py-2 flex content-center my-3 focus:shadow-sm outline-none align-items-center justify-center content-center align-middle justify-items-center items-center`}
+      <button onClick={onClicked}
+              className={`bg-${disabled ? 'gray-400' : color}${disabled ? 'cursor-not-allowed': ''} shadow-md w-full rounded-md px-5 py-2 flex content-center my-3 focus:shadow-sm outline-none align-items-center justify-center content-center align-middle justify-items-center items-center`}
     >
       <span className="text-2xl pr-4">{children}</span>
       <span
