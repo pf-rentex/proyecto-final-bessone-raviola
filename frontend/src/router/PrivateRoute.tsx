@@ -14,6 +14,7 @@ interface IPrivateRouteProps {
 const PrivateRoute = ( props: IPrivateRouteProps ) => {
   const { component, profile, isAuthenticated, ...rest } = props;
 
+  console.log({isAuthenticated});
 
   if (isAuthenticated) {
     return <Route { ...rest } component={component} />
