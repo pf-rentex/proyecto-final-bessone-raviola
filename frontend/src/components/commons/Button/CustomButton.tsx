@@ -25,7 +25,7 @@ const CustomButton = ({
   }
   return (
       <button onClick={onClicked}
-              className={`bg-${disabled ? 'gray-400' : color} ${disabled ? 'cursor-not-allowed': ''} shadow-md w-full rounded-md px-5 py-2 flex content-center my-3 focus:shadow-sm outline-none align-items-center justify-center content-center align-middle justify-items-center items-center`}
+              className={`bg-${disabled ? 'gray-400' : color}${disabled ? 'cursor-not-allowed': ''} shadow-md w-full rounded-md px-5 py-2 flex content-center my-3 focus:shadow-sm outline-none align-items-center justify-center content-center align-middle justify-items-center items-center`}
     >
       <span className="text-2xl pr-4">{children}</span>
       <span
