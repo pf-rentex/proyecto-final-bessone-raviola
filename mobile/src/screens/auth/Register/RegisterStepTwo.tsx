@@ -1,27 +1,80 @@
 import React, {useEffect, useState} from 'react';
-import {Keyboard, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Keyboard,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import VectorImage from 'react-native-vector-image';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from '../styles';
 import GoogleIcon from 'react-native-vector-icons/AntDesign';
 import FacebookIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BetweenLinesText from '../../../components/common/BetweenLinesText';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
+import {UserType} from './RegisterStepOne';
+import {connect} from 'react-redux';
+import {loadUser, signup} from '../../../actions/auth';
+import {REGISTER_FAIL} from '../../../actions/types';
+import {clearErrors, getErrors} from '../../../actions/auth/error';
+import {IError} from '../../../reducers/auth/error';
 
-const RegisterStepTwo = () => {
-  let [name, setName] = useState<string>('');
-  let [email, setEmail] = useState<string>('');
-  let [password, setPassword] = useState<string>('');
-  let [repeatPassword, setRepeatPassword] = useState<string>('');
+interface IRegisterStepTwoProps {
+  userType: UserType;
+  navigation: any;
+  route: any;
+  authenticate: Function;
+  error: IError;
+  isLoading: boolean;
+  getErrors: Function;
+  clearErrors: Function;
+}
+export interface IRegisterFormData {
+  email: string;
+  password: string;
+  repeatPassword: string;
+  userType: UserType;
+}
+
+const initialFormData = {
+  email: '',
+  password: '',
+  repeatPassword: '',
+  userType: UserType.realEstate,
+};
+
+const RegisterStepTwo = ({
+  navigation,
+  route,
+  authenticate,
+  error,
+  isLoading,
+  getErrors,
+  clearErrors,
+}: IRegisterStepTwoProps) => {
+  const [form, setForm] = useState<IRegisterFormData>(initialFormData);
+  const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
+
   const [keyboardStatus, setKeyboardStatus] = useState<boolean | undefined>(
     undefined,
   );
 
   useEffect(() => {
+    const {userType} = route.params;
+    if (userType) {
+      setForm({...form, userType});
+    }
+    clearErrors();
     setKeyboardListeners();
     return function cleanup() {
       setKeyboardStatus(undefined);
     };
-  }, []);
+  }, [clearErrors, form, route.params]);
 
   const setKeyboardListeners = () => {
     Keyboard.addListener('keyboardDidShow', () => {
@@ -32,8 +85,29 @@ const RegisterStepTwo = () => {
     });
   };
 
+  useEffect(() => {
+    setPasswordsMatch(form.password === form.repeatPassword);
+  }, [form.password, form.repeatPassword]);
+
+  const onSubmit = () => {
+    if (isValid()) {
+      authenticate(form, navigation);
+    } else {
+      const errorMessage = passwordsMatch
+        ? 'Rellena todos los campos'
+        : 'Las contraseñas no coinciden';
+      getErrors(errorMessage, 400, REGISTER_FAIL);
+    }
+  };
+
+  const isValid = (): boolean => {
+    return form.email.length > 0 && form.password.length > 0 && passwordsMatch;
+  };
+
   return (
-    <LinearGradient colors={['#15ABFF', '#C9F0FD']} style={styles.container}>
+    <LinearGradient
+      colors={['#15ABFF', '#C9F0FD']}
+      style={[styles.container, {paddingHorizontal: wp(12)}]}>
       {!keyboardStatus && (
         <View style={styles.header}>
           <VectorImage
@@ -46,35 +120,50 @@ const RegisterStepTwo = () => {
         <Text style={styles.title}>Register</Text>
 
         <TextInput
-          value={name}
-          onChangeText={txt => setName(txt)}
-          placeholder='Name'
-          placeholderTextColor='gray'
-          style={styles.input}></TextInput>
-        <TextInput
-          value={email}
-          onChangeText={txt => setEmail(txt)}
+          value={form.email}
+          onChangeText={txt => setForm({...form, email: txt})}
           placeholder='Email'
           placeholderTextColor='gray'
-          style={styles.input}></TextInput>
+          style={styles.input}
+        />
         <TextInput
-          value={password}
+          value={form.password}
           secureTextEntry={true}
-          onChangeText={txt => setPassword(txt)}
+          onChangeText={txt => setForm({...form, password: txt})}
           placeholder='Password'
           placeholderTextColor='gray'
-          style={styles.input}></TextInput>
+          style={styles.input}
+        />
         <TextInput
-          value={repeatPassword}
+          value={form.repeatPassword}
           textContentType='password'
           secureTextEntry={true}
-          onChangeText={txt => setRepeatPassword(txt)}
+          onChangeText={txt => setForm({...form, repeatPassword: txt})}
           placeholder='Repeat password'
           placeholderTextColor='gray'
-          style={styles.input}></TextInput>
+          style={styles.input}
+        />
+
+        {error.id === REGISTER_FAIL && error.msg.length > 0 && (
+          <Text
+            style={{
+              color: '#ba091d',
+              marginTop: hp(2),
+            }}>
+            {error.msg}
+          </Text>
+        )}
 
         <View style={styles.mainCTAContainer}>
-          <TouchableOpacity style={styles.mainCTA}>
+          <TouchableOpacity style={styles.mainCTA} onPress={onSubmit}>
+            {isLoading && (
+              <ActivityIndicator
+                style={{
+                  left: wp(-15),
+                }}
+                color="#fff"
+              />
+            )}
             <Text style={styles.mainCTAText}>Register</Text>
           </TouchableOpacity>
         </View>
@@ -102,4 +191,15 @@ const RegisterStepTwo = () => {
   );
 };
 
-export default RegisterStepTwo;
+const mapStateToProps = (state: any) => ({
+  error: state.error,
+  isAuthenticated: state.auth.isAuthenticated,
+  isLoading: state.auth.isLoading,
+});
+
+export default connect(mapStateToProps, {
+  authenticate: signup,
+  clearErrors,
+  getErrors,
+  loadUser,
+})(RegisterStepTwo);

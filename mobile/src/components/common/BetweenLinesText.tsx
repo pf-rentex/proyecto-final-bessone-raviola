@@ -14,7 +14,6 @@ const BetweenLinesText = ({text, isTitle = false}: IBetweenLinesText) => {
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection: 'row',
-      marginHorizontal: wp('10%'),
     },
     line: {
       borderWidth: 1,

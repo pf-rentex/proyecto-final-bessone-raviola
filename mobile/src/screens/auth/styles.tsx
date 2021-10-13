@@ -13,7 +13,7 @@ export default StyleSheet.create({
   mainLogoContainer: {
     flex: 1,
     paddingVertical: hp(2),
-    height: 20,
+    height: hp(1),
     justifyContent: 'center',
     flexDirection: 'row',
   },
@@ -49,6 +49,7 @@ export default StyleSheet.create({
     justifyContent: 'space-evenly',
     marginHorizontal: wp(3),
     marginVertical: hp(2),
+    paddingHorizontal: wp(4),
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
@@ -91,15 +92,15 @@ export default StyleSheet.create({
     paddingHorizontal: wp('2%'),
     color: 'black',
     fontSize: hp('2.3%'),
-    marginHorizontal: wp('10%'),
     marginTop: hp('3%'),
     borderRadius: 6,
   },
   mainCTAContainer: {
     marginVertical: hp('5%'),
-    paddingHorizontal: wp('10%'),
   },
   mainCTA: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     backgroundColor: '#135E88',
     paddingVertical: hp('1.5%'),
     borderRadius: 12,
@@ -117,7 +118,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: hp('2%'),
-    marginHorizontal: wp('8%'),
   },
   socialCTA: {
     backgroundColor: '#ffffff',
