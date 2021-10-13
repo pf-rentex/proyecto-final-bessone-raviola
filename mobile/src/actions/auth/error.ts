@@ -1,9 +1,13 @@
-import {CLEAR_ERRORS, GET_ERRORS} from "../types";
+import {CLEAR_ERRORS, GET_ERRORS} from '../types';
 
-export const returnErrors = (msg: string, status: number, id: string | null = null) => {
+export const getErrors = (
+  msg: string,
+  status: number,
+  id: string | null = null,
+) => {
   return {
     type: GET_ERRORS,
-    payload: { msg, status, id },
+    data: {msg, status, id},
   };
 };
 

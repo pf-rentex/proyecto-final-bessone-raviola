@@ -1,62 +1,60 @@
-import {AUTH_REGISTER, LOGOUT, SET_SIGNUP_ERROR} from "../../constants/actionTypes";
-import {Dispatch} from "redux";
+import {Dispatch} from 'redux';
 import * as api from '../../api';
-import {ILoginFormData} from "../../screens/auth/Login";
-import {IRegisterFormData} from "../../screens/auth/Register/RegisterStepTwo";
-import {AUTH_ERROR, LOGIN_FAIL, LOGIN_SUCCESS, USER_LOADED, USER_LOADING} from "../types";
-import {returnErrors} from "./error";
+import {ILoginFormData} from '../../screens/auth/Login';
+import {IRegisterFormData} from '../../screens/auth/Register/RegisterStepTwo';
+import {
+  AUTH_ERROR,
+  CLEAR_ERRORS,
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  REGISTER_FAIL,
+  REGISTER_SUCCESS,
+  USER_LOADED,
+  USER_LOADING,
+} from '../types';
+import {getErrors} from './error';
 
+export const signup =
+  (formData: IRegisterFormData, navigation: any) =>
+  async (dispatch: Dispatch<any>) => {
+    try {
+      dispatch({type: USER_LOADING});
 
-export const signup = (formData: IRegisterFormData, navigation: any) => async (dispatch: Dispatch<any>) => {
-  try {
-    const {data} = await api.register(formData);
-    dispatch({type: AUTH_REGISTER, data});
-    navigation.navigate('Onboarding');
-  } catch (error) {
-    const {msg} = error.response.data;
+      const {data} = await api.register(formData);
+      dispatch({type: REGISTER_SUCCESS, data});
+      dispatch({type: CLEAR_ERRORS});
+      navigation.navigate('Onboarding');
+    } catch (error) {
+      const {msg, status} = error.response.data;
 
-    if (msg) {
-      const action = {
-        type: SET_SIGNUP_ERROR,
-        data: msg,
+      if (msg) {
+        dispatch(getErrors(msg, status, REGISTER_FAIL));
       }
-      dispatch(action);
+      dispatch({
+        type: REGISTER_FAIL,
+      });
     }
-  }
-}
+  };
 
-// export const setSignupError = (message: string = '') => async (dispatch: Dispatch<any>) => {
-//   const action = {
-//     type: SET_SIGNUP_ERROR,
-//     data: message,
-//   }
-//   dispatch(action);
-// }
+export const login =
+  (formData: ILoginFormData, navigation: any) =>
+  async (dispatch: Dispatch<any>) => {
+    try {
+      dispatch({type: USER_LOADING});
+      const {data} = await api.authenticate(formData);
 
-export const login = (formData: ILoginFormData, navigation: any) => async (dispatch: Dispatch<any>) => {
-  try {
-    const {data} = await api.authenticate(formData);
-
-    dispatch({type: LOGIN_SUCCESS, data});
-    navigation.navigate('Onboarding');
-  } catch (error) {
-    const {data, status} = error;
-    dispatch(
-        returnErrors(data, status, LOGIN_FAIL)
-    );
-    dispatch({
-      type: LOGIN_FAIL,
-    });
-  }
-}
-
-// export const setLoginError = (message: string = '') => async (dispatch: Dispatch<any>) => {
-//   const action = {
-//     type: SET_LOGIN_ERROR,
-//     data: message,
-//   }
-//   dispatch(action);
-// }
+      dispatch({type: LOGIN_SUCCESS, data});
+      dispatch({type: CLEAR_ERRORS});
+      navigation.navigate('Onboarding');
+    } catch (error) {
+      const {data, status} = error.response;
+      dispatch(getErrors(data.msg, status, LOGIN_FAIL));
+      dispatch({
+        type: LOGIN_FAIL,
+      });
+    }
+  };
 
 export const loadUser = () => async (dispatch: Dispatch<any>) => {
   try {
@@ -67,8 +65,8 @@ export const loadUser = () => async (dispatch: Dispatch<any>) => {
     console.log('Error loading user: ', e);
     dispatch({type: AUTH_ERROR});
   }
-}
+};
 
 export const logout = () => (dispatch: Dispatch<any>) => {
-  dispatch({type: LOGOUT});
-}
+  dispatch({type: LOGOUT_SUCCESS});
+};
