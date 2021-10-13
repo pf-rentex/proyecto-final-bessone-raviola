@@ -1,24 +1,37 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Keyboard, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Keyboard,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import FacebookIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import GoogleIcon from 'react-native-vector-icons/AntDesign';
 import VectorImage from 'react-native-vector-image';
 import LinearGradient from 'react-native-linear-gradient';
-import styles from "./styles";
-import Footer from "../../components/auth/Footer";
-import BetweenLinesText from "../../components/common/BetweenLinesText";
-import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {loadUser, login} from "../../actions/auth";
-import {connect} from "react-redux";
-import {clearErrors} from "../../actions/auth/error";
-import {IError} from "../../reducers/auth/error";
+import styles from './styles';
+import Footer from '../../components/auth/Footer';
+import BetweenLinesText from '../../components/common/BetweenLinesText';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
+import {loadUser, login} from '../../actions/auth';
+import {connect} from 'react-redux';
+import {clearErrors, getErrors} from '../../actions/auth/error';
+import {IError} from '../../reducers/auth/error';
+import {LOGIN_FAIL} from '../../actions/types';
 
 interface ILoginProps {
   login: Function;
   loadUser: Function;
   error: IError;
   isAuthenticated: boolean;
+  isLoading: boolean;
   clearErrors: Function;
+  getErrors: Function;
   navigation: any;
 }
 
@@ -30,21 +43,23 @@ export interface ILoginFormData {
 const initialFormData: ILoginFormData = {
   email: '',
   password: '',
-}
+};
 
-const Login = (
-    {
-      navigation,
-      login,
-      error,
-      isAuthenticated,
-      clearErrors,
-      loadUser
-    }: ILoginProps) => {
+const Login = ({
+  navigation,
+  login,
+  error,
+  isAuthenticated,
+  isLoading,
+  clearErrors,
+  getErrors,
+  loadUser,
+}: ILoginProps) => {
   const [form, setForm] = useState<ILoginFormData>(initialFormData);
-  const [submitting, setSubmitting] = useState<boolean>(false);
 
-  const [keyboardStatus, setKeyboardStatus] = useState<boolean | undefined>(undefined);
+  const [keyboardStatus, setKeyboardStatus] = useState<boolean | undefined>(
+    undefined,
+  );
 
   useEffect(() => {
     setKeyboardListeners();
@@ -53,154 +68,135 @@ const Login = (
 
     return function cleanup() {
       setKeyboardStatus(undefined);
-    }
-  }, []);
+    };
+  }, [clearErrors, loadUser]);
 
   useEffect(() => {
-
-      //Check for login error
-      if (error.id === "LOGIN_FAIL") {
-        this.setState({ msg: error.msg.msg });
-      } else {
-        this.setState({ msg: null });
-      }
-
-    //If authenticated redirect
+    // If authenticated redirect
     if (isAuthenticated) {
-      this.props.history.push("/admin");
-    }
-  }, [error, isAuthenticated])
-
-  useEffect(() => {
-    setSubmitting(false);
-
-    if (isAuthenticated) {
-      setSubmitting(true);
       navigation.navigate('Onboarding');
     }
-  }, [isAuthenticated])
+  }, [navigation, isAuthenticated]);
 
   const setKeyboardListeners = () => {
-    Keyboard.addListener("keyboardDidShow", () => {
+    Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardStatus(true);
     });
     Keyboard.addListener('keyboardDidHide', () => {
       setKeyboardStatus(false);
     });
-  }
+  };
 
   const onEmailChange = (text: string) => {
-    // setLoginError();
     setForm({...form, email: text});
-  }
+  };
   const onPasswordChange = (text: string) => {
-    // setLoginError();
     setForm({...form, password: text});
-  }
+  };
 
   const onSubmit = () => {
     if (isValid()) {
-      setSubmitting(true);
       login(form, navigation);
     } else {
-      // setLoginError('Rellena todos los campos');
+      getErrors('Rellena todos los campos', 400, LOGIN_FAIL);
     }
   };
 
   const isValid = (): boolean => {
     return form.email.length > 0 && form.password.length > 0;
-  }
+  };
 
   return (
-      <LinearGradient colors={['#15ABFF', '#C9F0FD']}
-                      style={styles.container}>
-        {!keyboardStatus &&
+    <LinearGradient colors={['#15ABFF', '#C9F0FD']} style={styles.container}>
+      {!keyboardStatus && (
         <View style={styles.mainLogoContainer}>
-            <VectorImage source={require('../../assets/logo.svg')}/>
+          <VectorImage source={require('../../assets/logo.svg')} />
         </View>
-        }
+      )}
 
-        <View style={{
+      <View
+        style={{
           marginTop: keyboardStatus ? hp(2) : hp(3),
           flex: 10,
           marginHorizontal: wp('10%'),
           justifyContent: 'center',
         }}>
+        <BetweenLinesText text="Login" isTitle={true} />
 
-          <BetweenLinesText text="Login"
-                            isTitle={true}/>
-
-          <TextInput
-              value={form.email}
-              onChangeText={onEmailChange}
-              placeholder='Email'
-              placeholderTextColor='gray'
-              style={styles.input}>
-          </TextInput>
-          <TextInput
-              value={form.password}
-              textContentType="password"
-              secureTextEntry={true}
-              onChangeText={onPasswordChange}
-              placeholder='Password'
-              placeholderTextColor='gray'
-              style={styles.input}>
-          </TextInput>
-          {errors.length > 0 && (
-              <Text style={{
-                color: '#ba091d',
-                marginTop: hp(2)
-              }}>{errors}</Text>
-          )}
-          <View style={styles.mainCTAContainer}>
-            <TouchableOpacity style={styles.mainCTA}
-                              onPress={onSubmit}>
-              {submitting && (
-                  <ActivityIndicator style={{
-                    left: wp(-15),
-                  }}
-                                     color="#fff"/>
-              )}
-              <Text style={styles.mainCTAText}>Log in</Text>
-            </TouchableOpacity>
-          </View>
-
-          <BetweenLinesText text="Or sign in using"/>
-
-          <View style={styles.socialCTAContainer}>
-
-            <TouchableOpacity style={styles.socialCTA}>
-              <View style={styles.socialCTAGoogleIcon}>
-                <GoogleIcon name="google"
-                            size={15}
-                            color="white"/>
-              </View>
-              <Text style={styles.socialCTAText}>Google</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.socialCTA}>
-              <FacebookIcon name="facebook"
-                            size={30}
-                            color="#111111"/>
-              <Text style={styles.socialCTAText}>Facebook</Text>
-            </TouchableOpacity>
-          </View>
-
+        <TextInput
+          value={form.email}
+          onChangeText={onEmailChange}
+          placeholder='Email'
+          placeholderTextColor='gray'
+          style={styles.input}
+        />
+        <TextInput
+          value={form.password}
+          textContentType="password"
+          secureTextEntry={true}
+          onChangeText={onPasswordChange}
+          placeholder='Password'
+          placeholderTextColor='gray'
+          style={styles.input}
+        />
+        {error.id === LOGIN_FAIL && error.msg.length > 0 && (
+          <Text
+            style={{
+              color: '#ba091d',
+              marginTop: hp(2),
+            }}>
+            {error.msg}
+          </Text>
+        )}
+        <View style={styles.mainCTAContainer}>
+          <TouchableOpacity style={styles.mainCTA} onPress={onSubmit}>
+            {isLoading && (
+              <ActivityIndicator
+                style={{
+                  left: wp(-15),
+                }}
+                color="#fff"
+              />
+            )}
+            <Text style={styles.mainCTAText}>Log in</Text>
+          </TouchableOpacity>
         </View>
-        {!keyboardStatus && <Footer action={() => navigation.navigate('RegisterStepOne')}
-                                    text="Don't have an account?"
-                                    linkText="Register"
-        />}
-      </LinearGradient>
+
+        <BetweenLinesText text="Or sign in using" />
+
+        <View style={styles.socialCTAContainer}>
+          <TouchableOpacity style={styles.socialCTA}>
+            <View style={styles.socialCTAGoogleIcon}>
+              <GoogleIcon name="google" size={15} color="white" />
+            </View>
+            <Text style={styles.socialCTAText}>Google</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.socialCTA}>
+            <FacebookIcon name="facebook" size={30} color="#111111" />
+            <Text style={styles.socialCTAText}>Facebook</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      {!keyboardStatus && (
+        <Footer
+          action={() => navigation.navigate('RegisterStepOne')}
+          text="Don't have an account?"
+          linkText="Register"
+        />
+      )}
+    </LinearGradient>
   );
-}
+};
 
 const mapStateToProps = (state: any) => ({
   error: state.error,
   isAuthenticated: state.auth.isAuthenticated,
+  isLoading: state.auth.isLoading,
 });
 
 export default connect(mapStateToProps, {
   login,
   clearErrors,
-  loadUser
+  getErrors,
+  loadUser,
 })(Login);
