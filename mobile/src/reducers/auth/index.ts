@@ -3,11 +3,12 @@ import {
   AUTH_ERROR,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
-  LOGOUT_SUCCESS, REGISTER_FAIL,
+  LOGOUT_SUCCESS,
+  REGISTER_FAIL,
   REGISTER_SUCCESS,
   USER_LOADED,
-  USER_LOADING
-} from "../../actions/types";
+  USER_LOADING,
+} from '../../actions/types';
 
 export interface IProfileData {
   token: string;
@@ -33,8 +34,10 @@ const initialState: IAuthState = {
   isLoading: false,
 };
 
-const authReducer = (state: IAuthState = initialState, action: { type: string; data: IProfileData }) => {
-
+const authReducer = (
+  state: IAuthState = initialState,
+  action: {type: string; data: IProfileData},
+) => {
   switch (action.type) {
     case USER_LOADING:
       return {
@@ -54,7 +57,7 @@ const authReducer = (state: IAuthState = initialState, action: { type: string; d
     case REGISTER_SUCCESS:
       (async () => {
         await setProfileToStorage({...action?.data});
-      })()
+      })();
       return {
         ...state,
         ...action.data,
@@ -79,14 +82,14 @@ const authReducer = (state: IAuthState = initialState, action: { type: string; d
     default:
       return state;
   }
-}
+};
 
 const setProfileToStorage = async (data: IProfileData) => {
   try {
-    await AsyncStorage.setItem('profile', JSON.stringify(data))
+    await AsyncStorage.setItem('profile', JSON.stringify(data));
   } catch (e) {
     console.warn('Error saving profile data to AsyncStorage', e);
   }
-}
+};
 
 export default authReducer;

@@ -1,23 +1,24 @@
 import {CLEAR_ERRORS, GET_ERRORS} from '../../actions/types';
 
 export interface IError {
-  msg: unknown;
+  msg: string;
   status: number | null;
-  id: undefined | null;
+  id: string | null;
 }
 
 const initialState: IError = {
-  msg: {},
+  msg: '',
   status: null,
   id: null,
 };
 
 const errorReducer = (
-    state = initialState,
-    action: {
-      type: string;
-      data: { msg: any, status: number; id: string; }
-    }) => {
+  state = initialState,
+  action: {
+    type: string;
+    data: IError;
+  },
+) => {
   switch (action.type) {
     case GET_ERRORS:
       return {
@@ -27,7 +28,7 @@ const errorReducer = (
       };
     case CLEAR_ERRORS:
       return {
-        msg: {},
+        msg: '',
         status: null,
         id: null,
       };
@@ -37,4 +38,3 @@ const errorReducer = (
 };
 
 export default errorReducer;
-
