@@ -1,6 +1,7 @@
 import { Provider } from "react-redux";
 import store from "./store";
 import Router from "./router/router";
+import Header from "./components/commons/Header";
 
 // import logo from './logo.svg';
 import "./App.css";
@@ -10,7 +11,9 @@ function App() {
   return (
     <Provider store={store}>
       {/* Header simulation */}
-      <div style={{ height: 70, backgroundColor: "#20323A" }}></div>
+      <div style={{ height: 70, backgroundColor: "#20323A" }}>
+        <Header />
+      </div>
       <Router />
       {/* Footer simulation */}
       <div style={{ height: 250, backgroundColor: "#20323A" }}></div>
