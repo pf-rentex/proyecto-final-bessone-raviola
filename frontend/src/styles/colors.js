@@ -19,4 +19,8 @@ module.exports = {
 
   "bg-gradient-9": "#70C6FF",
   "bg-gradient-10": "#026BB8",
+
+  // Sidebar bg gradient
+  "bg-gradient-11": "#52809A",
+  "bg-gradient-12": "#23363E",
 };
