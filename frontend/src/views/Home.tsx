@@ -69,7 +69,8 @@ const Home = () => {
             reverse={true}
           >
             <div className="w-6/12 mx-auto">
-              <CustomButton text="COMENZÁ AHORA" />
+              <CustomButton text="COMENZÁ AHORA"
+                            callback={() => window.location.replace('/login')} />
             </div>
           </InfoSection>
         </div>
@@ -89,8 +90,8 @@ const Home = () => {
             lectus id libero efficitur luctus."
             title={
               <div>
-                Encuentra tu{" "}
-                <span className="font-bold text-blue-800">hogar ideal</span>
+                Encuentra tu
+                <span className="font-bold text-blue-800"> hogar ideal</span>
               </div>
             }
           >

@@ -10,7 +10,7 @@ import {useDispatch} from "react-redux";
 import {LOGOUT_SUCCESS} from "../../actions/types";
 
 const Onboarding = (): JSX.Element => {
-  const [userType] = useState("realEstate");
+  const [userType] = useState("owner");
   const dispatch = useDispatch();
 
   const logout = () => {
