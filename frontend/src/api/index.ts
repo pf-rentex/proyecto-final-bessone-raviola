@@ -18,3 +18,5 @@ API.interceptors.request.use((req) => {
 export const register = (formData: IRegisterFormData) => API.post('/api/users', formData);
 export const authenticate = (formData: ILoginFormData) => API.post('/api/auth', formData);
 export const getUserData = () => API.get('/api/auth/user');
+
+export const checkContributor = (cuit: string) => API.post('/api/afip/check_contributor', { cuit });
