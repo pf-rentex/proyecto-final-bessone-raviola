@@ -88,7 +88,7 @@ const RealEstateOnboardingBox = () => {
                 </div>
             )}
           </div>
-          {!verifying && verificationStatus && (
+          {!verifying && verified && verificationStatus && (
               <div className="relative w-full">
                 <p className="text-blue-500 text-xs text-left">
                   Te encuentras registrado en AFIP!
@@ -98,7 +98,7 @@ const RealEstateOnboardingBox = () => {
                 </p>
               </div>
           )}
-          {!verifying && !verificationStatus && (
+          {!verifying && verified && !verificationStatus && (
               <div className="relative w-full">
                 <p className="text-red-500 text-xs text-left">
                   Al parecer, no se encuentra registrado como persona habilitada
