@@ -6,8 +6,8 @@ import styles from './styles';
 import OnboardingRealEstate from './Onboarding/OnboardingRealEstate';
 import OnboardingTenant from './Onboarding/OnboardingTenant';
 import OnboardingOwner from './Onboarding/OnboardingOwner';
-import {connect} from "react-redux";
-import { logout } from "../../actions/auth";
+import {connect} from 'react-redux';
+import {logout} from '../../actions/auth';
 
 interface IOnboardingProps {
   logout: Function;
@@ -77,9 +77,9 @@ const Onboarding = ({logout, navigation}: IOnboardingProps) => {
   };
 
   const triggerLogout = () => {
-   logout();
-   navigation.navigate('Login');
-  }
+    logout();
+    navigation.navigate('Login');
+  };
 
   return (
     <LinearGradient colors={['#15ABFF', '#C9F0FD']} style={styles.container}>
@@ -105,14 +105,12 @@ const Onboarding = ({logout, navigation}: IOnboardingProps) => {
       {/*TODO: Remove once dashboard is finished.*/}
       {/*this is temporary and for testing purposes*/}
       <TouchableOpacity
-          onPress={triggerLogout}
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        onPress={triggerLogout}
+        style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <Text style={{color: 'red'}}>Logout</Text>
       </TouchableOpacity>
-
     </LinearGradient>
   );
 };
 
-
-export default connect(null, { logout })(Onboarding);
+export default connect(null, {logout})(Onboarding);

@@ -50,8 +50,10 @@ export const login =
       dispatch({type: CLEAR_ERRORS});
       history.push('Onboarding');
     } catch (error) {
-      const {data, status} = error.response;
-      dispatch(getErrors(data.msg, status, LOGIN_FAIL));
+      if (error.response) {
+        const {data, status} = error.response;
+        dispatch(getErrors(data.msg, status, LOGIN_FAIL));
+      }
       dispatch({
         type: LOGIN_FAIL,
       });

@@ -50,6 +50,7 @@ export default StyleSheet.create({
     marginHorizontal: wp(3),
     marginVertical: hp(2),
     paddingHorizontal: wp(4),
+    paddingTop: hp(4),
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
@@ -69,8 +70,8 @@ export default StyleSheet.create({
     fontSize: hp('1.4%'),
   },
   onboardingLogo: {
-    width: 70,
-    height: 70,
+    width: wp(10),
+    height: wp(10),
   },
   divider: {
     borderBottomColor: '#00639B',
@@ -92,8 +93,19 @@ export default StyleSheet.create({
     paddingHorizontal: wp('2%'),
     color: 'black',
     fontSize: hp('2.3%'),
-    marginTop: hp('3%'),
+    margin: hp('1%'),
     borderRadius: 6,
+  },
+  inputCuit: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  inputVerificationSlot: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
   mainCTAContainer: {
     marginVertical: hp('5%'),
