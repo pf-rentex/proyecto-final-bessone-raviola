@@ -13,12 +13,12 @@ const Header = (props: {
       <div style={{backgroundColor: "#20323A"}}
            className="flex flex-row sticky top-0 z-40 w-screen items-center h-20">
         <div className="flex flex-shrink items-center">
-          {logged && (
+          {/* {logged && ( */}
               <div className="ml-5">
-                <GiHamburgerMenu className="w-8 h-8 lg:w-12 lg:h-12"/>
+                <GiHamburgerMenu className="w-8 h-8 lg:w-12 lg:h-12 text-white"/>
               </div>
-          )}
-          <div>
+          {/* )} */}
+          <div className="ml-6">
             <LogoHeader className="w-40 mx-4 md:flex hidden"/>
             <LogoHeaderMbl className="visible flex md:hidden w-10 mx-4"/>
           </div>
