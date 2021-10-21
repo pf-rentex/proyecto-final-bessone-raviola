@@ -6,17 +6,13 @@ import Header from "./components/commons/Header";
 // import logo from './logo.svg';
 import "./App.css";
 import Footer from "./components/commons/Footer";
-// import SampleComponent from "./components/Sample/SampleComponent";
+import React from "react";
 
 function App() {
   return (
     <Provider store={store}>
-      {/* Header simulation */}
-      {/* <div style={{ height: 70, backgroundColor: "#20323A" }}> */}
         <Header />
-      {/* </div> */}
-      <Router />
-      {/* Footer simulation */}
+        <Router />
       <Footer />
     </Provider>
   );
