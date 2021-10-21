@@ -9,7 +9,7 @@ const Footer = () => {
 
   return (
 
-      <div className="flex flex-col-reverse md:flex-row w-screen lg:h-60"
+      <div className="flex flex-col-reverse lg:flex-row w-screen lg:h-60"
            style={{backgroundColor: "#20323A"}}>
         <div className="flex justify-center lg:flex-col items-center py-2 px-8">
           <LogoFooter className="w-24 h-24"/>
