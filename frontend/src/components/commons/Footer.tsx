@@ -36,10 +36,10 @@ const Footer = () => {
 
           {/* Section info #1 */}
           <div className="mx-10">
-            <h5 className="text-blue-700 text-2xl lg:text-3xl font-thin tracking-widest my-5">
+            <h5 className="text-blue-700 text-2xl xl:text-3xl font-thin tracking-widest my-5">
               <b>Title</b>
             </h5>
-            <p className="text-white font-thin text-justify text-xs lg:text-base">
+            <p className="text-white font-thin text-justify text-xs xl:text-base">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic delectus assumenda cumque ab quasi esse iure
               corporis eos? Quae similique est corrupti repudiandae iure dolores voluptate quaerat. Iusto, adipisci
               asperiores!
@@ -48,10 +48,10 @@ const Footer = () => {
 
           {/* Section info #2 */}
           <div className="mx-10">
-            <h5 className="text-blue-700 text-2xl lg:text-3xl font-thin tracking-widest my-5">
-              <b>Another title</b>
+            <h5 className="text-blue-700 text-2xl xl:text-3xl font-thin tracking-widest my-5">
+              <b>Title One</b>
             </h5>
-            <p className="text-white font-thin text-justify text-xs lg:text-base">
+            <p className="text-white font-thin text-justify text-xs xl:text-base">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic delectus assumenda cumque ab quasi esse iure
               corporis eos? Quae similique est corrupti repudiandae iure dolores voluptate quaerat. Iusto, adipisci
               asperiores!
@@ -61,9 +61,9 @@ const Footer = () => {
           {/* Section info #3 */}
           <div className="mx-10">
             <h5 className="text-blue-700 text-2xl lg:text-3xl font-thin tracking-widest my-5">
-              <b>And another one</b>
+              <b>Title Two</b>
             </h5>
-            <p className="text-white font-thin text-justify text-xs lg:text-base">
+            <p className="text-white font-thin text-justify text-xs xl:text-base">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic delectus assumenda cumque ab quasi esse iure
               corporis eos? Quae similique est corrupti repudiandae iure dolores voluptate quaerat. Iusto, adipisci
               asperiores!
