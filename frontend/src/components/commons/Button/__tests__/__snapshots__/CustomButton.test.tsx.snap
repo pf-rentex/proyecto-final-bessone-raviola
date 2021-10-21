@@ -3,7 +3,7 @@
 exports[`Custom button renders button 1`] = `
 <div>
   <button
-    class="bg-primary shadow-md w-full rounded-md px-5 py-2 flex content-center my-3 focus:shadow-sm outline-none align-items-center justify-center content-center align-middle justify-items-center items-center"
+    class="bg-primary  shadow-md w-full rounded-md px-5 py-2 flex content-center my-3 focus:shadow-sm outline-none align-items-center justify-center content-center align-middle justify-items-center items-center"
   >
     <span
       class="text-2xl pr-4"
