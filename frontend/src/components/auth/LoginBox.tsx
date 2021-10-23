@@ -1,12 +1,76 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ReactComponent as AppLogo} from "../../assets/logo.svg";
 import CustomButton from "../commons/Button/CustomButton";
 import {AiFillGoogleCircle, FaFacebook} from "react-icons/all";
+import {connect} from "react-redux";
+import {useHistory} from "react-router-dom";
+import {ReactComponent as Spinner} from "../../assets/loader.svg";
+import {loadUser, login} from "../../actions/auth";
+import {LOGIN_FAIL} from "../../actions/types";
+import {clearErrors, getErrors} from "../../actions/auth/error";
+import {IError} from "../../reducers/auth/error";
 
 interface ILoginBoxProps {
   onToggleMode: Function;
+  login: Function;
+  loadUser: Function;
+  error: IError;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  clearErrors: Function;
+  getErrors: Function;
 }
-const LoginBox = ({onToggleMode}: ILoginBoxProps) => {
+
+export interface ILoginFormData {
+  email: string;
+  password: string;
+}
+
+const initialFormData: ILoginFormData = {
+  email: '',
+  password: '',
+}
+
+const LoginBox = ({
+                    onToggleMode,
+                    login,
+                    error,
+                    isAuthenticated,
+                    isLoading,
+                    clearErrors,
+                    getErrors,
+                    loadUser,
+                  }: ILoginBoxProps) => {
+  const [form, setForm] = useState<ILoginFormData>(initialFormData);
+  const history = useHistory();
+
+  const onFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    clearErrors();
+    setForm({...form, [e.target.name]: e.target.value});
+  }
+
+  useEffect(() => {
+    clearErrors();
+    loadUser();
+  }, [clearErrors, loadUser]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push('Onboarding');
+    }
+  }, [isAuthenticated]);
+
+  const onSubmit = () => {
+    if (isValid()) {
+      login(form, history);
+    } else {
+      getErrors('Rellena todos los campos', 400, LOGIN_FAIL);
+    }
+  };
+
+  const isValid = (): boolean => {
+    return form.email.length > 0 && form.password.length > 0;
+  }
 
   return (
       <div className="relative flex flex-col w-full pb-5 xl:w-6/12 content-center break-words mb-3 px-4 mx-4 shadow-2xl rounded-xl bg-white border-0 text-center">
@@ -37,21 +101,39 @@ const LoginBox = ({onToggleMode}: ILoginBoxProps) => {
           <form>
             <div className="relative w-full mt-6 mb-3">
               <input type="email"
+                     onChange={onFormChange}
+                     name="email"
                      className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
                      placeholder="Email"
                      style={{transition: 'all 0.15s ease 0s'}}/>
             </div>
             <div className="relative w-full mt-6 mb-3">
               <input type="password"
+                     onChange={onFormChange}
+                     name="password"
                      className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
                      placeholder="Password"
                      style={{transition: 'all 0.15s ease 0s'}}/>
             </div>
+            {error.msg.length > 0 && (
+                <div className="w-full text-left">
+                  <span className="text-red-700 font-semibold text-xs text-left">{error.msg}</span>
+                </div>
+            )}
             <div className="text-center mt-10">
-              <CustomButton text="Sign in"/>
+              <CustomButton text="Sign in"
+                            callback={onSubmit}
+                            disabled={isLoading && (!error || error.msg.length === 0)}>
+                {isLoading && (!error || error.msg.length === 0) && (
+                    <Spinner/>
+                )}
+              </CustomButton>
               <p className="text-sm text-gray-700">Don't have an account?
                 <a href="/register"
-                   onClick={ (e) => {e.preventDefault(); onToggleMode()} }
+                   onClick={(e) => {
+                     e.preventDefault();
+                     onToggleMode()
+                   }}
                    className="text-blue-600 px-2 underline">Register Here</a>
               </p>
             </div>
@@ -61,4 +143,15 @@ const LoginBox = ({onToggleMode}: ILoginBoxProps) => {
   );
 };
 
-export default LoginBox;
+const mapStateToProps = (state: any) => ({
+  error: state.error,
+  isAuthenticated: state.auth.isAuthenticated,
+  isLoading: state.auth.isLoading,
+});
+
+export default connect(mapStateToProps, {
+  login,
+  clearErrors,
+  getErrors,
+  loadUser,
+})(LoginBox);

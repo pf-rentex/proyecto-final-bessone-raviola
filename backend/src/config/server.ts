@@ -3,28 +3,35 @@ import * as dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-import router from "../routes";
+import router from '../routes';
+import AfipService from '../services/afip';
 
 const initializeServer = () => {
+    try {
+        const app = express();
+        dotenv.config();
 
-  try {
-    const app = express();
-    dotenv.config();
+        app.use(cors());
+        app.use(bodyParser.json({ limit: '20mb' }));
+        app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }));
 
-    app.use(cors());
-    app.use(bodyParser.json({limit: '20mb'}));
-    app.use(bodyParser.urlencoded({limit: '20mb', extended: true}));
+        app.use(router);
 
-    app.use(router);
+        const PORT = process.env.PORT || 5000;
 
-    const PORT = process.env.PORT || 5000;
+        const server = app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
 
-    const server = app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
+        const afip = new AfipService();
 
-    return { app, server };
-  } catch (e) {
-    console.error(`Error launching server.. ${e}`);
-  }
-}
+        (async () => {
+            const result = await afip.checkContributor(20023926815);
+            console.log(result);
+        })();
+
+        return { app, server };
+    } catch (e) {
+        console.error(`Error launching server.. ${e}`);
+    }
+};
 
 export default initializeServer;

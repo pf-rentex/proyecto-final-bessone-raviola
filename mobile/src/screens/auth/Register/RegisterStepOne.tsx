@@ -7,9 +7,15 @@ import GlassyButton from '../../../components/buttons/GlassyButton';
 import Footer from '../../../components/auth/Footer';
 import BetweenLinesText from '../../../components/common/BetweenLinesText';
 
+export enum UserType {
+  tenant = "tenant",
+  realEstate = "realEstate",
+  owner = "owner",
+}
+
 const RegisterStepOne = ({navigation}) => {
-  const goNextStep = () => {
-    navigation.navigate('SignupStep2');
+  const goNextStep = (userType: UserType) => {
+    navigation.navigate('SignupStep2', userType);
   };
 
   return (
@@ -25,7 +31,7 @@ const RegisterStepOne = ({navigation}) => {
         <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
           <GlassyButton
             text='Real Estate Agency'
-            onClicked={goNextStep}
+            onClicked={() => goNextStep(UserType.realEstate)}
             children={
               <VectorImage
                 source={require('../../../assets/real_estate.svg')}
@@ -34,14 +40,14 @@ const RegisterStepOne = ({navigation}) => {
           />
           <GlassyButton
             text='Owner'
-            onClicked={goNextStep}
+            onClicked={() => goNextStep(UserType.owner)}
             children={
               <VectorImage source={require('../../../assets/owner.svg')} />
             }
           />
           <GlassyButton
             text='Tenant'
-            onClicked={goNextStep}
+            onClicked={() => goNextStep(UserType.tenant)}
             children={
               <VectorImage source={require('../../../assets/tenant.svg')} />
             }
