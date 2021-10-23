@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import store from "./store";
 import Router from "./router/router";
-
+import Header from "./components/commons/Header";
 import "./App.css";
+import Footer from "./components/commons/Footer";
 import { loadUser } from "./actions/auth";
 import Sidebar from "./components/commons/Sidebar/Sidebar";
-import { GiHamburgerMenu } from "react-icons/all";
 
 const App = () => {
   useEffect(() => {
@@ -17,17 +17,10 @@ const App = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <Provider store={store}>
-      {/* Header simulation */}
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
-      <div style={{ height: 70, backgroundColor: "#20323A" }} className="p-5">
-        <GiHamburgerMenu
-          className="text-white text-3xl cursor-pointer"
-          onClick={() => setIsOpen(true)}
-        />
-      </div>
+      <Header setIsOpenSidebar={setIsOpen} />
       <Router />
-      {/* Footer simulation */}
-      <div style={{ height: 250, backgroundColor: "#20323A" }}></div>
+      <Footer />
     </Provider>
   );
 };
