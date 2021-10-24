@@ -74,7 +74,7 @@ const Login = ({
   useEffect(() => {
     // If authenticated redirect
     if (isAuthenticated) {
-      navigation.navigate('Onboarding');
+      navigation.navigate('UserProfile');
     }
   }, [navigation, isAuthenticated]);
 
@@ -121,7 +121,7 @@ const Login = ({
           marginHorizontal: wp('10%'),
           justifyContent: 'center',
         }}>
-        <BetweenLinesText text="Login" isTitle={true} />
+        <BetweenLinesText text='Login' isTitle={true} />
 
         <TextInput
           value={form.email}
@@ -132,7 +132,7 @@ const Login = ({
         />
         <TextInput
           value={form.password}
-          textContentType="password"
+          textContentType='password'
           secureTextEntry={true}
           onChangeText={onPasswordChange}
           placeholder='Password'
@@ -155,24 +155,24 @@ const Login = ({
                 style={{
                   left: wp(-15),
                 }}
-                color="#fff"
+                color='#fff'
               />
             )}
             <Text style={styles.mainCTAText}>Log in</Text>
           </TouchableOpacity>
         </View>
 
-        <BetweenLinesText text="Or sign in using" />
+        <BetweenLinesText text='Or sign in using' />
 
         <View style={styles.socialCTAContainer}>
           <TouchableOpacity style={styles.socialCTA}>
             <View style={styles.socialCTAGoogleIcon}>
-              <GoogleIcon name="google" size={15} color="white" />
+              <GoogleIcon name='google' size={15} color='white' />
             </View>
             <Text style={styles.socialCTAText}>Google</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.socialCTA}>
-            <FacebookIcon name="facebook" size={30} color="#111111" />
+            <FacebookIcon name='facebook' size={30} color='#111111' />
             <Text style={styles.socialCTAText}>Facebook</Text>
           </TouchableOpacity>
         </View>
@@ -181,7 +181,7 @@ const Login = ({
         <Footer
           action={() => navigation.navigate('RegisterStepOne')}
           text="Don't have an account?"
-          linkText="Register"
+          linkText='Register'
         />
       )}
     </LinearGradient>
