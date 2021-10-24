@@ -29,7 +29,7 @@ const Sidebar = ({ isOpen, setIsOpen }: ISidebarProps) => {
   return (
     <div
       ref={wrapperRef}
-      className={`flex flex-col w-8/12 lg:w-5/12 xl:w-3/12 h-full fixed z-20 bg-gradient-to-b from-bg-gradient-11 to-bg-gradient-12 text-white transition duration-300 transform ${
+      className={`flex flex-col w-8/12 lg:w-5/12 xl:w-3/12 h-full fixed z-30 bg-gradient-to-b from-bg-gradient-11 to-bg-gradient-12 text-white transition duration-300 transform ${
         isOpen ? "translate-x-0 " : "-translate-x-full"
       }`}
     >
