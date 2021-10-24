@@ -5,6 +5,7 @@ import Login from '../screens/auth/Login';
 import Onboarding from '../screens/auth/Onboarding';
 import RegisterStepOne from '../screens/auth/Register/RegisterStepOne';
 import RegisterStepTwo from '../screens/auth/Register/RegisterStepTwo';
+import DrawerNavigator from './DrawerNavigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,10 +14,15 @@ const StackNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
+          name='Drawer'
+          component={DrawerNavigator}
+          options={{headerShown: false}}
+        />
+        {/* <Stack.Screen
           name='Login'
           component={Login}
           options={{headerShown: false}}
-        />
+        /> */}
         <Stack.Screen
           name='RegisterStepOne'
           component={RegisterStepOne}
