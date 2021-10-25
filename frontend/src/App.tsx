@@ -4,7 +4,6 @@ import store from "./store";
 import Router from "./router/router";
 import Header from "./components/commons/Header";
 import "./App.css";
-import Footer from "./components/commons/Footer";
 import { loadUser } from "./actions/auth";
 import Sidebar from "./components/commons/Sidebar/Sidebar";
 
@@ -20,7 +19,6 @@ const App = () => {
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
       <Header setIsOpenSidebar={setIsOpen} />
       <Router />
-      <Footer />
     </Provider>
   );
 };

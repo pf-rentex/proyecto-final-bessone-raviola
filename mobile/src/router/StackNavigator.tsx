@@ -5,6 +5,7 @@ import Login from '../screens/auth/Login';
 import Onboarding from '../screens/auth/Onboarding';
 import RegisterStepOne from '../screens/auth/Register/RegisterStepOne';
 import RegisterStepTwo from '../screens/auth/Register/RegisterStepTwo';
+import UserProfile from '../screens/user/UserProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +41,20 @@ const StackNavigator = () => {
           name='Onboarding'
           component={Onboarding}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name='UserProfile'
+          component={UserProfile}
+          options={{
+            title: '',
+            headerStyle: {
+              backgroundColor: '#005679',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

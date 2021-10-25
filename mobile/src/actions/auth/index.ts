@@ -46,7 +46,7 @@ export const login =
 
       dispatch({type: LOGIN_SUCCESS, data});
       dispatch({type: CLEAR_ERRORS});
-      navigation.navigate('Onboarding');
+      navigation.navigate('UserProfile');
     } catch (error) {
       const {data, status} = error.response;
       dispatch(getErrors(data.msg, status, LOGIN_FAIL));

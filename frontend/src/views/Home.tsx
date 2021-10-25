@@ -14,6 +14,7 @@ import Wave from "../components/commons/Wave";
 import InfoSection from "../components/home/InfoSection";
 import FeatureSection from "../components/home/FeatureSection";
 import { AiOutlineSearch, AiFillHome, HiDownload } from "react-icons/all";
+import Footer from "../components/commons/Footer";
 
 const tenantFeatures = [
   {
@@ -69,8 +70,10 @@ const Home = () => {
             reverse={true}
           >
             <div className="w-6/12 mx-auto">
-              <CustomButton text="COMENZÁ AHORA"
-                            callback={() => window.location.replace('/login')} />
+              <CustomButton
+                text="COMENZÁ AHORA"
+                callback={() => window.location.replace("/login")}
+              />
             </div>
           </InfoSection>
         </div>
@@ -173,6 +176,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 };
