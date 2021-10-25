@@ -5,14 +5,20 @@ import Login from '../screens/auth/Login';
 import Onboarding from '../screens/auth/Onboarding';
 import RegisterStepOne from '../screens/auth/Register/RegisterStepOne';
 import RegisterStepTwo from '../screens/auth/Register/RegisterStepTwo';
+import DrawerNavigator from './DrawerNavigator';
 import UserProfile from '../screens/user/UserProfile';
 
 const Stack = createNativeStackNavigator();
 
-const StackNavigator = () => {
+const Navigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name='Drawer'
+          component={DrawerNavigator}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name='Login'
           component={Login}
@@ -61,4 +67,4 @@ const StackNavigator = () => {
   );
 };
 
-export default StackNavigator;
+export default Navigator;
