@@ -5,7 +5,7 @@ import CustomButton from "../../components/commons/Button/CustomButton";
 
 const UserProfile = () => {
   return (
-    <section className="flex flex-col flex-wrap border-6 h-screen w-full bg-gradient-to-b from-bg-gradient-8 to-bg-gradient-9 p-4 md:px-20 md:py-10">
+    <section className="flex flex-col border-6 h-full lg:h-screen w-full bg-gradient-to-b from-bg-gradient-8 to-bg-gradient-9 p-4 md:px-20 md:py-10">
       <h3 className="text-4xl mb-4 text-blue-900 font-secondary uppercase font-semibold tracking-wide text-center md:text-left ">
         Mi Perfil
       </h3>
