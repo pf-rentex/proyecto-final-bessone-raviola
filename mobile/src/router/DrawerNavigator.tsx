@@ -35,7 +35,7 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        key='Login'
+        key='Onboarding'
         name='Onboarding'
         component={Onboarding}
         options={{
