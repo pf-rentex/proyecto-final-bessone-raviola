@@ -9,7 +9,7 @@ import DrawerNavigator from './DrawerNavigator';
 
 const Stack = createNativeStackNavigator();
 
-const StackNavigator = () => {
+const Navigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -18,11 +18,11 @@ const StackNavigator = () => {
           component={DrawerNavigator}
           options={{headerShown: false}}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name='Login'
           component={Login}
           options={{headerShown: false}}
-        /> */}
+        />
         <Stack.Screen
           name='RegisterStepOne'
           component={RegisterStepOne}
@@ -52,4 +52,4 @@ const StackNavigator = () => {
   );
 };
 
-export default StackNavigator;
+export default Navigator;
