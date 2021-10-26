@@ -4,7 +4,6 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 
 import router from '../routes';
-import AfipService from '../services/afip';
 
 const initializeServer = () => {
     try {
@@ -19,14 +18,9 @@ const initializeServer = () => {
 
         const PORT = process.env.PORT || 5000;
 
-        const server = app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
-
-        const afip = new AfipService();
-
-        (async () => {
-            const result = await afip.checkContributor(20023926815);
-            console.log(result);
-        })();
+        const server = app.listen(PORT, () =>
+            console.log(`Server running on port: ${PORT}`),
+        );
 
         return { app, server };
     } catch (e) {
