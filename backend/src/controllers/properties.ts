@@ -88,11 +88,7 @@ const getProperties = async (req: Request, res: Response) => {
             ...(limit ? [{ $limit: limit }] : []),
         ];
 
-        console.log(query);
-
         const properties = await Property.aggregate(query).exec();
-
-        console.log(properties);
 
         return res.status(200).json({ properties });
     } catch (e) {

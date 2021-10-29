@@ -1,19 +1,23 @@
 /* eslint-disable no-undef */
-import { doesNotMatch } from 'assert';
+import chai from 'chai';
+import chaiHttp from 'chai-http';
 import { assert } from 'chai';
-import { getProperties } from '../controllers/properties';
+import db from '../config/database';
 
-describe('Get properties endpoint test: ', () => {
-    it('Check result type', async (done) => {
-        const result = await getProperties(
-            { query: { attributes: { city: 'Córdoba' } } },
-            null,
-        );
-        assert.typeOf(result, Array);
-    });
-    // it('Check invalid CUIT', async () => {
-    //     const afip = new AfipService();
-    //     const result = await afip.checkContributor(23366804889);
-    //     assert.equal(result.isValid, false);
-    // });
+db();
+chai.use(chaiHttp);
+const url = 'http://localhost:5000';
+
+describe('Get properties: ', () => {
+    it('Check result type', async () => {
+        const result = await chai.request(url).get('/api/properties');
+        assert.typeOf(result.body.properties, 'array');
+    }).timeout(5000);
+    it('Check result length (limit 10)', async () => {
+        const result = await chai
+            .request(url)
+            .get('/api/properties')
+            .query({ limit: 10 });
+        assert.isAtMost(result.body.properties.length, 10);
+    }).timeout(5000);
 });
