@@ -23,5 +23,6 @@ jobs:
         working-directory: ./backend
         run: npm install
       - name: run tests
+        env: ${{ environments.TEST.DATABASE_URL }}
         working-directory: ./backend
         run: npm run test
