@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import store from "./store";
 import Router from "./router/router";
-import Header from "./components/commons/Header";
+import Header from "./components/commons/header/Header";
 import "./App.css";
 import { loadUser } from "./actions/auth";
 import Sidebar from "./components/commons/Sidebar/Sidebar";
