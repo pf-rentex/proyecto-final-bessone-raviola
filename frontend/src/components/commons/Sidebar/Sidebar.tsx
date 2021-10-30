@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
-import { BiSearch, BsPlusCircleFill } from "react-icons/all";
+import React, { useEffect, useRef } from "react";
+import { BiSearch } from "react-icons/bi";
+import { BsPlusCircleFill } from "react-icons/bs";
 import { Accordion } from "../Accordion/Accordion";
 import { Badge } from "../Badge/Badge";
 
@@ -28,6 +29,7 @@ const Sidebar = ({ isOpen, setIsOpen }: ISidebarProps) => {
 
   return (
     <div
+        data-testid={'sidebar'}
       ref={wrapperRef}
       className={`flex flex-col w-8/12 lg:w-5/12 xl:w-3/12 h-full fixed z-30 bg-gradient-to-b from-bg-gradient-11 to-bg-gradient-12 text-white transition duration-300 transform ${
         isOpen ? "translate-x-0 " : "-translate-x-full"

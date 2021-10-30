@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sidebar renders component 1`] = `
+<div>
+  <div
+    class="flex flex-col w-8/12 lg:w-5/12 xl:w-3/12 h-full fixed z-30 bg-gradient-to-b from-bg-gradient-11 to-bg-gradient-12 text-white transition duration-300 transform -translate-x-full"
+  >
+    <div
+      class="bg-alt w-full p-3  translate-x-0 "
+    >
+      <h1
+        class="text-center text-3xl font-semibold"
+      >
+        Dashboard
+      </h1>
+    </div>
+    <div
+      class="p-4 translate-x-0 "
+    >
+      <ul
+        class="divide-y text-xl"
+      >
+        <li
+          class="px-3 py-5"
+        >
+          <div
+            class="flex justify-between items-center cursor-pointer select-none"
+          >
+            Solicitudes
+            <span
+              class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none bg-red-500 rounded-full"
+            >
+              4
+            </span>
+          </div>
+        </li>
+        <li
+          class="px-3 py-5"
+        >
+          <div
+            class="flex flex-col"
+          >
+            <button
+              class="box-border appearance-none cursor-pointer focus:outline-none flex items-center justify-between"
+              data-testid="button"
+            >
+              <p
+                class="inline-block text-footnote light"
+              >
+                Mis inmuebles
+              </p>
+              <svg
+                class="transform duration-300 ease inline-block text-alt w-7 h-7"
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 512 512"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zM273 369.9l135.5-135.5c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L256 285.1 154.4 183.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L239 369.9c9.4 9.4 24.6 9.4 34 0z"
+                />
+              </svg>
+            </button>
+            <div
+              class="overflow-hidden transition-max-height duration-300 ease-in-out"
+              style="max-height: 0px;"
+            >
+              <div
+                class="pt-5"
+              >
+                <ul
+                  class="font-thin space-y-5"
+                >
+                  <li
+                    class="flex justify-between"
+                  >
+                    Opción 1
+                  </li>
+                  <li
+                    class="flex justify-between"
+                  >
+                    Opción 2
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li
+          class="px-3 py-5"
+        >
+          <div
+            class="flex flex-col"
+          >
+            <button
+              class="box-border appearance-none cursor-pointer focus:outline-none flex items-center justify-between"
+              data-testid="button"
+            >
+              <p
+                class="inline-block text-footnote light"
+              >
+                Contratos
+              </p>
+              <svg
+                class="transform duration-300 ease inline-block text-alt w-7 h-7"
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 512 512"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zM273 369.9l135.5-135.5c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L256 285.1 154.4 183.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L239 369.9c9.4 9.4 24.6 9.4 34 0z"
+                />
+              </svg>
+            </button>
+            <div
+              class="overflow-hidden transition-max-height duration-300 ease-in-out"
+              style="max-height: 0px;"
+            >
+              <div
+                class="pt-5"
+              >
+                <ul
+                  class="font-thin space-y-5"
+                >
+                  <li
+                    class="flex justify-between"
+                  >
+                    Ver contratos
+                    <svg
+                      class="text-alt w-7 h-7"
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10,18c1.846,0,3.543-0.635,4.897-1.688l4.396,4.396l1.414-1.414l-4.396-4.396C17.365,13.543,18,11.846,18,10 c0-4.411-3.589-8-8-8s-8,3.589-8,8S5.589,18,10,18z M10,4c3.309,0,6,2.691,6,6s-2.691,6-6,6s-6-2.691-6-6S6.691,4,10,4z"
+                      />
+                    </svg>
+                  </li>
+                   
+                  <li
+                    class="flex justify-between"
+                  >
+                    Crear nuevo 
+                    <svg
+                      class="text-alt w-7 h-7"
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M16 8A8 8 0 110 8a8 8 0 0116 0zM8.5 4a.5.5 0 00-1 0v3.5H4a.5.5 0 000 1h3.5V12a.5.5 0 001 0V8.5H12a.5.5 0 000-1H8.5V4z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li
+          class="px-3 py-5"
+        >
+          Reclamos
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
