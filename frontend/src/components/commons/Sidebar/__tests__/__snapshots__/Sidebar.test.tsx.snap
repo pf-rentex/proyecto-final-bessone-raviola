@@ -4,6 +4,7 @@ exports[`Sidebar renders component 1`] = `
 <div>
   <div
     class="flex flex-col w-8/12 lg:w-5/12 xl:w-3/12 h-full fixed z-30 bg-gradient-to-b from-bg-gradient-11 to-bg-gradient-12 text-white transition duration-300 transform -translate-x-full"
+    data-testid="sidebar"
   >
     <div
       class="bg-alt w-full p-3  translate-x-0 "
