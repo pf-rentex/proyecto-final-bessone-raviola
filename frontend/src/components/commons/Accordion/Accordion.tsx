@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { FaChevronCircleDown } from "react-icons/all";
+import { FaChevronCircleDown } from "react-icons/fa";
 
 interface AccordionProps {
   title: string;
@@ -30,6 +30,7 @@ export const Accordion: React.FC<AccordionProps> = ({
   return (
     <div className="flex flex-col">
       <button
+        data-testid="button"
         className="box-border appearance-none cursor-pointer focus:outline-none flex items-center justify-between"
         onClick={toggleAccordion}
       >
