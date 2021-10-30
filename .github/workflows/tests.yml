@@ -16,13 +16,12 @@ jobs:
 
   Backend:
     runs-on: ubuntu-latest
-    environment: TEST
     steps:
       - uses: actions/checkout@v1
       - name: Install deps
         working-directory: ./backend
         run: npm install
       - name: run tests
-        env: ${{ DATABASE_URL }}
+        env: ${{ secrets.DATABASE_URL }}
         working-directory: ./backend
         run: npm run test
