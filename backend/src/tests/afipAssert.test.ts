@@ -7,10 +7,10 @@ describe('Afip service test: ', () => {
         const afip = new AfipService();
         const result = await afip.checkContributor(20023926815);
         assert.equal(result.isValid, true);
-    });
+    }).timeout(5000);
     it('Check invalid CUIT', async () => {
         const afip = new AfipService();
         const result = await afip.checkContributor(23366804889);
         assert.equal(result.isValid, false);
-    });
+    }).timeout(5000);
 });
