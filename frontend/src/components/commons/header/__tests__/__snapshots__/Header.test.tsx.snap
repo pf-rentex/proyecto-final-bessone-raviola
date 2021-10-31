@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header test cases renders component 1`] = `
+<div>
+  <div
+    class="flex flex-row sticky top-0 z-20 w-full items-center h-20 overflow-hidden"
+    style="background-color: rgb(32, 50, 58);"
+  >
+    <div
+      class="flex flex-shrink items-center"
+    >
+      <div
+        class="ml-5"
+      >
+        <svg
+          class="text-white text-3xl cursor-pointer"
+          data-testid="sidebar-toggle"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 512 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z"
+          />
+        </svg>
+      </div>
+      <div
+        class="ml-6"
+      >
+        <svg
+          class="w-40 mx-4 md:flex hidden"
+          data-testid="logo"
+        >
+          logo_header.svg
+        </svg>
+        <svg
+          class="visible flex md:hidden w-10 mx-4"
+        >
+          favicon.svg
+        </svg>
+      </div>
+    </div>
+    <div
+      class="flex flex-1 justify-end items-center"
+    >
+      <div
+        class="mr-4"
+      >
+        <a
+          class="text-xs md:text-base text-white"
+          href="#"
+        >
+          <u>
+            Sobre nosotros
+          </u>
+        </a>
+      </div>
+      <div
+        class="ml-6 mr-7"
+      >
+        <button
+          class="bg-primary  shadow-lg w-full rounded-md px-5 py-2 flex content-center my-3 focus:shadow-sm font-secondary font-semibold outline-none align-items-center justify-center content-center align-middle justify-items-center items-center"
+        >
+          <span
+            class="text-2xl pr-4"
+          />
+          <span
+            class="text-sm font-sm  text-white flex-1"
+          >
+            Registrarse
+          </span>
+        </button>
+      </div>
+      <div
+        class="mr-5"
+      />
+    </div>
+  </div>
+</div>
+`;
