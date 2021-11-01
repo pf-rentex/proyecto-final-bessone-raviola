@@ -21,8 +21,8 @@ import {UserType} from './RegisterStepOne';
 import {connect} from 'react-redux';
 import {loadUser, signup} from '../../../actions/auth';
 import {REGISTER_FAIL} from '../../../actions/types';
-import {clearErrors, getErrors} from '../../../actions/auth/error';
-import {IError} from '../../../reducers/auth/error';
+import {clearErrors, getErrors} from '../../../actions/error';
+import {IError} from '../../../reducers/error';
 
 interface IRegisterStepTwoProps {
   userType: UserType;
@@ -161,7 +161,7 @@ const RegisterStepTwo = ({
                 style={{
                   left: wp(-15),
                 }}
-                color="#fff"
+                color='#fff'
               />
             )}
             <Text style={styles.mainCTAText}>Register</Text>

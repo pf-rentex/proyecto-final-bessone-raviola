@@ -13,7 +13,7 @@ import {
   USER_LOADED,
   USER_LOADING,
 } from '../types';
-import {getErrors} from './error';
+import {getErrors} from '../error';
 
 export const signup =
   (formData: IRegisterFormData, navigation: any) =>
