@@ -62,19 +62,22 @@ interface IHomeProps {
 const Home = ({ getProperties, properties, isLoading }: IHomeProps) => {
     useEffect(() => {
         getProperties({
-            attributes: {
-                city: 'San Francisco',
+            attributes: { city: 'San Francisco', province: 'Córdoba' },
+            measurements: {
+                price: { $gt: 10, $lt: 100000 },
             },
         });
-        setTimeout(() => {
-            console.log(properties);
-        }, 3000);
-
-        console.log(isLoading);
-    }, [getProperties]);
+    }, []);
 
     return (
         <>
+            {!isLoading ? (
+                properties.map((property: any) => {
+                    return <p>{property.city}</p>;
+                })
+            ) : (
+                <p></p>
+            )}
             {/* Section 1 */}
             <section className="w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 overflow-hidden">
                 <div className="container mx-auto px-5 xl:px-10 mt-16 xl:my-40">

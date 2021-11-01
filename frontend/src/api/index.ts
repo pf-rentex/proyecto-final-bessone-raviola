@@ -20,14 +20,7 @@ export const register = (formData: IRegisterFormData) =>
 export const authenticate = (formData: ILoginFormData) =>
     API.post('/api/auth', formData);
 export const getUserData = () => API.get('/api/auth/user');
-export const getProperties = (filters?: any) => {
-    let query = '?';
-    if (filters) {
-        Object.keys(filters.attributes).map((attrKey) => {
-            query += `attributes[${attrKey}]=${filters.attributes[attrKey]}`;
-        });
-    }
-    console.log(query);
+export const getProperties = (query: String) => {
     return API.get(`/api/properties${query}`);
 };
 
