@@ -45,10 +45,10 @@ const buildQuery = (filters?: any) => {
             });
         }
         if (filters.skip) {
-            query += `skip=${filters.skip}`;
+            query += `skip=${filters.skip}&`;
         }
         if (filters.limit) {
-            query += `limit=${filters.limit}`;
+            query += `limit=${filters.limit}&`;
         }
     }
     return query;
