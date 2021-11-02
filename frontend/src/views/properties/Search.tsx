@@ -5,8 +5,8 @@ import { BiSearch } from "react-icons/bi";
 const Search = () => {
   return (
     <section className="flex flex-col h-screen w-full bg-gradient-to-b from-bg-gradient-8 to-bg-gradient-9 px-20 py-10">
-      <div className="flex justify-end">
-        <div className="relative w-9/12 text-gray-600 focus-within:text-gray-400">
+      <div className="flex justify-center lg:justify-end">
+        <div className="relative w-full lg:w-9/12 text-gray-600 focus-within:text-gray-400">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
             <BiSearch className="w-7 h-7" />
           </span>
