@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ReactComponent as RealtorLogo } from '../assets/realtor.svg';
 import { ReactComponent as HomeSearchLogo } from '../assets/home_search.svg';
 import { ReactComponent as SecurityLogo } from '../assets/security.svg';
@@ -15,8 +15,7 @@ import InfoSection from '../components/home/InfoSection';
 import FeatureSection from '../components/home/FeatureSection';
 import { AiOutlineSearch, AiFillHome, HiDownload } from 'react-icons/all';
 import Footer from '../components/commons/Footer';
-import { connect } from 'react-redux';
-import { getProperties } from '../actions/properties';
+
 const tenantFeatures = [
     {
         logo: <TenantRent className="h-72" />,
@@ -53,31 +52,9 @@ const ownerFeatures = [
     },
 ];
 
-interface IHomeProps {
-    getProperties: Function;
-    properties: any;
-    isLoading: boolean;
-}
-
-const Home = ({ getProperties, properties, isLoading }: IHomeProps) => {
-    useEffect(() => {
-        getProperties({
-            attributes: { city: 'San Francisco', province: 'Córdoba' },
-            measurements: {
-                price: { $gt: 10, $lt: 100000 },
-            },
-        });
-    }, []);
-
+const Home = () => {
     return (
         <>
-            {!isLoading ? (
-                properties.map((property: any) => {
-                    return <p>{property.city}</p>;
-                })
-            ) : (
-                <p></p>
-            )}
             {/* Section 1 */}
             <section className="w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 overflow-hidden">
                 <div className="container mx-auto px-5 xl:px-10 mt-16 xl:my-40">
@@ -233,12 +210,4 @@ const Home = ({ getProperties, properties, isLoading }: IHomeProps) => {
     );
 };
 
-const mapStateToProps = (state: any) => ({
-    error: state.error,
-    properties: state.properties.properties,
-    isLoading: state.properties.isLoading,
-});
-
-export default connect(mapStateToProps, {
-    getProperties,
-})(Home);
+export default Home;
