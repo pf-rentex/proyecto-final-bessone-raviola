@@ -5,27 +5,17 @@ import Onboarding from "../views/auth/Onboarding";
 import PrivateRoute from "./PrivateRoute";
 import Home from "../views/Home";
 import UserProfile from "../views/profile/UserProfile";
+import Search from "../views/properties/Search";
 
 export default function router() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact
-               path="/"
-               component={Home} />
-        <Route exact
-               path="/login"
-               component={Auth} />
-        <PrivateRoute
-            exact
-            path="/onboarding"
-            component={ Onboarding }
-        />
-        <PrivateRoute
-            exact
-            path="/profile"
-            component={ UserProfile }
-        />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/login" component={Auth} />
+        <PrivateRoute exact path="/onboarding" component={Onboarding} />
+        <PrivateRoute exact path="/profile" component={UserProfile} />
+        <Route exact path="/search" component={Search} />
       </Switch>
     </BrowserRouter>
   );
