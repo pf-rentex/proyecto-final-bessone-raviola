@@ -1,9 +1,11 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 
 import auth from './auth';
-import error from './auth/error';
+import error from './error';
+import properties from './properties';
 
 export default combineReducers({
-  auth,
-  error,
+    auth,
+    error,
+    properties,
 });
