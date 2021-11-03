@@ -6,12 +6,8 @@ const router = express.Router();
 
 // @route    Get api/properties/
 // @desc     Get properties
-// @access   Private
-router.get(
-    '/',
-    // auth,
-    getProperties,
-);
+// @access   Public
+router.get('/', getProperties);
 
 // @route    Post api/properties/
 // @desc     Create new property

@@ -20,8 +20,8 @@ import {
 } from 'react-native-responsive-screen';
 import {loadUser, login} from '../../actions/auth';
 import {connect} from 'react-redux';
-import {clearErrors, getErrors} from '../../actions/auth/error';
-import {IError} from '../../reducers/auth/error';
+import {clearErrors, getErrors} from '../../actions/error';
+import {IError} from '../../reducers/error';
 import {LOGIN_FAIL} from '../../actions/types';
 
 interface ILoginProps {
