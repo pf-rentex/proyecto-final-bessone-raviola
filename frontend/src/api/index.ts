@@ -20,8 +20,8 @@ export const register = (formData: IRegisterFormData) =>
 export const authenticate = (formData: ILoginFormData) =>
     API.post('/api/auth', formData);
 export const getUserData = () => API.get('/api/auth/user');
-export const getProperties = (query: String) => {
-    return API.get(`/api/properties${query}`);
+export const getProperties = (query: string) => {
+    return API.get(`/api/properties?${query}`);
 };
 
 export const checkContributor = (cuit: string) =>

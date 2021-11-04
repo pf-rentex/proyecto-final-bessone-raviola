@@ -27,29 +27,29 @@ export const getProperties =
         }
     };
 
-const buildQuery = (filters?: any) => {
-    let query = '?';
-    if (filters) {
-        if (filters.attributes) {
-            Object.keys(filters.attributes).map((attrKey: any) => {
-                query += `attributes[${attrKey}]=${filters.attributes[attrKey]}&`;
-            });
-        }
-        if (filters.measurements) {
-            Object.keys(filters.measurements).map((measurementKey: any) => {
-                Object.keys(filters.measurements[measurementKey]).map(
-                    (comparisonKey: any) => {
-                        query += `measurements[${measurementKey}][${comparisonKey}]=${filters.measurements[measurementKey][comparisonKey]}&`;
-                    },
-                );
-            });
-        }
-        if (filters.skip) {
-            query += `skip=${filters.skip}&`;
-        }
-        if (filters.limit) {
-            query += `limit=${filters.limit}&`;
-        }
-    }
-    return query;
+const buildQuery = (initialObj: any) => {
+    const reducer =
+        (obj: any, parentPrefix = null) =>
+        (prev: any, key: any) => {
+            const val = obj[key];
+            key = encodeURIComponent(key);
+            const prefix = parentPrefix ? `${parentPrefix}[${key}]` : key;
+
+            if (val == null || typeof val === 'function') {
+                prev.push(`${prefix}=`);
+                return prev;
+            }
+
+            if (['number', 'boolean', 'string'].includes(typeof val)) {
+                prev.push(`${prefix}=${encodeURIComponent(val)}`);
+                return prev;
+            }
+
+            prev.push(
+                Object.keys(val).reduce(reducer(val, prefix), []).join('&'),
+            );
+            return prev;
+        };
+
+    return Object.keys(initialObj).reduce(reducer(initialObj), []).join('&');
 };
