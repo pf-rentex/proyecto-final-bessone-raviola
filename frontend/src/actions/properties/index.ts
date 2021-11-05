@@ -12,7 +12,9 @@ export const getProperties =
     (filters?: any) => async (dispatch: Dispatch<any>) => {
         try {
             dispatch({ type: PROPERTIES_LOADING });
-            const { data } = await api.getProperties(buildQuery(filters));
+            const { data } = await api.getProperties(
+                buildQuery(filters ? filters : ''),
+            );
             dispatch({ type: GET_PROPERTIES, data: data.properties });
             dispatch({ type: CLEAR_ERRORS });
         } catch (error: any) {
