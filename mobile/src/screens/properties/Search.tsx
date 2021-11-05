@@ -32,8 +32,8 @@ const Search = ({getProperties, properties, isLoading}: ISearchProps) => {
         </View>
       ) : (
         <View>
-          {properties.map(property => {
-            return <Text>{property.city}</Text>;
+          {properties.map((property, index) => {
+            return <Text key={index}>{property.city}</Text>;
           })}
         </View>
       )}
