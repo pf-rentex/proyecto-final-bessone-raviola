@@ -19,71 +19,96 @@ interface INavigatorProps {
 
 const Navigator = ({isAuthenticated, isLoading}: INavigatorProps) => {
   if (isLoading) {
+    return <Loader />;
+  }
+
+  if (isAuthenticated) {
     return (
       <NavigationContainer>
-        <Stack.Screen
-          name='Loading'
-          component={Loader}
-          options={{headerShown: false}}
-        />
+        <Stack.Navigator>
+          <Stack.Screen
+            name='Drawer'
+            component={DrawerNavigator}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name='Login'
+            component={Login}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name='RegisterStepOne'
+            component={RegisterStepOne}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name='SignupStep2'
+            component={RegisterStepTwo}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: '#057699',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
+          <Stack.Screen
+            name='Onboarding'
+            component={Onboarding}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name='UserProfile'
+            component={UserProfile}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: '#005679',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  } else {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name='Login'
+            component={Login}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name='RegisterStepOne'
+            component={RegisterStepOne}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name='SignupStep2'
+            component={RegisterStepTwo}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: '#057699',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
+        </Stack.Navigator>
       </NavigationContainer>
     );
   }
-
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name='Drawer'
-          component={DrawerNavigator}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name='Login'
-          component={Login}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name='RegisterStepOne'
-          component={RegisterStepOne}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name='SignupStep2'
-          component={RegisterStepTwo}
-          options={{
-            title: '',
-            headerStyle: {
-              backgroundColor: '#057699',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
-        />
-        <Stack.Screen
-          name='Onboarding'
-          component={Onboarding}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name='UserProfile'
-          component={UserProfile}
-          options={{
-            title: '',
-            headerStyle: {
-              backgroundColor: '#005679',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
 };
 
 const mapStateToProps = (state: any) => ({

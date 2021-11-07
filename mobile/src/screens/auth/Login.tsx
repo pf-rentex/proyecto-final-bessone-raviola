@@ -18,7 +18,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {loadUser, login} from '../../actions/auth';
+import {login} from '../../actions/auth';
 import {connect} from 'react-redux';
 import {clearErrors, getErrors} from '../../actions/error';
 import {IError} from '../../reducers/error';
@@ -64,12 +64,11 @@ const Login = ({
   useEffect(() => {
     setKeyboardListeners();
     clearErrors();
-    loadUser();
 
     return function cleanup() {
       setKeyboardStatus(undefined);
     };
-  }, [clearErrors, loadUser]);
+  }, [clearErrors]);
 
   useEffect(() => {
     // If authenticated redirect
@@ -198,5 +197,4 @@ export default connect(mapStateToProps, {
   login,
   clearErrors,
   getErrors,
-  loadUser,
 })(Login);
