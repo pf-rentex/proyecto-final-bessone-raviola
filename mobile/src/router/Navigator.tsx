@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {connect} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../screens/auth/Login';
@@ -7,10 +8,28 @@ import RegisterStepOne from '../screens/auth/Register/RegisterStepOne';
 import RegisterStepTwo from '../screens/auth/Register/RegisterStepTwo';
 import DrawerNavigator from './DrawerNavigator';
 import UserProfile from '../screens/user/UserProfile';
+import Loader from '../components/common/Loader';
 
 const Stack = createNativeStackNavigator();
 
-const Navigator = () => {
+interface INavigatorProps {
+  isAuthenticated: boolean;
+  isLoading: boolean;
+}
+
+const Navigator = ({isAuthenticated, isLoading}: INavigatorProps) => {
+  if (isLoading) {
+    return (
+      <NavigationContainer>
+        <Stack.Screen
+          name='Loading'
+          component={Loader}
+          options={{headerShown: false}}
+        />
+      </NavigationContainer>
+    );
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -67,4 +86,9 @@ const Navigator = () => {
   );
 };
 
-export default Navigator;
+const mapStateToProps = (state: any) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  isLoading: state.auth.isLoading,
+});
+
+export default connect(mapStateToProps, {})(Navigator);

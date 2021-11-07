@@ -31,7 +31,7 @@ export interface IAuthState {
 const initialState: IAuthState = {
   profile: null,
   isAuthenticated: false,
-  isLoading: false,
+  isLoading: true,
 };
 
 const authReducer = (
