@@ -58,7 +58,6 @@ export const login =
 
 export const loadUser = () => async (dispatch: Dispatch<any>) => {
   try {
-    console.log('asd');
     dispatch({type: USER_LOADING});
     const {data} = await api.getUserData();
     dispatch({type: USER_LOADED, payload: data});
