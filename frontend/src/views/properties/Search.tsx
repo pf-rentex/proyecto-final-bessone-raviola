@@ -30,11 +30,11 @@ const Search = ({ getProperties, properties, isLoading }: ISearchProps) => {
                     />
                 </div>
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-center lg:justify-end">
                 {isLoading ? (
                     <div>loading...</div>
                 ) : (
-                    <div className="w-9/12">
+                    <div className="w-full lg:w-9/12">
                         {properties.map((property) => {
                             return <Listing />;
                         })}

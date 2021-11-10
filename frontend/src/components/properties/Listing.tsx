@@ -9,31 +9,31 @@ import { MdLocationOn } from 'react-icons/all';
 const Listing = () => {
     return (
         <section className="bg-white m-5 rounded">
-            <div className="flex">
-                <div className="w-3/12">
+            <div className="flex flex-col lg:flex-row">
+                <div className="w-full lg:w-4/12 2xl:w-3/12">
                     <img
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbx_ceHb4jLPBNjhubi9vguyXxpq0sNV9bhA&usqp=CAU"
-                        className="rounded-l h-full"
+                        className="rounded-t lg:rounded-l lg:rounded-t-none h-full w-full"
                     />
                 </div>
-                <div className="w-9/12 p-5">
-                    <div className="flex items-center">
-                        <div className="w-4/12">
+                <div className="w-full lg:w-8/12 2xl:w-9/12 p-5">
+                    <div className="flex flex-col lg:flex-row space-y-3 lg:space-y-0 lg:items-center">
+                        <div className="w-full lg:w-4/12">
                             <h1 className="text-2xl font-medium">
                                 Hermoso chalet
                             </h1>
                         </div>
-                        <div className="w-4/12 flex space-x-2 font-medium items-center">
+                        <div className="w-full lg:w-4/12 flex space-x-2 font-medium items-center">
                             <MdLocationOn color="#FF5050" />
                             <p>San Francisco, Córdoba</p>
                         </div>
-                        <div className="flex justify-end w-4/12">
+                        <div className="w-full lg:flex lg:justify-end lg:w-4/12">
                             <p className="text-primary font-bold">
                                 $651.100.000
                             </p>
                         </div>
                     </div>
-                    <div className="w-8/12">
+                    <div className="w-full lg:w-8/12">
                         <p className="font-thin my-5">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit, sed do eiusmod tempor incididunt ut labore et
@@ -42,36 +42,32 @@ const Listing = () => {
                             ex ea commodo consequat.
                         </p>
                     </div>
-                    <div className="flex">
-                        <div className="flex space-x-5 border-t-2 mt-5 w-6/12">
-                            <div className="flex space-x-2 p-2">
-                                <Dimensions />
-                                <p>45m</p>
-                            </div>
-                            <div className="flex space-x-2 p-2">
-                                <Bedrooms />
-                                <p>2 Dormitorios</p>
-                            </div>
-                            <div className="flex space-x-2 p-2">
-                                <Bathrooms />
-                                <p>1 Baño</p>
-                            </div>
+                    <div className="flex space-x-5 border-t-2 pt-3 w-full justify-center lg:justify-start lg:w-10/12 2xl:w-6/12">
+                        <div className="flex flex-col lg:flex-row items-center space-x-2 p-2">
+                            <Dimensions />
+                            <p>45m</p>
                         </div>
-                        <div className="flex space-x-5 w-6/12 justify-end">
-                            <div>
-                                <CustomButton
-                                    text="Organizar visita"
-                                    outlined={true}
-                                />
-                            </div>
-                            <div>
-                                <CustomButton
-                                    text="Solicitar alquiler"
-                                    color="alt"
-                                >
-                                    <RealEstateLogo className="w-5 h-5" />
-                                </CustomButton>
-                            </div>
+                        <div className="flex flex-col lg:flex-row items-center space-x-2 p-2">
+                            <Bedrooms />
+                            <p>2 Dormitorios</p>
+                        </div>
+                        <div className="flex flex-col lg:flex-row items-center space-x-2 p-2">
+                            <Bathrooms />
+                            <p>1 Baño</p>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col pt-3 lg:flex-row lg:space-x-5 w-full justify-center lg:justify-end">
+                        <div>
+                            <CustomButton
+                                text="Organizar visita"
+                                outlined={true}
+                            />
+                        </div>
+                        <div>
+                            <CustomButton text="Solicitar alquiler" color="alt">
+                                <RealEstateLogo className="w-5 h-5" />
+                            </CustomButton>
                         </div>
                     </div>
                 </div>
