@@ -7,6 +7,8 @@ import owners from './api/owners';
 import realEstates from './api/realEstates';
 import properties from './api/properties';
 import afip from './api/afip';
+import amenities from './api/amenities';
+import publications from './api/publications';
 
 const router = express.Router();
 
@@ -17,5 +19,7 @@ router.use('/api/owners', authMiddleware, owners);
 router.use('/api/realEstates', authMiddleware, realEstates);
 router.use('/api/properties', properties);
 router.use('/api/afip', afip);
+router.use('/api/amenities', amenities);
+router.use('/api/publications', publications);
 
 export default router;
