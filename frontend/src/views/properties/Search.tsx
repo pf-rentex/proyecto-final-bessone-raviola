@@ -35,8 +35,8 @@ const Search = ({ getProperties, properties, isLoading }: ISearchProps) => {
                     <div>loading...</div>
                 ) : (
                     <div className="w-full lg:w-9/12">
-                        {properties.map((property) => {
-                            return <Listing />;
+                        {properties.map((property, index) => {
+                            return <Listing key={index} />;
                         })}
                     </div>
                 )}

@@ -1,39 +1,38 @@
-import React from 'react';
 import CustomButton from '../commons/Button/CustomButton';
-import { ReactComponent as RealEstateLogo } from '../../assets/real_estate.svg';
 import { ReactComponent as Dimensions } from '../../assets/amenities_dimensions.svg';
 import { ReactComponent as Bedrooms } from '../../assets/amenities_bedrooms.svg';
 import { ReactComponent as Bathrooms } from '../../assets/amenities_bathrooms.svg';
-import { MdLocationOn } from 'react-icons/all';
+import { MdLocationOn, FaSign } from 'react-icons/all';
 
 const Listing = () => {
     return (
         <section className="bg-white m-5 rounded">
-            <div className="flex flex-col lg:flex-row">
-                <div className="w-full lg:w-4/12 2xl:w-3/12">
+            <div className="flex flex-col xl:flex-row">
+                <div className="w-full xl:w-4/12 2xl:w-3/12">
                     <img
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbx_ceHb4jLPBNjhubi9vguyXxpq0sNV9bhA&usqp=CAU"
-                        className="rounded-t lg:rounded-l lg:rounded-t-none h-full w-full"
+                        className="rounded-t xl:rounded-l xl:rounded-t-none h-full w-full"
+                        alt="prop"
                     />
                 </div>
-                <div className="w-full lg:w-8/12 2xl:w-9/12 p-5">
-                    <div className="flex flex-col lg:flex-row space-y-3 lg:space-y-0 lg:items-center">
-                        <div className="w-full lg:w-4/12">
+                <div className="w-full xl:w-8/12 2xl:w-9/12 p-5">
+                    <div className="flex flex-col xl:flex-row space-y-3 xl:space-y-0 xl:items-center">
+                        <div className="w-full xl:w-4/12">
                             <h1 className="text-2xl font-medium">
                                 Hermoso chalet
                             </h1>
                         </div>
-                        <div className="w-full lg:w-4/12 flex space-x-2 font-medium items-center">
+                        <div className="w-full xl:w-4/12 flex space-x-2 font-medium items-center">
                             <MdLocationOn color="#FF5050" />
                             <p>San Francisco, Córdoba</p>
                         </div>
-                        <div className="w-full lg:flex lg:justify-end lg:w-4/12">
+                        <div className="w-full xl:flex xl:justify-end xl:w-4/12">
                             <p className="text-primary font-bold">
                                 $651.100.000
                             </p>
                         </div>
                     </div>
-                    <div className="w-full lg:w-8/12">
+                    <div className="w-full xl:w-8/12">
                         <p className="font-thin my-5">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit, sed do eiusmod tempor incididunt ut labore et
@@ -42,22 +41,22 @@ const Listing = () => {
                             ex ea commodo consequat.
                         </p>
                     </div>
-                    <div className="flex space-x-5 border-t-2 pt-3 w-full justify-center lg:justify-start lg:w-10/12 2xl:w-6/12">
-                        <div className="flex flex-col lg:flex-row items-center space-x-2 p-2">
+                    <div className="flex space-x-5 border-t-2 pt-3 w-full justify-center xl:justify-start xl:w-10/12 2xl:w-6/12">
+                        <div className="flex flex-col xl:flex-row items-center space-x-2 p-2">
                             <Dimensions />
                             <p>45m</p>
                         </div>
-                        <div className="flex flex-col lg:flex-row items-center space-x-2 p-2">
+                        <div className="flex flex-col xl:flex-row items-center space-x-2 p-2">
                             <Bedrooms />
                             <p>2 Dormitorios</p>
                         </div>
-                        <div className="flex flex-col lg:flex-row items-center space-x-2 p-2">
+                        <div className="flex flex-col xl:flex-row items-center space-x-2 p-2">
                             <Bathrooms />
                             <p>1 Baño</p>
                         </div>
                     </div>
 
-                    <div className="flex flex-col pt-3 lg:flex-row lg:space-x-5 w-full justify-center lg:justify-end">
+                    <div className="flex flex-col pt-3 xl:flex-row xl:space-x-5 w-full justify-center xl:justify-end">
                         <div>
                             <CustomButton
                                 text="Organizar visita"
@@ -66,7 +65,7 @@ const Listing = () => {
                         </div>
                         <div>
                             <CustomButton text="Solicitar alquiler" color="alt">
-                                <RealEstateLogo className="w-5 h-5" />
+                                <FaSign className="w-5 h-5" fill="#7ED1FF" />
                             </CustomButton>
                         </div>
                     </div>
