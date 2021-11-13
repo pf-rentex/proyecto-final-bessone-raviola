@@ -82,6 +82,11 @@ const Navigator = ({isAuthenticated, isLoading}: INavigatorProps) => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
+            name='Drawer'
+            component={DrawerNavigator}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
             name='Login'
             component={Login}
             options={{headerShown: false}}
