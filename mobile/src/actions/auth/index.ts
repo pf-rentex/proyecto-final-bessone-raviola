@@ -12,6 +12,7 @@ import {
   REGISTER_SUCCESS,
   USER_LOADED,
   USER_LOADING,
+  AUTHENTICATING,
 } from '../types';
 import {getErrors} from '../error';
 
@@ -19,7 +20,7 @@ export const signup =
   (formData: IRegisterFormData, navigation: any) =>
   async (dispatch: Dispatch<any>) => {
     try {
-      dispatch({type: USER_LOADING});
+      dispatch({type: AUTHENTICATING});
 
       const {data} = await api.register(formData);
       dispatch({type: REGISTER_SUCCESS, data});
@@ -41,7 +42,7 @@ export const login =
   (formData: ILoginFormData, navigation: any) =>
   async (dispatch: Dispatch<any>) => {
     try {
-      dispatch({type: USER_LOADING});
+      dispatch({type: AUTHENTICATING});
       const {data} = await api.authenticate(formData);
 
       dispatch({type: LOGIN_SUCCESS, data});

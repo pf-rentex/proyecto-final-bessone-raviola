@@ -14,6 +14,8 @@ export const LOGIN_FAIL = 'AUTH/LOGIN_FAIL';
 
 export const LOGOUT_SUCCESS = 'AUTH/LOGOUT_SUCCESS';
 
+export const AUTHENTICATING = 'AUTH/AUTHENTINCATING';
+
 export const GET_ERRORS = 'ERRORS/GET';
 export const CLEAR_ERRORS = 'ERRORS/CLEAR';
 

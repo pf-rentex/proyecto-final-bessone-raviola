@@ -29,7 +29,7 @@ interface ILoginProps {
   loadUser: Function;
   error: IError;
   isAuthenticated: boolean;
-  isLoading: boolean;
+  isAuthenticating: boolean;
   clearErrors: Function;
   getErrors: Function;
   navigation: any;
@@ -50,7 +50,7 @@ const Login = ({
   login,
   error,
   isAuthenticated,
-  isLoading,
+  isAuthenticating,
   clearErrors,
   getErrors,
   loadUser,
@@ -149,7 +149,7 @@ const Login = ({
         )}
         <View style={styles.mainCTAContainer}>
           <TouchableOpacity style={styles.mainCTA} onPress={onSubmit}>
-            {isLoading && (
+            {isAuthenticating && (
               <ActivityIndicator
                 style={{
                   left: wp(-15),
@@ -190,7 +190,7 @@ const Login = ({
 const mapStateToProps = (state: any) => ({
   error: state.error,
   isAuthenticated: state.auth.isAuthenticated,
-  isLoading: state.auth.isLoading,
+  isAuthenticating: state.auth.isAuthenticating,
 });
 
 export default connect(mapStateToProps, {
