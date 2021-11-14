@@ -5,14 +5,16 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import VectorImage from 'react-native-vector-image';
 
 const Listing = () => {
   const styles = StyleSheet.create({
     container: {
       backgroundColor: 'white',
-      borderRadius: 6,
-      marginVertical: hp('1.5%'),
+      borderTopLeftRadius: 6,
+      borderTopRightRadius: 6,
+      marginTop: hp('1.5%'),
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection: 'column',
@@ -50,7 +52,7 @@ const Listing = () => {
       backgroundColor: 'white',
       position: 'absolute',
       top: hp('31%'),
-      padding: 15,
+      padding: 10,
     },
     amenities: {
       flexDirection: 'row',
@@ -65,76 +67,104 @@ const Listing = () => {
     amenityLogo: {
       paddingHorizontal: 10,
     },
+    actionsContainer: {
+      backgroundColor: '#69C9FF',
+      marginBottom: hp('1.5%'),
+      // paddingVertical: 5,
+      borderBottomLeftRadius: 6,
+      borderBottomRightRadius: 6,
+    },
     actions: {
       paddingVertical: 15,
       alignItems: 'center',
+      flexDirection: 'row',
     },
     button: {
       backgroundColor: '#50B5FF',
-      alignItems: 'center',
+      justifyContent: 'center',
       padding: 10,
-      marginBottom: 5,
+      marginHorizontal: 8,
       borderRadius: 5,
-      width: wp('60%'),
+      flex: 1,
+      flexDirection: 'row',
     },
   });
 
   return (
-    <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={{
-          uri: 'https://www.moabita.com/wp-content/uploads/2019/01/9990d49424134b32f5a0e99568b1d20d-1.jpg',
-        }}
-      />
-      <Text style={styles.title}>Hermoso Chalet</Text>
-      <View style={styles.location}>
-        <Icon
-          style={styles.locationIcon}
-          name='location-pin'
-          size={20}
-          color='#FF5050'
+    <View>
+      <View style={styles.container}>
+        <Image
+          style={styles.image}
+          source={{
+            uri: 'https://www.moabita.com/wp-content/uploads/2019/01/9990d49424134b32f5a0e99568b1d20d-1.jpg',
+          }}
         />
-        <Text style={{color: 'gray'}}>San Francisco, Córdoba</Text>
-      </View>
-      <View style={styles.price}>
-        <Text style={{fontWeight: 'bold', color: '#50B5FF'}}>$651.100.000</Text>
-      </View>
-      <View style={styles.amenities}>
-        <View style={styles.amenity}>
-          <View style={styles.amenityLogo}>
-            <VectorImage
-              source={require('../../assets/amenities_dimensions.svg')}
-            />
-          </View>
-          <Text>45m</Text>
+        <Text style={styles.title}>Hermoso Chalet</Text>
+        <View style={styles.location}>
+          <Icon
+            style={styles.locationIcon}
+            name='location-pin'
+            size={20}
+            color='#FF5050'
+          />
+          <Text style={{color: 'gray'}}>San Francisco, Córdoba</Text>
         </View>
-        <View style={styles.amenity}>
-          <View style={styles.amenityLogo}>
-            <VectorImage
-              source={require('../../assets/amenities_bedrooms.svg')}
-            />
-          </View>
-          <Text>2 Dormitorios</Text>
-        </View>
-        <View style={styles.amenity}>
-          <View style={styles.amenityLogo}>
-            <VectorImage
-              source={require('../../assets/amenities_bathrooms.svg')}
-            />
-          </View>
-          <Text>1 Baño</Text>
-        </View>
-      </View>
-      <View style={styles.actions}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={{color: 'white', fontWeight: 'bold'}}>VER MÁS</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={{color: 'white', fontWeight: 'bold'}}>
-            SOLICITAR ALQUILER
+        <View style={styles.price}>
+          <Text style={{fontWeight: 'bold', color: '#50B5FF', fontSize: 20}}>
+            $651.100.000
           </Text>
-        </TouchableOpacity>
+        </View>
+        <View style={styles.amenities}>
+          <View style={styles.amenity}>
+            <View style={styles.amenityLogo}>
+              <VectorImage
+                source={require('../../assets/amenities_dimensions.svg')}
+              />
+            </View>
+            <Text>45m</Text>
+          </View>
+          <View style={styles.amenity}>
+            <View style={styles.amenityLogo}>
+              <VectorImage
+                source={require('../../assets/amenities_bedrooms.svg')}
+              />
+            </View>
+            <Text>2 Dormitorios</Text>
+          </View>
+          <View style={styles.amenity}>
+            <View style={styles.amenityLogo}>
+              <VectorImage
+                source={require('../../assets/amenities_bathrooms.svg')}
+              />
+            </View>
+            <Text>1 Baño</Text>
+          </View>
+        </View>
+      </View>
+      <View style={styles.actionsContainer}>
+        <View style={styles.actions}>
+          <TouchableOpacity style={styles.button}>
+            <Icon name='search' size={20} color='white' />
+            <Text style={{color: 'white', fontWeight: 'bold'}}>VER MÁS</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Icon name='calendar-today' size={20} color='white' />
+            <Text
+              style={{
+                color: 'white',
+                fontWeight: 'bold',
+                paddingLeft: 5,
+              }}>
+              VISITAR
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <MCIcon name='sign-real-estate' size={20} color='white' />
+            <Text style={{color: 'white', fontWeight: 'bold', paddingLeft: 5}}>
+              ALQUILAR
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
