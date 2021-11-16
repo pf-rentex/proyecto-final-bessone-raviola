@@ -17,6 +17,7 @@ module.exports = {
         blue: colors.lightBlue,
         red: colors.rose,
         pink: colors.fuchsia,
+        indigo: colors.indigo,
     },
     fontFamily: {
         primary: ['Fredoka One', 'sans-serif'],
@@ -31,14 +32,14 @@ module.exports = {
             error: '1.5px solid #e31212',
         },
         colors: {
-          'myOwn': '#004e7d',
+            myOwn: '#004e7d',
         },
         spacing: {
-            '128': '32rem',
-            '144': '36rem',
+            128: '32rem',
+            144: '36rem',
         },
         borderRadius: {
             '4xl': '2rem',
-        }
-    }
-}
+        },
+    },
+};
