@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { BiSearch } from 'react-icons/bi';
 import { getProperties } from '../../actions/properties';
 import { IProperty } from '../../reducers/properties';
+import Listing from '../../components/properties/Listing';
 
 interface ISearchProps {
     getProperties: Function;
@@ -15,7 +16,7 @@ const Search = ({ getProperties, properties, isLoading }: ISearchProps) => {
         getProperties();
     }, []);
     return (
-        <section className="flex flex-col h-screen w-full bg-gradient-to-b from-bg-gradient-8 to-bg-gradient-9 px-5 lg:px-20 py-10">
+        <section className="flex flex-col h-full w-full bg-gradient-to-b from-bg-gradient-8 to-bg-gradient-9 px-5 lg:px-20 py-10">
             <div className="flex justify-center lg:justify-end">
                 <div className="relative w-full lg:w-9/12 text-gray-600 focus-within:text-gray-400">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -29,15 +30,17 @@ const Search = ({ getProperties, properties, isLoading }: ISearchProps) => {
                     />
                 </div>
             </div>
-            {isLoading ? (
-                <div>loading...</div>
-            ) : (
-                <div>
-                    {properties.map((property) => {
-                        return <p>{property.city}</p>;
-                    })}
-                </div>
-            )}
+            <div className="flex justify-center lg:justify-end">
+                {isLoading ? (
+                    <div>loading...</div>
+                ) : (
+                    <div className="w-full lg:w-9/12">
+                        {properties.map((property, index) => {
+                            return <Listing key={index} />;
+                        })}
+                    </div>
+                )}
+            </div>
         </section>
     );
 };
