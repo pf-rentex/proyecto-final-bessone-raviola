@@ -14,7 +14,7 @@ interface IDrawerProps {
 }
 
 const DrawerNavigator = ({isAuthenticated}: IDrawerProps) => {
-  if (isAuthenticated) {
+  if (true) {
     return (
       <Drawer.Navigator
         drawerType='front'

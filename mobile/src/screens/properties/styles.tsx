@@ -35,4 +35,7 @@ export default StyleSheet.create({
     backgroundColor: '#263238',
     marginTop: hp('2%'),
   },
+  loader: {
+    flex: 2,
+  },
 });
