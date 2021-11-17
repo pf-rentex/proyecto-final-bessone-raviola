@@ -2,9 +2,9 @@ import React from 'react';
 
 const RequestForm = () => {
     return (
-        <section className="w-full h-screen bg-gradient-to-b from-bg-gradient-5 to-bg-gradient-6 overflow-hidden">
-            <div className="container p-20">
-                <div className="flex flex-col">
+        <section className="w-full h-full bg-gradient-to-b from-bg-gradient-5 to-bg-gradient-6 overflow-hidden">
+            <div className="container p-20 mx-auto">
+                <div className="flex flex-col w-full">
                     <div className="flex justify-start">
                         <h1 className="text-4xl text-white font-light w-5/12">
                             Solicitar Alquiler
@@ -30,6 +30,32 @@ const RequestForm = () => {
                         </h1>
                         <div className="border-b w-4/12 p-5 border-indigo-600"></div>
                     </div>
+                </div>
+
+                {/* Step 1 */}
+                <div className="flex space-x-20 py-10">
+                    <div className="flex flex-col w-6/12">
+                        <div className="flex flex-col">
+                            <h1 className="text-blue-900 text-3xl font-semibold my-3">
+                                Hermoso Chalet
+                            </h1>
+                            <p className="text-white">
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut
+                                enim ad minim veniam, quis nostrud exercitation
+                                ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat.
+                            </p>
+
+                            <div className="flex my-10">
+                                <div>amenitie 1</div>
+                                <div>amenitie 2</div>
+                                <div>amenitie 3</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col w-6/12">segunda mitad</div>
                 </div>
             </div>
         </section>
