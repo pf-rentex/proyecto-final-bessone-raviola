@@ -7,6 +7,7 @@ module.exports = {
         md: '768px',
         lg: '976px',
         xl: '1440px',
+        '2xl': '1768px',
     },
     colors: {
         ...ownColors,
@@ -31,14 +32,14 @@ module.exports = {
             error: '1.5px solid #e31212',
         },
         colors: {
-          'myOwn': '#004e7d',
+            myOwn: '#004e7d',
         },
         spacing: {
-            '128': '32rem',
-            '144': '36rem',
+            128: '32rem',
+            144: '36rem',
         },
         borderRadius: {
             '4xl': '2rem',
-        }
-    }
-}
+        },
+    },
+};

@@ -18,7 +18,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {loadUser, login} from '../../actions/auth';
+import {login} from '../../actions/auth';
 import {connect} from 'react-redux';
 import {clearErrors, getErrors} from '../../actions/error';
 import {IError} from '../../reducers/error';
@@ -29,7 +29,7 @@ interface ILoginProps {
   loadUser: Function;
   error: IError;
   isAuthenticated: boolean;
-  isLoading: boolean;
+  isAuthenticating: boolean;
   clearErrors: Function;
   getErrors: Function;
   navigation: any;
@@ -50,7 +50,7 @@ const Login = ({
   login,
   error,
   isAuthenticated,
-  isLoading,
+  isAuthenticating,
   clearErrors,
   getErrors,
   loadUser,
@@ -64,12 +64,11 @@ const Login = ({
   useEffect(() => {
     setKeyboardListeners();
     clearErrors();
-    loadUser();
 
     return function cleanup() {
       setKeyboardStatus(undefined);
     };
-  }, [clearErrors, loadUser]);
+  }, [clearErrors]);
 
   useEffect(() => {
     // If authenticated redirect
@@ -151,7 +150,7 @@ const Login = ({
         {/*<ScannerComponent />*/}
         <View style={styles.mainCTAContainer}>
           <TouchableOpacity style={styles.mainCTA} onPress={onSubmit}>
-            {isLoading && (
+            {isAuthenticating && (
               <ActivityIndicator
                 style={{
                   left: wp(-15),
@@ -192,12 +191,11 @@ const Login = ({
 const mapStateToProps = (state: any) => ({
   error: state.error,
   isAuthenticated: state.auth.isAuthenticated,
-  isLoading: state.auth.isLoading,
+  isAuthenticating: state.auth.isAuthenticating,
 });
 
 export default connect(mapStateToProps, {
   login,
   clearErrors,
   getErrors,
-  loadUser,
 })(Login);

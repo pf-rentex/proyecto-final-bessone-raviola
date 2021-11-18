@@ -30,7 +30,7 @@ interface IRegisterStepTwoProps {
   route: any;
   authenticate: Function;
   error: IError;
-  isLoading: boolean;
+  isAuthenticating: boolean;
   getErrors: Function;
   clearErrors: Function;
 }
@@ -53,7 +53,7 @@ const RegisterStepTwo = ({
   route,
   authenticate,
   error,
-  isLoading,
+  isAuthenticating,
   getErrors,
   clearErrors,
 }: IRegisterStepTwoProps) => {
@@ -156,7 +156,7 @@ const RegisterStepTwo = ({
 
         <View style={styles.mainCTAContainer}>
           <TouchableOpacity style={styles.mainCTA} onPress={onSubmit}>
-            {isLoading && (
+            {isAuthenticating && (
               <ActivityIndicator
                 style={{
                   left: wp(-15),
@@ -194,7 +194,7 @@ const RegisterStepTwo = ({
 const mapStateToProps = (state: any) => ({
   error: state.error,
   isAuthenticated: state.auth.isAuthenticated,
-  isLoading: state.auth.isLoading,
+  isAuthenticating: state.auth.isAuthenticating,
 });
 
 export default connect(mapStateToProps, {
