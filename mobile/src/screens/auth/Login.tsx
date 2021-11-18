@@ -148,6 +148,7 @@ const Login = ({
             {error.msg}
           </Text>
         )}
+        {/*<ScannerComponent />*/}
         <View style={styles.mainCTAContainer}>
           <TouchableOpacity style={styles.mainCTA} onPress={onSubmit}>
             {isLoading && (

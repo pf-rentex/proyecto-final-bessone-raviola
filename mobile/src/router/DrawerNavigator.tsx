@@ -5,6 +5,7 @@ import Search from '../screens/properties/Search';
 import Onboarding from '../screens/auth/Onboarding';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import DocumentViewer from '../screens/DocumentViewer';
 
 const Drawer = createDrawerNavigator();
 
@@ -57,6 +58,20 @@ const DrawerNavigator = () => {
           drawerIcon: ({focused}) => (
             <Ionicons
               name='search'
+              size={24}
+              color={focused ? '#5FACF2' : 'white'}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        key='DocumentViewer'
+        name='Gestionar Documentos'
+        component={DocumentViewer}
+        options={{
+          drawerIcon: ({focused}) => (
+            <Ionicons
+              name='folder-open'
               size={24}
               color={focused ? '#5FACF2' : 'white'}
             />
