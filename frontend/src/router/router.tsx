@@ -6,7 +6,7 @@ import PrivateRoute from './PrivateRoute';
 import Home from '../views/Home';
 import UserProfile from '../views/profile/UserProfile';
 import Search from '../views/properties/Search';
-import RequestForm from '../views/rent/RequestForm';
+import RequestForm from '../views/rent/request/RequestForm';
 
 export default function router() {
     return (
