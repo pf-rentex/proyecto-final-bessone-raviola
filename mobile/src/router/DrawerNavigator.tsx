@@ -6,6 +6,7 @@ import Onboarding from '../screens/auth/Onboarding';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
+import DocumentViewer from '../screens/DocumentViewer';
 
 const Drawer = createDrawerNavigator();
 
@@ -14,7 +15,7 @@ interface IDrawerProps {
 }
 
 const DrawerNavigator = ({isAuthenticated}: IDrawerProps) => {
-  if (true) {
+  if (isAuthenticated) {
     return (
       <Drawer.Navigator
         drawerType='front'
@@ -92,6 +93,20 @@ const DrawerNavigator = ({isAuthenticated}: IDrawerProps) => {
             drawerIcon: ({focused}) => (
               <MaterialCommunityIcons
                 name='face'
+                size={24}
+                color={focused ? '#5FACF2' : 'white'}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          key='DocumentViewer'
+          name='Gestionar Documentos'
+          component={DocumentViewer}
+          options={{
+            drawerIcon: ({focused}) => (
+              <Ionicons
+                name='folder-open'
                 size={24}
                 color={focused ? '#5FACF2' : 'white'}
               />
