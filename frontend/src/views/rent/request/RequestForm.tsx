@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CustomButton from '../../../components/commons/Button/CustomButton';
 import { HiArrowCircleRight, HiArrowCircleLeft } from 'react-icons/all';
 import FirstStep from '../../../components/rent/request/FirstStep';
+import SecondStep from '../../../components/rent/request/SecondStep';
 
 const RequestForm = () => {
     const [steps, setSteps] = useState<Array<string>>([
@@ -16,7 +17,7 @@ const RequestForm = () => {
             case 0:
                 return <FirstStep />;
             case 1:
-                return <p>Step 2</p>;
+                return <SecondStep />;
             case 2:
                 return <p>Step 3</p>;
             default:

@@ -33,13 +33,32 @@ const FirstStep = () => {
                             <p className="text-white">2 Dormitorios</p>
                         </div>
                     </div>
-                    <div className="flex flex-col">
-                        <h5 className="text-white font-semibold">
-                            Características:
-                        </h5>
-                        <p className="text-white">Característica 1</p>
-                        <p className="text-white">Característica 2</p>
-                        <p className="text-white">Característica 3</p>
+                    <div className="flex flex-col space-y-10">
+                        <div>
+                            <h5 className="text-white font-semibold">
+                                Características:
+                            </h5>
+                            <p className="text-white">Característica 1</p>
+                            <p className="text-white">Característica 2</p>
+                            <p className="text-white">Característica 3</p>
+                        </div>
+                        <div>
+                            <h5 className="text-white font-semibold flex text-xl">
+                                Detalle:
+                                <p className="font-bold mx-5">
+                                    $23.450 + $3.000
+                                </p>
+                                Expensas
+                            </h5>
+                        </div>
+                        <div>
+                            <h5 className="text-white font-semibold flex text-2xl">
+                                Monto total:{' '}
+                                <p className="font-bold mx-5 text-green-400">
+                                    $26.450
+                                </p>
+                            </h5>
+                        </div>
                     </div>
                 </div>
             </div>
