@@ -5,13 +5,13 @@ import { ReactComponent as Bathrooms } from '../../../assets/amenities_bathrooms
 
 const FirstStep = () => {
     return (
-        <div className="flex space-x-20 py-5">
-            <div className="flex flex-col w-6/12">
+        <div className="flex flex-col lg:flex-row lg:space-x-20 py-5">
+            <div className="flex flex-col lg:w-6/12">
                 <div className="flex flex-col">
-                    <h1 className="text-blue-900 text-3xl font-semibold mb-3">
+                    <h1 className="text-blue-900 text-3xl font-semibold mb-3 text-center lg:text-left">
                         Hermoso Chalet
                     </h1>
-                    <p className="text-white">
+                    <p className="text-white text-justify lg:text-left">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore
                         magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -19,7 +19,7 @@ const FirstStep = () => {
                         commodo consequat.
                     </p>
 
-                    <div className="flex my-10 space-x-20">
+                    <div className="flex my-10  lg:space-x-20 justify-between lg:justify-start">
                         <div className="flex flex-col items-center space-y-2">
                             <Dimensions className="w-8 h-8" />
                             <p className="text-white">45m2</p>
@@ -42,27 +42,26 @@ const FirstStep = () => {
                             <p className="text-white">Característica 2</p>
                             <p className="text-white">Característica 3</p>
                         </div>
-                        <div>
-                            <h5 className="text-white font-semibold flex text-xl">
+                        <div className="flex flex-col text-white text-left space-y-3">
+                            <h5 className="font-semibold lg:text-xl">
                                 Detalle:
-                                <p className="font-bold mx-5">
-                                    $23.450 + $3.000
-                                </p>
-                                Expensas
                             </h5>
+                            <p className="font-bold lg:mx-5">
+                                $23.450 + $3.000 (Expensas)
+                            </p>
                         </div>
-                        <div>
-                            <h5 className="text-white font-semibold flex text-2xl">
-                                Monto total:{' '}
-                                <p className="font-bold mx-5 text-green-400">
-                                    $26.450
-                                </p>
+                        <div className="flex flex-col text-white text-left space-y-3">
+                            <h5 className="font-semibold lg:text-xl">
+                                Monto Total:
                             </h5>
+                            <p className="font-bold text-green-400 lg:mx-5">
+                                $26.450
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col w-6/12">
+            <div className="flex flex-col mt-10 lg:mt-0 lg:w-6/12">
                 <div className="space-y-2 mb-10">
                     <h5 className="text-white">
                         Ubicación: Av. Rivadavia 1492
