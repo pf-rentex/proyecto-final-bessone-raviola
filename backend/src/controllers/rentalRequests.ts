@@ -50,32 +50,21 @@ const getRentalRequestById = async (req: Request, res: Response) => {
     //Check for existing rentalRequest
     const request = await rentalRequest.findOne({_id: id});
     if (!request) {
-      return res.status(400).json({msg: "The Rental Request does not exist"});
-    } else {
-      res.json(request);
-    }
-};
-
-const getRentalRequestByUser = async (req: Request, res: Response) => {
-    const {userId} = req.params;
-  
-    //Check for existing rentalRequest
-    const request = await rentalRequest.findOne({userId: userId});
-    if (!request) {
-      return res.status(400).json({msg: "The Rental Request does not exist"});
-    } else {
-      res.json(request);
-    }
-};
-
-const getRentalRequestByProperty = async (req: Request, res: Response) => {
-    const {propertyId} = req.params;
-  
-    //Check for existing rentalRequest
-    const request = await rentalRequest.findOne({propertyId: propertyId});
-    if (!request) {
-      return res.status(400).json({msg: "The Rental Request does not exist"});
-    } else {
+      const request = await rentalRequest.findOne({userId: id});
+      if(!request) {
+        const request = await rentalRequest.findOne({propertyId: id});
+        if(!request) {
+          return res.status(400).json({msg: "The Rental Request does not exist"});
+        }
+        else {
+          res.json(request);
+        }
+      }
+      else {
+        res.json(request);
+      }  
+    } 
+    else {
       res.json(request);
     }
 };
@@ -97,4 +86,4 @@ const fieldsAreValid = (body): boolean => {
     return !!userId && !!name && !!lastname && !!email && !!dni && !!birthDate && !!phone && !!dateStart && !!dateEnd && !!propertyId;
 };
   
-export { createRentalRequest, getRentalRequests, getRentalRequestById, getRentalRequestByUser, getRentalRequestByProperty, deleteRentalRequest }
+export { createRentalRequest, getRentalRequests, getRentalRequestById, deleteRentalRequest }

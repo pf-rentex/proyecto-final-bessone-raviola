@@ -1,6 +1,6 @@
 import express from "express";
 import auth from "../../middlewares/auth";
-import { createRentalRequest, getRentalRequests, getRentalRequestById, getRentalRequestByUser, getRentalRequestByProperty, deleteRentalRequest } from "../../controllers/rentalRequests";
+import { createRentalRequest, getRentalRequests, getRentalRequestById, deleteRentalRequest } from "../../controllers/rentalRequests";
 
 const router = express.Router();
 
@@ -23,32 +23,13 @@ router.get(
 );
 
 //@route    Get api/rentalRequests/:id
-//@desc     Get rental Request by id
+//@desc     Get rental Request by id/userId/propertyId
 //@access   Private
 router.get(
     "/:id",
     // auth,
     getRentalRequestById
 );
-
-//@route    Get api/rentalRequests/:userId
-//@desc     Get rental Request by userId
-//@access   Private
-router.get(
-    "/requestByUser/:userId",
-    // auth,
-    getRentalRequestByUser
-);
-
-//@route    Get api/rentalRequests/:propertyId
-//@desc     Get rental Request by propertyId
-//@access   Private
-router.get(
-    "/requestByProperty/:propertyId",
-    // auth,
-    getRentalRequestByProperty
-);
-
 
 //@route    Delete api/rentalRequests/:id
 //@desc     Delete rental Request
