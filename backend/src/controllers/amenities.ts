@@ -1,24 +1,24 @@
 import { Request, Response } from 'express';
-import Amenities from '../models/amenities';
+import Amenity from '../models/amenity';
 
 const getAmenities = async (req: Request, res: Response) => {
-    const amenities = await Amenities.find();
+    const amenities = await Amenity.find();
     res.json(amenities);
 };
 
-const getAmenitiesById = async (req: Request, res: Response) => {
+const getAmenityById = async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    //Check for existing amenities
-    const amenities = await Amenities.findOne({_id: id});
-    if (!amenities) {
-        return res.status(400).json({msg: "The Amenities does not exist"});
+    //Check for existing amenity
+    const amenity = await Amenity.findOne({_id: id});
+    if (!amenity) {
+        return res.status(400).json({msg: "The Amenity does not exist"});
     } else {
-        res.json(amenities);
+        res.json(amenity);
     }
 };
 
-const createAmenities = async (req: Request, res: Response) => {
+const createAmenity = async (req: Request, res: Response) => {
     const {icon, description} = req.body;
 
     //Simple validation
@@ -27,34 +27,34 @@ const createAmenities = async (req: Request, res: Response) => {
 
     }
 
-    //Check for existing amenities
-    const existingAmenities = await Amenities.findOne({description: description});
-    if (existingAmenities) return res.status(400).json({msg: "Amenities Already exists"});
+    //Check for existing amenity
+    const existingAmenity = await Amenity.findOne({description: description});
+    if (existingAmenity) return res.status(400).json({msg: "Amenity Already exists"});
 
-    const newAmenities = new Amenities({
+    const newAmenity = new Amenity({
         icon,
         description,
     });
 
-    //Create amenities
+    //Create amenity
     try {
-        const amenities = await newAmenities.save();
-        res.json({amenities});
+        const amenity = await newAmenity.save();
+        res.json({amenity});
 
     } catch (error) {
-        return res.status(400).json({msg: `Error registering amenities: ${error}`});
+        return res.status(400).json({msg: `Error registering amenity: ${error}`});
     }
 };
 
-const deleteAmenities = async (req: Request, res: Response) => {
+const deleteAmenity = async (req: Request, res: Response) => {
     const {id} = req.params;
 
-    const existingAmenities = await Amenities.findOne({_id: id});
-    if (existingAmenities) {
-        await existingAmenities.remove();
-        return res.status(200).json({msg: "Amenities removed"});
+    const existingAmenity = await Amenity.findOne({_id: id});
+    if (existingAmenity) {
+        await existingAmenity.remove();
+        return res.status(200).json({msg: "Amenity removed"});
     } else {
-        return res.status(400).json({msg: "The amenities does not exist"});
+        return res.status(400).json({msg: "The amenity does not exist"});
     }
 };
 
@@ -63,4 +63,4 @@ const fieldsAreValid = (body): boolean => {
     return !!icon && !!description;
 };
 
-export { getAmenities, getAmenitiesById, createAmenities, deleteAmenities };
+export { getAmenities, getAmenityById, createAmenity, deleteAmenity };

@@ -1,6 +1,6 @@
 import express from 'express';
 import auth from '../../middlewares/auth';
-import { getAmenities, getAmenitiesById, createAmenities, deleteAmenities } from '../../controllers/amenities';
+import { getAmenities, getAmenityById, createAmenity, deleteAmenity } from '../../controllers/amenities';
 
 const router = express.Router();
 
@@ -14,30 +14,30 @@ router.get(
 );
 
 // @route    Get api/amenities/
-// @desc     Get amenities by property
+// @desc     Get amenity by id
 // @access   Private
 router.get(
     '/:id',
     // auth,
-    getAmenitiesById,
+    getAmenityById,
 );
 
 // @route    Post api/amenities/
-// @desc     Create new amenities
+// @desc     Create new amenity
 // @access   Private
 router.post(
     '/',
     // auth,
-    createAmenities,
+    createAmenity,
 );
 
 // @route    Delete api/amenities/
-// @desc     Delete amenities
+// @desc     Delete amenity
 // @access   Private
 router.delete(
     '/:id',
     // auth,
-    deleteAmenities,
+    deleteAmenity,
 );
 
 export default router;

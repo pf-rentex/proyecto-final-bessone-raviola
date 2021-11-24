@@ -53,7 +53,7 @@ const getPublication = async (req: Request, res: Response) => {
 };
 
 const updatePublication = async (req: Request, res: Response) => {
-  const { title, propertyId, startDate, endDate } = req.body;
+  const { title, propertyId, status, startDate, endDate } = req.body;
 
   //Simple validation
   if (!fieldsAreValid(req.body)) {
@@ -62,7 +62,7 @@ const updatePublication = async (req: Request, res: Response) => {
 
   //Check for existing publication
   const existingPublication = await Publication.findOne({propertyId: propertyId});
-  console.log(existingPublication.id);
+  
   if (!existingPublication) {
     return res.status(400).json({msg: "The Publication does not exist"});
   } 
@@ -71,7 +71,7 @@ const updatePublication = async (req: Request, res: Response) => {
       await Publication.updateOne({_id: existingPublication.id}, {
         title: title,
         propertyId: propertyId,
-        status: true,
+        status: status,
         startDate: startDate,
         endDate: endDate,
       });

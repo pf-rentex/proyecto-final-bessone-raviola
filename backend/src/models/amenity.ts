@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-const amenitiesSchema = new mongoose.Schema(
+const amenitySchema = new mongoose.Schema(
     {
         icon: {
             type: String,
@@ -16,5 +16,5 @@ const amenitiesSchema = new mongoose.Schema(
     }
 );
 
-const Amenities = mongoose.model( 'Amenities', amenitiesSchema);
-export default Amenities;
+const Amenity = mongoose.model( 'Amenity', amenitySchema);
+export default Amenity;
