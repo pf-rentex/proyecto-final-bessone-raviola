@@ -43,7 +43,11 @@ const RequestForm = () => {
 
     return (
         <section className="w-full h-full bg-gradient-to-b from-bg-gradient-5 to-bg-gradient-6 overflow-hidden">
-            <div className="container p-20 mx-auto">
+            <div
+                className={`container p-20 mx-auto ${
+                    isSummaryOpen ? 'filter blur-sm' : ''
+                }`}
+            >
                 <div className="flex flex-col w-full">
                     <h1 className="text-4xl text-white font-light flex justify-center xl:justify-start">
                         Solicitar Alquiler
