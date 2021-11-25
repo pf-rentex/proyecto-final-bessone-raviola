@@ -8,6 +8,7 @@ import {
 import FirstStep from '../../../components/rent/request/FirstStep';
 import SecondStep from '../../../components/rent/request/SecondStep';
 import ThirdStep from '../../../components/rent/request/ThirdStep';
+import Summary from '../../../components/rent/request/Summary';
 
 const RequestForm = () => {
     const [steps, setSteps] = useState<Array<string>>([
@@ -16,6 +17,8 @@ const RequestForm = () => {
         'Detalles',
     ]);
     const [activeStep, setActiveStep] = useState<number>(0);
+
+    const [isSummaryOpen, setIsSummaryOpen] = React.useState(false);
 
     const getStepContent = (stepIndex: number) => {
         switch (stepIndex) {
@@ -46,15 +49,33 @@ const RequestForm = () => {
                         Solicitar Alquiler
                     </h1>
                     <div className="flex justify-center mt-10 xl:mt-0">
-                        <div className="rounded-full border-2 boder-opacity-20 border-primary h-10 w-10 flex items-center justify-center bg-indigo-700 text-white">
+                        <div
+                            className={`rounded-full  ${
+                                activeStep === 0
+                                    ? 'border-2 boder-opacity-20 border-primary'
+                                    : ''
+                            } h-10 w-10 flex items-center justify-center bg-indigo-700 text-white`}
+                        >
                             1
                         </div>
                         <div className="border-b px-5 border-indigo-600 flex items center content-center justify-center self-center my-0 py-0"></div>
-                        <div className="rounded-full h-10 w-10 flex items-center justify-center bg-indigo-700 text-white">
+                        <div
+                            className={`rounded-full ${
+                                activeStep === 1
+                                    ? 'border-2 boder-opacity-20 border-primary'
+                                    : ''
+                            } h-10 w-10 flex items-center justify-center bg-indigo-700 text-white`}
+                        >
                             2
                         </div>
                         <div className="border-b px-5 border-indigo-600 flex items center content-center justify-center self-center my-0 py-0"></div>
-                        <div className="rounded-full h-10 w-10 flex items-center justify-center bg-indigo-700 text-white">
+                        <div
+                            className={`rounded-full ${
+                                activeStep === 2
+                                    ? 'border-2 boder-opacity-20 border-primary'
+                                    : ''
+                            } h-10 w-10 flex items-center justify-center bg-indigo-700 text-white`}
+                        >
                             3
                         </div>
                     </div>
@@ -91,6 +112,7 @@ const RequestForm = () => {
                             <CustomButton
                                 text="Enviar solicitud"
                                 color="primary"
+                                callback={() => setIsSummaryOpen(true)}
                             >
                                 <RiSendPlane2Fill className="text-alt" />
                             </CustomButton>
@@ -106,6 +128,7 @@ const RequestForm = () => {
                     </div>
                 </div>
             </div>
+            <Summary isOpen={isSummaryOpen} setIsOpen={setIsSummaryOpen} />
         </section>
     );
 };

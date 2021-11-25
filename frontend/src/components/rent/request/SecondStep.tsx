@@ -40,25 +40,28 @@ const SecondStep = () => {
                         placeholder="Telefono"
                         style={{ transition: 'all 0.15s ease 0s' }}
                     />
-                    <div className="flex flex-col space-y-3 lg:space-y-0 lg:flex-row items-center">
-                        <p className="text-white font-thin mx-10">
+                    <div className="flex flex-col space-y-3 xl:space-y-0 xl:flex-row items-center">
+                        <p className="text-white font-thin text-center w-full xl:text-left">
                             Fecha de inicio estimada:
                         </p>
+                        <div className="flex w-full items-center">
+                            <div className="flex w-full flex-col xl:flex-row space-y-3 xl:space-y-0 xl:justify-center">
+                                <input
+                                    type="date"
+                                    className="px-3 py-3 xl:w-6/12 h-10 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded xl:rounded-none xl:rounded-l text-md font-medium shadow focus:outline-none focus:shadow-outline"
+                                    placeholder="Inicio"
+                                    style={{ transition: 'all 0.15s ease 0s' }}
+                                />
+                                <input
+                                    type="date"
+                                    className="px-3 py-3 xl:w-6/12 h-10 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded xl:rounded-none xl:rounded-r text-md font-medium shadow focus:outline-none focus:shadow-outline"
+                                    placeholder="Fin"
+                                    style={{ transition: 'all 0.15s ease 0s' }}
+                                />
+                            </div>
 
-                        <input
-                            type="text"
-                            className="px-3 py-3 lg:w-2/12 h-10 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded lg:rounded-l text-md font-medium shadow focus:outline-none focus:shadow-outline"
-                            placeholder="Inicio"
-                            style={{ transition: 'all 0.15s ease 0s' }}
-                        />
-                        <input
-                            type="text"
-                            className="px-3 py-3 lg:w-2/12 h-10 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded lg:rounded-r text-md font-medium shadow focus:outline-none focus:shadow-outline"
-                            placeholder="Fin"
-                            style={{ transition: 'all 0.15s ease 0s' }}
-                        />
-
-                        <BsInfoCircleFill className="h-6 w-6 text-alt mx-10" />
+                            <BsInfoCircleFill className="h-6 w-6 text-alt mx-10" />
+                        </div>
                     </div>
                 </div>
             </div>
