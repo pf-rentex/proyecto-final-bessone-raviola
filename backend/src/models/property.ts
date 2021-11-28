@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-import Features from './features';
+import mongoose, { Schema } from 'mongoose';
 
 const propertySchema = new mongoose.Schema(
     {
@@ -27,18 +26,33 @@ const propertySchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
-        // features: {
-        //     type: [Features],
-        //     required: true,
-        // },
-        // pictures: {
-        //     type: [File],
-        //     required: true,
-        // },
-        // rentalAgentId: {
-        //     type: Number,
-        //     required: true,
-        // },
+        expensesPrice: {
+            type: Number,
+            required: true,
+        },
+        ownerId: {
+            type: Schema.Types.ObjectId,
+            required: true,
+        },
+        features: [
+            {
+                description: {
+                    type: String,
+                },
+            },
+        ],
+        amenities: [
+            {
+                amenitiesId : {
+                    type: Schema.Types.ObjectId,
+                    required: true,
+                },
+                amount: {
+                    type: Number,
+                    nullable: true,
+                },
+            },
+        ],
     },
     {
         timestamps: true,
