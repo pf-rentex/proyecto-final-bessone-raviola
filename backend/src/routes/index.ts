@@ -9,6 +9,7 @@ import properties from './api/properties';
 import afip from './api/afip';
 import amenities from './api/amenities';
 import publications from './api/publications';
+import rentalRequests from './api/rentalRequests';
 
 const router = express.Router();
 
@@ -21,5 +22,6 @@ router.use('/api/properties', properties);
 router.use('/api/afip', afip);
 router.use('/api/amenities', amenities);
 router.use('/api/publications', publications);
+router.use('/api/rentalRequests', rentalRequests);
 
 export default router;

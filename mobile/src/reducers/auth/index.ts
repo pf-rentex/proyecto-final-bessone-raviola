@@ -8,6 +8,7 @@ import {
   REGISTER_SUCCESS,
   USER_LOADED,
   USER_LOADING,
+  AUTHENTICATING,
 } from '../../actions/types';
 
 export interface IProfileData {
@@ -26,12 +27,14 @@ export interface IAuthState {
   profile: null | IProfileData;
   isAuthenticated: boolean;
   isLoading: boolean;
+  isAuthenticating: boolean;
 }
 
 const initialState: IAuthState = {
   profile: null,
   isAuthenticated: false,
-  isLoading: false,
+  isLoading: true,
+  isAuthenticating: false,
 };
 
 const authReducer = (
@@ -52,7 +55,11 @@ const authReducer = (
         isLoading: false,
         profile: action.data,
       };
-
+    case AUTHENTICATING:
+      return {
+        ...state,
+        isAuthenticating: true,
+      };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
       (async () => {
@@ -63,6 +70,7 @@ const authReducer = (
         ...action.data,
         isAuthenticated: true,
         isLoading: false,
+        isAuthenticating: false,
       };
 
     case AUTH_ERROR:
@@ -77,6 +85,7 @@ const authReducer = (
         profile: null,
         isAuthenticated: false,
         isLoading: false,
+        isAuthenticating: false,
       };
 
     default:

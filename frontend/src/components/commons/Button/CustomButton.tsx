@@ -7,6 +7,7 @@ interface IButtonProps {
     disabled?: boolean;
     callback?: Function;
     children?: React.ReactNode;
+    outlined?: boolean;
 }
 
 const CustomButton = ({
@@ -14,7 +15,8 @@ const CustomButton = ({
     text = '',
     disabled = false,
     callback = () => null,
-    children = <></>,
+    children = null,
+    outlined = false,
 }: IButtonProps) => {
     const onClicked = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
@@ -25,14 +27,22 @@ const CustomButton = ({
     return (
         <button
             onClick={onClicked}
-            className={`bg-${disabled ? 'gray-400' : color} ${
+            className={`bg-${
+                disabled ? 'gray-400' : outlined ? 'transparent' : color
+            } ${
                 disabled ? 'cursor-not-allowed' : ''
-            } shadow-lg w-full rounded-md px-5 py-2 flex content-center my-3 focus:shadow-sm font-secondary font-semibold outline-none align-items-center justify-center content-center align-middle justify-items-center items-center`}
+            } shadow-lg w-full rounded-md px-5 py-2 flex content-center my-3 focus:shadow-sm font-secondary font-semibold outline-none align-items-center justify-center content-center align-middle justify-items-center items-center ${
+                outlined ? `border border-${color}` : ''
+            }`}
         >
-            <span className="text-2xl pr-4">{children}</span>
+            <span className={`text-2xl ${children ? 'pr-4' : ''}`}>
+                {children}
+            </span>
             <span
                 className={`text-sm font-sm  text-${
-                    color === 'primary' || color === 'alt'
+                    outlined
+                        ? color
+                        : color === 'primary' || color === 'alt'
                         ? 'white'
                         : 'gray-800'
                 } flex-1`}
