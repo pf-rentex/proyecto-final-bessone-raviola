@@ -18,6 +18,8 @@ module.exports = {
         blue: colors.lightBlue,
         red: colors.rose,
         pink: colors.fuchsia,
+        indigo: colors.indigo,
+        green: colors.green,
     },
     fontFamily: {
         primary: ['Fredoka One', 'sans-serif'],
