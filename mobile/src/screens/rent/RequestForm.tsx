@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableHighlight} from 'react-native';
+import {View, Text, TouchableHighlight, ScrollView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FirstStep from '../../components/rent/request/FirstStep';
 
 const RequestForm = () => {
   const [steps, setSteps] = useState<Array<string>>([
@@ -15,7 +16,7 @@ const RequestForm = () => {
   const getStepContent = (stepIndex: number) => {
     switch (stepIndex) {
       case 0:
-        return <Text>1</Text>;
+        return <FirstStep />;
       case 1:
         return <Text>1</Text>;
       case 2:
@@ -33,18 +34,28 @@ const RequestForm = () => {
     setActiveStep(activeStep - 1);
   };
   return (
-    <LinearGradient colors={['#A0D7FF', '#1A7CC3']} style={styles.container}>
-      <View>
-        <Text style={styles.title}>Solicitar Alquiler</Text>
-      </View>
-      <View style={{alignItems: 'center'}}>
-        <TouchableHighlight style={styles.circle}>
-          <Text style={{color: 'white', fontSize: 18}}> {activeStep + 1} </Text>
-        </TouchableHighlight>
-        <Text style={{color: '#0B679A', fontSize: 18}}>
-          {steps[activeStep]}
-        </Text>
-      </View>
+    <View>
+      <ScrollView>
+        <LinearGradient
+          colors={['#A0D7FF', '#1A7CC3']}
+          style={styles.container}>
+          <View>
+            <Text style={styles.title}>Solicitar Alquiler</Text>
+          </View>
+          <View style={{alignItems: 'center'}}>
+            <TouchableHighlight style={styles.circle}>
+              <Text style={{color: 'white', fontSize: 18}}>
+                {' '}
+                {activeStep + 1}{' '}
+              </Text>
+            </TouchableHighlight>
+            <Text style={{color: '#0B679A', fontSize: 18}}>
+              {steps[activeStep]}
+            </Text>
+          </View>
+          <View style={{marginVertical: 20}}>{getStepContent(activeStep)}</View>
+        </LinearGradient>
+      </ScrollView>
       <View style={styles.actions}>
         <TouchableHighlight style={styles.stepButton}>
           <View
@@ -70,7 +81,7 @@ const RequestForm = () => {
           </View>
         </TouchableHighlight>
       </View>
-    </LinearGradient>
+    </View>
   );
 };
 
