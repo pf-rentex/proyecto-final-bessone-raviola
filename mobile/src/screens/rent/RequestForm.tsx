@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FirstStep from '../../components/rent/request/FirstStep';
+import SecondStep from '../../components/rent/request/SecondStep';
 
 const RequestForm = () => {
   const [steps, setSteps] = useState<Array<string>>([
@@ -18,7 +19,7 @@ const RequestForm = () => {
       case 0:
         return <FirstStep />;
       case 1:
-        return <Text>1</Text>;
+        return <SecondStep />;
       case 2:
         return <Text>1</Text>;
       default:
@@ -57,7 +58,7 @@ const RequestForm = () => {
         </LinearGradient>
       </ScrollView>
       <View style={styles.actions}>
-        <TouchableHighlight style={styles.stepButton}>
+        <TouchableHighlight style={styles.stepButton} onPress={handleNext}>
           <View
             style={{
               display: 'flex',

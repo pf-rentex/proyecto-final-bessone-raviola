@@ -131,7 +131,7 @@ const FirstStep = () => {
           alignItems: 'center',
         }}>
         <Text style={styles.title}>Detalle:</Text>
-        <Text style={styles.title}> {'   $23.450'}</Text>
+        <Text style={styles.title}> 23.450</Text>
         <Text style={{color: 'white', marginHorizontal: wp(5)}}>+</Text>
         <Text style={styles.title}>$3.000</Text>
         <Text style={{color: 'white', marginLeft: wp(5)}}>Expensas</Text>
