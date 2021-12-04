@@ -5,7 +5,7 @@ import path from 'path';
 import Grid from 'gridfs-stream';
 import mongoose from 'mongoose';
 
-// Init gridFS for filemanagement (photos)
+// Init gridFS for filemanagement
 const db = process.env.DATABASE_URL;
 
 const conn = mongoose.createConnection(db);

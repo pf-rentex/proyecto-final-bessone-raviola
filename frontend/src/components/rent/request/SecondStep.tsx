@@ -1,9 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsInfoCircleFill, AiOutlineFileText } from 'react-icons/all';
 import Attachment from '../../commons/Attachment/Attachment';
 import AttachmentRequest from '../../commons/Attachment/AttachmentRequest';
 
 const SecondStep = () => {
+    const handleFile = (file: any) => {
+        const attachment = {
+            name: file.name,
+            size: file.size,
+            attachedDate: new Date().toDateString(),
+        };
+        setGuarantorAttachments([...guarantorAttachments, attachment]);
+    };
+    const [guarantorAttachments, setGuarantorAttachments] = useState<
+        Array<any>
+    >([
+        {
+            name: 'garante_perez_12305012.pdf',
+            size: '216.32 kb',
+            attachedDate: '01-08-2015',
+        },
+    ]);
+
+    const handleDeleteFile = (fileName: string) => {
+        setGuarantorAttachments(
+            guarantorAttachments.filter((x) => x.name !== fileName),
+        );
+    };
     return (
         <div>
             <div className="flex flex-col lg:flex-row lg:space-x-20 py-5">
@@ -70,25 +93,31 @@ const SecondStep = () => {
                     Adjunte 3 garantes
                 </h5>
                 <div className="flex flex-col lg:flex-row space-y-3 lg:space-y-0 lg:space-x-2">
-                    <Attachment
-                        name="garante_perez_12305012.pdf"
-                        size="216.32 kb"
-                        attachedDate="01-08-2015"
-                    />
+                    {guarantorAttachments.map((attachment, index) => {
+                        return (
+                            <Attachment
+                                key={index}
+                                name={attachment.name}
+                                size={attachment.size}
+                                attachedDate={attachment.attachedDate}
+                                handleDelete={handleDeleteFile}
+                            />
+                        );
+                    })}
 
-                    <AttachmentRequest />
+                    <AttachmentRequest handleFile={handleFile} />
                 </div>
                 <h5 className="text-white font-semibold text-xl">
                     Adjunte foto de su DNI
                 </h5>
                 <div className="flex flex-col lg:flex-row space-y-3 lg:space-y-0 lg:space-x-2">
-                    <AttachmentRequest />
+                    <AttachmentRequest handleFile={handleFile} />
                 </div>
                 <h5 className="text-white font-semibold text-xl">
                     Adjunte Recibos de sueldo
                 </h5>
                 <div className="flex flex-col lg:flex-row space-y-3 lg:space-y-0 lg:space-x-2">
-                    <AttachmentRequest />
+                    <AttachmentRequest handleFile={handleFile} />
                 </div>
             </div>
         </div>
