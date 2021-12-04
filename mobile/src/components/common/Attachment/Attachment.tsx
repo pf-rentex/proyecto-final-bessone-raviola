@@ -35,6 +35,7 @@ const Attachment = ({name, size}: IAttachmentProps) => {
       padding: 15,
       flexDirection: 'row',
       alignItems: 'center',
+      marginVertical: hp('2%'),
     },
     circle: {
       borderRadius:

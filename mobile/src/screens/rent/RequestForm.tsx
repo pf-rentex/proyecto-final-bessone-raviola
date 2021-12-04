@@ -5,6 +5,7 @@ import styles from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FirstStep from '../../components/rent/request/FirstStep';
 import SecondStep from '../../components/rent/request/SecondStep';
+import ThirdStep from '../../components/rent/request/ThirdStep';
 
 const RequestForm = () => {
   const [steps, setSteps] = useState<Array<string>>([
@@ -21,7 +22,7 @@ const RequestForm = () => {
       case 1:
         return <SecondStep />;
       case 2:
-        return <Text>1</Text>;
+        return <ThirdStep />;
       default:
         return 'desconocido';
     }
@@ -32,7 +33,9 @@ const RequestForm = () => {
   };
 
   const handleBack = () => {
-    setActiveStep(activeStep - 1);
+    if (activeStep !== 0) {
+      setActiveStep(activeStep - 1);
+    }
   };
   return (
     <View>
@@ -58,29 +61,78 @@ const RequestForm = () => {
         </LinearGradient>
       </ScrollView>
       <View style={styles.actions}>
-        <TouchableHighlight style={styles.stepButton} onPress={handleNext}>
+        <TouchableHighlight style={styles.stepButton} onPress={handleBack}>
           <View
             style={{
               display: 'flex',
               flexDirection: 'row',
             }}>
-            <Ionicons
-              name='arrow-forward-circle-sharp'
-              size={24}
-              color='#94C7E4'
-              style={{flex: 1, paddingHorizontal: 20}}
-            />
             <Text
               style={{
                 color: 'white',
                 fontSize: 18,
                 letterSpacing: 0.5,
-                flex: 2,
+                flex: 5,
               }}>
-              Siguiente
+              Anterior
             </Text>
+            <Ionicons
+              name='arrow-back-circle-sharp'
+              size={24}
+              color='#EA4D4D'
+              style={{flex: 1}}
+            />
           </View>
         </TouchableHighlight>
+        {activeStep !== 2 ? (
+          <TouchableHighlight style={styles.stepButton} onPress={handleNext}>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}>
+              <Ionicons
+                name='arrow-forward-circle-sharp'
+                size={24}
+                color='#94C7E4'
+                style={{flex: 1}}
+              />
+              <Text
+                style={{
+                  color: 'white',
+                  fontSize: 18,
+                  letterSpacing: 0.5,
+                  flex: 2,
+                }}>
+                Siguiente
+              </Text>
+            </View>
+          </TouchableHighlight>
+        ) : (
+          <TouchableHighlight style={styles.sendButton}>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}>
+              <Ionicons
+                name='send'
+                size={24}
+                color='#21526D'
+                style={{flex: 1}}
+              />
+              <Text
+                style={{
+                  color: '#18405C',
+                  fontSize: 18,
+                  letterSpacing: 0.5,
+                  flex: 2,
+                }}>
+                Enviar
+              </Text>
+            </View>
+          </TouchableHighlight>
+        )}
       </View>
     </View>
   );

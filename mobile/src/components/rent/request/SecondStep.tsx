@@ -13,6 +13,7 @@ import {
 } from 'react-native-responsive-screen';
 
 import Attachment from '../../common/Attachment/Attachment';
+import AttachmentRequest from '../../common/Attachment/AttachmentRequest';
 
 const SecondStep = () => {
   const styles = StyleSheet.create({
@@ -101,10 +102,25 @@ const SecondStep = () => {
           <TextInput placeholder='Fin' style={styles.input}></TextInput>
         </View>
       </View>
-      <View style={{marginTop: hp('2%')}}>
+      <View style={{marginTop: hp('3%')}}>
         <Text style={styles.title}>Adjunte 3 Garantes</Text>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'column'}}>
           <Attachment name='garante_perez_12052021.pdf' size='216.32kb' />
+          <AttachmentRequest />
+        </View>
+      </View>
+      <View style={{marginTop: hp('3%')}}>
+        <Text style={styles.title}>Adjunte foto de su DNI</Text>
+        <View style={{flexDirection: 'column'}}>
+          <Attachment name='garante_perez_12052021.pdf' size='216.32kb' />
+          <AttachmentRequest />
+        </View>
+      </View>
+      <View style={{marginTop: hp('3%')}}>
+        <Text style={styles.title}>Adjunte recibos de sueldo</Text>
+        <View style={{flexDirection: 'column'}}>
+          <Attachment name='garante_perez_12052021.pdf' size='216.32kb' />
+          <AttachmentRequest />
         </View>
       </View>
     </View>
