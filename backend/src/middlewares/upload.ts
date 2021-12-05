@@ -20,6 +20,9 @@ conn.once('open', () => {
 const storage = new GridFsStorage({
     url: process.env.DATABASE_URL,
     file: (req, file) => {
+        if (!req.body.bucketName) {
+            throw new Error('Must specify bucket name');
+        }
         return new Promise((resolve, reject) => {
             crypto.randomBytes(16, (err, buf) => {
                 if (err) {
@@ -29,13 +32,14 @@ const storage = new GridFsStorage({
                     buf.toString('hex') + path.extname(file.originalname);
                 const fileInfo = {
                     filename: filename,
-                    bucketName: 'uploads',
+                    bucketName: req.body.bucketName,
                 };
                 return resolve(fileInfo);
             });
         });
     },
 });
+
 const upload = multer({ storage });
 
 export default upload;

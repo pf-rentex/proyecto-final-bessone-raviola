@@ -125,7 +125,7 @@ const fieldsAreValid = (body): boolean => {
 };
 
 const uploadFile = async (req: Request, res: Response) => {
-    res.json({ file: req.file });
+    res.json({ files: req.files });
 };
 
 export {
