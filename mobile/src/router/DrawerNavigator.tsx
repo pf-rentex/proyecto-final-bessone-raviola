@@ -3,6 +3,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import Login from '../screens/auth/Login';
 import Search from '../screens/properties/Search';
 import Onboarding from '../screens/auth/Onboarding';
+import RequestForm from '../screens/rent/RequestForm';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
@@ -64,6 +65,20 @@ const DrawerNavigator = ({isAuthenticated}: IDrawerProps) => {
             drawerIcon: ({focused}) => (
               <Ionicons
                 name='search'
+                size={24}
+                color={focused ? '#5FACF2' : 'white'}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          key='RequestForm'
+          name='RequestForm'
+          component={RequestForm}
+          options={{
+            drawerIcon: ({focused}) => (
+              <Ionicons
+                name='home'
                 size={24}
                 color={focused ? '#5FACF2' : 'white'}
               />
