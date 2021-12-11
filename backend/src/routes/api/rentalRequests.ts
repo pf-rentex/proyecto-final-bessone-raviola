@@ -16,7 +16,12 @@ const router = express.Router();
 router.post(
     '/',
     // auth,
-    upload.fields([{ name: 'guarantorFiles' }, { name: 'dniFiles' }]),
+    upload.fields([
+        { name: 'guarantorFiles' },
+        { name: 'dniFiles' },
+        { name: 'receiptFiles' },
+        { name: 'debtFreeFiles' },
+    ]),
     createRentalRequest,
 );
 

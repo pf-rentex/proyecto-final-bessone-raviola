@@ -56,16 +56,12 @@ const rentalRequestSchema = new mongoose.Schema(
         dniFiles: {
             type: Array,
         },
-        // fileRecibos: [
-        //     {
-        //         file: {
-        //             data: Buffer,
-        //         },
-        //     },
-        // ],
-        // fileLibreDeuda: {
-        //     data: Buffer,
-        // },
+        receiptFiles: {
+            type: Array,
+        },
+        debtFreeFiles: {
+            type: Array,
+        },
         // fileCuit: {
         //     data: Buffer,
         // },

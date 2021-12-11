@@ -36,6 +36,14 @@ const createRentalRequest = async (req: Request, res: Response) => {
     const dniFiles = req.files.dniFiles.map((file: any) => {
         return file.id;
     });
+    // @ts-ignore
+    const receiptFiles = req.files.receiptFiles.map((file: any) => {
+        return file.id;
+    });
+    // @ts-ignore
+    const debtFreeFiles = req.files.debtFreeFiles.map((file: any) => {
+        return file.id;
+    });
 
     const newRentalRequest = new rentalRequest({
         userId,
@@ -52,6 +60,8 @@ const createRentalRequest = async (req: Request, res: Response) => {
         propertyId,
         guarantorFiles,
         dniFiles,
+        receiptFiles,
+        debtFreeFiles,
     });
 
     //Create RentalRequest
