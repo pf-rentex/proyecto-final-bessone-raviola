@@ -7,6 +7,7 @@ import Home from '../views/Home';
 import UserProfile from '../views/profile/UserProfile';
 import Search from '../views/properties/Search';
 import RequestForm from '../views/rent/request/RequestForm';
+import PublicationCard from '../views/publications/PublicationCard';
 
 export default function router() {
     return (
@@ -18,6 +19,11 @@ export default function router() {
                 <PrivateRoute exact path="/profile" component={UserProfile} />
                 <Route exact path="/search" component={Search} />
                 <Route exact path="/rent/request" component={RequestForm} />
+                <Route
+                    exact
+                    path="/publication/publicationCard"
+                    component={PublicationCard}
+                />
             </Switch>
         </BrowserRouter>
     );
