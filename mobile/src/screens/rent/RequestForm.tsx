@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableHighlight, ScrollView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
@@ -7,20 +7,46 @@ import FirstStep from '../../components/rent/request/FirstStep';
 import SecondStep from '../../components/rent/request/SecondStep';
 import ThirdStep from '../../components/rent/request/ThirdStep';
 
-const RequestForm = () => {
+const RequestForm = ({route}: any) => {
+  useEffect(() => {
+    if (route.params) {
+      if (
+        route.params.guarantorFiles &&
+        route.params.guarantorFiles.length > 0
+      ) {
+        setGuarantorFiles(route.params.guarantorFiles);
+      }
+      if (route.params.dniFiles && route.params.dniFiles.length > 0) {
+        setDniFiles(route.params.dniFiles);
+      }
+      if (route.params.receiptFiles && route.params.receiptFiles.length > 0) {
+        setReceiptFiles(route.params.receiptFiles);
+      }
+    }
+  }, [route]);
+
   const [steps, setSteps] = useState<Array<string>>([
     'Detalles de la propiedad',
     'Datos personales',
     'Detalles',
   ]);
   const [activeStep, setActiveStep] = useState<number>(0);
+  const [guarantorFiles, setGuarantorFiles] = useState<Array<any>>([]);
+  const [dniFiles, setDniFiles] = useState<Array<any>>([]);
+  const [receiptFiles, setReceiptFiles] = useState<Array<any>>([]);
 
   const getStepContent = (stepIndex: number) => {
     switch (stepIndex) {
       case 0:
         return <FirstStep />;
       case 1:
-        return <SecondStep />;
+        return (
+          <SecondStep
+            guarantorFiles={guarantorFiles}
+            dniFiles={dniFiles}
+            receiptFiles={receiptFiles}
+          />
+        );
       case 2:
         return <ThirdStep />;
       default:
