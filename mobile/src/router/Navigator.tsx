@@ -11,6 +11,7 @@ import UserProfile from '../screens/user/UserProfile';
 import Loader from '../components/common/Loader';
 import ScannerComponent from '../components/Scanner';
 import DocumentViewer from '../screens/DocumentViewer';
+import PublicationCard from '../screens/publication/PublicationCard';
 
 const Stack = createNativeStackNavigator();
 
@@ -77,6 +78,11 @@ const Navigator = ({isAuthenticated, isLoading}: INavigatorProps) => {
             }}
           />
           <Stack.Screen name='DocumentViewer' component={DocumentViewer} />
+          <Stack.Screen
+            name='PublicationParticular'
+            component={PublicationCard}
+            options={{headerShown: false}}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );
