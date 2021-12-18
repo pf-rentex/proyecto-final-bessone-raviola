@@ -17,7 +17,7 @@ const createRentalRequest = async (req: Request, res: Response) => {
     } = req.body;
 
     //Simple validation
-    if (!fieldsAreValid(req.body)) {
+    if (!fieldsAreValid(req)) {
         return res.status(400).json({ msg: 'Please enter all fields' });
     }
 
@@ -27,6 +27,23 @@ const createRentalRequest = async (req: Request, res: Response) => {
     });
     if (existingRentalRequest)
         return res.status(400).json({ msg: 'Rental Request Already exists' });
+
+    // @ts-ignore
+    const guarantorFiles = req.files.guarantorFiles.map((file: any) => {
+        return file.id;
+    });
+    // @ts-ignore
+    const dniFiles = req.files.dniFiles.map((file: any) => {
+        return file.id;
+    });
+    // @ts-ignore
+    const receiptFiles = req.files.receiptFiles.map((file: any) => {
+        return file.id;
+    });
+    // @ts-ignore
+    const debtFreeFiles = req.files.debtFreeFiles.map((file: any) => {
+        return file.id;
+    });
 
     const newRentalRequest = new rentalRequest({
         userId,
@@ -41,6 +58,10 @@ const createRentalRequest = async (req: Request, res: Response) => {
         dateEnd,
         status: 'pending',
         propertyId,
+        guarantorFiles,
+        dniFiles,
+        receiptFiles,
+        debtFreeFiles,
     });
 
     //Create RentalRequest
@@ -97,7 +118,7 @@ const deleteRentalRequest = async (req: Request, res: Response) => {
     }
 };
 
-const fieldsAreValid = (body): boolean => {
+const fieldsAreValid = (req): boolean => {
     const {
         userId,
         name,
@@ -109,7 +130,8 @@ const fieldsAreValid = (body): boolean => {
         dateStart,
         dateEnd,
         propertyId,
-    } = body;
+    } = req.body;
+    const { guarantorFiles, dniFiles } = req.files;
     return (
         !!userId &&
         !!name &&
@@ -120,12 +142,10 @@ const fieldsAreValid = (body): boolean => {
         !!phone &&
         !!dateStart &&
         !!dateEnd &&
-        !!propertyId
+        !!propertyId &&
+        !!guarantorFiles &&
+        !!dniFiles
     );
-};
-
-const uploadFile = async (req: Request, res: Response) => {
-    res.json({ file: req.file });
 };
 
 export {
@@ -133,5 +153,4 @@ export {
     getRentalRequests,
     getRentalRequestById,
     deleteRentalRequest,
-    uploadFile,
 };

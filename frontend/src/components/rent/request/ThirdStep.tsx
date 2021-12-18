@@ -2,6 +2,9 @@ import React from 'react';
 import AttachmentRequest from '../../commons/Attachment/AttachmentRequest';
 
 const ThirdStep = () => {
+    const handleFile = (file: any) => {
+        console.log(file);
+    };
     return (
         <div>
             <div className="flex flex-col lg:flex-row lg:space-x-20 py-5">
@@ -43,11 +46,11 @@ const ThirdStep = () => {
             <div className="flex flex-col space-y-5">
                 <h5 className="text-white font-semibold text-xl">Adjunte X</h5>
                 <div className="flex flex-col lg:flex-row lg:space-x-2 space-y-3 lg:space-y-0">
-                    <AttachmentRequest />
+                    <AttachmentRequest handleFile={handleFile} />
                 </div>
                 <h5 className="text-white font-semibold text-xl">Adjunte X</h5>
                 <div className="flex flex-col lg:flex-row lg:space-x-2 space-y-3 lg:space-y-0">
-                    <AttachmentRequest />
+                    <AttachmentRequest handleFile={handleFile} />
                 </div>
             </div>
         </div>
