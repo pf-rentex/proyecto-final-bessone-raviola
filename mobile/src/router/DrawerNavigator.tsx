@@ -8,7 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
 import DocumentViewer from '../screens/DocumentViewer';
-import PublicationCard from '../screens/publication/PublicationCard';
+import Publication from '../screens/publication/Publication';
 
 const Drawer = createDrawerNavigator();
 
@@ -87,9 +87,9 @@ const DrawerNavigator = ({isAuthenticated}: IDrawerProps) => {
           }}
         />
         <Drawer.Screen
-          key='PublicationParticular'
-          name='Publicacion Particular'
-          component={PublicationCard}
+          key='Publication'
+          name='Publicacion'
+          component={Publication}
           options={{
             drawerIcon: ({focused}) => (
               <Ionicons

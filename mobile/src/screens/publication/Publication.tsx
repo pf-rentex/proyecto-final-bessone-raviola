@@ -18,7 +18,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import BetweenLinesText from '../../components/common/BetweenLinesText';
 import styless from './styles';
 
-const PublicationCard = () => {
+const Publication = () => {
   const styles = StyleSheet.create({
     title: {
       color: 'white',
@@ -255,4 +255,4 @@ const PublicationCard = () => {
   );
 };
 
-export default PublicationCard;
+export default Publication;
