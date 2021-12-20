@@ -6,7 +6,7 @@ import { FaSign, BiCalendar, BiCheck } from 'react-icons/all';
 import CustomLabel from '../../components/commons/label/CustomLabel';
 import { useHistory } from 'react-router-dom';
 
-const PublicationCard = () => {
+const Publication = () => {
     const history = useHistory();
 
     const redirectRentalRequest = () => {
@@ -15,7 +15,7 @@ const PublicationCard = () => {
 
     return (
         <section className="w-full h-full bg-gradient-to-b from-bg-gradient-5 to-bg-gradient-6 overflow-hidden">
-            <div className="flex flex-col lg:flex-row lg:space-x-20 py-20 container p-15 mx-auto">
+            <div className="flex flex-col lg:flex-row lg:space-x-20 py-20 container p-15 mx-auto lg: p-8">
                 <div className="flex flex-col lg:w-6/12">
                     <div className="flex flex-col">
                         <h1 className="text-blue-900 text-3xl font-semibold mb-3 text-center lg:text-left">
@@ -106,8 +106,8 @@ const PublicationCard = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex pt-5 xl:flex-row xl:space-x-52 w-full justify-center lg:space-x-36 md:space-x-8 sm:space-x-4">
-                <div className="xl:justify-start md:flex-row">
+            <div className="flex xl:flex-row xl:space-x-52 w-full justify-center lg:space-x-36 md:space-x-8 sm:space-x-4">
+                <div className="xl:justify-start">
                     <CustomButton text="Visitar Propiedad" color="alt">
                         <BiCalendar className="w-5 h-5" fill="#7ED1FF" />
                     </CustomButton>
@@ -127,4 +127,4 @@ const PublicationCard = () => {
     );
 };
 
-export default PublicationCard;
+export default Publication;

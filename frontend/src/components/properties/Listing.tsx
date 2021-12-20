@@ -9,11 +9,14 @@ const Listing = () => {
     const history = useHistory();
 
     const pushPublication = () => {
-        history.push('/publication/publicationCard');
+        history.push('/publication/:id');
     };
 
     return (
-        <section className="bg-white m-5 rounded" onClick={pushPublication}>
+        <section
+            className="bg-white m-5 rounded cursor-pointer"
+            onClick={pushPublication}
+        >
             <div className="flex flex-col xl:flex-row">
                 <div className="w-full xl:w-4/12 2xl:w-3/12">
                     <img
