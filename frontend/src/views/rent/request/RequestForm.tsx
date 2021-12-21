@@ -18,6 +18,8 @@ const RequestForm = () => {
     ]);
     const [activeStep, setActiveStep] = useState<number>(0);
 
+    const [data, setData] = useState<any>({});
+
     const [isSummaryOpen, setIsSummaryOpen] = React.useState(false);
 
     const getStepContent = (stepIndex: number) => {
@@ -25,7 +27,13 @@ const RequestForm = () => {
             case 0:
                 return <FirstStep />;
             case 1:
-                return <SecondStep />;
+                return (
+                    <SecondStep
+                        data={data}
+                        onChange={handleDataChange}
+                        handleFileDelete={handleFileDelete}
+                    />
+                );
             case 2:
                 return <ThirdStep />;
             default:
@@ -39,6 +47,38 @@ const RequestForm = () => {
 
     const handleBack = () => {
         setActiveStep(activeStep - 1);
+    };
+
+    const handleDataChange = (e: any) => {
+        if (e.target.files) {
+            setData({
+                ...data,
+                [e.target.name]:
+                    // @ts-ignore
+                    data[e.target.name]
+                        ? [
+                              // @ts-ignore
+                              ...data[e.target.name],
+                              e.target.files[0],
+                          ]
+                        : [e.target.files[0]],
+            });
+        } else {
+            setData({
+                ...data,
+                [e.target.name]: e.target.value,
+            });
+        }
+        console.log(data);
+    };
+
+    const handleFileDelete = (arrayName: string, fileName: string) => {
+        setData({
+            ...data,
+            [arrayName]: data[arrayName].filter(
+                (file: any) => file.name !== fileName,
+            ),
+        });
     };
 
     return (

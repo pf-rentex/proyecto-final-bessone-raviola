@@ -11,8 +11,8 @@ const createRentalRequest = async (req: Request, res: Response) => {
         birthDate,
         phone,
         comments,
-        dateStart,
-        dateEnd,
+        startDate,
+        endDate,
         propertyId,
     } = req.body;
 
@@ -54,8 +54,8 @@ const createRentalRequest = async (req: Request, res: Response) => {
         birthDate,
         phone,
         comments,
-        dateStart,
-        dateEnd,
+        startDate,
+        endDate,
         status: 'pending',
         propertyId,
         guarantorFiles,
@@ -127,8 +127,8 @@ const fieldsAreValid = (req): boolean => {
         dni,
         birthDate,
         phone,
-        dateStart,
-        dateEnd,
+        startDate,
+        endDate,
         propertyId,
     } = req.body;
     const { guarantorFiles, dniFiles } = req.files;
@@ -140,8 +140,8 @@ const fieldsAreValid = (req): boolean => {
         !!dni &&
         !!birthDate &&
         !!phone &&
-        !!dateStart &&
-        !!dateEnd &&
+        !!startDate &&
+        !!endDate &&
         !!propertyId &&
         !!guarantorFiles &&
         !!dniFiles

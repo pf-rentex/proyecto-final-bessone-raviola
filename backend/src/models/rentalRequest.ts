@@ -33,11 +33,11 @@ const rentalRequestSchema = new mongoose.Schema(
         comments: {
             type: String,
         },
-        dateStart: {
+        startDate: {
             type: Date,
             required: true,
         },
-        dateEnd: {
+        endDate: {
             type: Date,
             required: true,
         },
