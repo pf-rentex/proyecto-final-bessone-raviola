@@ -12,6 +12,7 @@ import Loader from '../components/common/Loader';
 import ScannerComponent from '../components/Scanner';
 import DocumentViewer from '../screens/DocumentViewer';
 import Publication from '../screens/publication/Publication';
+import RequestForm from '../screens/rent/RequestForm';
 
 const Stack = createNativeStackNavigator();
 
@@ -119,6 +120,7 @@ const Navigator = ({isAuthenticated, isLoading}: INavigatorProps) => {
               },
             }}
           />
+          <Stack.Screen name='DocumentViewer' component={DocumentViewer} />
         </Stack.Navigator>
       </NavigationContainer>
     );

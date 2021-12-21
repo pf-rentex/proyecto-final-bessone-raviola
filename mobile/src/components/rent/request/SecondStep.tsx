@@ -15,7 +15,7 @@ import {
 import Attachment from '../../common/Attachment/Attachment';
 import AttachmentRequest from '../../common/Attachment/AttachmentRequest';
 
-const SecondStep = () => {
+const SecondStep = ({guarantorFiles, dniFiles, receiptFiles}: any) => {
   const styles = StyleSheet.create({
     container: {
       paddingVertical: hp('3%'),
@@ -24,6 +24,7 @@ const SecondStep = () => {
       color: 'white',
       fontSize: 20,
       fontWeight: 'bold',
+      marginBottom: hp('1%'),
     },
     input: {
       backgroundColor: '#f5f5f5',
@@ -105,22 +106,52 @@ const SecondStep = () => {
       <View style={{marginTop: hp('3%')}}>
         <Text style={styles.title}>Adjunte 3 Garantes</Text>
         <View style={{flexDirection: 'column'}}>
-          <Attachment name='garante_perez_12052021.pdf' size='216.32kb' />
-          <AttachmentRequest />
+          {guarantorFiles &&
+            guarantorFiles.map((guarantorFile: any, index: any) => {
+              return (
+                <Attachment
+                  key={index}
+                  name={guarantorFile.name}
+                  size={`${guarantorFile.size} Kb`}
+                />
+              );
+            })}
+          {/* <Attachment name='garante_perez_12052021.pdf' size='216.32kb' /> */}
+          <AttachmentRequest fileType='guarantorFiles' />
         </View>
       </View>
       <View style={{marginTop: hp('3%')}}>
         <Text style={styles.title}>Adjunte foto de su DNI</Text>
         <View style={{flexDirection: 'column'}}>
-          <Attachment name='garante_perez_12052021.pdf' size='216.32kb' />
-          <AttachmentRequest />
+          {dniFiles &&
+            dniFiles.map((dniFile: any, index: any) => {
+              return (
+                <Attachment
+                  key={index}
+                  name={dniFile.name}
+                  size={`${dniFile.size} Kb`}
+                />
+              );
+            })}
+          {/* <Attachment name='garante_perez_12052021.pdf' size='216.32kb' /> */}
+          <AttachmentRequest fileType='dniFiles' />
         </View>
       </View>
       <View style={{marginTop: hp('3%')}}>
         <Text style={styles.title}>Adjunte recibos de sueldo</Text>
         <View style={{flexDirection: 'column'}}>
-          <Attachment name='garante_perez_12052021.pdf' size='216.32kb' />
-          <AttachmentRequest />
+          {receiptFiles &&
+            receiptFiles.map((receiptFile: any, index: any) => {
+              return (
+                <Attachment
+                  key={index}
+                  name={receiptFile.name}
+                  size={`${receiptFile.size} Kb`}
+                />
+              );
+            })}
+          {/* <Attachment name='garante_perez_12052021.pdf' size='216.32kb' /> */}
+          <AttachmentRequest fileType='receiptFiles' />
         </View>
       </View>
     </View>

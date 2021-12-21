@@ -21,8 +21,11 @@ import DocumentPicker from 'react-native-document-picker';
 
 import {genId} from '../utils/utils';
 import ScannerComponent from '../components/Scanner';
+import {useNavigation} from '@react-navigation/native';
 
-const DocumentViewer = () => {
+const DocumentViewer = ({route}: any) => {
+  const {fileType} = route.params ? route.params : '';
+  const navigation = useNavigation();
   const [documents, setDocuments] = useState<any[]>([]);
   const [addModal, setAddModal] = useState<boolean>(false);
   const [showScanner, setShowScanner] = useState<boolean>(false);
@@ -55,6 +58,12 @@ const DocumentViewer = () => {
 
   const onClearItem = (idx: number) => {
     setDocuments(documents.filter((_, i) => i !== idx));
+  };
+
+  const onConfirm = () => {
+    navigation.navigate('RequestForm', {
+      [fileType]: documents ? documents : [],
+    });
   };
 
   const onScanned = (items: any[]) => {
@@ -164,6 +173,16 @@ const DocumentViewer = () => {
                 color={'rgb(121,208,248)'}
               />
               <Text style={styles.ctaText}>Agregar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => onConfirm()}
+              style={[styles.btn, styles.rounded]}>
+              <FontAwesomeIcon
+                name='check-circle'
+                size={hp('3')}
+                color={'rgb(89,177,58)'}
+              />
+              <Text style={styles.ctaText}>Confirmar</Text>
             </TouchableOpacity>
           </View>
         </View>

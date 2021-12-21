@@ -76,6 +76,7 @@ const DrawerNavigator = ({isAuthenticated}: IDrawerProps) => {
           key='RequestForm'
           name='RequestForm'
           component={RequestForm}
+          initialParams={{guarantorFiles: [], dniFiles: [], receiptFiles: []}}
           options={{
             drawerIcon: ({focused}) => (
               <Ionicons
@@ -137,6 +138,20 @@ const DrawerNavigator = ({isAuthenticated}: IDrawerProps) => {
             drawerIcon: ({focused}) => (
               <Ionicons
                 name='folder-open'
+                size={24}
+                color={focused ? '#5FACF2' : 'white'}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          key='RequestForm'
+          name='RequestForm'
+          component={RequestForm}
+          options={{
+            drawerIcon: ({focused}) => (
+              <Ionicons
+                name='home'
                 size={24}
                 color={focused ? '#5FACF2' : 'white'}
               />

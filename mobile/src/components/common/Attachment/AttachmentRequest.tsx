@@ -1,18 +1,13 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableHighlight,
-  Dimensions,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import {useNavigation} from '@react-navigation/native';
 
-const AttachmentRequest = (navigation: any) => {
+const AttachmentRequest = ({fileType}: any) => {
+  const navigation = useNavigation();
   const styles = StyleSheet.create({
     container: {
       backgroundColor: 'rgba(30,70,99,0.5)',
@@ -32,11 +27,12 @@ const AttachmentRequest = (navigation: any) => {
       alignItems: 'center',
     },
   });
+
   return (
     <View style={styles.container}>
       <TouchableHighlight
         onPress={() => {
-          navigation.navigate('DocumentViewer');
+          navigation.navigate('DocumentViewer', {fileType});
         }}>
         <Text style={{color: 'white', fontWeight: 'bold'}}>
           Adjuntar o Escanear archivo

@@ -5,15 +5,10 @@ import {
     getRentalRequests,
     getRentalRequestById,
     deleteRentalRequest,
-    uploadFile,
 } from '../../controllers/rentalRequests';
 import upload from '../../middlewares/upload';
 
 const router = express.Router();
-
-// @route post /upload
-// @desc uploads file to db
-router.post('/upload', upload.single('file'), uploadFile);
 
 //@route    Post api/rentalRequests
 //@desc     Create Rental Request
@@ -21,6 +16,12 @@ router.post('/upload', upload.single('file'), uploadFile);
 router.post(
     '/',
     // auth,
+    upload.fields([
+        { name: 'guarantorFiles' },
+        { name: 'dniFiles' },
+        { name: 'receiptFiles' },
+        { name: 'debtFreeFiles' },
+    ]),
     createRentalRequest,
 );
 

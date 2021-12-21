@@ -5,9 +5,15 @@ interface IAttachmentProps {
     name: string;
     size: string;
     attachedDate: string;
+    handleDelete: Function;
 }
 
-const Attachment = ({ name, size, attachedDate }: IAttachmentProps) => {
+const Attachment = ({
+    name,
+    size,
+    attachedDate,
+    handleDelete,
+}: IAttachmentProps) => {
     return (
         <div className="bg-blue-900 py-5 md:py-2 px-10 rounded shadow-xl">
             <div className="flex flex-col space-y-3 md:space-y-0 md:flex-row items-center w-full space-x-5">
@@ -21,10 +27,13 @@ const Attachment = ({ name, size, attachedDate }: IAttachmentProps) => {
                     </div>
                 </div>
                 <div className="flex w-full space-x-5 justify-center md:justify-end">
-                    <div className="rounded-full bg-primary p-2 shadow-xl">
+                    <div className="rounded-full bg-primary p-2 shadow-xl cursor-pointer">
                         <HiDownload className="text-white" />
                     </div>
-                    <div className="rounded-full bg-red-600 p-2 shadow-xl">
+                    <div
+                        className="rounded-full bg-red-600 p-2 shadow-xl cursor-pointer"
+                        onClick={() => handleDelete(name)}
+                    >
                         <IoClose className="text-white" />
                     </div>
                 </div>
