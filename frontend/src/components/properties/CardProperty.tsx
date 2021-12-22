@@ -22,6 +22,7 @@ const CardProperty = () => {
                                 Hermoso chalet
                             </h1>
                         </div>
+                        <div></div>
                     </div>
                     <div className="">
                         <div className="w-full xl:w-4/12 flex space-x-2 font-medium items-center">
