@@ -9,8 +9,15 @@ import FirstStep from '../../../components/rent/request/FirstStep';
 import SecondStep from '../../../components/rent/request/SecondStep';
 import ThirdStep from '../../../components/rent/request/ThirdStep';
 import Summary from '../../../components/rent/request/Summary';
+import { connect } from 'react-redux';
+import { createRentalRequest } from '../../../actions/rent';
 
-const RequestForm = () => {
+interface IRequestFormProps {
+    createRentalRequest: Function;
+    isLoading: boolean;
+}
+
+const RequestForm = ({ createRentalRequest, isLoading }: IRequestFormProps) => {
     const [steps, setSteps] = useState<Array<string>>([
         'Detalles de la propiedad',
         'Datos personales',
@@ -69,7 +76,6 @@ const RequestForm = () => {
                 [e.target.name]: e.target.value,
             });
         }
-        console.log(data);
     };
 
     const handleFileDelete = (arrayName: string, fileName: string) => {
@@ -79,6 +85,15 @@ const RequestForm = () => {
                 (file: any) => file.name !== fileName,
             ),
         });
+    };
+
+    const submitRentalRequest = () => {
+        //Hardcoded values required by backend (remove when fetching this fields correctly)
+        data['userId'] = '615cc9d2c4152a55438e9151';
+        data['bucketName'] = 'uploads-rental-request';
+        data['propertyId'] = '6193f2b7e3b4f88e4a490644';
+
+        createRentalRequest(data);
     };
 
     return (
@@ -172,9 +187,20 @@ const RequestForm = () => {
                     </div>
                 </div>
             </div>
-            <Summary isOpen={isSummaryOpen} setIsOpen={setIsSummaryOpen} />
+            <Summary
+                isOpen={isSummaryOpen}
+                setIsOpen={setIsSummaryOpen}
+                submitRentalRequest={submitRentalRequest}
+                data={data}
+                isLoading={isLoading}
+            />
         </section>
     );
 };
 
-export default RequestForm;
+const mapStateToProps = (state: any) => ({
+    isLoading: state.rent.isLoading,
+    error: state.error.msg,
+});
+
+export default connect(mapStateToProps, { createRentalRequest })(RequestForm);
