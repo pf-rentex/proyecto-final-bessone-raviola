@@ -6,7 +6,6 @@ import {
     RENTAL_REQUEST_LOADING,
 } from '../types';
 import { getErrors } from '../error';
-import { isArrayTypeNode } from 'typescript';
 
 export const createRentalRequest =
     (requestData?: any) => async (dispatch: Dispatch<any>) => {
