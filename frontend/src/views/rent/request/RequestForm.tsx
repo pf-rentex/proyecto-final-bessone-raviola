@@ -44,7 +44,7 @@ const RequestForm = ({ createRentalRequest, isLoading }: IRequestFormProps) => {
             case 2:
                 return <ThirdStep />;
             default:
-                return 'desconocido';
+                return <FirstStep />;
         }
     };
 
@@ -88,11 +88,6 @@ const RequestForm = ({ createRentalRequest, isLoading }: IRequestFormProps) => {
     };
 
     const submitRentalRequest = () => {
-        //Hardcoded values required by backend (remove when fetching this fields correctly)
-        data['userId'] = '615cc9d2c4152a55438e9151';
-        data['bucketName'] = 'uploads-rental-request';
-        data['propertyId'] = '6193f2b7e3b4f88e4a490644';
-
         createRentalRequest(data);
     };
 

@@ -6,6 +6,7 @@ import {
     RENTAL_REQUEST_LOADING,
 } from '../types';
 import { getErrors } from '../error';
+import { isArrayTypeNode } from 'typescript';
 
 export const createRentalRequest =
     (requestData?: any) => async (dispatch: Dispatch<any>) => {
@@ -29,24 +30,19 @@ export const createRentalRequest =
 const formatData = (requestData: any) => {
     const formData = new FormData();
 
-    Object.keys(requestData).map((key) => {
-        if (
-            key !== 'guarantorFiles' &&
-            key !== 'dniFiles' &&
-            key !== 'receiptFiles'
-        ) {
-            formData.append(key, requestData[key]);
-        }
-    });
+    //Hardcoded values required by backend (remove when fetching this fields correctly)
+    formData.append('bucketName', 'uploads-rental-request');
+    formData.append('userId', '615cc9d2c4152a55438e9151');
+    formData.append('propertyId', '6193f2b7e3b4f88e4a490644');
 
-    requestData['guarantorFiles'].map((file: any) => {
-        formData.append('guarantorFiles', file);
-    });
-    requestData['dniFiles'].map((file: any) => {
-        formData.append('dniFiles', file);
-    });
-    requestData['receiptFiles'].map((file: any) => {
-        formData.append('receiptFiles', file);
+    Object.keys(requestData).map((key) => {
+        if (!Array.isArray(requestData[key])) {
+            formData.append(key, requestData[key]);
+        } else {
+            requestData[key].map((file: any) => {
+                formData.append(key, file);
+            });
+        }
     });
 
     return formData;
