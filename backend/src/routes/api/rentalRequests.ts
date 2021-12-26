@@ -20,7 +20,7 @@ router.post(
         { name: 'guarantorFiles' },
         { name: 'dniFiles' },
         { name: 'receiptFiles' },
-        { name: 'debtFreeFiles' },
+        // { name: 'debtFreeFiles' },
     ]),
     createRentalRequest,
 );

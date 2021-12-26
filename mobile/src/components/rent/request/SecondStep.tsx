@@ -21,7 +21,7 @@ interface ISecondStepProps {
   handleFileDelete: Function;
 }
 
-const SecondStep = ({data, onChange}: ISecondStepProps) => {
+const SecondStep = ({data, onChange, handleFileDelete}: ISecondStepProps) => {
   const styles = StyleSheet.create({
     container: {
       paddingVertical: hp('3%'),
@@ -134,6 +134,9 @@ const SecondStep = ({data, onChange}: ISecondStepProps) => {
                   key={index}
                   name={guarantorFile.name}
                   size={`${guarantorFile.size} Kb`}
+                  handleDelete={() =>
+                    handleFileDelete('guarantorFiles', guarantorFile.name)
+                  }
                 />
               );
             })}
@@ -151,6 +154,9 @@ const SecondStep = ({data, onChange}: ISecondStepProps) => {
                   key={index}
                   name={dniFile.name}
                   size={`${dniFile.size} Kb`}
+                  handleDelete={() =>
+                    handleFileDelete('dniFiles', dniFile.name)
+                  }
                 />
               );
             })}
@@ -168,6 +174,9 @@ const SecondStep = ({data, onChange}: ISecondStepProps) => {
                   key={index}
                   name={receiptFile.name}
                   size={`${receiptFile.size} Kb`}
+                  handleDelete={() =>
+                    handleFileDelete('receiptFiles', receiptFile.name)
+                  }
                 />
               );
             })}

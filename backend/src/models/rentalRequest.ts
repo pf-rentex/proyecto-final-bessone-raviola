@@ -10,7 +10,7 @@ const rentalRequestSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        lastname: {
+        lastName: {
             type: String,
             required: true,
         },
@@ -30,14 +30,11 @@ const rentalRequestSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        comments: {
-            type: String,
-        },
-        dateStart: {
+        startDate: {
             type: Date,
             required: true,
         },
-        dateEnd: {
+        endDate: {
             type: Date,
             required: true,
         },

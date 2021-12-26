@@ -6,26 +6,26 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FirstStep from '../../components/rent/request/FirstStep';
 import SecondStep from '../../components/rent/request/SecondStep';
 import ThirdStep from '../../components/rent/request/ThirdStep';
+import {connect} from 'react-redux';
+import {createRentalRequest} from '../../actions/rent';
+import Loader from '../../components/common/Loader';
 
-const RequestForm = ({route}: any) => {
+interface IRequestFormProps {
+  createRentalRequest: Function;
+  isLoading: boolean;
+  route: any;
+}
+
+const RequestForm = ({
+  createRentalRequest,
+  isLoading,
+  route,
+}: IRequestFormProps) => {
   useEffect(() => {
-    console.log(route.params);
     if (route.params) {
       Object.keys(route.params).map(key => {
         handleDataChange(key, route.params[key]);
       });
-      if (
-        route.params.guarantorFiles &&
-        route.params.guarantorFiles.length > 0
-      ) {
-        setGuarantorFiles(route.params.guarantorFiles);
-      }
-      if (route.params.dniFiles && route.params.dniFiles.length > 0) {
-        setDniFiles(route.params.dniFiles);
-      }
-      if (route.params.receiptFiles && route.params.receiptFiles.length > 0) {
-        setReceiptFiles(route.params.receiptFiles);
-      }
     }
   }, [route]);
 
@@ -35,9 +35,6 @@ const RequestForm = ({route}: any) => {
     'Detalles',
   ]);
   const [activeStep, setActiveStep] = useState<number>(0);
-  const [guarantorFiles, setGuarantorFiles] = useState<Array<any>>([]);
-  const [dniFiles, setDniFiles] = useState<Array<any>>([]);
-  const [receiptFiles, setReceiptFiles] = useState<Array<any>>([]);
   const [data, setData] = useState<any>({});
 
   const getStepContent = (stepIndex: number) => {
@@ -47,11 +44,9 @@ const RequestForm = ({route}: any) => {
       case 1:
         return (
           <SecondStep
-            guarantorFiles={guarantorFiles}
-            dniFiles={dniFiles}
-            receiptFiles={receiptFiles}
             data={data}
             onChange={handleDataChange}
+            handleFileDelete={handleFileDelete}
           />
         );
       case 2:
@@ -87,7 +82,6 @@ const RequestForm = ({route}: any) => {
         [name]: value,
       });
     }
-    console.log(data);
   };
 
   const handleFileDelete = (arrayName: string, fileName: string) => {
@@ -97,6 +91,10 @@ const RequestForm = ({route}: any) => {
         (file: any) => file.name !== fileName,
       ),
     });
+  };
+
+  const submitRentalRequest = () => {
+    createRentalRequest(data);
   };
 
   return (
@@ -170,8 +168,12 @@ const RequestForm = ({route}: any) => {
               </Text>
             </View>
           </TouchableHighlight>
+        ) : isLoading ? (
+          <Loader />
         ) : (
-          <TouchableHighlight style={styles.sendButton}>
+          <TouchableHighlight
+            style={styles.sendButton}
+            onPress={submitRentalRequest}>
             <View
               style={{
                 display: 'flex',
@@ -200,4 +202,9 @@ const RequestForm = ({route}: any) => {
   );
 };
 
-export default RequestForm;
+const mapStateToProps = (state: any) => ({
+  isLoading: state.rent.isLoading,
+  error: state.error.msg,
+});
+
+export default connect(mapStateToProps, {createRentalRequest})(RequestForm);

@@ -29,16 +29,16 @@ const AttachmentRequest = ({fileType}: any) => {
   });
 
   return (
-    <View style={styles.container}>
-      <TouchableHighlight
-        onPress={() => {
-          navigation.navigate('DocumentViewer', {fileType});
-        }}>
+    <TouchableHighlight
+      onPress={() => {
+        navigation.navigate('DocumentViewer', {fileType});
+      }}>
+      <View style={styles.container}>
         <Text style={{color: 'white', fontWeight: 'bold'}}>
           Adjuntar o Escanear archivo
         </Text>
-      </TouchableHighlight>
-    </View>
+      </View>
+    </TouchableHighlight>
   );
 };
 
