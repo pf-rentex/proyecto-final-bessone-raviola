@@ -9,7 +9,11 @@ import ThirdStep from '../../components/rent/request/ThirdStep';
 
 const RequestForm = ({route}: any) => {
   useEffect(() => {
+    console.log(route.params);
     if (route.params) {
+      Object.keys(route.params).map(key => {
+        handleDataChange(key, route.params[key]);
+      });
       if (
         route.params.guarantorFiles &&
         route.params.guarantorFiles.length > 0
@@ -34,6 +38,7 @@ const RequestForm = ({route}: any) => {
   const [guarantorFiles, setGuarantorFiles] = useState<Array<any>>([]);
   const [dniFiles, setDniFiles] = useState<Array<any>>([]);
   const [receiptFiles, setReceiptFiles] = useState<Array<any>>([]);
+  const [data, setData] = useState<any>({});
 
   const getStepContent = (stepIndex: number) => {
     switch (stepIndex) {
@@ -45,12 +50,14 @@ const RequestForm = ({route}: any) => {
             guarantorFiles={guarantorFiles}
             dniFiles={dniFiles}
             receiptFiles={receiptFiles}
+            data={data}
+            onChange={handleDataChange}
           />
         );
       case 2:
         return <ThirdStep />;
       default:
-        return 'desconocido';
+        return <FirstStep />;
     }
   };
 
@@ -63,6 +70,35 @@ const RequestForm = ({route}: any) => {
       setActiveStep(activeStep - 1);
     }
   };
+
+  const handleDataChange = (name: string, value: any) => {
+    if (Array.isArray(value)) {
+      setData({
+        ...data,
+        [name]: data[name]
+          ? // @ts-ignore
+            // @ts-ignore
+            data[name].concat(value)
+          : value,
+      });
+    } else {
+      setData({
+        ...data,
+        [name]: value,
+      });
+    }
+    console.log(data);
+  };
+
+  const handleFileDelete = (arrayName: string, fileName: string) => {
+    setData({
+      ...data,
+      [arrayName]: data[arrayName].filter(
+        (file: any) => file.name !== fileName,
+      ),
+    });
+  };
+
   return (
     <View>
       <ScrollView>
