@@ -11,8 +11,8 @@ import { BsInfoCircleFill, AiOutlineFileText } from 'react-icons/all';
 
 const TemplateProperty = () => {
     return (
-        <section className="flex flex-col border-6 lg:h-full lg:h-screen w-full bg-gradient-to-b from-bg-gradient-8 to-bg-gradient-9 p-4 md:px-20 md:py-10">
-            <div className="container lg:h-screen lg_h-full">
+        <section className="flex flex-col h-full w-full bg-gradient-to-b from-bg-gradient-8 to-bg-gradient-9 p-4 md:px-20 md:py-10">
+            <div className="container">
                 <div className="flex flex-col container">
                     <h1 className="text-4xl mb-4 text-blue-900 font-secondary uppercase font-semibold tracking-wide text-center md:text-left">
                         Crear Propiedad
