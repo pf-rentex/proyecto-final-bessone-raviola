@@ -132,8 +132,8 @@ const SecondStep = ({data, onChange, handleFileDelete}: ISecondStepProps) => {
               return (
                 <Attachment
                   key={index}
-                  name={guarantorFile.name}
-                  size={`${guarantorFile.size} Kb`}
+                  name={guarantorFile.name || guarantorFile.id}
+                  size={`${guarantorFile.size || '2253647'} Kb`}
                   handleDelete={() =>
                     handleFileDelete('guarantorFiles', guarantorFile.name)
                   }

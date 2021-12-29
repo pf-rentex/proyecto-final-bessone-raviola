@@ -168,32 +168,38 @@ const RequestForm = ({
               </Text>
             </View>
           </TouchableHighlight>
-        ) : isLoading ? (
-          <Loader />
         ) : (
           <TouchableHighlight
             style={styles.sendButton}
-            onPress={submitRentalRequest}>
+            onPress={submitRentalRequest}
+            disabled={isLoading}>
             <View
               style={{
                 display: 'flex',
                 flexDirection: 'row',
+                alignItems: 'center',
               }}>
-              <Ionicons
-                name='send'
-                size={24}
-                color='#21526D'
-                style={{flex: 1}}
-              />
-              <Text
-                style={{
-                  color: '#18405C',
-                  fontSize: 18,
-                  letterSpacing: 0.5,
-                  flex: 2,
-                }}>
-                Enviar
-              </Text>
+              {isLoading ? (
+                <Loader size={30} />
+              ) : (
+                <>
+                  <Ionicons
+                    name='send'
+                    size={24}
+                    color='#21526D'
+                    style={{flex: 1}}
+                  />
+                  <Text
+                    style={{
+                      color: '#18405C',
+                      fontSize: 18,
+                      letterSpacing: 0.5,
+                      flex: 2,
+                    }}>
+                    Enviar
+                  </Text>
+                </>
+              )}
             </View>
           </TouchableHighlight>
         )}
