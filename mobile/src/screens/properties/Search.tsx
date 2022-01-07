@@ -37,7 +37,7 @@ const Search = ({getProperties, properties, isLoading}: ISearchProps) => {
         </View>
         {isLoading ? (
           <View style={styles.loader}>
-            <Loader />
+            <Loader size={80} />
           </View>
         ) : (
           <View>

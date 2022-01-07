@@ -9,14 +9,23 @@ import FirstStep from '../../../components/rent/request/FirstStep';
 import SecondStep from '../../../components/rent/request/SecondStep';
 import ThirdStep from '../../../components/rent/request/ThirdStep';
 import Summary from '../../../components/rent/request/Summary';
+import { connect } from 'react-redux';
+import { createRentalRequest } from '../../../actions/rent';
 
-const RequestForm = () => {
+interface IRequestFormProps {
+    createRentalRequest: Function;
+    isLoading: boolean;
+}
+
+const RequestForm = ({ createRentalRequest, isLoading }: IRequestFormProps) => {
     const [steps, setSteps] = useState<Array<string>>([
         'Detalles de la propiedad',
         'Datos personales',
         'Detalles',
     ]);
     const [activeStep, setActiveStep] = useState<number>(0);
+
+    const [data, setData] = useState<any>({});
 
     const [isSummaryOpen, setIsSummaryOpen] = React.useState(false);
 
@@ -25,11 +34,17 @@ const RequestForm = () => {
             case 0:
                 return <FirstStep />;
             case 1:
-                return <SecondStep />;
+                return (
+                    <SecondStep
+                        data={data}
+                        onChange={handleDataChange}
+                        handleFileDelete={handleFileDelete}
+                    />
+                );
             case 2:
                 return <ThirdStep />;
             default:
-                return 'desconocido';
+                return <FirstStep />;
         }
     };
 
@@ -39,6 +54,41 @@ const RequestForm = () => {
 
     const handleBack = () => {
         setActiveStep(activeStep - 1);
+    };
+
+    const handleDataChange = (e: any) => {
+        if (e.target.files) {
+            setData({
+                ...data,
+                [e.target.name]:
+                    // @ts-ignore
+                    data[e.target.name]
+                        ? [
+                              // @ts-ignore
+                              ...data[e.target.name],
+                              e.target.files[0],
+                          ]
+                        : [e.target.files[0]],
+            });
+        } else {
+            setData({
+                ...data,
+                [e.target.name]: e.target.value,
+            });
+        }
+    };
+
+    const handleFileDelete = (arrayName: string, fileName: string) => {
+        setData({
+            ...data,
+            [arrayName]: data[arrayName].filter(
+                (file: any) => file.name !== fileName,
+            ),
+        });
+    };
+
+    const submitRentalRequest = () => {
+        createRentalRequest(data);
     };
 
     return (
@@ -132,9 +182,20 @@ const RequestForm = () => {
                     </div>
                 </div>
             </div>
-            <Summary isOpen={isSummaryOpen} setIsOpen={setIsSummaryOpen} />
+            <Summary
+                isOpen={isSummaryOpen}
+                setIsOpen={setIsSummaryOpen}
+                submitRentalRequest={submitRentalRequest}
+                data={data}
+                isLoading={isLoading}
+            />
         </section>
     );
 };
 
-export default RequestForm;
+const mapStateToProps = (state: any) => ({
+    isLoading: state.rent.isLoading,
+    error: state.error.msg,
+});
+
+export default connect(mapStateToProps, { createRentalRequest })(RequestForm);

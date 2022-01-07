@@ -5,15 +5,22 @@ import { ReactComponent as Bedrooms } from '../../../assets/amenities_bedrooms.s
 import { ReactComponent as Bathrooms } from '../../../assets/amenities_bathrooms.svg';
 import CustomButton from '../../commons/Button/CustomButton';
 import { RiSendPlane2Fill } from 'react-icons/all';
+import Loader from '../../commons/Loader';
 
 interface ISummaryProps {
     isOpen?: boolean;
     setIsOpen?: Function;
+    submitRentalRequest: Function;
+    data: any;
+    isLoading: boolean;
 }
 
 export default function Summary({
     isOpen = false,
     setIsOpen = () => null,
+    submitRentalRequest,
+    data,
+    isLoading,
 }: ISummaryProps) {
     return (
         <>
@@ -110,6 +117,7 @@ export default function Summary({
                                                     type="text"
                                                     className="px-3 py-2 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
                                                     placeholder="Nombre"
+                                                    value={data.name}
                                                     style={{
                                                         transition:
                                                             'all 0.15s ease 0s',
@@ -120,6 +128,7 @@ export default function Summary({
                                                     type="text"
                                                     className="px-3 py-2 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
                                                     placeholder="Email"
+                                                    value={data.email}
                                                     style={{
                                                         transition:
                                                             'all 0.15s ease 0s',
@@ -130,6 +139,7 @@ export default function Summary({
                                                     type="date"
                                                     className="px-3 py-2 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
                                                     placeholder="Fecha de nacimiento"
+                                                    value={data.birthDate}
                                                     style={{
                                                         transition:
                                                             'all 0.15s ease 0s',
@@ -146,6 +156,7 @@ export default function Summary({
                                                         type="date"
                                                         className="px-3 py-2  placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded-l text-md font-medium shadow focus:outline-none focus:shadow-outline sm:w-5/12"
                                                         placeholder="Fecha de inicio"
+                                                        value={data.startDate}
                                                         style={{
                                                             transition:
                                                                 'all 0.15s ease 0s',
@@ -156,6 +167,7 @@ export default function Summary({
                                                         type="date"
                                                         className="px-3 py-2  placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded-r text-md font-medium shadow focus:outline-none focus:shadow-outline sm:w-5/12"
                                                         placeholder="Fecha de fin"
+                                                        value={data.endDate}
                                                         style={{
                                                             transition:
                                                                 'all 0.15s ease 0s',
@@ -197,12 +209,17 @@ export default function Summary({
                                         CANCELAR
                                     </button>
                                     <div>
-                                        <CustomButton
-                                            text="Enviar solicitud"
-                                            color="primary"
-                                        >
-                                            <RiSendPlane2Fill className="text-alt" />
-                                        </CustomButton>
+                                        {isLoading ? (
+                                            <Loader />
+                                        ) : (
+                                            <CustomButton
+                                                text="Enviar solicitud"
+                                                color="primary"
+                                                callback={submitRentalRequest}
+                                            >
+                                                <RiSendPlane2Fill className="text-alt" />
+                                            </CustomButton>
+                                        )}
                                     </div>
                                 </div>
                             </div>

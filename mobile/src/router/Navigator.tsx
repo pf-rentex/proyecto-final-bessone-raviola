@@ -23,7 +23,7 @@ interface INavigatorProps {
 
 const Navigator = ({isAuthenticated, isLoading}: INavigatorProps) => {
   if (isLoading) {
-    return <Loader />;
+    return <Loader size={80} />;
   }
 
   if (isAuthenticated) {
