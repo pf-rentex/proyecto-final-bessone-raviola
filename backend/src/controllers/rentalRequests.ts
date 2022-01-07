@@ -15,12 +15,10 @@ const createRentalRequest = async (req: Request, res: Response) => {
         endDate,
         propertyId,
     } = req.body;
-
     //Simple validation
     if (!fieldsAreValid(req)) {
         return res.status(400).json({ msg: 'Please enter all fields' });
     }
-
     //Check for existing rentalRequest
     const existingRentalRequest = await rentalRequest.findOne({
         propertyId: propertyId,
