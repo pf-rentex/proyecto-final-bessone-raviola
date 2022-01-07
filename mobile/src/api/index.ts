@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {IRegisterFormData} from '../screens/auth/Register/RegisterStepTwo';
 
 // Replace base URL with server URL.
-const API = axios.create({baseURL: 'http://10.0.2.2:5000'});
+const API = axios.create({baseURL: 'http://localhost:5000'});
 
 API.interceptors.request.use(async req => {
   const profile = await AsyncStorage.getItem('profile');
@@ -27,3 +27,8 @@ export const getProperties = (query: string) => {
 
 export const checkContributor = (cuit: string) =>
   API.post('/api/afip/check_contributor', {cuit});
+
+export const createRentalRequest = (formData: any) =>
+  API.post('/api/rentalRequests', formData, {
+    headers: {'Content-Type': 'multipart/form-data'},
+  });

@@ -15,7 +15,13 @@ import {
 import Attachment from '../../common/Attachment/Attachment';
 import AttachmentRequest from '../../common/Attachment/AttachmentRequest';
 
-const SecondStep = ({guarantorFiles, dniFiles, receiptFiles}: any) => {
+interface ISecondStepProps {
+  data: any;
+  onChange: Function;
+  handleFileDelete: Function;
+}
+
+const SecondStep = ({data, onChange, handleFileDelete}: ISecondStepProps) => {
   const styles = StyleSheet.create({
     container: {
       paddingVertical: hp('3%'),
@@ -49,49 +55,56 @@ const SecondStep = ({guarantorFiles, dniFiles, receiptFiles}: any) => {
     },
   });
 
-  let [name, setName] = useState<string>('');
-  let [email, setEmail] = useState<string>('');
-  let [dni, setDNI] = useState<string>('');
-  let [birthday, setBirthday] = useState<string>('');
-  let [address, setAddress] = useState<string>('');
-  let [phone, setPhone] = useState<string>('');
+  const {
+    name,
+    lastName,
+    email,
+    dni,
+    birthDate,
+    phone,
+    startDate,
+    endDate,
+    guarantorFiles,
+    dniFiles,
+    receiptFiles,
+  } = data;
 
   return (
     <View style={styles.container}>
       <View>
         <TextInput
-          value={name}
-          onChangeText={txt => setName(txt)}
+          value={name || ''}
+          onChangeText={txt => onChange('name', txt)}
           placeholder='Nombre'
           placeholderTextColor='gray'
           style={styles.input}></TextInput>
         <TextInput
-          value={email}
-          onChangeText={txt => setEmail(txt)}
+          value={lastName || ''}
+          onChangeText={txt => onChange('lastName', txt)}
+          placeholder='Apellido'
+          placeholderTextColor='gray'
+          style={styles.input}></TextInput>
+        <TextInput
+          value={email || ''}
+          onChangeText={txt => onChange('email', txt)}
           placeholder='Email'
           placeholderTextColor='gray'
           style={styles.input}></TextInput>
         <TextInput
-          value={dni}
-          onChangeText={txt => setDNI(txt)}
+          value={dni || ''}
+          onChangeText={txt => onChange('dni', txt)}
           placeholder='DNI'
           placeholderTextColor='gray'
           style={styles.input}></TextInput>
         <TextInput
-          value={birthday}
-          onChangeText={txt => setBirthday(txt)}
+          value={birthDate || ''}
+          onChangeText={txt => onChange('birthDate', txt)}
           placeholder='Fecha de nacimiento'
           placeholderTextColor='gray'
           style={styles.input}></TextInput>
         <TextInput
-          value={address}
-          onChangeText={txt => setAddress(txt)}
-          placeholder='Domicilio'
-          placeholderTextColor='gray'
-          style={styles.input}></TextInput>
-        <TextInput
-          value={phone}
-          onChangeText={txt => setPhone(txt)}
+          value={phone || ''}
+          onChangeText={txt => onChange('phone', txt)}
           placeholder='Telefono'
           placeholderTextColor='gray'
           style={styles.input}></TextInput>
@@ -99,8 +112,16 @@ const SecondStep = ({guarantorFiles, dniFiles, receiptFiles}: any) => {
           <Text style={{color: 'white', flex: 1, paddingHorizontal: wp('4%')}}>
             Período:
           </Text>
-          <TextInput placeholder='Inicio' style={styles.input}></TextInput>
-          <TextInput placeholder='Fin' style={styles.input}></TextInput>
+          <TextInput
+            value={startDate || ''}
+            placeholder='Inicio'
+            style={styles.input}
+            onChangeText={txt => onChange('startDate', txt)}></TextInput>
+          <TextInput
+            value={endDate || ''}
+            placeholder='Fin'
+            style={styles.input}
+            onChangeText={txt => onChange('endDate', txt)}></TextInput>
         </View>
       </View>
       <View style={{marginTop: hp('3%')}}>
@@ -111,8 +132,11 @@ const SecondStep = ({guarantorFiles, dniFiles, receiptFiles}: any) => {
               return (
                 <Attachment
                   key={index}
-                  name={guarantorFile.name}
-                  size={`${guarantorFile.size} Kb`}
+                  name={guarantorFile.name || guarantorFile.id}
+                  size={`${guarantorFile.size || '2253647'} Kb`}
+                  handleDelete={() =>
+                    handleFileDelete('guarantorFiles', guarantorFile.name)
+                  }
                 />
               );
             })}
@@ -130,6 +154,9 @@ const SecondStep = ({guarantorFiles, dniFiles, receiptFiles}: any) => {
                   key={index}
                   name={dniFile.name}
                   size={`${dniFile.size} Kb`}
+                  handleDelete={() =>
+                    handleFileDelete('dniFiles', dniFile.name)
+                  }
                 />
               );
             })}
@@ -147,6 +174,9 @@ const SecondStep = ({guarantorFiles, dniFiles, receiptFiles}: any) => {
                   key={index}
                   name={receiptFile.name}
                   size={`${receiptFile.size} Kb`}
+                  handleDelete={() =>
+                    handleFileDelete('receiptFiles', receiptFile.name)
+                  }
                 />
               );
             })}

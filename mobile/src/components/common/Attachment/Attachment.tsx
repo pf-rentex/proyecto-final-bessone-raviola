@@ -15,9 +15,10 @@ import {
 interface IAttachmentProps {
   name: string;
   size: string;
+  handleDelete: Function;
 }
 
-const Attachment = ({name, size}: IAttachmentProps) => {
+const Attachment = ({name, size, handleDelete}: IAttachmentProps) => {
   const styles = StyleSheet.create({
     container: {
       backgroundColor: '#1E4663',
@@ -61,7 +62,7 @@ const Attachment = ({name, size}: IAttachmentProps) => {
         style={{
           alignSelf: 'center',
         }}>
-        <TouchableHighlight style={styles.circle}>
+        <TouchableHighlight style={styles.circle} onPress={handleDelete}>
           <Icon name='close' size={20} color='white' />
         </TouchableHighlight>
       </View>

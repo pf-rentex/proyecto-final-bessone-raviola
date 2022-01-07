@@ -6,22 +6,26 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FirstStep from '../../components/rent/request/FirstStep';
 import SecondStep from '../../components/rent/request/SecondStep';
 import ThirdStep from '../../components/rent/request/ThirdStep';
+import {connect} from 'react-redux';
+import {createRentalRequest} from '../../actions/rent';
+import Loader from '../../components/common/Loader';
 
-const RequestForm = ({route}: any) => {
+interface IRequestFormProps {
+  createRentalRequest: Function;
+  isLoading: boolean;
+  route: any;
+}
+
+const RequestForm = ({
+  createRentalRequest,
+  isLoading,
+  route,
+}: IRequestFormProps) => {
   useEffect(() => {
     if (route.params) {
-      if (
-        route.params.guarantorFiles &&
-        route.params.guarantorFiles.length > 0
-      ) {
-        setGuarantorFiles(route.params.guarantorFiles);
-      }
-      if (route.params.dniFiles && route.params.dniFiles.length > 0) {
-        setDniFiles(route.params.dniFiles);
-      }
-      if (route.params.receiptFiles && route.params.receiptFiles.length > 0) {
-        setReceiptFiles(route.params.receiptFiles);
-      }
+      Object.keys(route.params).map(key => {
+        handleDataChange(key, route.params[key]);
+      });
     }
   }, [route]);
 
@@ -31,9 +35,7 @@ const RequestForm = ({route}: any) => {
     'Detalles',
   ]);
   const [activeStep, setActiveStep] = useState<number>(0);
-  const [guarantorFiles, setGuarantorFiles] = useState<Array<any>>([]);
-  const [dniFiles, setDniFiles] = useState<Array<any>>([]);
-  const [receiptFiles, setReceiptFiles] = useState<Array<any>>([]);
+  const [data, setData] = useState<any>({});
 
   const getStepContent = (stepIndex: number) => {
     switch (stepIndex) {
@@ -42,15 +44,15 @@ const RequestForm = ({route}: any) => {
       case 1:
         return (
           <SecondStep
-            guarantorFiles={guarantorFiles}
-            dniFiles={dniFiles}
-            receiptFiles={receiptFiles}
+            data={data}
+            onChange={handleDataChange}
+            handleFileDelete={handleFileDelete}
           />
         );
       case 2:
         return <ThirdStep />;
       default:
-        return 'desconocido';
+        return <FirstStep />;
     }
   };
 
@@ -63,6 +65,38 @@ const RequestForm = ({route}: any) => {
       setActiveStep(activeStep - 1);
     }
   };
+
+  const handleDataChange = (name: string, value: any) => {
+    if (Array.isArray(value)) {
+      setData({
+        ...data,
+        [name]: data[name]
+          ? // @ts-ignore
+            // @ts-ignore
+            data[name].concat(value)
+          : value,
+      });
+    } else {
+      setData({
+        ...data,
+        [name]: value,
+      });
+    }
+  };
+
+  const handleFileDelete = (arrayName: string, fileName: string) => {
+    setData({
+      ...data,
+      [arrayName]: data[arrayName].filter(
+        (file: any) => file.name !== fileName,
+      ),
+    });
+  };
+
+  const submitRentalRequest = () => {
+    createRentalRequest(data);
+  };
+
   return (
     <View>
       <ScrollView>
@@ -135,27 +169,37 @@ const RequestForm = ({route}: any) => {
             </View>
           </TouchableHighlight>
         ) : (
-          <TouchableHighlight style={styles.sendButton}>
+          <TouchableHighlight
+            style={styles.sendButton}
+            onPress={submitRentalRequest}
+            disabled={isLoading}>
             <View
               style={{
                 display: 'flex',
                 flexDirection: 'row',
+                alignItems: 'center',
               }}>
-              <Ionicons
-                name='send'
-                size={24}
-                color='#21526D'
-                style={{flex: 1}}
-              />
-              <Text
-                style={{
-                  color: '#18405C',
-                  fontSize: 18,
-                  letterSpacing: 0.5,
-                  flex: 2,
-                }}>
-                Enviar
-              </Text>
+              {isLoading ? (
+                <Loader size={30} />
+              ) : (
+                <>
+                  <Ionicons
+                    name='send'
+                    size={24}
+                    color='#21526D'
+                    style={{flex: 1}}
+                  />
+                  <Text
+                    style={{
+                      color: '#18405C',
+                      fontSize: 18,
+                      letterSpacing: 0.5,
+                      flex: 2,
+                    }}>
+                    Enviar
+                  </Text>
+                </>
+              )}
             </View>
           </TouchableHighlight>
         )}
@@ -164,4 +208,9 @@ const RequestForm = ({route}: any) => {
   );
 };
 
-export default RequestForm;
+const mapStateToProps = (state: any) => ({
+  isLoading: state.rent.isLoading,
+  error: state.error.msg,
+});
+
+export default connect(mapStateToProps, {createRentalRequest})(RequestForm);
