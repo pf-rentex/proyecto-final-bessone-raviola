@@ -8,6 +8,8 @@ import UserProfile from '../views/profile/UserProfile';
 import Search from '../views/properties/Search';
 import RequestForm from '../views/rent/request/RequestForm';
 import Publication from '../views/publications/Publication';
+import Complaints from '../views/complaints/Complaints';
+import ComplaintDetails from '../views/complaints/ComplaintDetails';
 
 export default function router() {
     return (
@@ -20,6 +22,12 @@ export default function router() {
                 <Route exact path="/search" component={Search} />
                 <Route exact path="/rent/request" component={RequestForm} />
                 <Route exact path="/publication/:id" component={Publication} />
+                <Route exact path="/complaints" component={Complaints} />
+                <Route
+                    exact
+                    path="/complaint/:id"
+                    component={ComplaintDetails}
+                />
             </Switch>
         </BrowserRouter>
     );

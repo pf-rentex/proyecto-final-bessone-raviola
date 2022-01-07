@@ -20,6 +20,7 @@ module.exports = {
         pink: colors.fuchsia,
         indigo: colors.indigo,
         green: colors.green,
+        yellow: colors.yellow,
     },
     fontFamily: {
         primary: ['Fredoka One', 'sans-serif'],
