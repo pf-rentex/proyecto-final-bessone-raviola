@@ -18,11 +18,11 @@ const Complaint = ({
     status,
 }: IComplaintProps) => {
     return (
-        <div className="flex bg-blue-500 rounded-lg">
-            <div className="flex w-3/12 bg-alt rounded-lg items-center justify-center p-8">
+        <div className="flex flex-col md:flex-row bg-blue-500 rounded-lg">
+            <div className="flex w-full md:w-3/12 bg-alt rounded-lg items-center justify-center p-8">
                 {icon}
             </div>
-            <div className="flex flex-col w-9/12 p-5 text-white space-y-2">
+            <div className="flex flex-col w-full md:w-9/12 p-5 text-white space-y-2">
                 <h1 className="text-3xl font-bold">{title}</h1>
                 <p>Categoría: {category}</p>
                 <p>Fecha de carga: {date}</p>
@@ -41,7 +41,7 @@ const Complaint = ({
                         {status.toUpperCase()}
                     </span>
                 </p>
-                <div className="flex space-x-5">
+                <div className="flex flex-col sm:flex-row sm:space-x-5">
                     <CustomButton
                         text="Detalles"
                         callback={() => {}}

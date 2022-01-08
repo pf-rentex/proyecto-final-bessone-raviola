@@ -10,6 +10,7 @@ import RequestForm from '../views/rent/request/RequestForm';
 import Publication from '../views/publications/Publication';
 import Complaints from '../views/complaints/Complaints';
 import ComplaintDetails from '../views/complaints/ComplaintDetails';
+import CreateComplaint from '../views/complaints/CreateComplaint';
 
 export default function router() {
     return (
@@ -23,6 +24,11 @@ export default function router() {
                 <Route exact path="/rent/request" component={RequestForm} />
                 <Route exact path="/publication/:id" component={Publication} />
                 <Route exact path="/complaints" component={Complaints} />
+                <Route
+                    exact
+                    path="/complaint/create"
+                    component={CreateComplaint}
+                />
                 <Route
                     exact
                     path="/complaint/:id"
