@@ -13,12 +13,7 @@ const createContract = async (req: Request, res: Response) => {
         propertyId,
         rentalEstateId,
         userId,
-        name,
-        lastname,
-        email,
-        dni,
-        birthDate,
-        phone,
+        tenantId,
     } = req.body;
 
     //Simple validation
@@ -53,12 +48,7 @@ const createContract = async (req: Request, res: Response) => {
         propertyId,
         rentalEstateId,
         userId,
-        name,
-        lastname,
-        email,
-        dni,
-        birthDate,
-        phone,
+        tenantId,
         guarantorFiles,
         dniFiles,
     });
@@ -115,12 +105,7 @@ const fieldsAreValid = (req): boolean => {
         propertyId,
         rentalEstateId,
         userId,
-        name,
-        lastname,
-        email,
-        dni,
-        birthDate,
-        phone,
+        tenantId,
     } = req.body;
     const { guarantorFiles, dniFiles } = req.files;
     return (
@@ -134,12 +119,7 @@ const fieldsAreValid = (req): boolean => {
         !!propertyId &&
         !!rentalEstateId &&
         !!userId &&
-        !!name &&
-        !!lastname &&
-        !!email &&
-        !!dni &&
-        !!birthDate &&
-        !!phone &&
+        !!tenantId &&
         !!guarantorFiles &&
         !!dniFiles
     );

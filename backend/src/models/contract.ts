@@ -44,28 +44,8 @@ const contractSchema = new mongoose.Schema(
             type: Schema.Types.ObjectId,
             required: true,
         },
-        name: {
-            type: String,
-            required: true,
-        },
-        lastname: {
-            type: String,
-            required: true,
-        },
-        email: {
-            type: String,
-            required: true,
-        },
-        dni: {
-            type: Number,
-            required: true,
-        },
-        birthDate: {
-            type: Date,
-            required: true,
-        },
-        phone: {
-            type: String,
+        tenantId: {
+            type: Schema.Types.ObjectId,
             required: true,
         },
         guarantorFiles: {
