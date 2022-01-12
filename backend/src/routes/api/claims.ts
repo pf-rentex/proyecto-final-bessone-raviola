@@ -4,6 +4,7 @@ import {
     createClaim,
     getclaims,
     getClaim,
+    updateClaim,
     deleteClaim,
 } from '../../controllers/claims';
 import upload from '../../middlewares/upload';
@@ -36,6 +37,16 @@ router.get(
     '/:id',
     // auth,
     getClaim,
+);
+
+//@route    Put api/claims
+//@desc     Update Claim
+//@access   Private
+router.put(
+    '/',
+    // auth,
+    upload.fields([{ name: 'picturesClaim' }]),
+    updateClaim,
 );
 
 //@route    Delete api/claims/:id

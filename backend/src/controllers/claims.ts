@@ -66,6 +66,61 @@ const getClaim = async (req: Request, res: Response) => {
     }
 };
 
+const updateClaim = async (req: Request, res: Response) => {
+    const {
+        id,
+        title,
+        description,
+        category,
+        status,
+        dateUpload,
+        dateVisit,
+        address,
+        technical,
+        propertyId,
+        userId,
+    } = req.body;
+
+    //Simple validation
+    if (!fieldsAreValid(req.body)) {
+        return res.status(400).json({ msg: 'Please enter all fields' });
+    }
+
+    // @ts-ignore
+    const picturesClaim = req.files.picturesClaim.map((file: any) => {
+        return file.id;
+    });
+
+    //Check for existing claim
+    const existingClaim = await Claim.findOne({ _id: id });
+    if (!existingClaim) {
+        return res.status(400).json({ msg: 'The Claim does not exist' });
+    } else {
+        try {
+            await Claim.updateOne(
+                { _id: id },
+                {
+                    title: title,
+                    description: description,
+                    category: category,
+                    status: status,
+                    dateUpload: dateUpload,
+                    dateVisit: dateVisit,
+                    address: address,
+                    technical: technical,
+                    propertyId: propertyId,
+                },
+            );
+
+            return res.status(200).json({ msg: 'Claim updated' });
+        } catch (error) {
+            return res
+                .status(400)
+                .json({ msg: `Error registering claim: ${error}` });
+        }
+    }
+};
+
 const deleteClaim = async (req: Request, res: Response) => {
     const { id } = req.params;
 
@@ -107,4 +162,4 @@ const fieldsAreValid = (req): boolean => {
     );
 };
 
-export { createClaim, getclaims, getClaim, deleteClaim };
+export { createClaim, getclaims, getClaim, updateClaim, deleteClaim };
