@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomButton from '../../components/commons/Button/CustomButton';
 import { AiOutlineSearch, HiOutlineTrash } from 'react-icons/all';
+import { ComplaintStatus } from '../../views/complaints/Complaints';
 
 interface IComplaintProps {
     icon: React.ReactNode;
@@ -15,8 +16,23 @@ const Complaint = ({
     title,
     category,
     date,
-    status,
+    status = ComplaintStatus.addressed,
 }: IComplaintProps) => {
+    const [statusColor, setStatusColor] = useState('green-300');
+    useEffect(() => {
+        switch (status) {
+            case ComplaintStatus.addressed:
+                setStatusColor('green-300');
+                break;
+            case ComplaintStatus.inProgress:
+                setStatusColor('yellow-300');
+                break;
+            case ComplaintStatus.cancelled:
+                setStatusColor('red-500');
+                break;
+        }
+    }, [status]);
+
     return (
         <div className="flex flex-col md:flex-row bg-blue-500 rounded-lg">
             <div className="flex w-full md:w-3/12 bg-alt rounded-lg items-center justify-center p-8">
@@ -28,16 +44,7 @@ const Complaint = ({
                 <p>Fecha de carga: {date}</p>
                 <p>
                     Estado:
-                    <span
-                        className={`px-2 font-bold ${
-                            status === 'Atendido'
-                                ? 'text-green-300'
-                                : status === 'En curso'
-                                ? 'text-yellow-300'
-                                : 'text-red-500'
-                        }
-                        }`}
-                    >
+                    <span className={`px-2 font-bold text-${statusColor}`}>
                         {status.toUpperCase()}
                     </span>
                 </p>

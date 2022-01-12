@@ -6,6 +6,12 @@ import {
     BsLightningFill,
 } from 'react-icons/all';
 
+export enum ComplaintStatus {
+    addressed = 'Atendido',
+    inProgress = 'En curso',
+    cancelled = 'Cancelado',
+}
+
 const Complaints = () => {
     //Replace with complaints retrieved from backend
     let complaints = [
@@ -14,42 +20,42 @@ const Complaints = () => {
             title: 'Falla toma de corriente',
             category: 'Electricidad',
             date: '01/06/2022',
-            status: 'En curso',
+            status: ComplaintStatus.inProgress,
         },
         {
             icon: <BsFillDropletFill className="text-white w-64 h-28" />,
             title: 'Gotera canilla baño',
             category: 'Plomería',
             date: '01/06/2022',
-            status: 'Atendido',
+            status: ComplaintStatus.addressed,
         },
         {
             icon: <BsFillGearFill className="text-white w-64 h-28" />,
             title: 'Pared agrietada',
             category: 'Infraestructura',
             date: '01/06/2022',
-            status: 'Cancelado',
+            status: ComplaintStatus.cancelled,
         },
         {
             icon: <BsLightningFill className="text-white w-64 h-28" />,
             title: 'Falla toma de corriente',
             category: 'Electricidad',
             date: '01/06/2022',
-            status: 'En curso',
+            status: ComplaintStatus.inProgress,
         },
         {
             icon: <BsFillDropletFill className="text-white w-64 h-28" />,
             title: 'Gotera canilla baño',
             category: 'Plomería',
             date: '01/06/2022',
-            status: 'Atendido',
+            status: ComplaintStatus.addressed,
         },
         {
             icon: <BsFillGearFill className="text-white w-64 h-28" />,
             title: 'Pared agrietada',
             category: 'Infraestructura',
             date: '01/06/2022',
-            status: 'Cancelado',
+            status: ComplaintStatus.cancelled,
         },
     ];
 
