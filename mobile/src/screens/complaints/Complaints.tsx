@@ -14,6 +14,7 @@ import {
 } from 'react-native-responsive-screen';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Complaint from '../../components/complaints/Complaint';
+import {useNavigation} from '@react-navigation/native';
 
 export enum ComplaintStatus {
   addressed = 'Atendido',
@@ -49,7 +50,7 @@ const Complaints = () => {
     container: {
       padding: 20,
       flex: 1,
-      height: hp(100),
+      // height: hp(100),
     },
     title: {
       fontWeight: 'bold',
@@ -57,6 +58,7 @@ const Complaints = () => {
       fontSize: wp(7),
     },
   });
+  const navigation = useNavigation();
   return (
     <View>
       <ScrollView>
@@ -66,9 +68,10 @@ const Complaints = () => {
           <View>
             <Text style={styles.title}>Reclamos</Text>
           </View>
-          {complaints.map(complaint => {
+          {complaints.map((complaint, index) => {
             return (
               <Complaint
+                key={index}
                 icon={complaint.icon}
                 title={complaint.title}
                 category={complaint.category}
@@ -77,6 +80,23 @@ const Complaints = () => {
               />
             );
           })}
+          <View style={{alignItems: 'flex-end', marginVertical: hp(6)}}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('CreateComplaint')}
+              style={{
+                borderWidth: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 70,
+                bottom: 10,
+                right: 10,
+                height: 70,
+                backgroundColor: '#2685D0',
+                borderRadius: 100,
+              }}>
+              <MCIcon name='plus' size={30} color='white' />
+            </TouchableOpacity>
+          </View>
         </LinearGradient>
       </ScrollView>
     </View>

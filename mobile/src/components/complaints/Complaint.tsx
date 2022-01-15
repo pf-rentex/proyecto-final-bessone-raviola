@@ -6,6 +6,7 @@ import {
 } from 'react-native-responsive-screen';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ComplaintStatus} from '../../screens/complaints/Complaints';
+import {useNavigation} from '@react-navigation/native';
 
 interface IComplaintProps {
   icon: string;
@@ -56,6 +57,7 @@ const Complaint = ({icon, title, category, date, status}: IComplaintProps) => {
     },
   });
 
+  const navigation = useNavigation();
   const [statusColor, setStatusColor] = useState('green');
   useEffect(() => {
     switch (status) {
@@ -91,7 +93,17 @@ const Complaint = ({icon, title, category, date, status}: IComplaintProps) => {
           </Text>
         </Text>
         <View style={styles.claimActions}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate('ComplaintDetails', {
+                icon,
+                title,
+                category,
+                date,
+                status,
+              });
+            }}>
             <MCIcon name='magnify' size={20} color='white' />
             <Text
               style={{
