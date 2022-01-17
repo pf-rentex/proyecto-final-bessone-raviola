@@ -11,6 +11,7 @@ import amenities from './api/amenities';
 import publications from './api/publications';
 import rentalRequests from './api/rentalRequests';
 import claims from './api/claims';
+import contracts from './api/contract';
 
 const router = express.Router();
 
@@ -25,5 +26,6 @@ router.use('/api/amenities', amenities);
 router.use('/api/publications', publications);
 router.use('/api/rentalRequests', rentalRequests);
 router.use('/api/claims', claims);
+router.use('/api/contracts', contracts);
 
 export default router;
