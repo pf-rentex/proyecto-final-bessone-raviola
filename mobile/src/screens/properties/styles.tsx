@@ -26,7 +26,7 @@ export default StyleSheet.create({
     marginTop: hp('2%'),
   },
   searchIcon: {
-    paddingVertical: hp('2.1%'),
+    paddingVertical: hp('1.8%'),
     paddingHorizontal: wp('3.5%'),
     color: 'white',
     borderTopLeftRadius: 6,
