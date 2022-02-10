@@ -9,6 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
 import DocumentViewer from '../screens/DocumentViewer';
 import Publication from '../screens/publication/Publication';
+import Contracts from '../screens/rent/Contracts';
 
 const Drawer = createDrawerNavigator();
 
@@ -95,6 +96,20 @@ const DrawerNavigator = ({isAuthenticated}: IDrawerProps) => {
             drawerIcon: ({focused}) => (
               <Ionicons
                 name='card'
+                size={24}
+                color={focused ? '#5FACF2' : 'white'}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          key='Contracts'
+          name='Mis Contratos'
+          component={Contracts}
+          options={{
+            drawerIcon: ({focused}) => (
+              <Ionicons
+                name='documents-sharp'
                 size={24}
                 color={focused ? '#5FACF2' : 'white'}
               />
