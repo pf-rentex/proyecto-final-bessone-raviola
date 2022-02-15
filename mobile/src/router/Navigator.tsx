@@ -12,6 +12,9 @@ import Loader from '../components/common/Loader';
 import ScannerComponent from '../components/Scanner';
 import DocumentViewer from '../screens/DocumentViewer';
 import Publication from '../screens/publication/Publication';
+import ComplaintDetails from '../screens/complaints/ComplaintDetails';
+import CreateComplaint from '../screens/complaints/CreateComplaint';
+import Complaints from '../screens/complaints/Complaints';
 import RequestForm from '../screens/rent/RequestForm';
 
 const Stack = createNativeStackNavigator();
@@ -23,7 +26,7 @@ interface INavigatorProps {
 
 const Navigator = ({isAuthenticated, isLoading}: INavigatorProps) => {
   if (isLoading) {
-    return <Loader />;
+    return <Loader size={80} />;
   }
 
   if (isAuthenticated) {
@@ -82,6 +85,21 @@ const Navigator = ({isAuthenticated, isLoading}: INavigatorProps) => {
           <Stack.Screen
             name='Publication'
             component={Publication}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name='Complaints'
+            component={Complaints}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name='ComplaintDetails'
+            component={ComplaintDetails}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name='CreateComplaint'
+            component={CreateComplaint}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

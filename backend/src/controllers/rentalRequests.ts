@@ -5,22 +5,20 @@ const createRentalRequest = async (req: Request, res: Response) => {
     const {
         userId,
         name,
-        lastname,
+        lastName,
         email,
         dni,
         birthDate,
         phone,
         comments,
-        dateStart,
-        dateEnd,
+        startDate,
+        endDate,
         propertyId,
     } = req.body;
-
     //Simple validation
     if (!fieldsAreValid(req)) {
         return res.status(400).json({ msg: 'Please enter all fields' });
     }
-
     //Check for existing rentalRequest
     const existingRentalRequest = await rentalRequest.findOne({
         propertyId: propertyId,
@@ -41,27 +39,27 @@ const createRentalRequest = async (req: Request, res: Response) => {
         return file.id;
     });
     // @ts-ignore
-    const debtFreeFiles = req.files.debtFreeFiles.map((file: any) => {
-        return file.id;
-    });
+    // const debtFreeFiles = req.files.debtFreeFiles.map((file: any) => {
+    //     return file.id;
+    // });
 
     const newRentalRequest = new rentalRequest({
         userId,
         name,
-        lastname,
+        lastName,
         email,
         dni,
         birthDate,
         phone,
         comments,
-        dateStart,
-        dateEnd,
+        startDate,
+        endDate,
         status: 'pending',
         propertyId,
         guarantorFiles,
         dniFiles,
         receiptFiles,
-        debtFreeFiles,
+        // debtFreeFiles,
     });
 
     //Create RentalRequest
@@ -122,26 +120,26 @@ const fieldsAreValid = (req): boolean => {
     const {
         userId,
         name,
-        lastname,
+        lastName,
         email,
         dni,
         birthDate,
         phone,
-        dateStart,
-        dateEnd,
+        startDate,
+        endDate,
         propertyId,
     } = req.body;
     const { guarantorFiles, dniFiles } = req.files;
     return (
         !!userId &&
         !!name &&
-        !!lastname &&
+        !!lastName &&
         !!email &&
         !!dni &&
         !!birthDate &&
         !!phone &&
-        !!dateStart &&
-        !!dateEnd &&
+        !!startDate &&
+        !!endDate &&
         !!propertyId &&
         !!guarantorFiles &&
         !!dniFiles
