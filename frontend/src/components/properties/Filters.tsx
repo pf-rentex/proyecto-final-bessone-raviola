@@ -1,9 +1,17 @@
 import CustomButton from '../commons/Button/CustomButton';
 import { MdAttachMoney } from 'react-icons/md';
+import { useState } from 'react';
+
+enum RentTypes {
+    Temporary = 'Temporal',
+    Permanent = 'Permanente',
+}
 
 const Filters = () => {
+    const [rentType, setRentType] = useState(RentTypes.Temporary);
+
     return (
-        <section className="flex w-3/12 flex-col bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 mx-5 rounded">
+        <section className="flex w-5/12 xl:w-3/12 flex-col bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 mx-5 rounded">
             <div className="bg-alt w-full rounded-t p-3 text-center">
                 <h1 className="text-white font-extrabold">
                     Filtros de búsqueda{' '}
@@ -55,13 +63,25 @@ const Filters = () => {
                         Tipo de alquiler
                     </h5>
                     <div className="flex flex-col xl:flex-row xl:space-x-3">
-                        <CustomButton text="Temporal" />
-                        <CustomButton text="Permanente" outlined={true} />
+                        <CustomButton
+                            text="Temporal"
+                            callback={() => {
+                                setRentType(RentTypes.Temporary);
+                            }}
+                            outlined={rentType !== RentTypes.Temporary}
+                        />
+                        <CustomButton
+                            text="Permanente"
+                            callback={() => {
+                                setRentType(RentTypes.Permanent);
+                            }}
+                            outlined={rentType !== RentTypes.Permanent}
+                        />
                     </div>
                 </div>
                 <div className="flex flex-col space-y-5 mt-5">
                     <h5 className="text-white text-center font-bold">
-                        Alquiler temporal
+                        {`Alquiler ${rentType}`}
                     </h5>
                     <div className="flex flex-col space-y-3">
                         <h5 className="text-white font-semibold">Fechas</h5>
