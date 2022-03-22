@@ -19,16 +19,15 @@ const Filters = () => {
                 </div>
                 <FiltersContent />
             </section>
-            <div className="block md:hidden mx-5">
-                <CustomButton
-                    text="Filters"
-                    color="alt"
-                    callback={() => {
+            <div className="block md:hidden">
+                <button
+                    className="bg-alt p-3 rounded my-3 sm:my-0 sm:mx-3"
+                    onClick={() => {
                         setIsFiltersOpen(true);
                     }}
                 >
                     <HiFilter className="w-5 h-5 text-white" />
-                </CustomButton>
+                </button>
                 <FiltersModal
                     isOpen={isFiltersOpen}
                     setIsOpen={setIsFiltersOpen}

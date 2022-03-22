@@ -18,8 +18,8 @@ const Search = ({ getProperties, properties, isLoading }: ISearchProps) => {
     }, []);
 
     return (
-        <section className="flex flex-row h-full w-full bg-gradient-to-b from-bg-gradient-8 to-bg-gradient-9 px-5 lg:px-20 py-10">
-            <div className="w-full xl:w-3/12 h-full">
+        <section className="flex flex-col sm:flex-row h-full w-full bg-gradient-to-b from-bg-gradient-8 to-bg-gradient-9 px-5 lg:px-20 py-10">
+            <div className="w-3/12 md:w-full xl:w-3/12 h-full md:sticky md:top-28">
                 <Filters />
             </div>
             <div className="flex flex-col">
