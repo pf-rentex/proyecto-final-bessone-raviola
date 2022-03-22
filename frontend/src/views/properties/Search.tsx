@@ -13,13 +13,16 @@ interface ISearchProps {
 }
 
 const Search = ({ getProperties, properties, isLoading }: ISearchProps) => {
-    /*     useEffect(() => {
+    useEffect(() => {
         getProperties();
-    }, []); */
+    }, []);
+
     return (
-        <section className="flex flex-col h-full w-full bg-gradient-to-b from-bg-gradient-8 to-bg-gradient-9 px-5 lg:px-20 py-10">
-            <div className="flex items-start">
+        <section className="flex flex-row h-full w-full bg-gradient-to-b from-bg-gradient-8 to-bg-gradient-9 px-5 lg:px-20 py-10">
+            <div className="w-full xl:w-3/12 h-full">
                 <Filters />
+            </div>
+            <div className="flex flex-col">
                 <div className="flex justify-center lg:justify-end w-full">
                     <div className="relative w-full text-gray-600 focus-within:text-gray-400">
                         <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -33,17 +36,17 @@ const Search = ({ getProperties, properties, isLoading }: ISearchProps) => {
                         />
                     </div>
                 </div>
-                {/*         <div className="flex justify-center lg:justify-end">
-                {isLoading ? (
-                    <div>loading...</div>
-                ) : (
-                    <div className="w-full lg:w-9/12">
-                        {properties.map((property, index) => {
-                            return <Listing key={index} />;
-                        })}
-                    </div>
-                )}
-            </div> */}
+                <div className="flex justify-center lg:justify-end">
+                    {isLoading ? (
+                        <div>loading...</div>
+                    ) : (
+                        <div className="w-full">
+                            {properties.map((property, index) => {
+                                return <Listing key={index} />;
+                            })}
+                        </div>
+                    )}
+                </div>
             </div>
         </section>
     );
