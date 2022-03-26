@@ -12,6 +12,7 @@ import Complaints from '../views/complaints/Complaints';
 import ComplaintDetails from '../views/complaints/ComplaintDetails';
 import CreateComplaint from '../views/complaints/CreateComplaint';
 import Contracts from '../views/rent/Contracts';
+import ContractDetails from '../views/rent/ContractDetails';
 
 export default function router() {
     return (
@@ -36,6 +37,11 @@ export default function router() {
                     component={ComplaintDetails}
                 />
                 <Route exact path="/contracts" component={Contracts} />
+                <Route
+                    exact
+                    path="/contracts/:id"
+                    component={ContractDetails}
+                />
             </Switch>
         </BrowserRouter>
     );

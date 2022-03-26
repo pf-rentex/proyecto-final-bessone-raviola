@@ -1,0 +1,186 @@
+import React from 'react';
+import CustomButton from '../../components/commons/Button/CustomButton';
+import { AiOutlineDownload } from 'react-icons/ai';
+import { FiUpload } from 'react-icons/fi';
+import { RiCloseCircleFill } from 'react-icons/ri';
+import { HiOutlineRefresh } from 'react-icons/hi';
+import Attachment from '../../components/commons/Attachment/Attachment';
+
+const ContractDetails = () => {
+    return (
+        <section className="w-full h-full bg-gradient-to-b from-bg-gradient-5 to-bg-gradient-6 overflow-hidden p-5 sm:p-10 md:p-20">
+            <div className="flex flex-col space-y-3">
+                <div className="flex">
+                    <h1 className="text-white font-bold w-10/12">
+                        Contrato 123456
+                    </h1>
+                    <div className="w-2/12">
+                        <CustomButton text="Descargar contrato" color="alt">
+                            <AiOutlineDownload className="text-white font-bold" />
+                        </CustomButton>
+                    </div>
+                </div>
+                <div className="flex flex-col">
+                    <div className="bg-alt p-2 rounded ">
+                        <h1 className="text-white font-semibold px-3">
+                            Información del inquilino
+                        </h1>
+                    </div>
+                    <div className="bg-gradient-to-b from-bg-gradient-2 to bg-gradient-3 p-10">
+                        <div className="flex flex-row">
+                            <div className="flex flex-col space-y-5 w-6/12">
+                                <h5 className="text-white">
+                                    <span className="font-semibold">
+                                        Nombre completo:
+                                    </span>
+                                    Roberto carlos
+                                </h5>
+                                <h5 className="text-white">
+                                    <span className="font-semibold">
+                                        Teléfono:
+                                    </span>
+                                    3564561314
+                                </h5>
+                                <h5 className="text-white">
+                                    <span className="font-semibold">DNI:</span>
+                                    36680567
+                                </h5>
+                            </div>
+                            <div className="flex flex-col space-y-5 w-6/12">
+                                <h5 className="text-white">
+                                    <span className="font-semibold">
+                                        Fecha de nacimiento:
+                                    </span>
+                                    30/04/1992
+                                </h5>
+                                <h5 className="text-white">
+                                    <span className="font-semibold">Mail:</span>
+                                    roberto.carlos@robertocarlos.com
+                                </h5>
+                                <h5 className="text-white">
+                                    <span className="font-semibold">
+                                        Garantías:
+                                    </span>
+                                    garantia 1
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex flex-col">
+                    <div className="bg-alt p-2 rounded ">
+                        <h1 className="text-white font-semibold px-3">
+                            Información del contrato
+                        </h1>
+                    </div>
+                    <div className="bg-gradient-to-b from-bg-gradient-2 to bg-gradient-3 p-10">
+                        <div className="flex justify-center mb-10">
+                            <div className="bg-alt rounded p-1 px-3">
+                                <h1 className="text-white">
+                                    INFORMACIÓN GENERAL
+                                </h1>
+                            </div>
+                        </div>
+                        <div className="flex flex-row">
+                            <div className="flex flex-col space-y-5 w-6/12">
+                                <h5 className="text-white">
+                                    <span className="font-semibold">
+                                        Tarifa mensual:
+                                    </span>
+                                    Roberto carlos
+                                </h5>
+                                <h5 className="text-white">
+                                    <span className="font-semibold">
+                                        Fecha de inicio:
+                                    </span>
+                                    3564561314
+                                </h5>
+                                <h5 className="text-white">
+                                    <span className="font-semibold">
+                                        Fecha de vencimiento:
+                                    </span>
+                                    36680567
+                                </h5>
+                                <h5 className="text-white">
+                                    <span className="font-semibold">
+                                        Tiempo restante:
+                                    </span>
+                                    36680567
+                                </h5>
+                            </div>
+                            <div className="flex flex-col space-y-5 w-6/12">
+                                <h5 className="text-white">
+                                    <span className="font-semibold">
+                                        Expensas:
+                                    </span>
+                                    30/04/1992
+                                </h5>
+                                <h5 className="text-white">
+                                    <span className="font-semibold">
+                                        Dirección:
+                                    </span>
+                                    roberto.carlos@robertocarlos.com
+                                </h5>
+                                <h5 className="text-white">
+                                    <span className="font-semibold">
+                                        Tipo de alquiler:
+                                    </span>
+                                    garantia 1
+                                </h5>
+                                <h5 className="text-white">
+                                    <span className="font-semibold">
+                                        Estado:
+                                    </span>
+                                    garantia 1
+                                </h5>
+                            </div>
+                        </div>
+                        <div className="flex justify-center m-10">
+                            <div className="bg-alt rounded p-1 px-3">
+                                <h1 className="text-white">
+                                    CONTRATO DE LOCACIÓN
+                                </h1>
+                            </div>
+                        </div>
+                        <div className="flex space-x-3 w-full">
+                            <h5 className="text-white font-semibold">
+                                Contrato digital:
+                            </h5>
+                            <Attachment
+                                name="Locación_gral_paz.pdf"
+                                size="216.32Kb"
+                                attachedDate="26/03/2022"
+                                handleDelete={() => {}}
+                            />
+                            <Attachment
+                                name="Gral_paz_renovación.pdf"
+                                size="246.35Kb"
+                                attachedDate="26/03/2022"
+                                handleDelete={() => {}}
+                            />
+                            <div className="w-2/12">
+                                <CustomButton text="Subir archivo">
+                                    <FiUpload className="text-white" />
+                                </CustomButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="flex w-full justify-end space-x-5">
+                <div className="w-2/12">
+                    <CustomButton text="Renovar contrato" color="alt">
+                        <HiOutlineRefresh className="text-primary" />
+                    </CustomButton>
+                </div>
+                <div className="w-2/12">
+                    <CustomButton text="Rescindir contrato" color="alt">
+                        <RiCloseCircleFill className="text-red-500" />
+                    </CustomButton>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+export default ContractDetails;
