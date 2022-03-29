@@ -4,6 +4,7 @@ import { AiOutlineDownload } from 'react-icons/ai';
 import { FiUpload } from 'react-icons/fi';
 import { RiCloseCircleFill } from 'react-icons/ri';
 import { HiOutlineRefresh } from 'react-icons/hi';
+import { BiPencil } from 'react-icons/bi';
 import Attachment from '../../components/commons/Attachment/Attachment';
 
 const ContractDetails = () => {
@@ -21,12 +22,15 @@ const ContractDetails = () => {
                     </div>
                 </div>
                 <div className="flex flex-col">
-                    <div className="bg-alt p-2 rounded ">
+                    <div className="flex items-center bg-alt p-2 rounded ">
                         <h1 className="text-white font-semibold px-3">
                             Información del inquilino
                         </h1>
+                        <div className="rounded-full bg-primary p-1 cursor-pointer">
+                            <BiPencil className="text-alt w-4 h-4" />
+                        </div>
                     </div>
-                    <div className="bg-gradient-to-b from-bg-gradient-2 to bg-gradient-3 p-10">
+                    <div className="bg-gradient-to-b from-bg-gradient-2 to bg-gradient-3 p-10 rounded">
                         <div className="flex flex-col space-y-5 md:space-y-0 md:flex-row">
                             <div className="flex flex-col space-y-5 w-full md:w-6/12">
                                 <h5 className="text-white">
@@ -70,18 +74,23 @@ const ContractDetails = () => {
                     </div>
                 </div>
                 <div className="flex flex-col">
-                    <div className="bg-alt p-2 rounded ">
+                    <div className="flex bg-alt p-2 rounded ">
                         <h1 className="text-white font-semibold px-3">
                             Información del contrato
                         </h1>
+                        <div className="rounded-full bg-primary p-1 cursor-pointer">
+                            <BiPencil className="text-alt w-4 h-4" />
+                        </div>
                     </div>
-                    <div className="bg-gradient-to-b from-bg-gradient-2 to bg-gradient-3 p-10">
-                        <div className="flex justify-center mb-10">
+                    <div className="bg-gradient-to-b from-bg-gradient-2 to bg-gradient-3 p-10 rounded">
+                        <div className="flex items-center justify-center mb-10">
+                            <div className="hidden md:block md:flex-grow md:border-t-2 md:border-alt md:mx-5"></div>
                             <div className="bg-alt rounded p-1 px-3">
                                 <h1 className="text-white text-xs md:text-base">
                                     INFORMACIÓN GENERAL
                                 </h1>
                             </div>
+                            <div className="hidden md:block md:flex-grow md:border-t-2 md:border-alt md:mx-5"></div>
                         </div>
                         <div className="flex flex-col space-y-5 md:flex-row md:space-y-0">
                             <div className="flex flex-col space-y-5 w-full md:w-6/12">
@@ -137,12 +146,14 @@ const ContractDetails = () => {
                                 </h5>
                             </div>
                         </div>
-                        <div className="flex justify-center m-10">
+                        <div className="flex items-center justify-center m-10">
+                            <div className="hidden md:block md:flex-grow md:border-t-2 md:border-alt md:mx-5"></div>
                             <div className="bg-alt rounded p-1 px-3">
                                 <h1 className="text-white text-xs md:text-base">
                                     CONTRATO DE LOCACIÓN
                                 </h1>
                             </div>
+                            <div className="hidden md:block md:flex-grow md:border-t-2 md:border-alt md:mx-5"></div>
                         </div>
                         <div className="flex flex-col space-y-3 xl:flex-row xl:space-x-3 xl:space-y-0 w-full">
                             <h5 className="text-white font-semibold">
