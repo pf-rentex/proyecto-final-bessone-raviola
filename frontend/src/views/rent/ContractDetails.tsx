@@ -14,7 +14,7 @@ const ContractDetails = () => {
                     <h1 className="text-white font-bold w-10/12">
                         Contrato 123456
                     </h1>
-                    <div className="w-2/12">
+                    <div className="w-full lg:w-2/12">
                         <CustomButton text="Descargar contrato" color="alt">
                             <AiOutlineDownload className="text-white font-bold" />
                         </CustomButton>
@@ -27,39 +27,41 @@ const ContractDetails = () => {
                         </h1>
                     </div>
                     <div className="bg-gradient-to-b from-bg-gradient-2 to bg-gradient-3 p-10">
-                        <div className="flex flex-row">
-                            <div className="flex flex-col space-y-5 w-6/12">
+                        <div className="flex flex-col space-y-5 md:space-y-0 md:flex-row">
+                            <div className="flex flex-col space-y-5 w-full md:w-6/12">
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Nombre completo:
+                                        Nombre completo:{' '}
                                     </span>
                                     Roberto carlos
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Teléfono:
+                                        Teléfono:{' '}
                                     </span>
                                     3564561314
                                 </h5>
                                 <h5 className="text-white">
-                                    <span className="font-semibold">DNI:</span>
+                                    <span className="font-semibold">DNI: </span>
                                     36680567
                                 </h5>
                             </div>
-                            <div className="flex flex-col space-y-5 w-6/12">
+                            <div className="flex flex-col space-y-5 w-full md:w-6/12">
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Fecha de nacimiento:
+                                        Fecha de nacimiento:{' '}
                                     </span>
                                     30/04/1992
                                 </h5>
                                 <h5 className="text-white">
-                                    <span className="font-semibold">Mail:</span>
+                                    <span className="font-semibold">
+                                        Mail:{' '}
+                                    </span>
                                     roberto.carlos@robertocarlos.com
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Garantías:
+                                        Garantías:{' '}
                                     </span>
                                     garantia 1
                                 </h5>
@@ -76,73 +78,73 @@ const ContractDetails = () => {
                     <div className="bg-gradient-to-b from-bg-gradient-2 to bg-gradient-3 p-10">
                         <div className="flex justify-center mb-10">
                             <div className="bg-alt rounded p-1 px-3">
-                                <h1 className="text-white">
+                                <h1 className="text-white text-xs md:text-base">
                                     INFORMACIÓN GENERAL
                                 </h1>
                             </div>
                         </div>
-                        <div className="flex flex-row">
-                            <div className="flex flex-col space-y-5 w-6/12">
+                        <div className="flex flex-col space-y-5 md:flex-row md:space-y-0">
+                            <div className="flex flex-col space-y-5 w-full md:w-6/12">
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Tarifa mensual:
+                                        Tarifa mensual:{' '}
                                     </span>
-                                    Roberto carlos
+                                    $14.200
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Fecha de inicio:
+                                        Fecha de inicio:{' '}
                                     </span>
-                                    3564561314
+                                    30/03/2022
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Fecha de vencimiento:
+                                        Fecha de vencimiento:{' '}
                                     </span>
-                                    36680567
+                                    30/03/2025
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Tiempo restante:
+                                        Tiempo restante:{' '}
                                     </span>
-                                    36680567
+                                    3 Meses
                                 </h5>
                             </div>
-                            <div className="flex flex-col space-y-5 w-6/12">
+                            <div className="flex flex-col space-y-5 w-full md:w-6/12">
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Expensas:
+                                        Expensas:{' '}
                                     </span>
-                                    30/04/1992
+                                    $3.000
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Dirección:
+                                        Dirección:{' '}
                                     </span>
-                                    roberto.carlos@robertocarlos.com
+                                    Belgrano 2624
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Tipo de alquiler:
+                                        Tipo de alquiler:{' '}
                                     </span>
-                                    garantia 1
+                                    Permanente
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Estado:
+                                        Estado:{' '}
                                     </span>
-                                    garantia 1
+                                    Activo
                                 </h5>
                             </div>
                         </div>
                         <div className="flex justify-center m-10">
                             <div className="bg-alt rounded p-1 px-3">
-                                <h1 className="text-white">
+                                <h1 className="text-white text-xs md:text-base">
                                     CONTRATO DE LOCACIÓN
                                 </h1>
                             </div>
                         </div>
-                        <div className="flex space-x-3 w-full">
+                        <div className="flex flex-col space-y-3 xl:flex-row xl:space-x-3 xl:space-y-0 w-full">
                             <h5 className="text-white font-semibold">
                                 Contrato digital:
                             </h5>
@@ -158,7 +160,7 @@ const ContractDetails = () => {
                                 attachedDate="26/03/2022"
                                 handleDelete={() => {}}
                             />
-                            <div className="w-2/12">
+                            <div className="w-full xl:w-2/12">
                                 <CustomButton text="Subir archivo">
                                     <FiUpload className="text-white" />
                                 </CustomButton>
@@ -168,12 +170,12 @@ const ContractDetails = () => {
                 </div>
             </div>
             <div className="flex w-full justify-end space-x-5">
-                <div className="w-2/12">
+                <div className="w-full lg:w-2/12">
                     <CustomButton text="Renovar contrato" color="alt">
                         <HiOutlineRefresh className="text-primary" />
                     </CustomButton>
                 </div>
-                <div className="w-2/12">
+                <div className="w-full lg:w-2/12">
                     <CustomButton text="Rescindir contrato" color="alt">
                         <RiCloseCircleFill className="text-red-500" />
                     </CustomButton>
