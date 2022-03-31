@@ -31,3 +31,7 @@ export const createRentalRequest = (formData: any) =>
     API.post('/api/rentalRequests', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
     });
+
+export const getComplaints = () => {
+    return API.get('/api/claims');
+};

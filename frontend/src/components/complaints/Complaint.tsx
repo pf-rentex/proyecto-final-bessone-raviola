@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CustomButton from '../../components/commons/Button/CustomButton';
 import { AiOutlineSearch, HiOutlineTrash } from 'react-icons/all';
-import { ComplaintStatus } from '../../views/complaints/Complaints';
+import { ComplaintStatus } from '../../reducers/complaints';
 
 interface IComplaintProps {
     icon: React.ReactNode;
