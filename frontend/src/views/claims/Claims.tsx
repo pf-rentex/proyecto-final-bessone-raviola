@@ -6,17 +6,23 @@ import {
     BsLightningFill,
 } from 'react-icons/all';
 import { connect } from 'react-redux';
-import { getClaims } from '../../actions/claims';
+import { getClaims, deleteClaim } from '../../actions/claims';
 import { IClaim, ClaimCategory } from '../../reducers/claims';
 import Loader from '../../components/commons/Loader';
 
 interface IClaimsProps {
     getClaims: Function;
+    deleteClaim: Function;
     claims: Array<IClaim>;
     isLoading: boolean;
 }
 
-const Claims = ({ getClaims, claims, isLoading }: IClaimsProps) => {
+const Claims = ({
+    getClaims,
+    deleteClaim,
+    claims,
+    isLoading,
+}: IClaimsProps) => {
     useEffect(() => {
         getClaims();
     }, []);
@@ -97,6 +103,7 @@ const Claims = ({ getClaims, claims, isLoading }: IClaimsProps) => {
                                     category={claim.category}
                                     date={claim.createdAt}
                                     status={claim.status}
+                                    deleteClaim={deleteClaim}
                                 />
                             ))}
                     </div>
@@ -112,6 +119,7 @@ const Claims = ({ getClaims, claims, isLoading }: IClaimsProps) => {
                                     category={claim.category}
                                     date={claim.createdAt}
                                     status={claim.status}
+                                    deleteClaim={deleteClaim}
                                 />
                             ))}
                     </div>
@@ -126,4 +134,4 @@ const mapStateToProps = (state: any) => ({
     isLoading: state.claims.isLoading,
 });
 
-export default connect(mapStateToProps, { getClaims })(Claims);
+export default connect(mapStateToProps, { getClaims, deleteClaim })(Claims);

@@ -1,6 +1,7 @@
 import {
     GET_CLAIMS,
     GET_CLAIM,
+    DELETE_CLAIM,
     GET_CLAIMS_ERROR,
     CLAIMS_LOADING,
 } from '../../actions/types';
@@ -54,7 +55,7 @@ const initialState: IClaimsState = {
 
 const claimsReducer = (
     state: IClaimsState = initialState,
-    action: { type: string; data: Array<IClaim> },
+    action: { type: string; data: any },
 ) => {
     switch (action.type) {
         case CLAIMS_LOADING:
@@ -74,6 +75,14 @@ const claimsReducer = (
             return {
                 ...state,
                 claim: action.data,
+                isLoading: false,
+            };
+        case DELETE_CLAIM:
+            return {
+                ...state,
+                claims: state.claims.filter(
+                    (claim) => claim._id !== action.data,
+                ),
                 isLoading: false,
             };
 

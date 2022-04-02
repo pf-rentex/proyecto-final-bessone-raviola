@@ -11,6 +11,7 @@ interface IClaimProps {
     category: string;
     date: string;
     status: string;
+    deleteClaim: Function;
 }
 
 const Claim = ({
@@ -20,6 +21,7 @@ const Claim = ({
     category,
     date,
     status = ClaimStatus.addressed,
+    deleteClaim,
 }: IClaimProps) => {
     const [statusColor, setStatusColor] = useState('green-300');
     useEffect(() => {
@@ -59,7 +61,9 @@ const Claim = ({
                     </Link>
                     <CustomButton
                         text="Eliminar"
-                        callback={() => {}}
+                        callback={() => {
+                            deleteClaim(id);
+                        }}
                         color="alt"
                     >
                         <HiOutlineTrash />

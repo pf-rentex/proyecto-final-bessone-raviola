@@ -38,3 +38,6 @@ export const getClaims = () => {
 export const getClaim = (id: string) => {
     return API.get(`/api/claims/${id}`);
 };
+export const deleteClaim = (id: string) => {
+    return API.delete(`/api/claims/${id}`);
+};
