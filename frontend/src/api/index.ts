@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { IRegisterFormData } from '../components/auth/SignupBox';
 import { ILoginFormData } from '../components/auth/LoginBox';
+import { IClaim } from '../reducers/claims';
 
 // Replace base URL with server URL.
 const API = axios.create({ baseURL: 'http://localhost:5000' });
@@ -40,4 +41,7 @@ export const getClaim = (id: string) => {
 };
 export const deleteClaim = (id: string) => {
     return API.delete(`/api/claims/${id}`);
+};
+export const createClaim = (formData: IClaim) => {
+    return API.post(`/api/claims/`, formData);
 };

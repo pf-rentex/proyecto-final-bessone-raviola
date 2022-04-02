@@ -2,6 +2,7 @@ import {
     GET_CLAIMS,
     GET_CLAIM,
     DELETE_CLAIM,
+    CREATE_CLAIM,
     GET_CLAIMS_ERROR,
     CLAIMS_LOADING,
 } from '../../actions/types';
@@ -29,6 +30,9 @@ export interface IClaim {
     category: string;
     createdAt: string;
     status: ClaimStatus;
+    propertyId: string;
+    userId: string;
+    picturesClaim: object;
 }
 
 export interface IClaimsState {
@@ -49,6 +53,9 @@ const initialState: IClaimsState = {
         category: '',
         createdAt: '',
         status: ClaimStatus.pending,
+        propertyId: '',
+        userId: '',
+        picturesClaim: {},
     },
     isLoading: false,
 };
@@ -83,6 +90,12 @@ const claimsReducer = (
                 claims: state.claims.filter(
                     (claim) => claim._id !== action.data,
                 ),
+                isLoading: false,
+            };
+        case CREATE_CLAIM:
+            return {
+                ...state,
+                claims: [...state.claims, action.data],
                 isLoading: false,
             };
 

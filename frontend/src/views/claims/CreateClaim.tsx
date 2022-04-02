@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     BiPencil,
     BiCalendarEdit,
@@ -12,8 +12,24 @@ import {
     BsLightningFill,
 } from 'react-icons/all';
 import CustomButton from '../../components/commons/Button/CustomButton';
+import { connect } from 'react-redux';
+import { createClaim } from '../../actions/claims';
+import { IClaim } from '../../reducers/claims';
+import Loader from '../../components/commons/Loader';
 
-const CreateClaim = () => {
+interface ICreateClaimProps {
+    createClaim: Function;
+    isLoading: boolean;
+}
+
+const CreateClaim = ({ createClaim, isLoading }: ICreateClaimProps) => {
+    const [claimData, setClaimData] = useState<any>({});
+
+    const handleChange = (e: any) => {
+        setClaimData({ ...claimData, [e.target.name]: e.target.value });
+        console.log(claimData);
+    };
+
     return (
         <section className="flex flex-col h-full w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 px-5 lg:px-20 py-10">
             <IoArrowBackCircle className="w-14 h-14 text-alt my-5 cursor-pointer" />
@@ -30,6 +46,9 @@ const CreateClaim = () => {
                             style={{
                                 transition: 'all 0.15s ease 0s',
                             }}
+                            onChange={(e) => {
+                                handleChange(e);
+                            }}
                             name="title"
                         />
                     </div>
@@ -38,9 +57,23 @@ const CreateClaim = () => {
                             Categoría
                         </h1>
                         <div className="flex justify-center md:justify-start space-x-10">
-                            <div className="flex flex-col items-center space-y-2 cursor-pointer focus:text-black">
+                            <div
+                                className="flex flex-col items-center space-y-2 cursor-pointer focus:text-black"
+                                onClick={() => {
+                                    handleChange({
+                                        target: {
+                                            name: 'category',
+                                            value: 'Electricity',
+                                        },
+                                    });
+                                }}
+                            >
                                 <div
-                                    className="rounded-full bg-alt p-5 w-14 h-14 sm:w-20 sm:h-20 focus:bg-primary"
+                                    className={`rounded-full p-5 w-14 h-14 sm:w-20 sm:h-20 ${
+                                        claimData.category === 'Electricity'
+                                            ? 'bg-primary'
+                                            : 'bg-alt'
+                                    }`}
                                     tabIndex={0}
                                 >
                                     <BsLightningFill className="text-white w-5 h-5 sm:w-10 sm:h-10" />
@@ -49,9 +82,23 @@ const CreateClaim = () => {
                                     Electricidad
                                 </p>
                             </div>
-                            <div className="flex flex-col items-center space-y-2 cursor-pointer">
+                            <div
+                                className="flex flex-col items-center space-y-2 cursor-pointer"
+                                onClick={() => {
+                                    handleChange({
+                                        target: {
+                                            name: 'category',
+                                            value: 'Plumbing',
+                                        },
+                                    });
+                                }}
+                            >
                                 <div
-                                    className="rounded-full bg-alt p-5 w-14 h-14 sm:w-20 sm:h-20 focus:bg-primary"
+                                    className={`rounded-full p-5 w-14 h-14 sm:w-20 sm:h-20 ${
+                                        claimData.category === 'Plumbing'
+                                            ? 'bg-primary'
+                                            : 'bg-alt'
+                                    }`}
                                     tabIndex={0}
                                 >
                                     <BsFillDropletFill className="text-white w-5 h-5 sm:w-10 sm:h-10" />
@@ -60,9 +107,23 @@ const CreateClaim = () => {
                                     Plomería
                                 </p>
                             </div>
-                            <div className="flex flex-col items-center space-y-2 cursor-pointer">
+                            <div
+                                className="flex flex-col items-center space-y-2 cursor-pointer"
+                                onClick={() => {
+                                    handleChange({
+                                        target: {
+                                            name: 'category',
+                                            value: 'Infrastructure',
+                                        },
+                                    });
+                                }}
+                            >
                                 <div
-                                    className="rounded-full bg-alt p-5 w-14 h-14 sm:w-20 sm:h-20 focus:bg-primary"
+                                    className={`rounded-full p-5 w-14 h-14 sm:w-20 sm:h-20 ${
+                                        claimData.category === 'Infrastructure'
+                                            ? 'bg-primary'
+                                            : 'bg-alt'
+                                    }`}
                                     tabIndex={0}
                                 >
                                     <BsFillGearFill className="text-white w-5 h-5 sm:w-10 sm:h-10" />
@@ -81,8 +142,11 @@ const CreateClaim = () => {
                             type="date"
                             className="px-3 py-3 w-full md:w-4/12 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline"
                             placeholder="Fecha de nacimiento"
-                            name="date"
+                            name="dateVisit"
                             style={{ transition: 'all 0.15s ease 0s' }}
+                            onChange={(e) => {
+                                handleChange(e);
+                            }}
                         />
                     </div>
                     <div className="flex flex-col">
@@ -93,17 +157,27 @@ const CreateClaim = () => {
                             className="px-3 py-3 resize-none placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
                             rows={4}
                             style={{ transition: 'all 0.15s ease 0s' }}
+                            name="description"
+                            onChange={(e) => {
+                                handleChange(e);
+                            }}
                         />
                     </div>
                     <div className="flex w-full justify-end">
                         <div className="flex flex-col md:flex-row w-full lg:w-4/12 md:space-x-5">
-                            <CustomButton
-                                text="Confirmar"
-                                callback={() => {}}
-                                color="alt"
-                            >
-                                <FaCheckCircle className="text-green-500" />
-                            </CustomButton>
+                            {isLoading ? (
+                                <Loader />
+                            ) : (
+                                <CustomButton
+                                    text="Confirmar"
+                                    callback={() => {
+                                        createClaim(claimData);
+                                    }}
+                                    color="alt"
+                                >
+                                    <FaCheckCircle className="text-green-500" />
+                                </CustomButton>
+                            )}
                             <CustomButton
                                 text="Cancelar"
                                 callback={() => {}}
@@ -119,4 +193,9 @@ const CreateClaim = () => {
     );
 };
 
-export default CreateClaim;
+const mapStateToProps = (state: any) => ({
+    claims: state.claims.claims,
+    isLoading: state.claims.isLoading,
+});
+
+export default connect(mapStateToProps, { createClaim })(CreateClaim);
