@@ -1,32 +1,28 @@
 import React, { useEffect } from 'react';
-import Complaint from '../../components/complaints/Complaint';
+import Claim from '../../components/claims/Claim';
 import {
     BsFillDropletFill,
     BsFillGearFill,
     BsLightningFill,
 } from 'react-icons/all';
 import { connect } from 'react-redux';
-import { getComplaints } from '../../actions/complaints';
-import { IComplaint, ComplaintStatus } from '../../reducers/complaints';
+import { getClaims } from '../../actions/claims';
+import { IClaim } from '../../reducers/claims';
 import Loader from '../../components/commons/Loader';
 
-interface IComplaintsProps {
-    getComplaints: Function;
-    complaints: Array<IComplaint>;
+interface IClaimsProps {
+    getClaims: Function;
+    claims: Array<IClaim>;
     isLoading: boolean;
 }
 
-const Complaints = ({
-    getComplaints,
-    complaints,
-    isLoading,
-}: IComplaintsProps) => {
+const Claims = ({ getClaims, claims, isLoading }: IClaimsProps) => {
     useEffect(() => {
-        getComplaints();
+        getClaims();
     }, []);
 
-    //Replace with complaints retrieved from backend
-    // let complaints = [
+    //Replace with claims retrieved from backend
+    // let claims = [
     //     {
     //         icon: <BsLightningFill className="text-white w-64 h-28" />,
     //         title: 'Falla toma de corriente',
@@ -80,33 +76,30 @@ const Complaints = ({
             ) : (
                 <div className="flex flex-col items-center xl:flex-row md:px-12 space-y-8 xl:space-y-0 xl:space-x-5">
                     <div className="flex flex-col w-full lg:w-8/12 xl:w-6/12 space-y-8">
-                        {complaints
-                            .slice(0, Math.floor(complaints.length / 2))
-                            .map((complaint, index) => (
-                                <Complaint
+                        {claims
+                            .slice(0, Math.floor(claims.length / 2))
+                            .map((claim, index) => (
+                                <Claim
                                     key={index}
-                                    icon={complaint.icon}
-                                    title={complaint.title}
-                                    category={complaint.category}
-                                    date={complaint.date}
-                                    status={complaint.status}
+                                    icon={claim.icon}
+                                    title={claim.title}
+                                    category={claim.category}
+                                    date={claim.date}
+                                    status={claim.status}
                                 />
                             ))}
                     </div>
                     <div className="flex flex-col w-full lg:w-8/12 xl:w-6/12 space-y-8">
-                        {complaints
-                            .slice(
-                                Math.floor(complaints.length / 2),
-                                complaints.length,
-                            )
-                            .map((complaint, index) => (
-                                <Complaint
+                        {claims
+                            .slice(Math.floor(claims.length / 2), claims.length)
+                            .map((claim, index) => (
+                                <Claim
                                     key={index}
-                                    icon={complaint.icon}
-                                    title={complaint.title}
-                                    category={complaint.category}
-                                    date={complaint.date}
-                                    status={complaint.status}
+                                    icon={claim.icon}
+                                    title={claim.title}
+                                    category={claim.category}
+                                    date={claim.date}
+                                    status={claim.status}
                                 />
                             ))}
                     </div>
@@ -117,8 +110,8 @@ const Complaints = ({
 };
 
 const mapStateToProps = (state: any) => ({
-    complaints: state.complaints.complaints,
-    isLoading: state.complaints.isLoading,
+    claims: state.claims.claims,
+    isLoading: state.claims.isLoading,
 });
 
-export default connect(mapStateToProps, { getComplaints })(Complaints);
+export default connect(mapStateToProps, { getClaims })(Claims);

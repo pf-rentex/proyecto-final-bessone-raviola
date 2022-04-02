@@ -13,7 +13,7 @@ import {
 } from 'react-icons/all';
 import CustomButton from '../../components/commons/Button/CustomButton';
 
-const CreateComplaint = () => {
+const CreateClaim = () => {
     return (
         <section className="flex flex-col h-full w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 px-5 lg:px-20 py-10">
             <IoArrowBackCircle className="w-14 h-14 text-alt my-5 cursor-pointer" />
@@ -119,4 +119,4 @@ const CreateComplaint = () => {
     );
 };
 
-export default CreateComplaint;
+export default CreateClaim;

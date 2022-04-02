@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import CustomButton from '../../components/commons/Button/CustomButton';
+import CustomButton from '../commons/Button/CustomButton';
 import { AiOutlineSearch, HiOutlineTrash } from 'react-icons/all';
-import { ComplaintStatus } from '../../reducers/complaints';
+import { ClaimStatus } from '../../reducers/claims';
 
-interface IComplaintProps {
+interface IClaimProps {
     icon: React.ReactNode;
     title: string;
     category: string;
@@ -11,23 +11,23 @@ interface IComplaintProps {
     status: string;
 }
 
-const Complaint = ({
+const Claim = ({
     icon = <></>,
     title,
     category,
     date,
-    status = ComplaintStatus.addressed,
-}: IComplaintProps) => {
+    status = ClaimStatus.addressed,
+}: IClaimProps) => {
     const [statusColor, setStatusColor] = useState('green-300');
     useEffect(() => {
         switch (status) {
-            case ComplaintStatus.addressed:
+            case ClaimStatus.addressed:
                 setStatusColor('green-300');
                 break;
-            case ComplaintStatus.inProgress:
+            case ClaimStatus.inProgress:
                 setStatusColor('yellow-300');
                 break;
-            case ComplaintStatus.cancelled:
+            case ClaimStatus.cancelled:
                 setStatusColor('red-500');
                 break;
         }
@@ -69,4 +69,4 @@ const Complaint = ({
     );
 };
 
-export default Complaint;
+export default Claim;

@@ -1,52 +1,52 @@
 import {
-    GET_COMPLAINTS,
-    GET_COMPLAINTS_ERROR,
-    COMPLAINTS_LOADING,
+    GET_CLAIMS,
+    GET_CLAIMS_ERROR,
+    CLAIMS_LOADING,
 } from '../../actions/types';
 
-export enum ComplaintStatus {
+export enum ClaimStatus {
     addressed = 'Atendido',
     inProgress = 'En curso',
     cancelled = 'Cancelado',
 }
 
-export interface IComplaint {
+export interface IClaim {
     icon: React.ReactNode;
     title: string;
     category: string;
     date: string;
-    status: ComplaintStatus;
+    status: ClaimStatus;
 }
 
-export interface IComplaintsState {
-    complaints: Array<IComplaint>;
+export interface IClaimsState {
+    claims: Array<IClaim>;
     isLoading: boolean;
 }
 
-const initialState: IComplaintsState = {
-    complaints: [],
+const initialState: IClaimsState = {
+    claims: [],
     isLoading: false,
 };
 
-const complaintsReducer = (
-    state: IComplaintsState = initialState,
-    action: { type: string; data: Array<IComplaint> },
+const claimsReducer = (
+    state: IClaimsState = initialState,
+    action: { type: string; data: Array<IClaim> },
 ) => {
     switch (action.type) {
-        case COMPLAINTS_LOADING:
+        case CLAIMS_LOADING:
             return {
                 ...state,
                 isLoading: true,
             };
 
-        case GET_COMPLAINTS:
+        case GET_CLAIMS:
             return {
                 ...state,
-                complaints: action.data,
+                claims: action.data,
                 isLoading: false,
             };
 
-        case GET_COMPLAINTS_ERROR:
+        case GET_CLAIMS_ERROR:
             return {
                 ...state,
                 isLoading: false,
@@ -57,4 +57,4 @@ const complaintsReducer = (
     }
 };
 
-export default complaintsReducer;
+export default claimsReducer;
