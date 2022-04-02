@@ -7,7 +7,7 @@ import {
 } from 'react-icons/all';
 import { connect } from 'react-redux';
 import { getClaims } from '../../actions/claims';
-import { IClaim } from '../../reducers/claims';
+import { IClaim, ClaimCategory } from '../../reducers/claims';
 import Loader from '../../components/commons/Loader';
 
 interface IClaimsProps {
@@ -21,6 +21,16 @@ const Claims = ({ getClaims, claims, isLoading }: IClaimsProps) => {
         getClaims();
     }, []);
 
+    const getIcon = (category: string) => {
+        switch (category) {
+            case ClaimCategory.electricity:
+                return <BsLightningFill className="text-white w-64 h-28" />;
+            case ClaimCategory.plumbing:
+                return <BsFillDropletFill className="text-white w-64 h-28" />;
+            case ClaimCategory.infrastructure:
+                return <BsFillGearFill className="text-white w-64 h-28" />;
+        }
+    };
     //Replace with claims retrieved from backend
     // let claims = [
     //     {
@@ -74,17 +84,18 @@ const Claims = ({ getClaims, claims, isLoading }: IClaimsProps) => {
             {isLoading ? (
                 <Loader />
             ) : (
-                <div className="flex flex-col items-center xl:flex-row md:px-12 space-y-8 xl:space-y-0 xl:space-x-5">
+                <div className="flex flex-col xl:flex-row md:px-12 space-y-8 xl:space-y-0 xl:space-x-5">
                     <div className="flex flex-col w-full lg:w-8/12 xl:w-6/12 space-y-8">
                         {claims
                             .slice(0, Math.floor(claims.length / 2))
                             .map((claim, index) => (
                                 <Claim
                                     key={index}
-                                    icon={claim.icon}
+                                    id={claim._id}
+                                    icon={getIcon(claim.category)}
                                     title={claim.title}
                                     category={claim.category}
-                                    date={claim.date}
+                                    date={claim.createdAt}
                                     status={claim.status}
                                 />
                             ))}
@@ -95,10 +106,11 @@ const Claims = ({ getClaims, claims, isLoading }: IClaimsProps) => {
                             .map((claim, index) => (
                                 <Claim
                                     key={index}
-                                    icon={claim.icon}
+                                    id={claim._id}
+                                    icon={getIcon(claim.category)}
                                     title={claim.title}
                                     category={claim.category}
-                                    date={claim.date}
+                                    date={claim.createdAt}
                                     status={claim.status}
                                 />
                             ))}

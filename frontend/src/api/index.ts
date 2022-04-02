@@ -35,3 +35,6 @@ export const createRentalRequest = (formData: any) =>
 export const getClaims = () => {
     return API.get('/api/claims');
 };
+export const getClaim = (id: string) => {
+    return API.get(`/api/claims/${id}`);
+};

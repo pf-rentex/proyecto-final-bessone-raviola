@@ -1,5 +1,6 @@
 import {
     GET_CLAIMS,
+    GET_CLAIM,
     GET_CLAIMS_ERROR,
     CLAIMS_LOADING,
 } from '../../actions/types';
@@ -8,23 +9,46 @@ export enum ClaimStatus {
     addressed = 'Atendido',
     inProgress = 'En curso',
     cancelled = 'Cancelado',
+    pending = 'Pendiente',
+}
+
+export enum ClaimCategory {
+    electricity = 'Electricity',
+    plumbing = 'Plumbing',
+    infrastructure = 'Infrastructure',
 }
 
 export interface IClaim {
+    _id: string;
     icon: React.ReactNode;
     title: string;
+    description: string;
+    address: string;
+    technician: string;
     category: string;
-    date: string;
+    createdAt: string;
     status: ClaimStatus;
 }
 
 export interface IClaimsState {
     claims: Array<IClaim>;
+    claim: IClaim;
     isLoading: boolean;
 }
 
 const initialState: IClaimsState = {
     claims: [],
+    claim: {
+        _id: '',
+        icon: null,
+        title: '',
+        description: '',
+        address: '',
+        technician: '',
+        category: '',
+        createdAt: '',
+        status: ClaimStatus.pending,
+    },
     isLoading: false,
 };
 
@@ -43,6 +67,13 @@ const claimsReducer = (
             return {
                 ...state,
                 claims: action.data,
+                isLoading: false,
+            };
+
+        case GET_CLAIM:
+            return {
+                ...state,
+                claim: action.data,
                 isLoading: false,
             };
 

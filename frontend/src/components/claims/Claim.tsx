@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import CustomButton from '../commons/Button/CustomButton';
 import { AiOutlineSearch, HiOutlineTrash } from 'react-icons/all';
 import { ClaimStatus } from '../../reducers/claims';
 
 interface IClaimProps {
+    id: string;
     icon: React.ReactNode;
     title: string;
     category: string;
@@ -12,6 +14,7 @@ interface IClaimProps {
 }
 
 const Claim = ({
+    id,
     icon = <></>,
     title,
     category,
@@ -49,13 +52,11 @@ const Claim = ({
                     </span>
                 </p>
                 <div className="flex flex-col sm:flex-row sm:space-x-5">
-                    <CustomButton
-                        text="Detalles"
-                        callback={() => {}}
-                        color="alt"
-                    >
-                        <AiOutlineSearch />
-                    </CustomButton>
+                    <Link to={`claim/${id}`} className="w-full">
+                        <CustomButton text="Detalles" color="alt">
+                            <AiOutlineSearch />
+                        </CustomButton>
+                    </Link>
                     <CustomButton
                         text="Eliminar"
                         callback={() => {}}

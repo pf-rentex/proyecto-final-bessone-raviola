@@ -12,17 +12,19 @@ const claimSchema = new mongoose.Schema(
         },
         category: {
             type: String,
-            enum: ['electricity', 'plumbing', 'gas', 'various'],
+            enum: [
+                'Electricity',
+                'Plumbing',
+                'Gas',
+                'Infrastructure',
+                'Various',
+            ],
             default: 'various',
         },
         status: {
             type: String,
-            enum: ['Solved', 'InProgress', 'cancelled', 'pending'],
+            enum: ['Addressed', 'InProgress', 'Cancelled', 'Pending'],
             default: 'pending',
-        },
-        dateUpload: {
-            type: Date,
-            required: true,
         },
         dateVisit: {
             type: Date,
@@ -32,7 +34,7 @@ const claimSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        technical: {
+        technician: {
             type: String,
             required: true,
         },

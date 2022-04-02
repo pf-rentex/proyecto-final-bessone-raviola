@@ -7,10 +7,9 @@ const createClaim = async (req: Request, res: Response) => {
         description,
         category,
         status,
-        dateUpload,
         dateVisit,
         address,
-        technical,
+        technician,
         propertyId,
         userId,
     } = req.body;
@@ -29,10 +28,9 @@ const createClaim = async (req: Request, res: Response) => {
         description,
         category,
         status,
-        dateUpload,
         dateVisit,
         address,
-        technical,
+        technician,
         propertyId,
         userId,
         picturesClaim,
@@ -73,10 +71,9 @@ const updateClaim = async (req: Request, res: Response) => {
         description,
         category,
         status,
-        dateUpload,
         dateVisit,
         address,
-        technical,
+        technician,
         propertyId,
         userId,
     } = req.body;
@@ -104,10 +101,9 @@ const updateClaim = async (req: Request, res: Response) => {
                     description: description,
                     category: category,
                     status: status,
-                    dateUpload: dateUpload,
                     dateVisit: dateVisit,
                     address: address,
-                    technical: technical,
+                    technician: technician,
                     propertyId: propertyId,
                 },
             );
@@ -139,10 +135,9 @@ const fieldsAreValid = (req): boolean => {
         description,
         category,
         status,
-        dateUpload,
         dateVisit,
         address,
-        technical,
+        technician,
         propertyId,
         userId,
     } = req.body;
@@ -152,10 +147,9 @@ const fieldsAreValid = (req): boolean => {
         !!description &&
         !!category &&
         !!status &&
-        !!dateUpload &&
         !!dateVisit &&
         !!address &&
-        !!technical &&
+        !!technician &&
         !!propertyId &&
         !!userId &&
         !!picturesClaim
