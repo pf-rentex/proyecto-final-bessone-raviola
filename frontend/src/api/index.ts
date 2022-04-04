@@ -42,6 +42,8 @@ export const getClaim = (id: string) => {
 export const deleteClaim = (id: string) => {
     return API.delete(`/api/claims/${id}`);
 };
-export const createClaim = (formData: IClaim) => {
-    return API.post(`/api/claims/`, formData);
+export const createClaim = (formData: any) => {
+    return API.post('/api/claims', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
 };

@@ -46,7 +46,7 @@ const claimSchema = new mongoose.Schema(
             type: Schema.Types.ObjectId,
             required: true,
         },
-        picturesClaim: {
+        claimPictures: {
             type: Array,
         },
     },

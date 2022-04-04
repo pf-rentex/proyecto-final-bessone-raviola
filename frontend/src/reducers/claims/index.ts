@@ -8,10 +8,10 @@ import {
 } from '../../actions/types';
 
 export enum ClaimStatus {
-    addressed = 'Atendido',
-    inProgress = 'En curso',
-    cancelled = 'Cancelado',
-    pending = 'Pendiente',
+    addressed = 'Addressed',
+    inProgress = 'InProgress',
+    cancelled = 'Cancelled',
+    pending = 'Pending',
 }
 
 export enum ClaimCategory {
@@ -21,18 +21,18 @@ export enum ClaimCategory {
 }
 
 export interface IClaim {
-    _id: string;
-    icon: React.ReactNode;
+    _id?: string;
     title: string;
     description: string;
     address: string;
     technician: string;
-    category: string;
+    dateVisit: string;
+    category: ClaimCategory;
     createdAt: string;
     status: ClaimStatus;
     propertyId: string;
     userId: string;
-    picturesClaim: object;
+    claimPictures: Array<any>;
 }
 
 export interface IClaimsState {
@@ -45,17 +45,17 @@ const initialState: IClaimsState = {
     claims: [],
     claim: {
         _id: '',
-        icon: null,
         title: '',
         description: '',
         address: '',
         technician: '',
-        category: '',
+        dateVisit: '',
+        category: ClaimCategory.electricity,
         createdAt: '',
         status: ClaimStatus.pending,
         propertyId: '',
         userId: '',
-        picturesClaim: {},
+        claimPictures: [],
     },
     isLoading: false,
 };

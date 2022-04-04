@@ -14,8 +14,10 @@ import {
 import CustomButton from '../../components/commons/Button/CustomButton';
 import { connect } from 'react-redux';
 import { createClaim } from '../../actions/claims';
-import { IClaim } from '../../reducers/claims';
+import { ClaimStatus, IClaim, ClaimCategory } from '../../reducers/claims';
 import Loader from '../../components/commons/Loader';
+import Attachment from '../../components/commons/Attachment/Attachment';
+import AttachmentRequest from '../../components/commons/Attachment/AttachmentRequest';
 
 interface ICreateClaimProps {
     createClaim: Function;
@@ -23,11 +25,49 @@ interface ICreateClaimProps {
 }
 
 const CreateClaim = ({ createClaim, isLoading }: ICreateClaimProps) => {
-    const [claimData, setClaimData] = useState<any>({});
+    const [claimData, setClaimData] = useState<IClaim>({
+        title: '',
+        description: '',
+        technician: 'Técnico', // Change later (the tenant won't choose the technician)
+        propertyId: '619947dd6f77679edc5bd7ec', // Change later
+        userId: '6158ee0fbee2d07b0bcdb2f4', // Change later
+        status: ClaimStatus.pending,
+        category: ClaimCategory.electricity,
+        dateVisit: '',
+        createdAt: new Date().toString(),
+        address: 'Belgrano 2624', //Change later (should take the address of the property from which the claim is being submitted)
+        claimPictures: [],
+    });
 
     const handleChange = (e: any) => {
-        setClaimData({ ...claimData, [e.target.name]: e.target.value });
-        console.log(claimData);
+        if (e.target.files) {
+            if (e.target.files.length !== 0) {
+                //fixs error of cancelling when a file has already been attached
+                setClaimData({
+                    ...claimData,
+                    [e.target.name]:
+                        // @ts-ignore
+                        claimData[e.target.name]
+                            ? [
+                                  // @ts-ignore
+                                  ...claimData[e.target.name],
+                                  e.target.files[0],
+                              ]
+                            : [e.target.files[0]],
+                });
+            }
+        } else {
+            setClaimData({ ...claimData, [e.target.name]: e.target.value });
+        }
+    };
+
+    const handleFileDelete = (fileName: string) => {
+        setClaimData({
+            ...claimData,
+            claimPictures: claimData.claimPictures.filter(
+                (file: any) => file.name !== fileName,
+            ),
+        });
     };
 
     return (
@@ -63,14 +103,15 @@ const CreateClaim = ({ createClaim, isLoading }: ICreateClaimProps) => {
                                     handleChange({
                                         target: {
                                             name: 'category',
-                                            value: 'Electricity',
+                                            value: ClaimCategory.electricity,
                                         },
                                     });
                                 }}
                             >
                                 <div
                                     className={`rounded-full p-5 w-14 h-14 sm:w-20 sm:h-20 ${
-                                        claimData.category === 'Electricity'
+                                        claimData.category ===
+                                        ClaimCategory.electricity
                                             ? 'bg-primary'
                                             : 'bg-alt'
                                     }`}
@@ -88,14 +129,15 @@ const CreateClaim = ({ createClaim, isLoading }: ICreateClaimProps) => {
                                     handleChange({
                                         target: {
                                             name: 'category',
-                                            value: 'Plumbing',
+                                            value: ClaimCategory.plumbing,
                                         },
                                     });
                                 }}
                             >
                                 <div
                                     className={`rounded-full p-5 w-14 h-14 sm:w-20 sm:h-20 ${
-                                        claimData.category === 'Plumbing'
+                                        claimData.category ===
+                                        ClaimCategory.plumbing
                                             ? 'bg-primary'
                                             : 'bg-alt'
                                     }`}
@@ -113,14 +155,15 @@ const CreateClaim = ({ createClaim, isLoading }: ICreateClaimProps) => {
                                     handleChange({
                                         target: {
                                             name: 'category',
-                                            value: 'Infrastructure',
+                                            value: ClaimCategory.infrastructure,
                                         },
                                     });
                                 }}
                             >
                                 <div
                                     className={`rounded-full p-5 w-14 h-14 sm:w-20 sm:h-20 ${
-                                        claimData.category === 'Infrastructure'
+                                        claimData.category ===
+                                        ClaimCategory.infrastructure
                                             ? 'bg-primary'
                                             : 'bg-alt'
                                     }`}
@@ -148,6 +191,39 @@ const CreateClaim = ({ createClaim, isLoading }: ICreateClaimProps) => {
                                 handleChange(e);
                             }}
                         />
+                    </div>
+                    <div className="flex flex-col">
+                        <h5 className="text-white font-bold text-2xl mb-3">
+                            Adjunte Fotos
+                        </h5>
+                        <div className="flex flex-col lg:flex-row space-y-3 lg:space-y-0 lg:space-x-2">
+                            {claimData.claimPictures ? (
+                                claimData.claimPictures.map(
+                                    (attachment: any, index: any) => {
+                                        return (
+                                            <Attachment
+                                                key={index}
+                                                name={attachment.name}
+                                                size={attachment.size}
+                                                attachedDate={new Date().toDateString()}
+                                                handleDelete={() =>
+                                                    handleFileDelete(
+                                                        attachment.name,
+                                                    )
+                                                }
+                                            />
+                                        );
+                                    },
+                                )
+                            ) : (
+                                <></>
+                            )}
+
+                            <AttachmentRequest
+                                name="claimPictures"
+                                handleFile={(e: any) => handleChange(e)}
+                            />
+                        </div>
                     </div>
                     <div className="flex flex-col">
                         <h1 className="text-white text-2xl font-bold mb-3">

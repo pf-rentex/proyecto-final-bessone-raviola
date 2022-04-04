@@ -19,7 +19,7 @@ const createClaim = async (req: Request, res: Response) => {
     }
 
     // @ts-ignore
-    const picturesClaim = req.files.picturesClaim.map((file: any) => {
+    const claimPictures = req.files.claimPictures.map((file: any) => {
         return file.id;
     });
 
@@ -33,7 +33,7 @@ const createClaim = async (req: Request, res: Response) => {
         technician,
         propertyId,
         userId,
-        picturesClaim,
+        claimPictures,
     });
 
     //Create Claim
@@ -84,7 +84,7 @@ const updateClaim = async (req: Request, res: Response) => {
     }
 
     // @ts-ignore
-    const picturesClaim = req.files.picturesClaim.map((file: any) => {
+    const claimPictures = req.files.claimPictures.map((file: any) => {
         return file.id;
     });
 
@@ -141,7 +141,7 @@ const fieldsAreValid = (req): boolean => {
         propertyId,
         userId,
     } = req.body;
-    const { picturesClaim } = req.files;
+    const { claimPictures } = req.files;
     return (
         !!title &&
         !!description &&
@@ -152,7 +152,7 @@ const fieldsAreValid = (req): boolean => {
         !!technician &&
         !!propertyId &&
         !!userId &&
-        !!picturesClaim
+        !!claimPictures
     );
 };
 

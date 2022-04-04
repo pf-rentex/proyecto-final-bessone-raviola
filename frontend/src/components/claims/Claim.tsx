@@ -5,7 +5,7 @@ import { AiOutlineSearch, HiOutlineTrash } from 'react-icons/all';
 import { ClaimStatus } from '../../reducers/claims';
 
 interface IClaimProps {
-    id: string;
+    id?: string;
     icon: React.ReactNode;
     title: string;
     category: string;

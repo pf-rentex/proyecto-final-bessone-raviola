@@ -70,20 +70,13 @@ export const deleteClaim = (id: string) => async (dispatch: Dispatch<any>) => {
 export const createClaim =
     (formData: IClaim) => async (dispatch: Dispatch<any>) => {
         try {
-            //DATOS HARDCODEADOS, QUITAR CUANDO SE VINCULE EL RECLAMO A UN USER Y PROPIEDAD
-            formData['propertyId'] = '619947dd6f77679edc5bd7ec';
-            formData['userId'] = '6158ee0fbee2d07b0bcdb2f4';
-            formData['status'] = ClaimStatus.pending;
-            formData['address'] = 'Belgrano 2624';
-            formData['technician'] = 'Técnico';
-            formData['picturesClaim'] = {};
-
-            console.log('FormData', formData);
+            const requestData = formatData(formData);
             dispatch({ type: CLAIMS_LOADING });
-            const { data } = await api.createClaim(formData);
+            const { data } = await api.createClaim(requestData);
             dispatch({ type: CREATE_CLAIM, data: data });
             dispatch({ type: CLEAR_ERRORS });
         } catch (error: any) {
+            console.log('error', error);
             const { msg, status } = error.response.data;
 
             if (msg) {
@@ -94,3 +87,20 @@ export const createClaim =
             });
         }
     };
+
+const formatData = (requestData: any) => {
+    const formData = new FormData();
+
+    formData.append('bucketName', 'uploads-claim');
+
+    Object.keys(requestData).map((key) => {
+        if (!Array.isArray(requestData[key])) {
+            formData.append(key, requestData[key]);
+        } else {
+            requestData[key].map((file: any) => {
+                formData.append(key, file);
+            });
+        }
+    });
+    return formData;
+};
