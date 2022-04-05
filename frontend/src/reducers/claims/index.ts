@@ -5,6 +5,7 @@ import {
     CREATE_CLAIM,
     GET_CLAIMS_ERROR,
     CLAIMS_LOADING,
+    UPDATE_CLAIM,
 } from '../../actions/types';
 
 export enum ClaimStatus {
@@ -96,6 +97,15 @@ const claimsReducer = (
             return {
                 ...state,
                 claims: [...state.claims, action.data],
+                isLoading: false,
+            };
+        case UPDATE_CLAIM:
+            return {
+                ...state,
+                claims: state.claims.map((claim) =>
+                    claim._id === action.data.claim._id ? action.data : claim,
+                ),
+                claim: action.data.claim,
                 isLoading: false,
             };
 

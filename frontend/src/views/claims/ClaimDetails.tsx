@@ -11,14 +11,17 @@ import {
     IoArrowBack,
     IoArrowForward,
     BsLightningFill,
+    BsFillDropletFill,
+    BsFillGearFill,
 } from 'react-icons/all';
 import CustomButton from '../../components/commons/Button/CustomButton';
-import { getClaim } from '../../actions/claims';
+import { getClaim, updateClaim } from '../../actions/claims';
 import { IClaim, ClaimCategory, ClaimStatus } from '../../reducers/claims';
 import Loader from '../../components/commons/Loader';
 
 interface IClaimDetailsProps {
     getClaim: Function;
+    updateClaim: Function;
     claim: IClaim;
     isLoading: boolean;
 }
@@ -26,14 +29,53 @@ interface IRouteParams {
     id: string;
 }
 
-const ClaimDetails = ({ getClaim, claim, isLoading }: IClaimDetailsProps) => {
+const ClaimDetails = ({
+    getClaim,
+    updateClaim,
+    claim,
+    isLoading,
+}: IClaimDetailsProps) => {
     const params = useParams<IRouteParams>();
     useEffect(() => {
         getClaim(params.id);
     }, []);
 
-    const [editing, setEditing] = useState<boolean>(false);
+    useEffect(() => {
+        if (!isLoading) setClaimData(claim);
+    }, [isLoading]);
 
+    const formatDate = (date: Date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+
+        return [year, month, day].join('-');
+    };
+
+    const getIcon = (category: string) => {
+        switch (category) {
+            case ClaimCategory.electricity:
+                return (
+                    <BsLightningFill className="text-white w-5 h-5 md:w-14 md:h-14" />
+                );
+            case ClaimCategory.plumbing:
+                return (
+                    <BsFillDropletFill className="text-white w-5 h-5 md:w-14 md:h-14" />
+                );
+            case ClaimCategory.infrastructure:
+                return (
+                    <BsFillGearFill className="text-white w-5 h-5 md:w-14 md:h-14" />
+                );
+        }
+    };
+
+    const handleChange = (e: any) => {
+        setClaimData({ ...claimData, [e.target.name]: e.target.value });
+        console.log(claimData);
+    };
+
+    const [editing, setEditing] = useState<boolean>(false);
+    const [claimData, setClaimData] = useState<IClaim>(claim);
     return (
         <section className="flex flex-col h-full w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 px-5 lg:px-20 py-10">
             <Link to="/claims">
@@ -46,7 +88,7 @@ const ClaimDetails = ({ getClaim, claim, isLoading }: IClaimDetailsProps) => {
                     <div className="flex flex-col mb-10">
                         <div className="flex flex-col md:flex-row items-center space-y-5 md:space-y-0 md:space-x-5">
                             <div className="rounded-full bg-alt p-5">
-                                <BsLightningFill className="text-white w-5 h-5 md:w-14 md:h-14" />
+                                {getIcon(claim.category)}
                             </div>
                             <div className="flex items-center text-center space-x-5">
                                 <input
@@ -56,18 +98,30 @@ const ClaimDetails = ({ getClaim, claim, isLoading }: IClaimDetailsProps) => {
                                             : 'bg-transparent'
                                     }`}
                                     disabled={!editing}
-                                    placeholder={claim.title}
-                                    value={claim.title}
+                                    value={
+                                        !editing ? claim.title : claimData.title
+                                    }
                                     name="title"
+                                    onChange={(e) => {
+                                        handleChange(e);
+                                    }}
                                 />
                                 <div className="rounded-full bg-alt p-2 cursor-pointer">
                                     {editing ? (
                                         <div className="flex space-x-3">
-                                            <FaCheckCircle className="text-green-500 w-5 h-5" />
+                                            <FaCheckCircle
+                                                className="text-green-500 w-5 h-5"
+                                                onClick={() => {
+                                                    updateClaim(claimData);
+                                                    setEditing(false);
+                                                }}
+                                            />
+
                                             <RiCloseCircleFill
                                                 className="text-red-500 w-5 h-5"
                                                 onClick={() => {
                                                     setEditing(false);
+                                                    setClaimData(claim);
                                                 }}
                                             />
                                         </div>
@@ -94,7 +148,15 @@ const ClaimDetails = ({ getClaim, claim, isLoading }: IClaimDetailsProps) => {
                                                 : 'bg-transparent'
                                         }`}
                                         aria-label="Default select example"
-                                        value={claim.category}
+                                        value={
+                                            !editing
+                                                ? claim.category
+                                                : claimData.category
+                                        }
+                                        name="category"
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                        }}
                                     >
                                         <option
                                             value={ClaimCategory.electricity}
@@ -122,7 +184,15 @@ const ClaimDetails = ({ getClaim, claim, isLoading }: IClaimDetailsProps) => {
                                                     : 'bg-transparent'
                                             }`}
                                             aria-label="Default select example"
-                                            value={claim.status}
+                                            value={
+                                                !editing
+                                                    ? claim.status
+                                                    : claimData.status
+                                            }
+                                            name="status"
+                                            onChange={(e) => {
+                                                handleChange(e);
+                                            }}
                                         >
                                             <option
                                                 value={ClaimStatus.inProgress}
@@ -154,10 +224,18 @@ const ClaimDetails = ({ getClaim, claim, isLoading }: IClaimDetailsProps) => {
                                                 ? 'bg-white bg-opacity-25 pl-3'
                                                 : 'bg-transparent'
                                         }`}
-                                        value={claim.createdAt}
-                                        placeholder={claim.createdAt}
+                                        value={formatDate(
+                                            new Date(
+                                                !editing
+                                                    ? claim.createdAt
+                                                    : claimData.createdAt,
+                                            ),
+                                        )}
                                         disabled={!editing}
                                         name="createdAt"
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                        }}
                                     />
                                 </p>
                                 <p>
@@ -169,10 +247,18 @@ const ClaimDetails = ({ getClaim, claim, isLoading }: IClaimDetailsProps) => {
                                                 ? 'bg-white bg-opacity-25 pl-3'
                                                 : 'bg-transparent'
                                         }`}
-                                        value={claim.dateVisit}
-                                        placeholder={claim.dateVisit}
+                                        value={formatDate(
+                                            new Date(
+                                                !editing
+                                                    ? claim.dateVisit
+                                                    : claimData.dateVisit,
+                                            ),
+                                        )}
                                         disabled={!editing}
                                         name="dateVisit"
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                        }}
                                     />
                                 </p>
                                 <div className="w-full lg:w-8/12">
@@ -194,10 +280,16 @@ const ClaimDetails = ({ getClaim, claim, isLoading }: IClaimDetailsProps) => {
                                                 ? 'bg-white bg-opacity-25 pl-3'
                                                 : 'bg-transparent'
                                         }`}
-                                        value={claim.address}
-                                        placeholder={claim.address}
+                                        value={
+                                            !editing
+                                                ? claim.address
+                                                : claimData.address
+                                        }
                                         disabled={!editing}
                                         name="address"
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                        }}
                                     />
                                 </p>
                                 <p>
@@ -208,10 +300,16 @@ const ClaimDetails = ({ getClaim, claim, isLoading }: IClaimDetailsProps) => {
                                                 ? 'bg-white bg-opacity-25 pl-3'
                                                 : 'bg-transparent'
                                         }`}
-                                        value={claim.technician}
-                                        placeholder={claim.technician}
+                                        value={
+                                            !editing
+                                                ? claim.technician
+                                                : claimData.technician
+                                        }
                                         disabled={!editing}
                                         name="technician"
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                        }}
                                     />
                                 </p>
                             </div>
@@ -231,10 +329,16 @@ const ClaimDetails = ({ getClaim, claim, isLoading }: IClaimDetailsProps) => {
                                         ? 'bg-white bg-opacity-25 pl-3'
                                         : 'bg-transparent'
                                 }`}
-                                value={claim.description}
-                                placeholder={claim.description}
+                                value={
+                                    !editing
+                                        ? claim.description
+                                        : claimData.description
+                                }
                                 disabled={!editing}
                                 name="description"
+                                onChange={(e) => {
+                                    handleChange(e);
+                                }}
                             />
                         </div>
                     </div>
@@ -284,4 +388,6 @@ const mapStateToProps = (state: any) => ({
     isLoading: state.claims.isLoading,
 });
 
-export default connect(mapStateToProps, { getClaim })(ClaimDetails);
+export default connect(mapStateToProps, { getClaim, updateClaim })(
+    ClaimDetails,
+);

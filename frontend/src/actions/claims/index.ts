@@ -8,6 +8,7 @@ import {
     GET_CLAIMS_ERROR,
     CLAIMS_LOADING,
     CLEAR_ERRORS,
+    UPDATE_CLAIM,
 } from '../types';
 import { getErrors } from '../error';
 import { IClaim } from '../../reducers/claims';
@@ -74,6 +75,27 @@ export const createClaim =
             dispatch({ type: CLAIMS_LOADING });
             const { data } = await api.createClaim(requestData);
             dispatch({ type: CREATE_CLAIM, data: data });
+            dispatch({ type: CLEAR_ERRORS });
+        } catch (error: any) {
+            console.log('error', error);
+            const { msg, status } = error.response.data;
+
+            if (msg) {
+                dispatch(getErrors(msg, status, GET_CLAIMS_ERROR));
+            }
+            dispatch({
+                type: GET_CLAIMS_ERROR,
+            });
+        }
+    };
+
+export const updateClaim =
+    (formData: IClaim) => async (dispatch: Dispatch<any>) => {
+        try {
+            const requestData = formatData(formData);
+            dispatch({ type: CLAIMS_LOADING });
+            const { data } = await api.updateClaim(requestData);
+            dispatch({ type: UPDATE_CLAIM, data: data });
             dispatch({ type: CLEAR_ERRORS });
         } catch (error: any) {
             console.log('error', error);

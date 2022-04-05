@@ -29,5 +29,6 @@ export const GET_CLAIMS = 'CLAIMS/GET';
 export const GET_CLAIM = 'CLAIM/GET';
 export const DELETE_CLAIM = 'CLAIM/DELETE';
 export const CREATE_CLAIM = 'CLAIM/CREATE';
+export const UPDATE_CLAIM = 'CLAIM/UPDATE';
 export const GET_CLAIMS_ERROR = 'CLAIMS/GET_ERROR';
 export const CLAIMS_LOADING = 'CLAIMS/LOADING';

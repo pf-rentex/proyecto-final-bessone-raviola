@@ -47,3 +47,8 @@ export const createClaim = (formData: any) => {
         headers: { 'Content-Type': 'multipart/form-data' },
     });
 };
+export const updateClaim = (formData: any) => {
+    return API.put('/api/claims', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
+};

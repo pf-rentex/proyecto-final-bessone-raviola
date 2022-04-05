@@ -45,7 +45,7 @@ router.get(
 router.put(
     '/',
     // auth,
-    upload.fields([{ name: 'picturesClaim' }]),
+    upload.fields([{ name: 'claimPictures' }]),
     updateClaim,
 );
 

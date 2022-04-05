@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import CustomButton from '../commons/Button/CustomButton';
 import { AiOutlineSearch, HiOutlineTrash } from 'react-icons/all';
 import { ClaimStatus } from '../../reducers/claims';
@@ -24,6 +24,7 @@ const Claim = ({
     deleteClaim,
 }: IClaimProps) => {
     const [statusColor, setStatusColor] = useState('green-300');
+    const history = useHistory();
     useEffect(() => {
         switch (status) {
             case ClaimStatus.addressed:
@@ -54,11 +55,16 @@ const Claim = ({
                     </span>
                 </p>
                 <div className="flex flex-col sm:flex-row sm:space-x-5">
-                    <Link to={`claim/${id}`} className="w-full">
-                        <CustomButton text="Detalles" color="alt">
-                            <AiOutlineSearch />
-                        </CustomButton>
-                    </Link>
+                    <CustomButton
+                        text="Detalles"
+                        color="alt"
+                        callback={() => {
+                            history.push(`claim/${id}`);
+                        }}
+                    >
+                        <AiOutlineSearch />
+                    </CustomButton>
+
                     <CustomButton
                         text="Eliminar"
                         callback={() => {
