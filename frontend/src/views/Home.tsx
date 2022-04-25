@@ -63,9 +63,7 @@ const Home = () => {
                         title={
                             <div>
                                 Gestionar tu alquiler nunca fue
-                                <span className="font-bold text-blue-400">
-                                    {' '}
-                                    tan fácil
+                                <span className="font-bold text-blue-400"> tan fácil
                                 </span>
                             </div>
                         }

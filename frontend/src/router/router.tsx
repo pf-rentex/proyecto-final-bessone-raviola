@@ -11,7 +11,7 @@ import Publication from '../views/publications/Publication';
 import Complaints from '../views/complaints/Complaints';
 import ComplaintDetails from '../views/complaints/ComplaintDetails';
 import CreateComplaint from '../views/complaints/CreateComplaint';
-import Contracts from '../views/rent/Contracts';
+import Contracts from '../views/contracts/Contracts';
 
 export default function router() {
     return (
