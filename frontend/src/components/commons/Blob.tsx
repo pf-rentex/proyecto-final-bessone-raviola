@@ -14,7 +14,7 @@ const Blob = (props: {
 }) => {
   // used to set our custom property values
   const id = new Date().getUTCMilliseconds();
-  let noiseStep = 0.005;
+  let noiseStep = 0.001;
 
   const simplex = new SimplexNoise();
 
