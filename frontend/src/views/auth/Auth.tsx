@@ -6,15 +6,16 @@ import Blob from "../../components/commons/Blob";
 import LoginBox from "../../components/auth/LoginBox";
 import SignupBox from "../../components/auth/SignupBox";
 import {connect} from "react-redux";
-import { useHistory } from 'react-router-dom';
+import {useNavigate} from "react-router-dom";
 
 const Auth = ({ profile }: { profile: string; }) => {
   const [isSignup, setIsSignup] = useState<boolean>(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (profile) {
-      history.push('/onboarding');
+      console.log({profile});
+      navigate('onboarding')
     }
   }, [profile])
 

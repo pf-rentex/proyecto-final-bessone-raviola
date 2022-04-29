@@ -3,13 +3,13 @@ import { ReactComponent as Dimensions } from '../../assets/amenities_dimensions.
 import { ReactComponent as Bedrooms } from '../../assets/amenities_bedrooms.svg';
 import { ReactComponent as Bathrooms } from '../../assets/amenities_bathrooms.svg';
 import { MdLocationOn, FaSign } from 'react-icons/all';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 const Listing = () => {
-    const history = useHistory();
+    // const history = useHistory();
 
     const pushPublication = () => {
-        history.push('/publication/:id');
+        // history.push('/publication/:id');
     };
 
     return (

@@ -1,7 +1,37 @@
 import CustomButton from "../commons/Button/CustomButton";
 import { ReactComponent as OnboardingImage } from "../../assets/onboardingTenant.svg";
+import {useState} from "react";
+
+interface IOnboardingTenantData {
+  name: string;
+  email: string;
+  dni: string;
+  birthDate: string;
+  address: string;
+  phone: number;
+}
+
+const initialFormData: IOnboardingTenantData = {
+  name: '',
+  email: '',
+  dni: '',
+  birthDate: '',
+  address: '',
+  phone: 0,
+};
 
 const TenantOnboardingBox = () => {
+      const [form, setForm] = useState<IOnboardingTenantData>(initialFormData);
+
+      const onFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // clearErrors();
+        setForm({ ...form, [e.target.name]: e.target.value });
+      };
+
+      const onSubmit = () => {
+        console.log(form);
+      };
+
   return (
     <div className="flex flex-row p-5 w-full xl:w-6/12 break-words mb-3 mx-4 shadow-2xl rounded-xl bg-white border-0 text-center content-center">
       <div className="w-full xl:w-8/12 flex justify-center">
@@ -9,6 +39,8 @@ const TenantOnboardingBox = () => {
           <div className="relative w-full mt-6 mb-3">
             <input
               type="text"
+              onChange={onFormChange}
+              name="name"
               className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
               placeholder="Nombre"
               style={{ transition: "all 0.15s ease 0s" }}
@@ -17,6 +49,8 @@ const TenantOnboardingBox = () => {
           <div className="relative w-full mt-3 mb-3">
             <input
               type="email"
+              onChange={onFormChange}
+              name="email"
               className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
               placeholder="Email"
               style={{ transition: "all 0.15s ease 0s" }}
@@ -25,6 +59,8 @@ const TenantOnboardingBox = () => {
           <div className="relative w-full mt-3 mb-3">
             <input
               type="number"
+              onChange={onFormChange}
+              name="dni"
               className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
               placeholder="DNI"
               style={{ transition: "all 0.15s ease 0s" }}
@@ -34,6 +70,8 @@ const TenantOnboardingBox = () => {
           <div className="relative w-full mt-3 mb-3">
             <input
               type="date"
+              onChange={onFormChange}
+              name="birthDate"
               className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
               placeholder="Fecha de nacimiento"
               style={{ transition: "all 0.15s ease 0s" }}
@@ -42,6 +80,8 @@ const TenantOnboardingBox = () => {
           <div className="relative w-full mt-3 mb-3">
             <input
               type="text"
+              onChange={onFormChange}
+              name="address"
               className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
               placeholder="Domicilio"
               style={{ transition: "all 0.15s ease 0s" }}
@@ -50,6 +90,8 @@ const TenantOnboardingBox = () => {
           <div className="relative w-full mt-3 mb-3">
             <input
               type="number"
+              onChange={onFormChange}
+              name="phone"
               className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
               placeholder="Telefono"
               style={{
@@ -58,7 +100,7 @@ const TenantOnboardingBox = () => {
             />
           </div>
           <div className="lg:w-6/12 mx-auto my-5">
-            <CustomButton text="Continuar" />
+            <CustomButton text="Continuar" callback={onSubmit}/>
           </div>
         </form>
       </div>

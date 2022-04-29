@@ -32,11 +32,6 @@ const OwnerOnboardingBox = () => {
     setForm({...form, [e.target.name]: e.target.value});
   }
 
-  useEffect(() => {
-    setVerified(false);
-    setVerificationStatus(null);
-    if (form.cuit.length >= 11) verifyCuit();
-  }, [form.cuit]);
 
   const verifyCuit = async () => {
     if (form.cuit.length > 0) {
@@ -47,6 +42,15 @@ const OwnerOnboardingBox = () => {
       setVerificationStatus(data.result.isValid);
     }
   }
+
+  useEffect(() => {
+    setVerified(false);
+    setVerificationStatus(null);
+    if (form.cuit.length >= 11) {
+      verifyCuit();
+    }
+  }, [form.cuit]);
+
   return (
     <div className="flex flex-row p-5 xl:w-8/12 break-words mb-3 mx-4 shadow-2xl rounded-xl bg-white border-0 text-center content-center z-10">
       <div className="w-full flex flex justify-center">
