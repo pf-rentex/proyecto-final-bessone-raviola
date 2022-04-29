@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 import { IProfileData } from '../reducers/auth';
 import { FaCircleNotch } from 'react-icons/all';
 
@@ -25,9 +25,9 @@ const PrivateRoute = (props: IPrivateRouteProps) => {
     }
 
     if (isAuthenticated) {
-        return <Route {...rest} component={component} />;
+        return <>{component()}</>;
     }
-    return <Redirect to="/" />;
+    return <Navigate to="/" />;
 };
 
 const mapStateToProps = (state: any) => ({
