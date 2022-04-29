@@ -18,7 +18,7 @@ export interface IProfileData {
     };
     email: string;
     id: string;
-    type: string;
+    userType: string;
 }
 
 export interface IAuthState {
@@ -37,6 +37,7 @@ const authReducer = (
     state: IAuthState = initialState,
     action: { type: string; data: IProfileData },
 ) => {
+    console.log({action });
     switch (action.type) {
         case USER_LOADING:
             return {

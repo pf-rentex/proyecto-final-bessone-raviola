@@ -18,7 +18,7 @@ import { IRegisterFormData } from '../../components/auth/SignupBox';
 import { ILoginFormData } from '../../components/auth/LoginBox';
 
 export const signup =
-    (formData: IRegisterFormData, history: History) =>
+    (formData: IRegisterFormData) =>
     async (dispatch: Dispatch<any>) => {
         try {
             dispatch({ type: USER_LOADING });
@@ -26,9 +26,11 @@ export const signup =
             const { data } = await api.register(formData);
             dispatch({ type: REGISTER_SUCCESS, data });
             dispatch({ type: CLEAR_ERRORS });
-            history.push('Onboarding');
         } catch (error: any) {
-            const { msg, status } = error.response.data;
+            console.log('error')
+            console.log(error);
+            const { data: {msg}, status } = error.response;
+            console.log(msg, status);
 
             if (msg) {
                 dispatch(getErrors(msg, status, REGISTER_FAIL));
@@ -45,10 +47,10 @@ export const login =
         try {
             dispatch({ type: USER_LOADING });
             const { data } = await api.authenticate(formData);
+            console.log(data)
 
             dispatch({ type: LOGIN_SUCCESS, data });
             dispatch({ type: CLEAR_ERRORS });
-            history.push('Onboarding');
         } catch (error: any) {
             if (error.response) {
                 const { data, status } = error.response;
@@ -64,7 +66,7 @@ export const loadUser = () => async (dispatch: Dispatch<any>) => {
     try {
         dispatch({ type: USER_LOADING });
         const { data } = await api.getUserData();
-        dispatch({ type: USER_LOADED, payload: data });
+        dispatch({ type: USER_LOADED, data });
     } catch (e) {
         console.log('Error loading user: ', e);
         dispatch({ type: AUTH_ERROR });
