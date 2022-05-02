@@ -4,7 +4,7 @@ import { ILoginFormData } from '../components/auth/LoginBox';
 import { IClaim } from '../reducers/claims';
 
 // Replace base URL with server URL.
-const API = axios.create({ baseURL: 'http://localhost:5000' });
+const API = axios.create({ baseURL: 'http://localhost:5001' });
 
 API.interceptors.request.use((req) => {
     const profile = localStorage.getItem('profile');

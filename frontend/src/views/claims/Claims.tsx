@@ -43,7 +43,9 @@ const Claims = ({
             <h1 className="text-white text-4xl font-bold mb-10">Reclamos</h1>
 
             {isLoading ? (
-                <Loader />
+                <div className="h-screen flex items-center justify-center">
+                    <Loader size={28} />
+                </div>
             ) : (
                 <div className="flex flex-col xl:flex-row md:px-12 space-y-8 xl:space-y-0 xl:space-x-5">
                     <div className="flex flex-col w-full lg:w-8/12 xl:w-6/12 space-y-8">
