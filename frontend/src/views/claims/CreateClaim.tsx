@@ -86,9 +86,7 @@ const CreateClaim = ({ createClaim, isLoading }: ICreateClaimProps) => {
                             style={{
                                 transition: 'all 0.15s ease 0s',
                             }}
-                            onChange={(e) => {
-                                handleChange(e);
-                            }}
+                            onChange={handleChange}
                             name="title"
                         />
                     </div>

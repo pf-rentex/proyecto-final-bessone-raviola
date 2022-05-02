@@ -7,6 +7,7 @@ import {
     CREATE_CLAIM,
     GET_CLAIMS_ERROR,
     CLAIMS_LOADING,
+    CLAIMS_UPDATING,
     CLEAR_ERRORS,
     UPDATE_CLAIM,
 } from '../types';
@@ -93,7 +94,7 @@ export const updateClaim =
     (formData: IClaim) => async (dispatch: Dispatch<any>) => {
         try {
             const requestData = formatData(formData);
-            dispatch({ type: CLAIMS_LOADING });
+            dispatch({ type: CLAIMS_UPDATING });
             const { data } = await api.updateClaim(requestData);
             dispatch({ type: UPDATE_CLAIM, data: data });
             dispatch({ type: CLEAR_ERRORS });

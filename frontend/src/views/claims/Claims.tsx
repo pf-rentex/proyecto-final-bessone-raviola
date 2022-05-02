@@ -37,54 +37,9 @@ const Claims = ({
                 return <BsFillGearFill className="text-white w-64 h-28" />;
         }
     };
-    //Replace with claims retrieved from backend
-    // let claims = [
-    //     {
-    //         icon: <BsLightningFill className="text-white w-64 h-28" />,
-    //         title: 'Falla toma de corriente',
-    //         category: 'Electricidad',
-    //         date: '01/06/2022',
-    //         status: ComplaintStatus.inProgress,
-    //     },
-    //     {
-    //         icon: <BsFillDropletFill className="text-white w-64 h-28" />,
-    //         title: 'Gotera canilla baño',
-    //         category: 'Plomería',
-    //         date: '01/06/2022',
-    //         status: ComplaintStatus.addressed,
-    //     },
-    //     {
-    //         icon: <BsFillGearFill className="text-white w-64 h-28" />,
-    //         title: 'Pared agrietada',
-    //         category: 'Infraestructura',
-    //         date: '01/06/2022',
-    //         status: ComplaintStatus.cancelled,
-    //     },
-    //     {
-    //         icon: <BsLightningFill className="text-white w-64 h-28" />,
-    //         title: 'Falla toma de corriente',
-    //         category: 'Electricidad',
-    //         date: '01/06/2022',
-    //         status: ComplaintStatus.inProgress,
-    //     },
-    //     {
-    //         icon: <BsFillDropletFill className="text-white w-64 h-28" />,
-    //         title: 'Gotera canilla baño',
-    //         category: 'Plomería',
-    //         date: '01/06/2022',
-    //         status: ComplaintStatus.addressed,
-    //     },
-    //     {
-    //         icon: <BsFillGearFill className="text-white w-64 h-28" />,
-    //         title: 'Pared agrietada',
-    //         category: 'Infraestructura',
-    //         date: '01/06/2022',
-    //         status: ComplaintStatus.cancelled,
-    //     },
-    // ];
 
     return (
-        <section className="flex flex-col h-full w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 px-5 lg:px-20 py-10">
+        <section className="flex flex-col h-full min-h-screen w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 px-5 lg:px-20 py-10">
             <h1 className="text-white text-4xl font-bold mb-10">Reclamos</h1>
 
             {isLoading ? (

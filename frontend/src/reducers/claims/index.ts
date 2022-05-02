@@ -5,6 +5,7 @@ import {
     CREATE_CLAIM,
     GET_CLAIMS_ERROR,
     CLAIMS_LOADING,
+    CLAIMS_UPDATING,
     UPDATE_CLAIM,
 } from '../../actions/types';
 
@@ -40,6 +41,7 @@ export interface IClaimsState {
     claims: Array<IClaim>;
     claim: IClaim;
     isLoading: boolean;
+    isUpdating: boolean;
 }
 
 const initialState: IClaimsState = {
@@ -59,6 +61,7 @@ const initialState: IClaimsState = {
         claimPictures: [],
     },
     isLoading: false,
+    isUpdating: false,
 };
 
 const claimsReducer = (
@@ -99,6 +102,11 @@ const claimsReducer = (
                 claims: [...state.claims, action.data],
                 isLoading: false,
             };
+        case CLAIMS_UPDATING:
+            return {
+                ...state,
+                isUpdating: true,
+            };
         case UPDATE_CLAIM:
             return {
                 ...state,
@@ -106,7 +114,7 @@ const claimsReducer = (
                     claim._id === action.data.claim._id ? action.data : claim,
                 ),
                 claim: action.data.claim,
-                isLoading: false,
+                isUpdating: false,
             };
 
         case GET_CLAIMS_ERROR:

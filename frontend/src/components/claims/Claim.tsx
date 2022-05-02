@@ -40,7 +40,7 @@ const Claim = ({
     }, [status]);
 
     return (
-        <div className="flex flex-col md:flex-row bg-blue-500 rounded-lg">
+        <div className="flex flex-col md:flex-row bg-blue-500 rounded-lg cursor-pointer hover:scale-125">
             <div className="flex w-full md:w-3/12 bg-alt rounded-lg items-center justify-center p-8">
                 {icon}
             </div>

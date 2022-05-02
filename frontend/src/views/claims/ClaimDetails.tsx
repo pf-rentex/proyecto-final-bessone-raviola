@@ -24,6 +24,7 @@ interface IClaimDetailsProps {
     updateClaim: Function;
     claim: IClaim;
     isLoading: boolean;
+    isUpdating: boolean;
 }
 interface IRouteParams {
     id: string;
@@ -34,6 +35,7 @@ const ClaimDetails = ({
     updateClaim,
     claim,
     isLoading,
+    isUpdating,
 }: IClaimDetailsProps) => {
     const params = useParams<IRouteParams>();
     useEffect(() => {
@@ -76,27 +78,34 @@ const ClaimDetails = ({
 
     const [editing, setEditing] = useState<boolean>(false);
     const [claimData, setClaimData] = useState<IClaim>(claim);
+
+    let [inputBG, setInputBG] = useState<string>('bg-transparent');
+
+    useEffect(() => {
+        setInputBG(editing ? 'bg-white bg-opacity-25 pl-3' : 'bg-transparent');
+    }, [editing]);
+
     return (
-        <section className="flex flex-col h-full w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 px-5 lg:px-20 py-10">
+        <section className="flex flex-col h-full min-h-screen w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 px-5 lg:px-20 py-10">
             <Link to="/claims">
                 <IoArrowBackCircle className="w-14 h-14 text-alt my-5 cursor-pointer" />
             </Link>
             {isLoading ? (
-                <Loader />
+                <div className="h-screen flex items-center justify-center">
+                    <Loader size={28} />
+                </div>
             ) : (
                 <div className="bg-gradient-to-b from-bg-gradient-10 rounded-xl px-10 py-14">
                     <div className="flex flex-col mb-10">
                         <div className="flex flex-col md:flex-row items-center space-y-5 md:space-y-0 md:space-x-5">
                             <div className="rounded-full bg-alt p-5">
-                                {getIcon(claim.category)}
+                                {editing
+                                    ? getIcon(claimData.category)
+                                    : getIcon(claim.category)}
                             </div>
                             <div className="flex items-center text-center space-x-5">
                                 <input
-                                    className={`text-white text-3xl font-bold rounded ${
-                                        editing
-                                            ? 'bg-white bg-opacity-25 pl-3'
-                                            : 'bg-transparent'
-                                    }`}
+                                    className={`text-white text-3xl font-bold rounded ${inputBG}`}
                                     disabled={!editing}
                                     value={
                                         !editing ? claim.title : claimData.title
@@ -107,31 +116,35 @@ const ClaimDetails = ({
                                     }}
                                 />
                                 <div className="rounded-full bg-alt p-2 cursor-pointer">
-                                    {editing ? (
-                                        <div className="flex space-x-3">
-                                            <FaCheckCircle
-                                                className="text-green-500 w-5 h-5"
-                                                onClick={() => {
-                                                    updateClaim(claimData);
-                                                    setEditing(false);
-                                                }}
-                                            />
+                                    {!isUpdating ? (
+                                        editing ? (
+                                            <div className="flex space-x-3">
+                                                <FaCheckCircle
+                                                    className="text-green-500 w-5 h-5"
+                                                    onClick={() => {
+                                                        updateClaim(claimData);
+                                                        setEditing(false);
+                                                    }}
+                                                />
 
-                                            <RiCloseCircleFill
-                                                className="text-red-500 w-5 h-5"
+                                                <RiCloseCircleFill
+                                                    className="text-red-500 w-5 h-5"
+                                                    onClick={() => {
+                                                        setEditing(false);
+                                                        setClaimData(claim);
+                                                    }}
+                                                />
+                                            </div>
+                                        ) : (
+                                            <BiPencil
+                                                className="text-white w-5 h-5"
                                                 onClick={() => {
-                                                    setEditing(false);
-                                                    setClaimData(claim);
+                                                    setEditing(true);
                                                 }}
                                             />
-                                        </div>
+                                        )
                                     ) : (
-                                        <BiPencil
-                                            className="text-white w-5 h-5"
-                                            onClick={() => {
-                                                setEditing(true);
-                                            }}
-                                        />
+                                        <Loader />
                                     )}
                                 </div>
                             </div>
@@ -142,11 +155,7 @@ const ClaimDetails = ({
                                     Categoría:{' '}
                                     <select
                                         disabled={!editing}
-                                        className={`form-select appearance-none rounded transition ease-in-out m-0 focus:border-blue-600 focus:outline-none ${
-                                            editing
-                                                ? 'bg-white bg-opacity-25 pl-3'
-                                                : 'bg-transparent'
-                                        }`}
+                                        className={`form-select appearance-none rounded transition ease-in-out m-0 focus:border-blue-600 focus:outline-none ${inputBG}`}
                                         aria-label="Default select example"
                                         value={
                                             !editing
@@ -178,11 +187,7 @@ const ClaimDetails = ({
                                     <span className="text-yellow-300 font-bold">
                                         <select
                                             disabled={!editing}
-                                            className={`form-select appearance-none rounded transition ease-in-out m-0 focus:border-blue-600 focus:outline-none pr-3 ${
-                                                editing
-                                                    ? 'bg-white bg-opacity-25 pl-3'
-                                                    : 'bg-transparent'
-                                            }`}
+                                            className={`form-select appearance-none rounded transition ease-in-out m-0 focus:border-blue-600 focus:outline-none pr-3 ${inputBG}`}
                                             aria-label="Default select example"
                                             value={
                                                 !editing
@@ -219,11 +224,7 @@ const ClaimDetails = ({
                                     Fecha de carga:{' '}
                                     <input
                                         type="date"
-                                        className={`text-white rounded ${
-                                            editing
-                                                ? 'bg-white bg-opacity-25 pl-3'
-                                                : 'bg-transparent'
-                                        }`}
+                                        className={`text-white rounded ${inputBG}`}
                                         value={formatDate(
                                             new Date(
                                                 !editing
@@ -242,11 +243,7 @@ const ClaimDetails = ({
                                     Fecha de visita programada:{' '}
                                     <input
                                         type="date"
-                                        className={`text-white rounded ${
-                                            editing
-                                                ? 'bg-white bg-opacity-25 pl-3'
-                                                : 'bg-transparent'
-                                        }`}
+                                        className={`text-white rounded ${inputBG}`}
                                         value={formatDate(
                                             new Date(
                                                 !editing
@@ -275,11 +272,7 @@ const ClaimDetails = ({
                                 <p>
                                     Domicilio propiedad:{' '}
                                     <input
-                                        className={`text-white rounded ${
-                                            editing
-                                                ? 'bg-white bg-opacity-25 pl-3'
-                                                : 'bg-transparent'
-                                        }`}
+                                        className={`text-white rounded ${inputBG}`}
                                         value={
                                             !editing
                                                 ? claim.address
@@ -295,11 +288,7 @@ const ClaimDetails = ({
                                 <p>
                                     Técnico responsable:{' '}
                                     <input
-                                        className={`text-white rounded ${
-                                            editing
-                                                ? 'bg-white bg-opacity-25 pl-3'
-                                                : 'bg-transparent'
-                                        }`}
+                                        className={`text-white rounded ${inputBG}`}
                                         value={
                                             !editing
                                                 ? claim.technician
@@ -324,11 +313,7 @@ const ClaimDetails = ({
                             <textarea
                                 cols={50}
                                 rows={5}
-                                className={`text-white rounded resize-none ${
-                                    editing
-                                        ? 'bg-white bg-opacity-25 pl-3'
-                                        : 'bg-transparent'
-                                }`}
+                                className={`text-white rounded resize-none ${inputBG}`}
                                 value={
                                     !editing
                                         ? claim.description
@@ -386,6 +371,7 @@ const ClaimDetails = ({
 const mapStateToProps = (state: any) => ({
     claim: state.claims.claim,
     isLoading: state.claims.isLoading,
+    isUpdating: state.claims.isUpdating,
 });
 
 export default connect(mapStateToProps, { getClaim, updateClaim })(

@@ -1,10 +1,14 @@
 import React from 'react';
-const Loader = () => {
+
+interface ILoaderProps {
+    size?: number;
+}
+const Loader = ({ size = 5 }: ILoaderProps) => {
     return (
-        <div>
+        <div className="flex justify-center items-center">
             <div
                 style={{ borderTopColor: 'transparent' }}
-                className="w-8 h-8 border-4 border-blue-400 border-solid rounded-full animate-spin"
+                className={`w-${size} h-${size} border-4 border-blue-400 border-solid rounded-full animate-spin`}
             ></div>
         </div>
     );
