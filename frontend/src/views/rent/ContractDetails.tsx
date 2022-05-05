@@ -35,13 +35,13 @@ const ContractDetails = () => {
                             <div className="flex flex-col space-y-5 w-full md:w-6/12">
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Nombre completo:{' '}
+                                        Nombre completo:
                                     </span>
                                     Roberto carlos
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Teléfono:{' '}
+                                        Teléfono:
                                     </span>
                                     3564561314
                                 </h5>
@@ -53,22 +53,33 @@ const ContractDetails = () => {
                             <div className="flex flex-col space-y-5 w-full md:w-6/12">
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Fecha de nacimiento:{' '}
+                                        Fecha de nacimiento:
                                     </span>
                                     30/04/1992
                                 </h5>
                                 <h5 className="text-white">
-                                    <span className="font-semibold">
-                                        Mail:{' '}
-                                    </span>
+                                    <span className="font-semibold">Mail:</span>
                                     roberto.carlos@robertocarlos.com
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Garantías:{' '}
+                                        Garantías:
                                     </span>
-                                    garantia 1
                                 </h5>
+                                <div className="flex flex-col space-y-3 xl:flex-row xl:space-x-3 xl:space-y-0 w-full">
+                                    <Attachment
+                                        name="Garantía 1.pdf"
+                                        size="216.32Kb"
+                                        attachedDate="26/03/2022"
+                                        handleDelete={() => {}}
+                                    />
+                                    <Attachment
+                                        name="Garantía 2.pdf"
+                                        size="246.35Kb"
+                                        attachedDate="26/03/2022"
+                                        handleDelete={() => {}}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -96,25 +107,25 @@ const ContractDetails = () => {
                             <div className="flex flex-col space-y-5 w-full md:w-6/12">
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Tarifa mensual:{' '}
+                                        Tarifa mensual:
                                     </span>
                                     $14.200
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Fecha de inicio:{' '}
+                                        Fecha de inicio:
                                     </span>
                                     30/03/2022
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Fecha de vencimiento:{' '}
+                                        Fecha de vencimiento:
                                     </span>
                                     30/03/2025
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Tiempo restante:{' '}
+                                        Tiempo restante:
                                     </span>
                                     3 Meses
                                 </h5>
@@ -122,25 +133,25 @@ const ContractDetails = () => {
                             <div className="flex flex-col space-y-5 w-full md:w-6/12">
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Expensas:{' '}
+                                        Expensas:
                                     </span>
                                     $3.000
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Dirección:{' '}
+                                        Dirección:
                                     </span>
                                     Belgrano 2624
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Tipo de alquiler:{' '}
+                                        Tipo de alquiler:
                                     </span>
                                     Permanente
                                 </h5>
                                 <h5 className="text-white">
                                     <span className="font-semibold">
-                                        Estado:{' '}
+                                        Estado:
                                     </span>
                                     Activo
                                 </h5>
