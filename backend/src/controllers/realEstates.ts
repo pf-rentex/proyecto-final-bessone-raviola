@@ -3,7 +3,6 @@ import bcryptjs from 'bcryptjs';
 import RealEstate from '../models/realEstate';
 import { basicAuthValidation, generateToken } from './users';
 import { UserType } from '../types/userTypes';
-import User from '../models/user';
 
 export interface UserRequest extends Request {
     user: {
