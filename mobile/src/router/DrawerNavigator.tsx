@@ -11,6 +11,7 @@ import DocumentViewer from '../screens/DocumentViewer';
 import Publication from '../screens/publication/Publication';
 import Complaints from '../screens/complaints/Complaints';
 import Contracts from '../screens/rent/Contracts';
+import ContractDetails from '../screens/rent/ContractDetails';
 
 const Drawer = createDrawerNavigator();
 
@@ -121,6 +122,20 @@ const DrawerNavigator = ({isAuthenticated}: IDrawerProps) => {
           key='Contracts'
           name='Mis Contratos'
           component={Contracts}
+          options={{
+            drawerIcon: ({focused}) => (
+              <Ionicons
+                name='documents-sharp'
+                size={24}
+                color={focused ? '#5FACF2' : 'white'}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          key='Contract Details'
+          name='Detalles Contrato'
+          component={ContractDetails}
           options={{
             drawerIcon: ({focused}) => (
               <Ionicons
