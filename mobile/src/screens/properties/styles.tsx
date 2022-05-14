@@ -13,11 +13,12 @@ export default StyleSheet.create({
   searchInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 10,
   },
   searchInput: {
     flex: 1,
     backgroundColor: '#263238',
-    paddingVertical: hp('1.4%'),
+    paddingVertical: hp('1.3%'),
     paddingHorizontal: wp('2%'),
     color: 'white',
     fontSize: hp('2.3%'),
@@ -37,5 +38,20 @@ export default StyleSheet.create({
   },
   loader: {
     flex: 2,
+  },
+
+  modalView: {
+    margin: 20,
+    borderRadius: 20,
+    // padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });

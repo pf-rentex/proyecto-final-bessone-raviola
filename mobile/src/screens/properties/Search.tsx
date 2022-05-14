@@ -1,13 +1,14 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
 import {connect} from 'react-redux';
-import {TextInput, View, Text} from 'react-native';
+import {TextInput, View, Text, Modal, Pressable} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {getProperties} from '../../actions/properties';
 import Loader from '../../components/common/Loader';
 import Listing from '../../components/properties/Listing';
 import {ScrollView} from 'react-native-gesture-handler';
+import {IProperty} from '../../reducers/properties';
 
 interface ISearchProps {
   getProperties: Function;
@@ -19,21 +20,32 @@ const Search = ({getProperties, properties, isLoading}: ISearchProps) => {
   useEffect(() => {
     getProperties();
   }, []);
+
+  const [filtersVisible, setFiltersVisible] = useState(false);
   return (
     <ScrollView>
       <LinearGradient colors={['#15ABFF', '#C9F0FD']} style={styles.container}>
-        <View style={styles.searchInputContainer}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Icon
-            style={styles.searchIcon}
-            name='search'
+            name='filter'
             size={20}
-            color='gray'
+            color='#263238'
+            style={{flex: 1}}
+            onPress={() => setFiltersVisible(!filtersVisible)}
           />
-          <TextInput
-            placeholder='Buscar'
-            placeholderTextColor='gray'
-            style={styles.searchInput}
-          />
+          <View style={styles.searchInputContainer}>
+            <Icon
+              style={styles.searchIcon}
+              name='search'
+              size={20}
+              color='gray'
+            />
+            <TextInput
+              placeholder='Buscar'
+              placeholderTextColor='gray'
+              style={styles.searchInput}
+            />
+          </View>
         </View>
         {isLoading ? (
           <View style={styles.loader}>
@@ -46,6 +58,38 @@ const Search = ({getProperties, properties, isLoading}: ISearchProps) => {
             })}
           </View>
         )}
+
+        <Modal
+          animationType='slide'
+          transparent={true}
+          visible={filtersVisible}
+          onRequestClose={() => {
+            setFiltersVisible(!filtersVisible);
+          }}>
+          <View>
+            <LinearGradient
+              colors={['#52809A', '#17262D']}
+              style={styles.modalView}>
+              <View
+                style={{
+                  backgroundColor: '#263238',
+                  padding: 10,
+                  width: '100%',
+                  borderTopLeftRadius: 20,
+                  borderTopRightRadius: 20,
+                  alignItems: 'center',
+                }}>
+                <Text style={{color: 'white', fontWeight: 'bold'}}>
+                  Filtros de búsqueda
+                </Text>
+              </View>
+              <Text>Hello World!</Text>
+              <Pressable onPress={() => setFiltersVisible(!filtersVisible)}>
+                <Text>Hide Modal</Text>
+              </Pressable>
+            </LinearGradient>
+          </View>
+        </Modal>
       </LinearGradient>
     </ScrollView>
   );
