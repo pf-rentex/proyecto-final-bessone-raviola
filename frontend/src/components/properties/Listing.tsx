@@ -5,7 +5,7 @@ import { ReactComponent as Bathrooms } from '../../assets/amenities_bathrooms.sv
 import { MdLocationOn, FaSign } from 'react-icons/all';
 import { useHistory } from 'react-router-dom';
 
-const Listing = () => {
+const Listing = ({onOpenVisitDialog}: {onOpenVisitDialog: () => void}) => {
     const history = useHistory();
 
     const pushPublication = () => {
@@ -15,7 +15,6 @@ const Listing = () => {
     return (
         <section
             className="bg-white m-5 rounded cursor-pointer"
-            onClick={pushPublication}
         >
             <div className="flex flex-col xl:flex-row">
                 <div className="w-full xl:w-4/12 2xl:w-3/12">
@@ -71,6 +70,7 @@ const Listing = () => {
                             <CustomButton
                                 text="Organizar visita"
                                 outlined={true}
+                                callback={onOpenVisitDialog}
                             />
                         </div>
                         <div>
