@@ -9,6 +9,7 @@ import Loader from '../../components/common/Loader';
 import Listing from '../../components/properties/Listing';
 import {ScrollView} from 'react-native-gesture-handler';
 import {IProperty} from '../../reducers/properties';
+import Filters from './Filters';
 
 interface ISearchProps {
   getProperties: Function;
@@ -22,6 +23,7 @@ const Search = ({getProperties, properties, isLoading}: ISearchProps) => {
   }, []);
 
   const [filtersVisible, setFiltersVisible] = useState(false);
+
   return (
     <ScrollView>
       <LinearGradient colors={['#15ABFF', '#C9F0FD']} style={styles.container}>
@@ -59,37 +61,10 @@ const Search = ({getProperties, properties, isLoading}: ISearchProps) => {
           </View>
         )}
 
-        <Modal
-          animationType='slide'
-          transparent={true}
-          visible={filtersVisible}
-          onRequestClose={() => {
-            setFiltersVisible(!filtersVisible);
-          }}>
-          <View>
-            <LinearGradient
-              colors={['#52809A', '#17262D']}
-              style={styles.modalView}>
-              <View
-                style={{
-                  backgroundColor: '#263238',
-                  padding: 10,
-                  width: '100%',
-                  borderTopLeftRadius: 20,
-                  borderTopRightRadius: 20,
-                  alignItems: 'center',
-                }}>
-                <Text style={{color: 'white', fontWeight: 'bold'}}>
-                  Filtros de búsqueda
-                </Text>
-              </View>
-              <Text>Hello World!</Text>
-              <Pressable onPress={() => setFiltersVisible(!filtersVisible)}>
-                <Text>Hide Modal</Text>
-              </Pressable>
-            </LinearGradient>
-          </View>
-        </Modal>
+        <Filters
+          filtersVisible={filtersVisible}
+          setFiltersVisible={setFiltersVisible}
+        />
       </LinearGradient>
     </ScrollView>
   );
