@@ -4,6 +4,12 @@ import styles from './styles';
 import {TextInput, View, Text, Modal, Pressable} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import Dropdown from '../../components/common/Dropdown';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
+import Icon from 'react-native-vector-icons/AntDesign';
+import FAIcon from 'react-native-vector-icons/FontAwesome';
 
 interface IFiltersProps {
   filtersVisible: boolean;
@@ -46,20 +52,99 @@ const Filters = ({filtersVisible, setFiltersVisible}: IFiltersProps) => {
                 Filtros de búsqueda
               </Text>
             </View>
-            {!!selected && (
-              <Text>
-                Selected: label = {selected.label} and value = {selected.value}
-              </Text>
-            )}
-            <Dropdown
-              label='Cantidad de habitaciones'
-              data={data}
-              onSelect={setSelected}
-            />
+            <View style={{flexDirection: 'column', paddingVertical: hp(2)}}>
+              {/* {!!selected && (
+                <Text>
+                  Selected: label = {selected.label} and value ={' '}
+                  {selected.value}
+                </Text>
+              )} */}
+              <Dropdown
+                label='Cantidad de habitaciones'
+                data={data}
+                onSelect={setSelected}
+              />
 
-            <Pressable onPress={() => setFiltersVisible(!filtersVisible)}>
-              <Text>Hide Modal</Text>
-            </Pressable>
+              <View style={{marginVertical: 25}}>
+                <Text style={{color: 'white', fontWeight: 'bold'}}>
+                  Rango de precios (ARS)
+                </Text>
+                <View style={{flexDirection: 'row', paddingVertical: 10}}>
+                  <TextInput
+                    style={{
+                      backgroundColor: '#efefef',
+                      borderTopLeftRadius: 5,
+                      borderBottomLeftRadius: 5,
+                      paddingHorizontal: 20,
+                      height: hp(5),
+                    }}>
+                    <FAIcon name='dollar' color={'gray'} size={15}></FAIcon>
+                    10000
+                  </TextInput>
+                  <View
+                    style={{
+                      height: '100%',
+                      width: 1,
+                      backgroundColor: '#909090',
+                    }}></View>
+                  <TextInput
+                    style={{
+                      backgroundColor: '#efefef',
+                      borderTopRightRadius: 5,
+                      borderBottomRightRadius: 5,
+                      paddingHorizontal: 20,
+                      height: hp(5),
+                    }}>
+                    <FAIcon name='dollar' color={'gray'} size={15}></FAIcon>
+                    20000
+                  </TextInput>
+                </View>
+              </View>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Pressable
+                onPress={() => setFiltersVisible(!filtersVisible)}
+                style={{
+                  backgroundColor: '#8CD3FC',
+                  width: '50%',
+                  alignItems: 'center',
+                  borderBottomStartRadius: 20,
+                  padding: 10,
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Icon name='checkcircle' color='#263238' size={20}></Icon>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      paddingHorizontal: 5,
+                    }}>
+                    APLICAR
+                  </Text>
+                </View>
+              </Pressable>
+              <Pressable
+                onPress={() => setFiltersVisible(!filtersVisible)}
+                style={{
+                  backgroundColor: '#264C6F',
+                  width: '50%',
+                  alignItems: 'center',
+                  borderBottomEndRadius: 20,
+                  padding: 10,
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Icon name='closecircle' color='#FF5050' size={20}></Icon>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      paddingHorizontal: 5,
+                    }}>
+                    CANCELAR
+                  </Text>
+                </View>
+              </Pressable>
+            </View>
           </LinearGradient>
         </View>
       </Modal>

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
 import {connect} from 'react-redux';
-import {TextInput, View, Text, Modal, Pressable} from 'react-native';
+import {TextInput, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {getProperties} from '../../actions/properties';
 import Loader from '../../components/common/Loader';
