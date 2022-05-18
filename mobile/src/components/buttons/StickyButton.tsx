@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   button: {
     width: wp(100),
     position: 'absolute',
-    height: hp(5),
+    height: hp(6),
     backgroundColor: '#204153',
   },
   content: {
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     flex: 1,
     color: 'white',
-    fontSize: 16,
+    fontSize: hp(2),
     fontWeight: 'bold',
     textAlignVertical: 'center',
   },

@@ -73,7 +73,7 @@ const Login = ({
   useEffect(() => {
     // If authenticated redirect
     if (isAuthenticated) {
-      navigation.navigate('UserProfile');
+      navigation.navigate('VisitProperty');
     }
   }, [navigation, isAuthenticated]);
 

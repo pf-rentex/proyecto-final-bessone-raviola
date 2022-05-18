@@ -75,15 +75,8 @@ const VisitProperty = () => {
                   borderWidth: 2,
                 },
               ]}>
-              <Icon name="search" size={20} color={'#7bf3ff'} />
-              <Text
-                style={{
-                  color: 'white',
-                  flex: 1,
-                  textAlign: 'center',
-                }}>
-                Ver más detalles
-              </Text>
+              <Icon name="search" size={24} color={'#7bf3ff'} />
+              <Text style={styles.buttonText}>Ver más detalles</Text>
             </TouchableOpacity>
           </View>
 
@@ -151,6 +144,8 @@ const VisitProperty = () => {
               multiline
               style={{
                 backgroundColor: 'white',
+                color: 'black',
+                fontSize: 16,
                 borderRadius: 4,
               }}
               placeholder='Hola, quisiera visitar la propiedad cuanto antes'
@@ -162,7 +157,7 @@ const VisitProperty = () => {
         position="bottom"
         text="Enviar solicitud"
         callback={() => {}}
-        icon={<Icon name="send" size={22} color={'#7bf3ff'} />}
+        icon={<Icon name="send" size={24} color={'#7bf3ff'} />}
       />
     </View>
   );

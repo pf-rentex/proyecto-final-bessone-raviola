@@ -14,25 +14,32 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     marginVertical: hp(1),
-    fontSize: hp(2),
+    fontSize: hp(3.5),
     textTransform: 'uppercase',
   },
   subtitle: {
     fontWeight: 'bold',
     color: 'white',
-    fontSize: 16,
+    fontSize: hp(2.5),
     marginBottom: hp(1),
   },
   button: {
     backgroundColor: '#263238',
-    padding: wp('1.5'),
+    padding: wp('1.8'),
     borderRadius: 4,
     flexDirection: 'row',
     marginHorizontal: wp(2),
     marginVertical: hp(2),
   },
+  buttonText: {
+    color: 'white',
+    flex: 1,
+    fontSize: hp(2),
+    textAlign: 'center',
+  },
   infoText: {
     paddingStart: wp(1),
+    fontSize: hp(2),
     marginVertical: hp(0.5),
   },
   datepickerContainer: {
@@ -46,13 +53,13 @@ const styles = StyleSheet.create({
   },
   datepickerText: {
     flex: 1,
-    fontSize: 16,
+    fontSize: hp(2),
     textAlign: 'center',
   },
   schedulesContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingVertical: hp(2),
+    paddingVertical: hp(3),
     flexWrap: 'wrap',
   },
   scheduleTime: {
@@ -60,11 +67,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     padding: wp(2),
-    margin: hp(0.5),
+    margin: hp(1),
   },
   scheduleText: {
     textAlign: 'center',
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: 'bold',
   },
 });
