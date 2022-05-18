@@ -9,7 +9,8 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "assets": "yarn react-native-vector-image generate",
-    "clean": "cd android && ./gradlew clean"
+    "clean": "cd android && ./gradlew clean",
+    "link-api": "adb -s $npm_config_device reverse tcp:$npm_config_port tcp:$npm_config_port"
   },
   "dependencies": {
     "@klarna/react-native-vector-drawable": "^0.3.0",
