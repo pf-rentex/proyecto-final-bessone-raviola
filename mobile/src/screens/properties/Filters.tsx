@@ -32,6 +32,8 @@ const Filters = ({filtersVisible, setFiltersVisible}: IFiltersProps) => {
   ];
 
   const [rentType, setRentType] = useState(RentTypes.Temporary);
+  const [freeCancellation, setFreeCancellation] = useState(true);
+  const [allowPets, setAllowPets] = useState(false);
 
   return (
     <ScrollView>
@@ -46,25 +48,10 @@ const Filters = ({filtersVisible, setFiltersVisible}: IFiltersProps) => {
           <LinearGradient
             colors={['#52809A', '#17262D']}
             style={styles.modalView}>
-            <View
-              style={{
-                backgroundColor: '#263238',
-                padding: 10,
-                width: '100%',
-                borderTopLeftRadius: 20,
-                borderTopRightRadius: 20,
-                alignItems: 'center',
-              }}>
-              <Text style={{color: 'white', fontWeight: 'bold'}}>
-                Filtros de búsqueda
-              </Text>
+            <View style={styles.filtersHeader}>
+              <Text style={styles.filtersTitle}>Filtros de búsqueda</Text>
             </View>
-            <View
-              style={{
-                flexDirection: 'column',
-                paddingVertical: hp(2),
-                alignItems: 'center',
-              }}>
+            <View style={styles.filtersContent}>
               {/* {!!selected && (
                 <Text>
                   Selected: label = {selected.label} and value ={' '}
@@ -78,44 +65,26 @@ const Filters = ({filtersVisible, setFiltersVisible}: IFiltersProps) => {
               />
 
               <View style={{marginVertical: 25}}>
-                <Text style={{color: 'white', fontWeight: 'bold'}}>
-                  Rango de precios (ARS)
-                </Text>
+                <Text style={styles.filtersTitle}>Rango de precios (ARS)</Text>
                 <View
                   style={{
                     flexDirection: 'row',
                     paddingVertical: 10,
-                    justifyContent: 'center',
                   }}>
                   <TextInput
-                    style={{
-                      backgroundColor: '#efefef',
-                      borderTopLeftRadius: 5,
-                      borderBottomLeftRadius: 5,
-                      paddingHorizontal: 20,
-                      textAlign: 'center',
-                      height: hp(5),
-                      width: wp(25),
-                    }}>
+                    style={[
+                      styles.textInput,
+                      {borderTopLeftRadius: 5, borderBottomLeftRadius: 5},
+                    ]}>
                     <FAIcon name='dollar' color={'gray'} size={15}></FAIcon>
                     10000
                   </TextInput>
-                  <View
-                    style={{
-                      height: '100%',
-                      width: 1,
-                      backgroundColor: '#909090',
-                    }}></View>
+                  <View style={styles.verticalSeparator}></View>
                   <TextInput
-                    style={{
-                      backgroundColor: '#efefef',
-                      borderTopRightRadius: 5,
-                      borderBottomRightRadius: 5,
-                      paddingHorizontal: 20,
-                      textAlign: 'center',
-                      height: hp(5),
-                      width: wp(25),
-                    }}>
+                    style={[
+                      styles.textInput,
+                      {borderTopRightRadius: 5, borderBottomRightRadius: 5},
+                    ]}>
                     <FAIcon name='dollar' color={'gray'} size={15}></FAIcon>
                     20000
                   </TextInput>
@@ -123,9 +92,7 @@ const Filters = ({filtersVisible, setFiltersVisible}: IFiltersProps) => {
               </View>
 
               <View style={{marginBottom: 25}}>
-                <Text style={{color: 'white', fontWeight: 'bold'}}>
-                  Tipo de alquiler
-                </Text>
+                <Text style={styles.filtersTitle}>Tipo de alquiler</Text>
                 <View
                   style={{
                     flexDirection: 'row',
@@ -136,16 +103,15 @@ const Filters = ({filtersVisible, setFiltersVisible}: IFiltersProps) => {
                     onPress={() => {
                       setRentType(RentTypes.Temporary);
                     }}
-                    style={{
-                      backgroundColor:
-                        rentType === RentTypes.Temporary
-                          ? '#8CD3FC'
-                          : '#efefef',
-                      width: wp(30),
-                      alignItems: 'center',
-                      borderRadius: 5,
-                      padding: hp(1.5),
-                    }}>
+                    style={[
+                      styles.button,
+                      {
+                        backgroundColor:
+                          rentType === RentTypes.Temporary
+                            ? '#8CD3FC'
+                            : '#efefef',
+                      },
+                    ]}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       {rentType === RentTypes.Temporary && (
                         <Icon
@@ -171,17 +137,15 @@ const Filters = ({filtersVisible, setFiltersVisible}: IFiltersProps) => {
                     onPress={() => {
                       setRentType(RentTypes.Permanent);
                     }}
-                    style={{
-                      backgroundColor:
-                        rentType === RentTypes.Permanent
-                          ? '#8CD3FC'
-                          : '#efefef',
-                      width: wp(30),
-                      alignItems: 'center',
-                      borderRadius: 5,
-                      padding: hp(1.5),
-                      marginLeft: wp(3),
-                    }}>
+                    style={[
+                      styles.button,
+                      {
+                        backgroundColor:
+                          rentType === RentTypes.Permanent
+                            ? '#8CD3FC'
+                            : '#efefef',
+                      },
+                    ]}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       {rentType === RentTypes.Permanent && (
                         <Icon
@@ -210,15 +174,16 @@ const Filters = ({filtersVisible, setFiltersVisible}: IFiltersProps) => {
                   marginBottom: 25,
                 }}>
                 <Text
-                  style={{
-                    color: 'white',
-                    fontWeight: 'bold',
-                    alignSelf: 'center',
-                  }}>
+                  style={[
+                    styles.filtersTitle,
+                    {
+                      alignSelf: 'center',
+                    },
+                  ]}>
                   Alquiler temporal
                 </Text>
 
-                <Text style={{color: 'white', fontWeight: 'bold'}}>Fechas</Text>
+                <Text style={styles.filtersTitle}>Fechas</Text>
                 <View
                   style={{
                     flexDirection: 'row',
@@ -226,33 +191,26 @@ const Filters = ({filtersVisible, setFiltersVisible}: IFiltersProps) => {
                     justifyContent: 'center',
                   }}>
                   <TextInput
-                    style={{
-                      backgroundColor: '#efefef',
-                      borderTopLeftRadius: 5,
-                      borderBottomLeftRadius: 5,
-                      paddingHorizontal: 20,
-                      textAlign: 'center',
-                      height: hp(5),
-                      width: wp(30),
-                    }}>
+                    style={[
+                      styles.textInput,
+                      {
+                        borderTopLeftRadius: 5,
+                        borderBottomLeftRadius: 5,
+                        width: wp(30),
+                      },
+                    ]}>
                     Check In
                   </TextInput>
-                  <View
-                    style={{
-                      height: '100%',
-                      width: 1,
-                      backgroundColor: '#909090',
-                    }}></View>
+                  <View style={styles.verticalSeparator}></View>
                   <TextInput
-                    style={{
-                      backgroundColor: '#efefef',
-                      borderTopRightRadius: 5,
-                      borderBottomRightRadius: 5,
-                      paddingHorizontal: 20,
-                      textAlign: 'center',
-                      height: hp(5),
-                      width: wp(30),
-                    }}>
+                    style={[
+                      styles.textInput,
+                      {
+                        borderTopRightRadius: 5,
+                        borderBottomRightRadius: 5,
+                        width: wp(30),
+                      },
+                    ]}>
                     Check Out
                   </TextInput>
                 </View>
@@ -272,21 +230,25 @@ const Filters = ({filtersVisible, setFiltersVisible}: IFiltersProps) => {
                   marginBottom: 25,
                 }}>
                 <Pressable
-                  onPress={() => {}}
-                  style={{
-                    backgroundColor: '#8CD3FC',
-                    width: wp(50),
-                    alignItems: 'center',
-                    borderRadius: 5,
-                    padding: hp(1.5),
-                    marginBottom: 10,
-                  }}>
+                  onPress={() => {
+                    setFreeCancellation(!freeCancellation);
+                  }}
+                  style={[
+                    styles.button,
+                    {
+                      backgroundColor: freeCancellation ? '#8CD3FC' : '#efefef',
+                      width: wp(50),
+                      marginBottom: 10,
+                    },
+                  ]}>
                   <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Icon name='checkcircle' color='#263238' size={15}></Icon>
+                    {freeCancellation && (
+                      <Icon name='checkcircle' color='#263238' size={15}></Icon>
+                    )}
                     <Text
                       style={{
-                        color: 'white',
-                        fontWeight: 'bold',
+                        color: freeCancellation ? 'white' : 'gray',
+                        fontWeight: freeCancellation ? 'bold' : 'normal',
                         paddingHorizontal: 5,
                       }}>
                       Cancelación gratuita
@@ -294,20 +256,24 @@ const Filters = ({filtersVisible, setFiltersVisible}: IFiltersProps) => {
                   </View>
                 </Pressable>
                 <Pressable
-                  onPress={() => {}}
-                  style={{
-                    backgroundColor: '#efefef',
-                    width: wp(50),
-                    alignItems: 'center',
-                    borderRadius: 5,
-                    padding: hp(1.5),
-                  }}>
+                  onPress={() => {
+                    setAllowPets(!allowPets);
+                  }}
+                  style={[
+                    styles.button,
+                    {
+                      backgroundColor: allowPets ? '#8CD3FC' : '#efefef',
+                      width: wp(50),
+                    },
+                  ]}>
                   <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    {/* <Icon name='checkcircle' color='#263238' size={15}></Icon> */}
+                    {allowPets && (
+                      <Icon name='checkcircle' color='#263238' size={15}></Icon>
+                    )}
                     <Text
                       style={{
-                        color: 'gray',
-                        // fontWeight: 'bold',
+                        color: allowPets ? 'white' : 'gray',
+                        fontWeight: allowPets ? 'bold' : 'normal',
                         paddingHorizontal: 5,
                       }}>
                       Permite mascotas

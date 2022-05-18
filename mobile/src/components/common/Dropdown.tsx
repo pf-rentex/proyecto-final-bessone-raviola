@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
     borderBottomWidth: 1,
+    borderBottomColor: 'gray',
   },
 });
 

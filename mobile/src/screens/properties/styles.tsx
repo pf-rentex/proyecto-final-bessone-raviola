@@ -54,4 +54,45 @@ export default StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+
+  button: {
+    alignItems: 'center',
+    borderRadius: 5,
+    padding: hp(1.5),
+    marginLeft: wp(3),
+    width: wp(30),
+  },
+
+  filtersHeader: {
+    backgroundColor: '#263238',
+    padding: 10,
+    width: '100%',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    alignItems: 'center',
+  },
+
+  filtersContent: {
+    flexDirection: 'column',
+    paddingVertical: hp(2),
+    alignItems: 'center',
+  },
+
+  filtersTitle: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+
+  textInput: {
+    backgroundColor: '#efefef',
+    paddingHorizontal: 20,
+    textAlign: 'center',
+    height: hp(5),
+    width: wp(25),
+  },
+  verticalSeparator: {
+    height: '100%',
+    width: 1,
+    backgroundColor: '#909090',
+  },
 });
