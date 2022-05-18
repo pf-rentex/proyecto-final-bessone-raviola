@@ -2,12 +2,13 @@ import React, {useEffect} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
 import {connect} from 'react-redux';
-import {TextInput, View, Text} from 'react-native';
+import {TextInput, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {getProperties} from '../../actions/properties';
 import Loader from '../../components/common/Loader';
 import Listing from '../../components/properties/Listing';
 import {ScrollView} from 'react-native-gesture-handler';
+import {IProperty} from '../../reducers/properties';
 
 interface ISearchProps {
   getProperties: Function;
