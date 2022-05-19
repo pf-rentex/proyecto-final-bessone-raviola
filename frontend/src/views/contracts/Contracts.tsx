@@ -242,7 +242,7 @@ const Contracts = () => {
         },
     ];
     return (
-        <section className="w-full h-full bg-gradient-to-b from-bg-gradient-5 to-bg-gradient-6 overflow-hidden p-5 sm:p-10 md:p-20">
+        <section className="w-full min-h-screen flex flex-col bg-gradient-to-b from-bg-gradient-5 to-bg-gradient-6 overflow-hidden p-5 sm:p-10 md:p-20">
             <div className="flex flex-col lg:flex-row space-x-5 items-center">
                 <h1 className="text-white text-4xl py-10 lg:py-0 text-center lg:text-left font-bold w-full lg:w-3/12">
                     Mis Contratos

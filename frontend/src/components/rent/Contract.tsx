@@ -92,16 +92,16 @@ const Contract = ({
             <div className="flex bg-blue-300 rounded-b-md text-alt py-2 justify-between">
                 <div className="flex flex-1 items-center justify-center cursor-pointer">
                     <BiSearch size={18}/>
-                    <p className="px-1 font-medium text-xs md:text-lg">Ver detalle</p>
+                    <p className="px-1 font-medium text-xs md:text-base">Ver detalle</p>
                 </div>
                 <div
                     className="flex flex-1 items-center justify-center cursor-pointer border-l border-r border-gray-600">
                     <CgProfile size={18}/>
-                    <p className="px-1 font-medium text-xs md:text-lg">Ficha inquilino</p>
+                    <p className="px-1 font-medium text-xs md:text-base">Ficha inquilino</p>
                 </div>
                 <div className="flex flex-1 items-center justify-center cursor-pointer">
                     <BiDollarCircle size={18}/>
-                    <p className="px-2 font-medium text-xs md:text-lg">Ver pagos</p>
+                    <p className="px-2 font-medium text-xs md:text-base">Ver pagos</p>
                 </div>
             </div>
         </div>
