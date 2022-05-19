@@ -13,6 +13,7 @@ import ComplaintDetails from '../views/complaints/ComplaintDetails';
 import CreateComplaint from '../views/complaints/CreateComplaint';
 import Contracts from '../views/rent/Contracts';
 import RentRequests from '../views/rent/request/Requests';
+import ContractDetails from '../views/rent/ContractDetails';
 
 export default function router() {
     return (
@@ -38,6 +39,11 @@ export default function router() {
                 />
                 <Route exact path="/contracts" component={Contracts} />
                 <Route exact path="/rent/requests" component={RentRequests} />
+                <Route
+                    exact
+                    path="/contracts/:id"
+                    component={ContractDetails}
+                />
             </Switch>
         </BrowserRouter>
     );
