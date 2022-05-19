@@ -12,6 +12,7 @@ import Complaints from '../views/complaints/Complaints';
 import ComplaintDetails from '../views/complaints/ComplaintDetails';
 import CreateComplaint from '../views/complaints/CreateComplaint';
 import Contracts from '../views/rent/Contracts';
+import ContractDetails from '../views/rent/ContractDetails';
 import Header from "../components/commons/header/Header";
 import Sidebar from "../components/commons/Sidebar/Sidebar";
 
@@ -42,6 +43,10 @@ export default function Router() {
                 <Route
                     path="/complaint/:id"
                     element={<ComplaintDetails />}
+                />
+                <Route
+                    path="/contracts/:id"
+                    element={<ContractDetails />}
                 />
                 <Route path="/contracts" element={<Contracts />}/>
             </Routes>
