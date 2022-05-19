@@ -23,7 +23,7 @@ const Modal = ({title, content, action, onClose}: IModal) => (
         </div>
 
         {/* Modal */}
-        <div className="flex h-full w-full bg-blue-700">
+        <div className="absolute bg-blue-700">
             <div id="default-modal" aria-hidden="true"
                  className="flex overflow-x-hidden overflow-y-auto fixed h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center">
 
