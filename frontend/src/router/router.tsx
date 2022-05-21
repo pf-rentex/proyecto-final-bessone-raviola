@@ -12,6 +12,7 @@ import Complaints from '../views/complaints/Complaints';
 import ComplaintDetails from '../views/complaints/ComplaintDetails';
 import CreateComplaint from '../views/complaints/CreateComplaint';
 import Contracts from '../views/contracts/Contracts';
+import RentRequests from '../views/rent/request/Requests';
 import ContractDetails from '../views/contracts/ContractDetails';
 
 export default function router() {
@@ -37,6 +38,7 @@ export default function router() {
                     component={ComplaintDetails}
                 />
                 <Route exact path="/contracts" component={Contracts} />
+                <Route exact path="/rent/requests" component={RentRequests} />
                 <Route
                     exact
                     path="/contracts/:id"
