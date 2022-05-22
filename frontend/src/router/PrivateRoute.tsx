@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import { IProfileData } from '../reducers/auth';
 import { FaCircleNotch } from 'react-icons/all';
@@ -15,6 +15,9 @@ interface IPrivateRouteProps {
 
 const PrivateRoute = (props: IPrivateRouteProps) => {
     const { component, profile, isAuthenticated, isLoading, ...rest } = props;
+    const dispatch = useDispatch();
+
+    console.log('PrivateRoute', profile);
 
     if (isLoading) {
         return (

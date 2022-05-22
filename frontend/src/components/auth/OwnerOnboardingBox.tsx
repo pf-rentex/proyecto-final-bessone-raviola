@@ -3,11 +3,13 @@ import CustomButton from "../commons/Button/CustomButton";
 import { ReactComponent as OnboardingImage } from "../../assets/onboardingOwner.svg";
 import { FaCircleNotch, FaTimesCircle, GoVerified } from "react-icons/all";
 import {checkContributor} from "../../api";
+import {connect} from "react-redux";
+import {updateUser} from "../../actions/auth";
 
 export interface IOnboardingBoxData {
   name: string;
+  lastname: string;
   birthdate: string;
-  email: string;
   address: string;
   phone: string;
   cuit: string;
@@ -15,13 +17,13 @@ export interface IOnboardingBoxData {
 
 const initialFormData: IOnboardingBoxData = {
   name: '',
+  lastname: '',
   birthdate: '',
-  email: '',
   address: '',
   phone: '',
   cuit: '',
 }
-const OwnerOnboardingBox = () => {
+const OwnerOnboardingBox = ({updateUser}: {updateUser: Function}) => {
   const [form, setForm] = useState<IOnboardingBoxData>(initialFormData);
   const [verified, setVerified] = useState<boolean>(false);
   const [verifying, setVerifying] = useState<boolean>(false);
@@ -46,7 +48,12 @@ const OwnerOnboardingBox = () => {
       setVerified(true);
       setVerificationStatus(data.result.isValid);
     }
-  }
+  };
+
+  const onSubmit = async () => {
+    const resp = await updateUser(form);
+  };
+
   return (
     <div className="flex flex-row p-5 xl:w-8/12 break-words mb-3 mx-4 shadow-2xl rounded-xl bg-white border-0 text-center content-center z-10">
       <div className="w-full flex flex justify-center">
@@ -58,15 +65,19 @@ const OwnerOnboardingBox = () => {
                   type="text"
                   className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
                   placeholder="Nombre"
+                  name="name"
+                  onChange={onFormChange}
                   style={{ transition: "all 0.15s ease 0s" }}
                 />
               </div>
-              <div className="relative w-full mt-3 mb-3">
+              <div className="relative w-full mt-6 mb-3">
                 <input
-                  type="email"
-                  className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
-                  placeholder="Email"
-                  style={{ transition: "all 0.15s ease 0s" }}
+                    type="text"
+                    className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
+                    placeholder="Apellido"
+                    name="lastname"
+                    onChange={onFormChange}
+                    style={{ transition: "all 0.15s ease 0s" }}
                 />
               </div>
               <div className="relative w-full mt-3 mb-3">
@@ -74,6 +85,8 @@ const OwnerOnboardingBox = () => {
                   type="date"
                   className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
                   placeholder="Fecha de nacimiento"
+                  name="birthdate"
+                  onChange={onFormChange}
                   style={{ transition: "all 0.15s ease 0s" }}
                 />
               </div>
@@ -82,6 +95,8 @@ const OwnerOnboardingBox = () => {
                   type="text"
                   className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
                   placeholder="Domicilio"
+                  name="address"
+                  onChange={onFormChange}
                   style={{ transition: "all 0.15s ease 0s" }}
                 />
               </div>
@@ -90,7 +105,19 @@ const OwnerOnboardingBox = () => {
                   type="number"
                   className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
                   placeholder="Telefono"
+                  name="phone"
+                  onChange={onFormChange}
                   style={{ transition: "all 0.15s ease 0s" }}
+                />
+              </div>
+              <div className="relative w-full mt-3 mb-3">
+                <input
+                    type="number"
+                    className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
+                    placeholder="DNI"
+                    name="dni"
+                    onChange={onFormChange}
+                    style={{ transition: "all 0.15s ease 0s" }}
                 />
               </div>
             </div>
@@ -154,7 +181,7 @@ const OwnerOnboardingBox = () => {
             </div>
           </div>
           <div className="lg:w-6/12 mx-auto my-5">
-            <CustomButton text="Continuar" />
+            <CustomButton text="Continuar" callback={onSubmit}/>
           </div>
         </form>
       </div>
@@ -162,4 +189,12 @@ const OwnerOnboardingBox = () => {
   );
 };
 
-export default OwnerOnboardingBox;
+const mapStateToProps = (state: any) => ({
+  error: state.error,
+  isAuthenticated: state.auth.isAuthenticated,
+  isLoading: state.auth.isLoading,
+});
+
+export default connect(mapStateToProps, {
+  updateUser,
+})(OwnerOnboardingBox);

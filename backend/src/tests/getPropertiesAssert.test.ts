@@ -1,12 +1,10 @@
-/* eslint-disable no-undef */
-import chai from 'chai';
 import chaiHttp from 'chai-http';
-import { assert } from 'chai';
+import chai, { assert } from 'chai';
 import db from '../config/database';
 
 db();
 chai.use(chaiHttp);
-const url = 'http://localhost:5000';
+const url = 'http://localhost:3001';
 
 describe('Get properties: ', () => {
     it('Check result type', async () => {
