@@ -24,5 +24,6 @@ jobs:
       - name: run tests
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          HOST: ${{ secrets.HOST }}
         working-directory: ./backend
         run: npm run test
