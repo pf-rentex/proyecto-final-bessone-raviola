@@ -4,7 +4,8 @@ const logger = createLogger({
     level: 'info',
     format: format.json(),
     defaultMeta: {
-        environment: process.env.HOST.includes('localhost') ? 'dev' : 'prod',
+        // TODO: get real env var.
+        environment: 'env',
     },
     transports: [
         //
