@@ -15,6 +15,7 @@ import InfoSection from '../components/home/InfoSection';
 import FeatureSection from '../components/home/FeatureSection';
 import { AiOutlineSearch, AiFillHome, HiDownload } from 'react-icons/all';
 import Footer from '../components/commons/Footer';
+import { useNavigate } from 'react-router-dom';
 
 const tenantFeatures = [
     {
@@ -53,17 +54,22 @@ const ownerFeatures = [
 ];
 
 const Home = () => {
+    const navigate = useNavigate();
+
     return (
         <>
             {/* Section 1 */}
-            <section className="w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 overflow-hidden">
-                <div className="container mx-auto px-5 xl:px-10 mt-16 xl:my-40">
+            <section className="w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 overflow-hidden ">
+                <div className="container mx-auto px-5 xl:px-2 mt-16 xl:my-40">
                     <InfoSection
                         logo={<RealtorLogo className="h-80 z-10 xl:h-auto" />}
                         title={
-                            <div>
-                                Gestionar tu alquiler nunca fue
-                                <span className="font-bold text-blue-400"> tan fácil
+                            <div className="font-secondary leading-relaxed">
+                                <p className="text-4xl">
+                                    Gestionar tu alquiler nunca fue{' '}
+                                </p>
+                                <span className="font-bold text-5xl text-blue-400">
+                                    tan fácil
                                 </span>
                             </div>
                         }
@@ -73,15 +79,13 @@ const Home = () => {
                         <div className="w-6/12 mx-auto">
                             <CustomButton
                                 text="COMENZÁ AHORA"
-                                callback={() =>
-                                    window.location.replace('/login')
-                                }
+                                callback={() => navigate('login')}
                             />
                         </div>
                     </InfoSection>
                 </div>
 
-                <Wave fromColor="#12498A" toColor="#76BBFF" />
+                <Wave fromColor="#00A3FF" toColor="#76BBFF" />
             </section>
 
             {/* Section 2 */}

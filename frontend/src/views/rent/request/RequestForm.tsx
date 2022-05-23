@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import CustomButton from '../../../components/commons/Button/CustomButton';
 import {
     HiArrowCircleRight,
@@ -18,7 +18,7 @@ interface IRequestFormProps {
 }
 
 const RequestForm = ({ createRentalRequest, isLoading }: IRequestFormProps) => {
-    const [steps, setSteps] = useState<Array<string>>([
+    const [steps] = useState<Array<string>>([
         'Detalles de la propiedad',
         'Datos personales',
         'Detalles',
@@ -147,7 +147,7 @@ const RequestForm = ({ createRentalRequest, isLoading }: IRequestFormProps) => {
                 {/* Actions */}
                 <div className="flex flex-col-reverse lg:flex-row justify-center lg:justify-end lg:space-x-5 items-center my-10">
                     <div className="w-full lg:w-2/12 mt-2 lg:mt-0 text-center lg:text-left">
-                        {activeStep == 0 ? (
+                        {activeStep === 0 ? (
                             <a href="#" className="text-white underline">
                                 Volver atrás
                             </a>
@@ -162,7 +162,7 @@ const RequestForm = ({ createRentalRequest, isLoading }: IRequestFormProps) => {
                         )}
                     </div>
                     <div className="w-full lg:w-2/12">
-                        {activeStep == 2 ? (
+                        {activeStep === 2 ? (
                             <CustomButton
                                 text="Enviar solicitud"
                                 color="primary"

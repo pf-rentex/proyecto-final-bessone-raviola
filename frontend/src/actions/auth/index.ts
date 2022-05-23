@@ -16,21 +16,20 @@ import {
 import { getErrors } from '../error';
 import { IRegisterFormData } from '../../components/auth/SignupBox';
 import { ILoginFormData } from '../../components/auth/LoginBox';
-import {IOnboardingTenantData} from "../../components/auth/TenantOnboardingBox";
 
 export const signup =
-    (formData: IRegisterFormData, history: History) =>
-    async (dispatch: Dispatch<any>) => {
+    (formData: IRegisterFormData) => async (dispatch: Dispatch<any>) => {
         try {
             dispatch({ type: USER_LOADING });
 
             const { data } = await api.register(formData);
             dispatch({ type: REGISTER_SUCCESS, data });
             dispatch({ type: CLEAR_ERRORS });
-            history.push('Onboarding');
         } catch (error: any) {
-            console.log({error});
-            const { msg, status } = error.response.data;
+            const {
+                data: { msg },
+                status,
+            } = error.response;
 
             if (msg) {
                 dispatch(getErrors(msg, status, REGISTER_FAIL));
@@ -50,7 +49,6 @@ export const login =
 
             dispatch({ type: LOGIN_SUCCESS, data });
             dispatch({ type: CLEAR_ERRORS });
-            history.push('Onboarding');
         } catch (error: any) {
             if (error.response) {
                 const { data, status } = error.response;
@@ -66,23 +64,24 @@ export const loadUser = () => async (dispatch: Dispatch<any>) => {
     try {
         dispatch({ type: USER_LOADING });
         const { data } = await api.getUserData();
-        dispatch({ type: USER_LOADED, payload: data });
+        dispatch({ type: USER_LOADED, data });
     } catch (e) {
         console.log('Error loading user: ', e);
         dispatch({ type: AUTH_ERROR });
     }
 };
 
-export const updateUser = (formData: any ) => async (dispatch: Dispatch<any>) => {
-    try {
-        dispatch({ type: USER_LOADING });
-        const { data } = await api.updateUserData(formData);
-        console.log(data);
-    } catch (e) {
-        console.log('Error updating user: ', e);
-        dispatch({ type: AUTH_ERROR });
-    }
-};
+export const updateUser =
+    (formData: any) => async (dispatch: Dispatch<any>) => {
+        try {
+            dispatch({ type: USER_LOADING });
+            const { data } = await api.updateUserData(formData);
+            console.log(data);
+        } catch (e) {
+            console.log('Error updating user: ', e);
+            dispatch({ type: AUTH_ERROR });
+        }
+    };
 
 export const logout = () => (dispatch: Dispatch<any>) => {
     dispatch({ type: LOGOUT_SUCCESS });

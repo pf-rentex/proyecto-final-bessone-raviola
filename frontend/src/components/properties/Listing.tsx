@@ -3,19 +3,14 @@ import { ReactComponent as Dimensions } from '../../assets/amenities_dimensions.
 import { ReactComponent as Bedrooms } from '../../assets/amenities_bedrooms.svg';
 import { ReactComponent as Bathrooms } from '../../assets/amenities_bathrooms.svg';
 import { MdLocationOn, FaSign } from 'react-icons/all';
-import { useHistory } from 'react-router-dom';
 
-const Listing = ({onOpenVisitDialog}: {onOpenVisitDialog: () => void}) => {
-    const history = useHistory();
-
+const Listing = ({ onOpenVisitDialog }: { onOpenVisitDialog: () => void }) => {
     const pushPublication = () => {
-        history.push('/publication/:id');
+        // history.push('/publication/:id');
     };
 
     return (
-        <section
-            className="bg-white m-5 rounded cursor-pointer"
-        >
+        <section className="bg-white m-5 rounded cursor-pointer">
             <div className="flex flex-col xl:flex-row">
                 <div className="w-full xl:w-4/12 2xl:w-3/12">
                     <img

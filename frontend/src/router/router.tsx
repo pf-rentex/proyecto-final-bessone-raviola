@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Auth from '../views/auth/Auth';
 import Onboarding from '../views/auth/Onboarding';
 import PrivateRoute from './PrivateRoute';
@@ -14,37 +14,50 @@ import CreateComplaint from '../views/complaints/CreateComplaint';
 import Contracts from '../views/contracts/Contracts';
 import RentRequests from '../views/rent/request/Requests';
 import ContractDetails from '../views/contracts/ContractDetails';
+import Header from '../components/commons/header/Header';
+import Sidebar from '../components/commons/Sidebar/Sidebar';
 
-export default function router() {
+export default function Router() {
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
     return (
         <BrowserRouter>
-            <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/login" component={Auth} />
-                <PrivateRoute exact path="/onboarding" component={Onboarding} />
-                <PrivateRoute exact path="/profile" component={UserProfile} />
-                <Route exact path="/search" component={Search} />
-                <Route exact path="/rent/request" component={RequestForm} />
-                <Route exact path="/publication/:id" component={Publication} />
-                <Route exact path="/complaints" component={Complaints} />
+            <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+            <Header setIsOpenSidebar={setIsOpen} />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Auth />} />
                 <Route
-                    exact
-                    path="/complaint/create"
-                    component={CreateComplaint}
+                    path="/onboarding"
+                    element={
+                        <PrivateRoute
+                            exact
+                            path="/onboarding"
+                            component={Onboarding}
+                        />
+                    }
                 />
                 <Route
-                    exact
-                    path="/complaint/:id"
-                    component={ComplaintDetails}
+                    path="/profile"
+                    element={
+                        <PrivateRoute
+                            exact
+                            path="/profile"
+                            component={UserProfile}
+                        />
+                    }
                 />
-                <Route exact path="/contracts" component={Contracts} />
-                <Route exact path="/rent/requests" component={RentRequests} />
-                <Route
-                    exact
-                    path="/contracts/:id"
-                    component={ContractDetails}
-                />
-            </Switch>
+                <Route path="/search" element={<Search />} />
+                <Route path="/rent/request" element={<RequestForm />} />
+                <Route path="/publication/:id" element={<Publication />} />
+                <Route path="/complaints" element={<Complaints />} />
+                <Route path="/complaint/create" element={<CreateComplaint />} />
+                <Route path="/complaint/:id" element={<ComplaintDetails />} />
+                <Route path="/contracts" element={<Contracts />} />
+                <Route path="/rent/requests" element={<RentRequests />} />
+                <Route path="/contracts/:id" element={<ContractDetails />} />
+                <Route path="/contracts" element={<Contracts />} />
+            </Routes>
         </BrowserRouter>
     );
 }

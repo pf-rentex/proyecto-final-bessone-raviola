@@ -4,13 +4,13 @@ import { ReactComponent as Bedrooms } from '../../assets/amenities_bedrooms.svg'
 import { ReactComponent as Bathrooms } from '../../assets/amenities_bathrooms.svg';
 import { FaSign, BiCalendar, BiCheck } from 'react-icons/all';
 import CustomLabel from '../../components/commons/label/CustomLabel';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 const Publication = () => {
-    const history = useHistory();
+    // const history = useHistory();
 
     const redirectRentalRequest = () => {
-        history.push('/rent/request');
+        // history.push('/rent/request');
     };
 
     return (

@@ -1,6 +1,6 @@
 import CustomButton from "../commons/Button/CustomButton";
 import { ReactComponent as OnboardingImage } from "../../assets/onboardingRE.svg";
-import {FaCircleNotch, FaCheckCircle, FaTimesCircle, GoVerified} from "react-icons/all";
+import {FaCircleNotch, FaTimesCircle, GoVerified} from "react-icons/all";
 import React, {useEffect, useState} from "react";
 import {checkContributor} from "../../api";
 import {updateUser} from "../../actions/auth";
