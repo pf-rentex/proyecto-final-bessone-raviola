@@ -3,21 +3,29 @@ import { ReactComponent as OnboardingImage } from "../../assets/onboardingRE.svg
 import {FaCircleNotch, FaTimesCircle, GoVerified} from "react-icons/all";
 import React, {useEffect, useState} from "react";
 import {checkContributor} from "../../api";
+import {updateUser} from "../../actions/auth";
+import {connect} from "react-redux";
 
 export interface IOnboardingBoxData {
   name: string;
   address: string;
   phone: string;
   cuit: string;
+  lastname: string;
+  businessName: string;
+  dni: string;
 }
 
 const initialFormData: IOnboardingBoxData = {
   name: '',
+  lastname: '',
+  businessName: '',
   address: '',
   phone: '',
+  dni: '',
   cuit: '',
 }
-const RealEstateOnboardingBox = () => {
+const RealEstateOnboardingBox = ({updateUser}: {updateUser: Function}) => {
   const [form, setForm] = useState<IOnboardingBoxData>(initialFormData);
 
   const [verified, setVerified] = useState<boolean>(false);
@@ -45,6 +53,11 @@ const RealEstateOnboardingBox = () => {
     }
   }
 
+  const onSubmit = async () => {
+    console.log({form})
+    const resp = await updateUser(form);
+  };
+
   return (
     <div className="flex flex-row p-5 xl:w-6/12 break-words mb-3 mx-4 shadow-2xl rounded-xl bg-white border-0 text-center content-center">
       <div className="w-full xl:w-8/12 flex justify-center">
@@ -54,7 +67,29 @@ const RealEstateOnboardingBox = () => {
               type="text"
               className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
               placeholder="Nombre"
+              name="name"
+              onChange={onFormChange}
               style={{ transition: "all 0.15s ease 0s" }}
+            />
+          </div>
+          <div className="relative w-full mt-6 mb-3">
+            <input
+                type="text"
+                className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
+                placeholder="Apellido"
+                name="lastname"
+                onChange={onFormChange}
+                style={{ transition: "all 0.15s ease 0s" }}
+            />
+          </div>
+          <div className="relative w-full mt-6 mb-3">
+            <input
+                type="text"
+                className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
+                placeholder="DNI"
+                name="dni"
+                onChange={onFormChange}
+                style={{ transition: "all 0.15s ease 0s" }}
             />
           </div>
           <div className="flex flex-row items-center">
@@ -115,7 +150,19 @@ const RealEstateOnboardingBox = () => {
               type="text"
               className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
               placeholder="Domicilio"
+              name="address"
+              onChange={onFormChange}
               style={{ transition: "all 0.15s ease 0s" }}
+            />
+          </div>
+          <div className="relative w-full mt-6 mb-3">
+            <input
+                type="text"
+                className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
+                placeholder="Nombre del negocio"
+                name="businessName"
+                onChange={onFormChange}
+                style={{ transition: "all 0.15s ease 0s" }}
             />
           </div>
           <div className="relative w-full mt-6 mb-3">
@@ -123,13 +170,15 @@ const RealEstateOnboardingBox = () => {
               type="number"
               className="px-3 py-3 placeholder-gray-500 bg-gray-200 text-gray-700 bg-white rounded text-md font-medium shadow focus:outline-none focus:shadow-outline w-full"
               placeholder="Telefono"
+              name="phone"
+              onChange={onFormChange}
               style={{
                 transition: "all 0.15s ease 0s",
               }}
             />
           </div>
           <div className="lg:w-6/12 mx-auto my-5">
-            <CustomButton text="Continuar" />
+            <CustomButton text="Continuar" callback={onSubmit}/>
           </div>
         </form>
       </div>
@@ -142,4 +191,12 @@ const RealEstateOnboardingBox = () => {
   );
 };
 
-export default RealEstateOnboardingBox;
+const mapStateToProps = (state: any) => ({
+  error: state.error,
+  isAuthenticated: state.auth.isAuthenticated,
+  isLoading: state.auth.isLoading,
+});
+
+export default connect(mapStateToProps, {
+  updateUser,
+})(RealEstateOnboardingBox);

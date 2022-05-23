@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
+import bcryptjs from 'bcryptjs';
 import Tenant from '../models/tenant';
+import { basicAuthValidation, generateToken } from './users';
+import { UserType } from '../types/userTypes';
 
 export interface UserRequest extends Request {
     user: {
@@ -7,116 +10,129 @@ export interface UserRequest extends Request {
     };
 }
 
-const createTenant = async (req: Request, res: Response) => {
-    const { name, lastname, email, dni, birthDate, address, phone } = req.body;
+const fieldsAreValid = (body): boolean => {
+    const {
+        name, lastname, dni, birthDate, address, phone,
+    } = body;
+    return (
+        !!name
+        && !!lastname
+        && !!dni
+        && !!birthDate
+        && !!address
+        && !!phone
+    );
+};
 
-    //Simple validation
-    if (!fieldsAreValid(req.body)) {
-        return res.status(400).json({ msg: 'Please enter all fields' });
+const create = async (req: Request, res: Response) => {
+    const result = basicAuthValidation(req);
+
+    if (result.error) {
+        return res.status(400).json({
+            error: result.message,
+        });
     }
 
-    //Check for existing tenant
-    const existingTenant = await Tenant.findOne({ dni: dni });
-    if (existingTenant)
-        return res.status(400).json({ msg: 'Tenant Already exists' });
+    const { password, email } = req.body;
+    // Check for existing tenant
+    const existingTenant = await Tenant.findOne({ email });
+    if (existingTenant) return res.status(400).json({ msg: 'Tenant Already exists' });
 
     const newTenant = new Tenant({
-        name,
-        lastname,
         email,
-        dni,
-        birthDate,
-        address,
-        phone,
+        password,
     });
 
-    //Create Tenant
     try {
+        newTenant.password = await bcryptjs.hash(newTenant.password, 10);
         const tenant = await newTenant.save();
-        res.json({ tenant });
+        const token = generateToken(tenant.id);
+
+        if (!token) {
+            return res.status(400).json({ msg: 'Error generating token' });
+        }
+
+        return res.status(201).json({
+            token,
+            user: {
+                id: tenant.id,
+                email,
+                userType: UserType.tenant,
+            },
+        });
     } catch (error) {
         return res
             .status(400)
-            .json({ msg: `Error registering tenant: ${error}` });
+            .json({ msg: `Error registering Tenant: ${error}` });
     }
 };
 
-const getTenants = async (req: Request, res: Response) => {
+const getAll = async (req: Request, res: Response) => {
     const tenants = await Tenant.find();
     res.json(tenants);
 };
 
-const getTenant = async (req: Request, res: Response) => {
+const getOne = async (req: Request, res: Response) => {
     const { dni } = req.params;
 
-    //Check for existing tenant
+    // Check for existing tenant
     const tenant = await Tenant.findOne({ dni });
     if (!tenant) {
         return res.status(400).json({ msg: 'The Tenant does not exist' });
-    } else {
-        res.json(tenant);
     }
+    res.json(tenant);
 };
 
-const updateTenant = async (req: UserRequest, res: Response) => {
-    const { name, lastname, email, dni, birthDate, address, phone } = req.body;
+const updateOne = async (req: UserRequest, res: Response) => {
+    const {
+        name, lastname, dni, birthDate, address, phone,
+    } = req.body;
 
-    //Simple validation
+    // Simple validation
     if (!fieldsAreValid(req.body)) {
         return res.status(400).json({ msg: 'Please enter all fields' });
     }
 
-    //Check for existing tenant
-    const existingTenant = await Tenant.findOne({ id: req.user.id });
+    // Check for existing tenant
+    const { id } = req.user;
+    const existingTenant = await Tenant.findOne({ _id: id });
+
     if (!existingTenant) {
         return res.status(400).json({ msg: 'The Tenant does not exist' });
-    } else {
-        try {
-            await Tenant.updateOne(
-                { id: req.user.id },
-                {
-                    name: name,
-                    lastname: lastname,
-                    email: email,
-                    dni: dni,
-                    birthDate: birthDate,
-                    address: address,
-                    phone: phone,
-                },
-            );
+    }
 
-            return res.status(200).json({ msg: 'Tenant updated' });
-        } catch (error) {
-            return res
-                .status(400)
-                .json({ msg: `Error registering tenant: ${error}` });
-        }
+    try {
+        await Tenant.updateOne(
+            { _id: id },
+            {
+                name,
+                lastname,
+                dni,
+                birthDate,
+                address,
+                phone,
+            },
+        );
+
+        return res.status(200).json({ msg: 'Tenant updated' });
+    } catch (error) {
+        return res
+            .status(400)
+            .json({ msg: `Error updating tenant: ${error}` });
     }
 };
 
-const deleteTenant = async (req: Request, res: Response) => {
+const deleteOne = async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    const existingTenant = await Tenant.findOne({ id: id });
+    const existingTenant = await Tenant.findOne({ id });
     if (existingTenant) {
         await existingTenant.remove();
         return res.status(200).json({ msg: 'Tenant removed' });
-    } else {
-        return res.status(400).json({ msg: 'The tenant does not exist' });
     }
+    return res.status(400).json({ msg: 'The tenant does not exist' });
 };
 
-const fieldsAreValid = (body): boolean => {
-    const { name, lastname, email, dni, birthDate, address, phone } = body;
-    return (
-        !!name &&
-        !!lastname &&
-        !!email &&
-        !!dni &&
-        !!birthDate &&
-        !!address &&
-        !!phone
-    );
+export {
+    create, getAll, getOne, updateOne, deleteOne,
 };
-
-export { createTenant, getTenants, getTenant, updateTenant, deleteTenant };

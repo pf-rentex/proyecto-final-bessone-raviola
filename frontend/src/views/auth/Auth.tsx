@@ -46,9 +46,9 @@ const Auth = ({ profile }: { profile: string; }) => {
               {isSignup && <SignupLogo className="self-center pr-10 z-10" />}
               {!isSignup && <LoginLogo className="self-center pr-10 z-10" />}
               <Blob
-                size="medium"
+                size="large"
                 color="#333"
-                class="mt-40 ml-40"
+                class="mt-28 ml-16"
                 opacity="0.10"
               />
             </div>

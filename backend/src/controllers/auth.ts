@@ -20,13 +20,13 @@ const authenticateUser = async (req: Request, res: Response) => {
     const isMatch = await bcryptjs.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials' });
 
-    const token = jsonwebtoken.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: 3600 });
+    const token = jsonwebtoken.sign({ id: user.id }, process.env.JWT_SECRET, {
+        expiresIn: 3600,
+    });
 
     if (!token) return res.status(400).json({ msg: 'Error generating token' });
 
-    const {
-        id, name, userType,
-    } = user;
+    const { id, name } = user;
 
     return res.json({
         token,
@@ -34,7 +34,6 @@ const authenticateUser = async (req: Request, res: Response) => {
             id,
             name,
             email,
-            userType,
         },
     });
 };

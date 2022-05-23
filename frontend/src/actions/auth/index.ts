@@ -18,8 +18,7 @@ import { IRegisterFormData } from '../../components/auth/SignupBox';
 import { ILoginFormData } from '../../components/auth/LoginBox';
 
 export const signup =
-    (formData: IRegisterFormData) =>
-    async (dispatch: Dispatch<any>) => {
+    (formData: IRegisterFormData) => async (dispatch: Dispatch<any>) => {
         try {
             dispatch({ type: USER_LOADING });
 
@@ -27,10 +26,10 @@ export const signup =
             dispatch({ type: REGISTER_SUCCESS, data });
             dispatch({ type: CLEAR_ERRORS });
         } catch (error: any) {
-            console.log('error')
-            console.log(error);
-            const { data: {msg}, status } = error.response;
-            console.log(msg, status);
+            const {
+                data: { msg },
+                status,
+            } = error.response;
 
             if (msg) {
                 dispatch(getErrors(msg, status, REGISTER_FAIL));
@@ -47,7 +46,6 @@ export const login =
         try {
             dispatch({ type: USER_LOADING });
             const { data } = await api.authenticate(formData);
-            console.log(data)
 
             dispatch({ type: LOGIN_SUCCESS, data });
             dispatch({ type: CLEAR_ERRORS });
@@ -72,6 +70,18 @@ export const loadUser = () => async (dispatch: Dispatch<any>) => {
         dispatch({ type: AUTH_ERROR });
     }
 };
+
+export const updateUser =f
+    (formData: any) => async (dispatch: Dispatch<any>) => {
+        try {
+            dispatch({ type: USER_LOADING });
+            const { data } = await api.updateUserData(formData);
+            console.log(data);
+        } catch (e) {
+            console.log('Error updating user: ', e);
+            dispatch({ type: AUTH_ERROR });
+        }
+    };
 
 export const logout = () => (dispatch: Dispatch<any>) => {
     dispatch({ type: LOGOUT_SUCCESS });

@@ -1,7 +1,10 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationOptions,
+} from '@react-navigation/native-stack';
 import Login from '../screens/auth/Login';
 import Onboarding from '../screens/auth/Onboarding';
 import RegisterStepOne from '../screens/auth/Register/RegisterStepOne';
@@ -16,6 +19,7 @@ import ComplaintDetails from '../screens/complaints/ComplaintDetails';
 import CreateComplaint from '../screens/complaints/CreateComplaint';
 import Complaints from '../screens/complaints/Complaints';
 import RequestForm from '../screens/rent/RequestForm';
+import VisitProperty from '../screens/visit/VisitProperty';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +27,16 @@ interface INavigatorProps {
   isAuthenticated: boolean;
   isLoading: boolean;
 }
+
+const headerConfig: NativeStackNavigationOptions = {
+  headerStyle: {
+    backgroundColor: '#1b495b',
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+};
 
 const Navigator = ({isAuthenticated, isLoading}: INavigatorProps) => {
   if (isLoading) {
@@ -101,6 +115,14 @@ const Navigator = ({isAuthenticated, isLoading}: INavigatorProps) => {
             name='CreateComplaint'
             component={CreateComplaint}
             options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name='VisitProperty'
+            component={VisitProperty}
+            options={() => ({
+              ...headerConfig,
+              title: 'Organizar visita',
+            })}
           />
         </Stack.Navigator>
       </NavigationContainer>

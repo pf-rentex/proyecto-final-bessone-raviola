@@ -60,6 +60,7 @@ const authReducer = (
                 ...state,
                 ...action.data,
                 isAuthenticated: true,
+                profile: action.data.user,
                 isLoading: false,
             };
 
