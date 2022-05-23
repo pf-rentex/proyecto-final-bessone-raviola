@@ -71,7 +71,7 @@ export const loadUser = () => async (dispatch: Dispatch<any>) => {
     }
 };
 
-export const updateUser =f
+export const updateUser =
     (formData: any) => async (dispatch: Dispatch<any>) => {
         try {
             dispatch({ type: USER_LOADING });
