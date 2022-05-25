@@ -29,7 +29,7 @@ const TenantOnboardingBox = ({ updateUser }: { updateUser: Function }) => {
     };
 
     const onSubmit = async () => {
-        const resp = await updateUser(form);
+        await updateUser(form);
     };
     return (
         <div className="flex flex-row p-5 w-full xl:w-6/12 break-words mb-3 mx-4 shadow-2xl rounded-xl bg-white border-0 text-center content-center">

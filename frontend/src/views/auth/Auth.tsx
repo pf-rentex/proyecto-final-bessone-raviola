@@ -14,10 +14,9 @@ const Auth = ({ profile }: { profile: string }) => {
 
     useEffect(() => {
         if (profile) {
-            console.log({ profile });
             navigate('/onboarding');
         }
-    }, [profile]);
+    }, [profile, navigate]);
 
     const toggleMode = () => {
         setIsSignup(!isSignup);
@@ -32,29 +31,16 @@ const Auth = ({ profile }: { profile: string }) => {
                             <h1 className="text-5xl text-blue-800 font-regular mb-8 font-secondary">
                                 Obtén el control total de
                                 <br />
-                                <span className="text-white font-bold text-5xl">
-                                    {' '}
-                                    tu contrato
-                                </span>
+                                <span className="text-white font-bold text-5xl"> tu contrato</span>
                             </h1>
                             <p className="text-2xl text-blue-700 w-10/12">
                                 Accede y gestiona
-                                <span className="font-bold"> todos</span> los
-                                aspectos de tu alquiler de forma
+                                <span className="font-bold"> todos</span> los aspectos de tu alquiler de forma
                                 <span className="font-bold"> segura</span>
                             </p>
-                            {isSignup && (
-                                <SignupLogo className="self-center pr-10 z-10" />
-                            )}
-                            {!isSignup && (
-                                <LoginLogo className="self-center pr-10 z-10" />
-                            )}
-                            <Blob
-                                size="large"
-                                color="#333"
-                                class="mt-28 ml-16"
-                                opacity="0.10"
-                            />
+                            {isSignup && <SignupLogo className="self-center pr-10 z-10" />}
+                            {!isSignup && <LoginLogo className="self-center pr-10 z-10" />}
+                            <Blob size="large" color="#333" class="mt-28 ml-16" opacity="0.10" />
                         </div>
                         {isSignup && <SignupBox onToggleMode={toggleMode} />}
                         {!isSignup && <LoginBox onToggleMode={toggleMode} />}

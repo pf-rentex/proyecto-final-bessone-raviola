@@ -1,6 +1,5 @@
 import React from 'react';
 import CustomButton from '../commons/Button/CustomButton';
-import { RiSendPlane2Fill } from 'react-icons/all';
 import FiltersContent from './FiltersContent';
 
 interface IFiltersProps {
@@ -8,10 +7,7 @@ interface IFiltersProps {
     setIsOpen?: Function;
 }
 
-export default function FiltersModal({
-    isOpen = false,
-    setIsOpen = () => null,
-}: IFiltersProps) {
+export default function FiltersModal({ isOpen = false, setIsOpen = () => null }: IFiltersProps) {
     return (
         <>
             {isOpen ? (
@@ -22,9 +18,7 @@ export default function FiltersModal({
                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-alt outline-none focus:outline-none">
                                 {/*header*/}
                                 <div className="flex items-start justify-between p-5  rounded-t">
-                                    <h3 className="text-xl text-white font-semibold">
-                                        Filtros de búsqueda
-                                    </h3>
+                                    <h3 className="text-xl text-white font-semibold">Filtros de búsqueda</h3>
                                     <button
                                         className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                                         onClick={() => setIsOpen(false)}

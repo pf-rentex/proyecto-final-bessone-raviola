@@ -1,14 +1,6 @@
-import React, {ReactNode} from 'react';
-import {BiSearch, BiDollar, BiRefresh} from 'react-icons/bi';
-import {
-    AiFillDollarCircle,
-    AiFillEye,
-    AiFillMessage,
-    BsTrashFill,
-    FaSortAlphaDown, ImCross,
-    MdCancel,
-    RiDownloadFill
-} from 'react-icons/all';
+import React, { ReactNode } from 'react';
+import { BiSearch, BiDollar, BiRefresh } from 'react-icons/bi';
+import { AiFillEye, AiFillMessage, BsTrashFill, FaSortAlphaDown, ImCross, RiDownloadFill } from 'react-icons/all';
 import CustomButton from '../../components/commons/Button/CustomButton';
 import Contract from '../../components/rent/Contract';
 
@@ -20,11 +12,11 @@ export interface IContract {
     status: {
         message: string;
         color: string;
-    }
+    };
     canNotify: boolean;
     startDate: string;
     expirationDate: string;
-    actions?: { text: string; icon: ReactNode; }[]
+    actions?: { text: string; icon: ReactNode }[];
 }
 
 const Contracts = () => {
@@ -36,7 +28,7 @@ const Contracts = () => {
             phone: '3564-567895',
             status: {
                 message: 'Al día',
-                color: 'green'
+                color: 'green',
             },
             canNotify: false,
             startDate: '15/01/2022',
@@ -69,8 +61,8 @@ const Contracts = () => {
                 {
                     text: 'Descargar contrato',
                     icon: <RiDownloadFill />,
-                }
-            ]
+                },
+            ],
         },
         {
             number: '3355189541',
@@ -79,7 +71,7 @@ const Contracts = () => {
             phone: '3564-567895',
             status: {
                 message: 'En deuda',
-                color: 'red'
+                color: 'red',
             },
             canNotify: true,
             startDate: '15/01/2022',
@@ -92,7 +84,7 @@ const Contracts = () => {
             phone: '3564-567895',
             status: {
                 message: 'Al día',
-                color: 'green'
+                color: 'green',
             },
             canNotify: false,
             actions: [
@@ -123,7 +115,7 @@ const Contracts = () => {
                 {
                     text: 'Descargar contrato',
                     icon: <RiDownloadFill />,
-                }
+                },
             ],
             startDate: '15/01/2022',
             expirationDate: '15/01/2022',
@@ -135,7 +127,7 @@ const Contracts = () => {
             phone: '3564-567895',
             status: {
                 message: 'Al día',
-                color: 'green'
+                color: 'green',
             },
             canNotify: false,
             startDate: '15/01/2022',
@@ -148,7 +140,7 @@ const Contracts = () => {
             phone: '3564-567895',
             status: {
                 message: 'En deuda',
-                color: 'red'
+                color: 'red',
             },
             actions: [
                 {
@@ -178,7 +170,7 @@ const Contracts = () => {
                 {
                     text: 'Descargar contrato',
                     icon: <RiDownloadFill />,
-                }
+                },
             ],
             canNotify: false,
             startDate: '15/01/2022',
@@ -191,7 +183,7 @@ const Contracts = () => {
             phone: '3564-567895',
             status: {
                 message: 'Al día',
-                color: 'green'
+                color: 'green',
             },
             canNotify: false,
             startDate: '15/01/2022',
@@ -204,7 +196,7 @@ const Contracts = () => {
             phone: '3564-567895',
             status: {
                 message: 'Al día',
-                color: 'green'
+                color: 'green',
             },
             actions: [
                 {
@@ -234,7 +226,7 @@ const Contracts = () => {
                 {
                     text: 'Descargar contrato',
                     icon: <RiDownloadFill />,
-                }
+                },
             ],
             canNotify: false,
             startDate: '15/01/2022',
@@ -262,10 +254,7 @@ const Contracts = () => {
                     <CustomButton text="Pago cuota pendiente" color="primary">
                         <BiDollar className="w-5 h-5" fill="white" />
                     </CustomButton>
-                    <CustomButton
-                        text="Pago servicios pendiente"
-                        color="primary"
-                    >
+                    <CustomButton text="Pago servicios pendiente" color="primary">
                         <BiDollar className="w-5 h-5" fill="white" />
                     </CustomButton>
                     <FaSortAlphaDown className="self-end m-5 sm:m-0 sm:self-start h-10 w-10 sm:h-20 sm:w-20 cursor-pointer text-alt" />

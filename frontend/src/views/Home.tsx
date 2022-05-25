@@ -66,14 +66,14 @@ const Home = () => {
                         title={
                             <div className="font-secondary leading-relaxed">
                                 <p className="text-4xl">
-                                    Gestionar tu alquiler nunca fue{' '}
+                                    Gestionar tu alquiler nunca fue
                                 </p>
                                 <span className="font-bold text-5xl text-blue-400">
                                     tan fácil
                                 </span>
                             </div>
                         }
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sagittis eros sit amet nulla tempus semper. Nullam tincidunt nulla ut faucibus tempor. Sed quis rutrum ex. Maecenas quis lectus id libero efficitur luctus."
+                        text="Administra la renta de inmuebles, controla y realiza los pagos, recibe notificaciones de pagos, carga tus reclamos y mucho más. RentX ofrece ese portal de comunicación unificado y seguro para facilitar todos los trámites relacionados a tu contrato de alquiler."
                         reverse={true}
                     >
                         <div className="w-6/12 mx-auto">

@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import CustomButton from '../commons/Button/CustomButton';
 import { MdAttachMoney } from 'react-icons/md';
-import { HiFilter } from 'react-icons/hi';
 import { useState } from 'react';
-import FiltersModal from './FiltersModal';
 
 enum RentTypes {
     Temporary = 'Temporal',
@@ -25,9 +23,7 @@ const FiltersContent = () => {
                     <option value="3">Three</option>
                 </select>
                 <div className="flex flex-col space-y-3 my-5">
-                    <h5 className="text-white font-semibold">
-                        Rango de precios (ARS)
-                    </h5>
+                    <h5 className="text-white font-semibold">Rango de precios (ARS)</h5>
                     <div className="flex w-full flex-col xl:flex-row space-y-3 xl:space-y-0 xl:justify-center">
                         <div className="relative w-full text-gray-600 focus-within:text-gray-400">
                             <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -56,9 +52,7 @@ const FiltersContent = () => {
                     </div>
                 </div>
                 <div className="flex flex-col">
-                    <h5 className="text-white font-semibold">
-                        Tipo de alquiler
-                    </h5>
+                    <h5 className="text-white font-semibold">Tipo de alquiler</h5>
                     <div className="flex flex-col xl:flex-row xl:space-x-3">
                         <CustomButton
                             text="Temporal"
@@ -77,9 +71,7 @@ const FiltersContent = () => {
                     </div>
                 </div>
                 <div className="flex flex-col space-y-5 mt-5">
-                    <h5 className="text-white text-center font-bold">
-                        {`Alquiler ${rentType}`}
-                    </h5>
+                    <h5 className="text-white text-center font-bold">{`Alquiler ${rentType}`}</h5>
                     <div className="flex flex-col space-y-3">
                         <h5 className="text-white font-semibold">Fechas</h5>
                         <div className="flex w-full flex-col xl:flex-row space-y-3 xl:space-y-0 xl:justify-center">

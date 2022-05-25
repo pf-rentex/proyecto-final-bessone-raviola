@@ -36,26 +36,22 @@ const OwnerOnboardingBox = ({ updateUser }: { updateUser: Function }) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const verifyCuit = async () => {
-        if (form.cuit.length > 0) {
-            setVerifying(true);
-            const { data } = await checkContributor(form.cuit);
-            setVerifying(false);
-            setVerified(true);
-            setVerificationStatus(data.result.isValid);
-        }
-    };
-
     useEffect(() => {
         setVerified(false);
         setVerificationStatus(null);
+
         if (form.cuit.length >= 11) {
-            verifyCuit();
+            setVerifying(true);
+            checkContributor(form.cuit).then(({ data }) => {
+                setVerifying(false);
+                setVerified(true);
+                setVerificationStatus(data.result.isValid);
+            });
         }
     }, [form.cuit]);
 
     const onSubmit = async () => {
-        const resp = await updateUser(form);
+        await updateUser(form);
     };
 
     return (
