@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import bcryptjs from 'bcryptjs';
 import RealEstate from '../models/realEstate';
 import { basicAuthValidation, generateToken } from './users';
-import { UserType } from '../types/userTypes';
 
 export interface UserRequest extends Request {
     user: {
@@ -11,24 +10,16 @@ export interface UserRequest extends Request {
 }
 
 const fieldsAreValid = (body): boolean => {
-    const {
-        name,
-        lastname,
-        dni,
-        address,
-        phone,
-        cuit,
-        businessName,
-    } = body;
+    const { name, lastname, dni, address, phone, cuit, businessName } = body;
 
     return (
-        !!name
-        && !!lastname
-        && !!dni
-        && !!address
-        && !!phone
-        && !!cuit
-        && !!businessName
+        !!name &&
+        !!lastname &&
+        !!dni &&
+        !!address &&
+        !!phone &&
+        !!cuit &&
+        !!businessName
     );
 };
 
@@ -44,7 +35,8 @@ const create = async (req: UserRequest, res: Response) => {
     const { password, email } = req.body;
     // Check for existing tenant
     const existingRealEstate = await RealEstate.findOne({ email });
-    if (existingRealEstate) return res.status(400).json({ msg: 'Real Estate Already exists' });
+    if (existingRealEstate)
+        return res.status(400).json({ msg: 'Real Estate Already exists' });
 
     const newRealEstate = new RealEstate({
         email,
@@ -52,7 +44,10 @@ const create = async (req: UserRequest, res: Response) => {
     });
 
     try {
-        newRealEstate.password = await bcryptjs.hash(newRealEstate.password, 10);
+        newRealEstate.password = await bcryptjs.hash(
+            newRealEstate.password,
+            10,
+        );
         const realEstate = await newRealEstate.save();
         const token = generateToken(realEstate.id);
 
@@ -62,11 +57,7 @@ const create = async (req: UserRequest, res: Response) => {
 
         return res.status(201).json({
             token,
-            user: {
-                id: realEstate.id,
-                email,
-                userType: UserType.realEstate,
-            },
+            user: { ...realEstate.toJSON() },
         });
     } catch (error) {
         return res
@@ -92,15 +83,8 @@ const getOne = async (req: Request, res: Response) => {
 };
 
 const updateOne = async (req: UserRequest, res: Response) => {
-    const {
-        name,
-        lastname,
-        dni,
-        address,
-        phone,
-        cuit,
-        businessName,
-    } = req.body;
+    const { name, lastname, dni, address, phone, cuit, businessName } =
+        req.body;
 
     // Simple validation
     if (!fieldsAreValid(req.body)) {
@@ -110,6 +94,7 @@ const updateOne = async (req: UserRequest, res: Response) => {
     // Check for existing realEstate
     const { id } = req.user;
     const existingRealEstate = await RealEstate.findOne({ _id: id });
+
     if (!existingRealEstate) {
         return res.status(400).json({ msg: 'The RealEstate does not exist' });
     }
@@ -147,10 +132,4 @@ const deleteOne = async (req: Request, res: Response) => {
     return res.status(400).json({ msg: 'The realEstate does not exist' });
 };
 
-export {
-    create,
-    getAll,
-    getOne,
-    updateOne,
-    deleteOne,
-};
+export { create, getAll, getOne, updateOne, deleteOne };

@@ -11,17 +11,8 @@ export interface UserRequest extends Request {
 }
 
 const fieldsAreValid = (body): boolean => {
-    const {
-        name, lastname, dni, birthDate, address, phone,
-    } = body;
-    return (
-        !!name
-        && !!lastname
-        && !!dni
-        && !!birthDate
-        && !!address
-        && !!phone
-    );
+    const { name, lastname, dni, birthDate, address, phone } = body;
+    return !!name && !!lastname && !!dni && !!birthDate && !!address && !!phone;
 };
 
 const create = async (req: Request, res: Response) => {
@@ -36,7 +27,8 @@ const create = async (req: Request, res: Response) => {
     const { password, email } = req.body;
     // Check for existing tenant
     const existingTenant = await Tenant.findOne({ email });
-    if (existingTenant) return res.status(400).json({ msg: 'Tenant Already exists' });
+    if (existingTenant)
+        return res.status(400).json({ msg: 'Tenant Already exists' });
 
     const newTenant = new Tenant({
         email,
@@ -54,11 +46,7 @@ const create = async (req: Request, res: Response) => {
 
         return res.status(201).json({
             token,
-            user: {
-                id: tenant.id,
-                email,
-                userType: UserType.tenant,
-            },
+            user: { ...tenant.toJSON() },
         });
     } catch (error) {
         return res
@@ -84,9 +72,7 @@ const getOne = async (req: Request, res: Response) => {
 };
 
 const updateOne = async (req: UserRequest, res: Response) => {
-    const {
-        name, lastname, dni, birthDate, address, phone,
-    } = req.body;
+    const { name, lastname, dni, birthDate, address, phone } = req.body;
 
     // Simple validation
     if (!fieldsAreValid(req.body)) {
@@ -116,9 +102,7 @@ const updateOne = async (req: UserRequest, res: Response) => {
 
         return res.status(200).json({ msg: 'Tenant updated' });
     } catch (error) {
-        return res
-            .status(400)
-            .json({ msg: `Error updating tenant: ${error}` });
+        return res.status(400).json({ msg: `Error updating tenant: ${error}` });
     }
 };
 
@@ -133,6 +117,4 @@ const deleteOne = async (req: Request, res: Response) => {
     return res.status(400).json({ msg: 'The tenant does not exist' });
 };
 
-export {
-    create, getAll, getOne, updateOne, deleteOne,
-};
+export { create, getAll, getOne, updateOne, deleteOne };

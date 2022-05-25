@@ -26,14 +26,10 @@ const authenticateUser = async (req: Request, res: Response) => {
 
     if (!token) return res.status(400).json({ msg: 'Error generating token' });
 
-    const { id, name } = user;
-
     return res.json({
         token,
         user: {
-            id,
-            name,
-            email,
+            ...user.toJSON(),
         },
     });
 };

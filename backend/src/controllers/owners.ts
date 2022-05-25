@@ -11,17 +11,8 @@ export interface UserRequest extends Request {
 }
 
 const fieldsAreValid = (body): boolean => {
-    const {
-        name, lastname, address, phone, dni, cuit,
-    } = body;
-    return (
-        !!name
-        && !!lastname
-        && !!address
-        && !!phone
-        && !!dni
-        && !!cuit
-    );
+    const { name, lastname, address, phone, dni, cuit } = body;
+    return !!name && !!lastname && !!address && !!phone && !!dni && !!cuit;
 };
 
 const create = async (req: Request, res: Response) => {
@@ -36,7 +27,8 @@ const create = async (req: Request, res: Response) => {
     const { password, email } = req.body;
     // Check for existing tenant
     const existingOwner = await Owner.findOne({ email });
-    if (existingOwner) return res.status(400).json({ msg: 'Tenant Already exists' });
+    if (existingOwner)
+        return res.status(400).json({ msg: 'Tenant Already exists' });
 
     const newOwner = new Owner({
         email,
@@ -54,11 +46,7 @@ const create = async (req: Request, res: Response) => {
 
         return res.status(201).json({
             token,
-            user: {
-                id: owner.id,
-                email,
-                userType: UserType.owner,
-            },
+            user: { ...owner.toJSON() },
         });
     } catch (error) {
         return res
@@ -85,9 +73,7 @@ const getOne = async (req: Request, res: Response) => {
 };
 
 const updateOne = async (req: UserRequest, res: Response) => {
-    const {
-        name, lastname, address, phone, dni, cuit,
-    } = req.body;
+    const { name, lastname, address, phone, dni, cuit } = req.body;
 
     // Simple validation
     if (!fieldsAreValid(req.body)) {
@@ -132,6 +118,4 @@ const deleteOne = async (req: Request, res: Response) => {
     return res.status(400).json({ msg: 'The owner does not exist' });
 };
 
-export {
-    create, getAll, getOne, updateOne, deleteOne,
-};
+export { create, getAll, getOne, updateOne, deleteOne };
