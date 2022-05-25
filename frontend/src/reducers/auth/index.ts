@@ -37,7 +37,6 @@ const authReducer = (
     state: IAuthState = initialState,
     action: { type: string; data: IProfileData },
 ) => {
-    console.log({action });
     switch (action.type) {
         case USER_LOADING:
             return {
