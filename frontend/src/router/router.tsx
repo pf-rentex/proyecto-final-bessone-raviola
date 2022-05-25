@@ -27,26 +27,8 @@ export default function Router() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Auth />} />
-                <Route
-                    path="/onboarding"
-                    element={
-                        <PrivateRoute
-                            exact
-                            path="/onboarding"
-                            component={Onboarding}
-                        />
-                    }
-                />
-                <Route
-                    path="/profile"
-                    element={
-                        <PrivateRoute
-                            exact
-                            path="/profile"
-                            component={UserProfile}
-                        />
-                    }
-                />
+                <Route path="/onboarding" element={<PrivateRoute component={<Onboarding />} />} />
+                <Route path="/profile" element={<PrivateRoute component={<UserProfile />} />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/rent/request" element={<RequestForm />} />
                 <Route path="/publication/:id" element={<Publication />} />

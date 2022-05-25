@@ -6,8 +6,7 @@ import { FaCircleNotch } from 'react-icons/all';
 
 interface IPrivateRouteProps {
     exact?: boolean;
-    path: string;
-    component: () => JSX.Element;
+    component: JSX.Element;
     profile: null | IProfileData;
     isAuthenticated: boolean;
     isLoading: boolean;
@@ -25,7 +24,7 @@ const PrivateRoute = (props: IPrivateRouteProps) => {
     }
 
     if (isAuthenticated) {
-        return <>{component()}</>;
+        return component;
     }
     return <Navigate to="/" />;
 };
