@@ -34,11 +34,11 @@ const formatData = (requestData: any) => {
     formData.append('userId', '615cc9d2c4152a55438e9151');
     formData.append('propertyId', '6193f2b7e3b4f88e4a490644');
 
-    Object.keys(requestData).forEach((key) => {
+    Object.keys(requestData).map((key) => {
         if (!Array.isArray(requestData[key])) {
             formData.append(key, requestData[key]);
         } else {
-            requestData[key].forEach((file: any) => {
+            requestData[key].map((file: any) => {
                 formData.append(key, file);
             });
         }

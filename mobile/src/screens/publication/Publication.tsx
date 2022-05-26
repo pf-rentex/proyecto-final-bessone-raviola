@@ -18,7 +18,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import BetweenLinesText from '../../components/common/BetweenLinesText';
 import styless from './styles';
 
-const Publication = ({navigation}: {navigation: any}) => {
+const Publication = () => {
   const styles = StyleSheet.create({
     title: {
       color: 'white',
@@ -226,9 +226,7 @@ const Publication = ({navigation}: {navigation: any}) => {
               marginTop: 10,
               justifyContent: 'center',
             }}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigation.navigate('VisitProperty')}>
+            <TouchableOpacity style={styles.button}>
               <Icon
                 style={{marginRight: 3, flex: 1}}
                 name='calendar-today'

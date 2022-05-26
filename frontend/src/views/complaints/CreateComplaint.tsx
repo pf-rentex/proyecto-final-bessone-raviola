@@ -1,8 +1,12 @@
 import React from 'react';
 import {
+    BiPencil,
+    BiCalendarEdit,
     FaCheckCircle,
     RiCloseCircleFill,
     IoArrowBackCircle,
+    IoArrowBack,
+    IoArrowForward,
     BsFillDropletFill,
     BsFillGearFill,
     BsLightningFill,

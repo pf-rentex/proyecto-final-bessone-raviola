@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
 import {connect} from 'react-redux';
@@ -9,6 +9,7 @@ import Loader from '../../components/common/Loader';
 import Listing from '../../components/properties/Listing';
 import {ScrollView} from 'react-native-gesture-handler';
 import {IProperty} from '../../reducers/properties';
+import Filters from './Filters';
 
 interface ISearchProps {
   getProperties: Function;
@@ -20,21 +21,33 @@ const Search = ({getProperties, properties, isLoading}: ISearchProps) => {
   useEffect(() => {
     getProperties();
   }, []);
+
+  const [filtersVisible, setFiltersVisible] = useState(false);
+
   return (
     <ScrollView>
       <LinearGradient colors={['#15ABFF', '#C9F0FD']} style={styles.container}>
-        <View style={styles.searchInputContainer}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Icon
-            style={styles.searchIcon}
-            name='search'
+            name='filter'
             size={20}
-            color='gray'
+            color='#263238'
+            style={{flex: 1}}
+            onPress={() => setFiltersVisible(!filtersVisible)}
           />
-          <TextInput
-            placeholder='Buscar'
-            placeholderTextColor='gray'
-            style={styles.searchInput}
-          />
+          <View style={styles.searchInputContainer}>
+            <Icon
+              style={styles.searchIcon}
+              name='search'
+              size={20}
+              color='gray'
+            />
+            <TextInput
+              placeholder='Buscar'
+              placeholderTextColor='gray'
+              style={styles.searchInput}
+            />
+          </View>
         </View>
         {isLoading ? (
           <View style={styles.loader}>
@@ -47,6 +60,11 @@ const Search = ({getProperties, properties, isLoading}: ISearchProps) => {
             })}
           </View>
         )}
+
+        <Filters
+          filtersVisible={filtersVisible}
+          setFiltersVisible={setFiltersVisible}
+        />
       </LinearGradient>
     </ScrollView>
   );

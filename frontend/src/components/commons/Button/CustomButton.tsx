@@ -31,7 +31,7 @@ const CustomButton = ({
                 disabled ? 'gray-400' : outlined ? 'transparent' : color
             } ${
                 disabled ? 'cursor-not-allowed' : ''
-            } shadow-lg w-full rounded-md px-5 py-2 flex content-center my-1 focus:shadow-sm font-secondary font-semibold outline-none align-items-center justify-center content-center align-middle justify-items-center items-center ${
+            } shadow-lg w-full rounded-md px-5 py-2 flex content-center my-3 focus:shadow-sm font-secondary font-semibold outline-none align-items-center justify-center content-center align-middle justify-items-center items-center ${
                 outlined ? `border border-${color}` : ''
             }`}
         >

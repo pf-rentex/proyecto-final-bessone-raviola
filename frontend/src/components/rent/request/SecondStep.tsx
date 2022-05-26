@@ -1,5 +1,5 @@
-import React from 'react';
-import { BsInfoCircleFill } from 'react-icons/all';
+import React, { useState } from 'react';
+import { BsInfoCircleFill, AiOutlineFileText } from 'react-icons/all';
 import Attachment from '../../commons/Attachment/Attachment';
 import AttachmentRequest from '../../commons/Attachment/AttachmentRequest';
 
@@ -10,7 +10,8 @@ interface ISecondStepProps {
 }
 
 const SecondStep = ({ data, onChange, handleFileDelete }: ISecondStepProps) => {
-    const { name, lastName, email, dni, birthDate, phone, startDate, endDate } = data;
+    const { name, lastName, email, dni, birthDate, phone, startDate, endDate } =
+        data;
     return (
         <div>
             <div className="flex flex-col lg:flex-row lg:space-x-20 py-5">
@@ -103,27 +104,41 @@ const SecondStep = ({ data, onChange, handleFileDelete }: ISecondStepProps) => {
                 </div>
             </div>
             <div className="flex flex-col space-y-5">
-                <h5 className="text-white font-semibold text-xl">Adjunte 3 garantes</h5>
+                <h5 className="text-white font-semibold text-xl">
+                    Adjunte 3 garantes
+                </h5>
                 <div className="flex flex-col lg:flex-row space-y-3 lg:space-y-0 lg:space-x-2">
                     {data.guarantorFiles ? (
-                        data.guarantorFiles.map((attachment: any, index: any) => {
-                            return (
-                                <Attachment
-                                    key={index}
-                                    name={attachment.name}
-                                    size={attachment.size}
-                                    attachedDate={new Date().toDateString()}
-                                    handleDelete={() => handleFileDelete('guarantorFiles', attachment.name)}
-                                />
-                            );
-                        })
+                        data.guarantorFiles.map(
+                            (attachment: any, index: any) => {
+                                return (
+                                    <Attachment
+                                        key={index}
+                                        name={attachment.name}
+                                        size={attachment.size}
+                                        attachedDate={new Date().toDateString()}
+                                        handleDelete={() =>
+                                            handleFileDelete(
+                                                'guarantorFiles',
+                                                attachment.name,
+                                            )
+                                        }
+                                    />
+                                );
+                            },
+                        )
                     ) : (
                         <></>
                     )}
 
-                    <AttachmentRequest name="guarantorFiles" handleFile={(e: any) => onChange(e)} />
+                    <AttachmentRequest
+                        name="guarantorFiles"
+                        handleFile={(e: any) => onChange(e)}
+                    />
                 </div>
-                <h5 className="text-white font-semibold text-xl">Adjunte foto de su DNI</h5>
+                <h5 className="text-white font-semibold text-xl">
+                    Adjunte foto de su DNI
+                </h5>
                 <div className="flex flex-col lg:flex-row space-y-3 lg:space-y-0 lg:space-x-2">
                     {data.dniFiles ? (
                         data.dniFiles.map((attachment: any, index: any) => {
@@ -133,16 +148,26 @@ const SecondStep = ({ data, onChange, handleFileDelete }: ISecondStepProps) => {
                                     name={attachment.name}
                                     size={attachment.size}
                                     attachedDate={new Date().toDateString()}
-                                    handleDelete={() => handleFileDelete('dniFiles', attachment.name)}
+                                    handleDelete={() =>
+                                        handleFileDelete(
+                                            'dniFiles',
+                                            attachment.name,
+                                        )
+                                    }
                                 />
                             );
                         })
                     ) : (
                         <></>
                     )}
-                    <AttachmentRequest name="dniFiles" handleFile={(e: any) => onChange(e)} />
+                    <AttachmentRequest
+                        name="dniFiles"
+                        handleFile={(e: any) => onChange(e)}
+                    />
                 </div>
-                <h5 className="text-white font-semibold text-xl">Adjunte Recibos de sueldo</h5>
+                <h5 className="text-white font-semibold text-xl">
+                    Adjunte Recibos de sueldo
+                </h5>
                 <div className="flex flex-col lg:flex-row space-y-3 lg:space-y-0 lg:space-x-2">
                     {data.receiptFiles ? (
                         data.receiptFiles.map((attachment: any, index: any) => {
@@ -152,14 +177,22 @@ const SecondStep = ({ data, onChange, handleFileDelete }: ISecondStepProps) => {
                                     name={attachment.name}
                                     size={attachment.size}
                                     attachedDate={new Date().toDateString()}
-                                    handleDelete={() => handleFileDelete('receiptFiles', attachment.name)}
+                                    handleDelete={() =>
+                                        handleFileDelete(
+                                            'receiptFiles',
+                                            attachment.name,
+                                        )
+                                    }
                                 />
                             );
                         })
                     ) : (
                         <></>
                     )}
-                    <AttachmentRequest name="receiptFiles" handleFile={(e: any) => onChange(e)} />
+                    <AttachmentRequest
+                        name="receiptFiles"
+                        handleFile={(e: any) => onChange(e)}
+                    />
                 </div>
             </div>
         </div>

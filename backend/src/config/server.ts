@@ -1,18 +1,30 @@
-import * as http from 'http';
-import app from './app';
+import express from 'express';
+import * as dotenv from 'dotenv';
+import bodyParser from 'body-parser';
+import cors from 'cors';
 
-import logger from '../logger';
+import router from '../routes';
 
-const initializeServer = (): http.Server => {
+const initializeServer = () => {
     try {
+        const app = express();
+        dotenv.config();
+
+        app.use(cors());
+        app.use(bodyParser.json({ limit: '20mb' }));
+        app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }));
+
+        app.use(router);
+
         const PORT = process.env.PORT || 5000;
 
-        return app.listen(PORT, () =>
-            logger.info(`Server running on port: ${PORT}`),
+        const server = app.listen(PORT, () =>
+            console.log(`Server running on port: ${PORT}`),
         );
+
+        return { app, server };
     } catch (e) {
-        logger.error(`Error launching server.. ${e}`);
-        return e;
+        console.error(`Error launching server.. ${e}`);
     }
 };
 

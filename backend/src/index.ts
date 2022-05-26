@@ -1,5 +1,5 @@
-import initializeServer from './config/server';
+import initServer from './config/server';
 import db from './config/database';
 
-initializeServer();
+initServer();
 void db();

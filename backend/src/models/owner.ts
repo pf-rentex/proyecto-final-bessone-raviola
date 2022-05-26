@@ -1,16 +1,39 @@
-import mongoose from 'mongoose';
-import User, { IUser, options } from './user';
+import  mongoose  from "mongoose";
 
-type IOwner = IUser & {
-    cuit: string;
-}
-
-const Owner : mongoose.Model<IOwner> = User.discriminator('Owner', new mongoose.Schema({
-    cuit: {
-        type: Number,
-        required: false,
+const ownerSchema =  new mongoose.Schema({
+        name: {
+            type: String,
+            required: true,
+        },
+        lastname: {
+            type: String,
+            required:true,
+        },
+        address: {
+            type: String,
+            required: true,
+        },
+        phone: {
+            type: String,
+            required: true,
+        },
+        dni: {
+            type: Number,
+            required: true,
+        },
+        cuit: {
+            type: Number,
+            required: true,
+        },
+        email: {
+            type: String,
+            required: true,
+        },
     },
-},
-options));
+    {
+        timestamps: true,
+    }
+);
 
+const Owner = mongoose.model( 'Owner', ownerSchema);
 export default Owner;

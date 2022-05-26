@@ -5,11 +5,11 @@ import CustomButton from '../commons/Button/CustomButton';
 import { ReactComponent as Spinner } from '../../assets/loader.svg';
 import { AiFillGoogleCircle, FaFacebook } from 'react-icons/all';
 import CustomRadioInput from '../commons/CustomRadioInput';
+import { useHistory } from 'react-router-dom';
 import { loadUser, signup } from '../../actions/auth';
 import { IError } from '../../reducers/error';
 import { clearErrors, getErrors } from '../../actions/error';
 import { REGISTER_FAIL } from '../../actions/types';
-import {useNavigate} from "react-router-dom";
 
 enum UserType {
     realEstate = 'realEstate',
@@ -50,7 +50,7 @@ const SignupBox = ({
 }: ISignupBoxProps) => {
     const [form, setForm] = useState<IRegisterFormData>(initialFormData);
     const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
-    const navigate = useNavigate();
+    const history = useHistory();
 
     const selectUserType = (type: UserType) => {
         setForm({ ...form, userType: type });
@@ -70,8 +70,7 @@ const SignupBox = ({
 
     const onSubmit = () => {
         if (isValid()) {
-            authenticate(form);
-            navigate('/onboarding');
+            authenticate(form, history);
         } else {
             const errorMessage = passwordsMatch
                 ? 'Rellena todos los campos'

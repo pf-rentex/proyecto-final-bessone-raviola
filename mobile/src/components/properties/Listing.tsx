@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import VectorImage from 'react-native-vector-image';
 
-const Listing = ({navigation}: {navigation: any}) => {
+const Listing = () => {
   const styles = StyleSheet.create({
     container: {
       backgroundColor: 'white',
@@ -147,9 +147,7 @@ const Listing = ({navigation}: {navigation: any}) => {
             <Icon name='search' size={20} color='white' />
             <Text style={{color: 'white', fontWeight: 'bold'}}>VER MÁS</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('VisitProperty')}>
+          <TouchableOpacity style={styles.button}>
             <Icon name='calendar-today' size={20} color='white' />
             <Text
               style={{

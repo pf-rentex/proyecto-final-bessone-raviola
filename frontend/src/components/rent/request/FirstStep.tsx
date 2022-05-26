@@ -12,9 +12,11 @@ const FirstStep = () => {
                         Hermoso Chalet
                     </h1>
                     <p className="text-white text-justify lg:text-left">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat.
                     </p>
 
                     <div className="flex my-10  lg:space-x-20 justify-between lg:justify-start">
@@ -33,25 +35,37 @@ const FirstStep = () => {
                     </div>
                     <div className="flex flex-col space-y-10">
                         <div>
-                            <h5 className="text-white font-semibold">Características:</h5>
+                            <h5 className="text-white font-semibold">
+                                Características:
+                            </h5>
                             <p className="text-white">Característica 1</p>
                             <p className="text-white">Característica 2</p>
                             <p className="text-white">Característica 3</p>
                         </div>
                         <div className="flex flex-col text-white text-left space-y-3">
-                            <h5 className="font-semibold lg:text-xl">Detalle:</h5>
-                            <p className="font-bold lg:mx-5">$23.450 + $3.000 (Expensas)</p>
+                            <h5 className="font-semibold lg:text-xl">
+                                Detalle:
+                            </h5>
+                            <p className="font-bold lg:mx-5">
+                                $23.450 + $3.000 (Expensas)
+                            </p>
                         </div>
                         <div className="flex flex-col text-white text-left space-y-3">
-                            <h5 className="font-semibold lg:text-xl">Monto Total:</h5>
-                            <p className="font-bold text-green-400 lg:mx-5">$26.450</p>
+                            <h5 className="font-semibold lg:text-xl">
+                                Monto Total:
+                            </h5>
+                            <p className="font-bold text-green-400 lg:mx-5">
+                                $26.450
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="flex flex-col mt-10 lg:mt-0 lg:w-6/12">
                 <div className="space-y-2 mb-10">
-                    <h5 className="text-white">Ubicación: Av. Rivadavia 1492</h5>
+                    <h5 className="text-white">
+                        Ubicación: Av. Rivadavia 1492
+                    </h5>
                     <img
                         className="h-56 w-full"
                         alt="map"
@@ -63,7 +77,6 @@ const FirstStep = () => {
                     <img
                         className="h-56 w-full"
                         src="https://www.rocketmortgage.com/resources-cmsassets/RocketMortgage.com/Article_Images/Large_Images/TypesOfHomes/types-of-homes-hero.jpg"
-                        alt="gallery"
                     />
                 </div>
             </div>

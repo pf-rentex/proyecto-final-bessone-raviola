@@ -3,12 +3,12 @@ import { ReactComponent as AppLogo } from '../../assets/logo.svg';
 import CustomButton from '../commons/Button/CustomButton';
 import { AiFillGoogleCircle, FaFacebook } from 'react-icons/all';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { ReactComponent as Spinner } from '../../assets/loader.svg';
 import { loadUser, login } from '../../actions/auth';
 import { LOGIN_FAIL } from '../../actions/types';
 import { clearErrors, getErrors } from '../../actions/error';
 import { IError } from '../../reducers/error';
-import { useNavigate } from "react-router-dom";
 
 interface ILoginBoxProps {
     onToggleMode: Function;
@@ -42,7 +42,7 @@ const LoginBox = ({
     loadUser,
 }: ILoginBoxProps) => {
     const [form, setForm] = useState<ILoginFormData>(initialFormData);
-    const navigate = useNavigate();
+    const history = useHistory();
 
     const onFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         clearErrors();
@@ -56,14 +56,13 @@ const LoginBox = ({
 
     useEffect(() => {
         if (isAuthenticated) {
-            navigate('/onboarding');
+            history.push('Onboarding');
         }
-    }, [isAuthenticated, navigate]);
+    }, [isAuthenticated]);
 
     const onSubmit = () => {
         if (isValid()) {
-            login(form);
-            navigate('/onboarding');
+            login(form, history);
         } else {
             getErrors('Rellena todos los campos', 400, LOGIN_FAIL);
         }

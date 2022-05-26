@@ -18,7 +18,7 @@ export interface IProfileData {
     };
     email: string;
     id: string;
-    userType: string;
+    type: string;
 }
 
 export interface IAuthState {
@@ -59,7 +59,6 @@ const authReducer = (
                 ...state,
                 ...action.data,
                 isAuthenticated: true,
-                profile: action.data.user,
                 isLoading: false,
             };
 

@@ -1,5 +1,5 @@
 export enum UserType {
-  tenant = 'tenant',
-  realEstate = 'realEstate',
-  owner = 'owner',
+  tenant = "tenant",
+  realEstate = "realEstate",
+  owner = "owner",
 }

@@ -1,3 +1,2 @@
 .env
 src/services/afip/resources/
-*.log
