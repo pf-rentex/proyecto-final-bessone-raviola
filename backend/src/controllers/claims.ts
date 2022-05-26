@@ -7,10 +7,9 @@ const createClaim = async (req: Request, res: Response) => {
         description,
         category,
         status,
-        dateUpload,
         dateVisit,
         address,
-        technical,
+        technician,
         propertyId,
         userId,
     } = req.body;
@@ -20,7 +19,7 @@ const createClaim = async (req: Request, res: Response) => {
     }
 
     // @ts-ignore
-    const picturesClaim = req.files.picturesClaim.map((file: any) => {
+    const claimPictures = req.files.claimPictures.map((file: any) => {
         return file.id;
     });
 
@@ -29,13 +28,12 @@ const createClaim = async (req: Request, res: Response) => {
         description,
         category,
         status,
-        dateUpload,
         dateVisit,
         address,
-        technical,
+        technician,
         propertyId,
         userId,
-        picturesClaim,
+        claimPictures,
     });
 
     //Create Claim
@@ -68,51 +66,49 @@ const getClaim = async (req: Request, res: Response) => {
 
 const updateClaim = async (req: Request, res: Response) => {
     const {
-        id,
+        _id,
         title,
         description,
         category,
         status,
-        dateUpload,
         dateVisit,
         address,
-        technical,
+        technician,
         propertyId,
         userId,
     } = req.body;
-
     //Simple validation
-    if (!fieldsAreValid(req.body)) {
-        return res.status(400).json({ msg: 'Please enter all fields' });
-    }
+    // if (!fieldsAreValid(req)) {
+    //     return res.status(400).json({ msg: 'Please enter all fields' });
+    // }
 
     // @ts-ignore
-    const picturesClaim = req.files.picturesClaim.map((file: any) => {
-        return file.id;
-    });
+    // const claimPictures = req.files.claimPictures.map((file: any) => {
+    //     return file.id;
+    // });
 
     //Check for existing claim
-    const existingClaim = await Claim.findOne({ _id: id });
+    const existingClaim = await Claim.findOne({ _id: _id });
     if (!existingClaim) {
         return res.status(400).json({ msg: 'The Claim does not exist' });
     } else {
         try {
-            await Claim.updateOne(
-                { _id: id },
+            const claim = await Claim.findOneAndUpdate(
+                { _id: _id },
                 {
                     title: title,
                     description: description,
                     category: category,
                     status: status,
-                    dateUpload: dateUpload,
                     dateVisit: dateVisit,
                     address: address,
-                    technical: technical,
+                    technician: technician,
                     propertyId: propertyId,
                 },
+                { returnOriginal: false },
             );
 
-            return res.status(200).json({ msg: 'Claim updated' });
+            return res.status(200).json({ claim });
         } catch (error) {
             return res
                 .status(400)
@@ -139,26 +135,24 @@ const fieldsAreValid = (req): boolean => {
         description,
         category,
         status,
-        dateUpload,
         dateVisit,
         address,
-        technical,
+        technician,
         propertyId,
         userId,
     } = req.body;
-    const { picturesClaim } = req.files;
+    const { claimPictures } = req.files;
     return (
         !!title &&
         !!description &&
         !!category &&
         !!status &&
-        !!dateUpload &&
         !!dateVisit &&
         !!address &&
-        !!technical &&
+        !!technician &&
         !!propertyId &&
         !!userId &&
-        !!picturesClaim
+        !!claimPictures
     );
 };
 

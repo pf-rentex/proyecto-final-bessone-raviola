@@ -8,9 +8,9 @@ import UserProfile from '../views/profile/UserProfile';
 import Search from '../views/properties/Search';
 import RequestForm from '../views/rent/request/RequestForm';
 import Publication from '../views/publications/Publication';
-import Complaints from '../views/complaints/Complaints';
-import ComplaintDetails from '../views/complaints/ComplaintDetails';
-import CreateComplaint from '../views/complaints/CreateComplaint';
+import Claims from '../views/claims/Claims';
+import ClaimDetails from '../views/claims/ClaimDetails';
+import CreateClaim from '../views/claims/CreateClaim';
 import Contracts from '../views/rent/Contracts';
 
 export default function router() {
@@ -24,17 +24,9 @@ export default function router() {
                 <Route exact path="/search" component={Search} />
                 <Route exact path="/rent/request" component={RequestForm} />
                 <Route exact path="/publication/:id" component={Publication} />
-                <Route exact path="/complaints" component={Complaints} />
-                <Route
-                    exact
-                    path="/complaint/create"
-                    component={CreateComplaint}
-                />
-                <Route
-                    exact
-                    path="/complaint/:id"
-                    component={ComplaintDetails}
-                />
+                <Route exact path="/claims" component={Claims} />
+                <Route exact path="/claim/create" component={CreateClaim} />
+                <Route exact path="/claim/:id" component={ClaimDetails} />
                 <Route exact path="/contracts" component={Contracts} />
             </Switch>
         </BrowserRouter>

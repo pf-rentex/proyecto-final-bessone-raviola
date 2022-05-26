@@ -1,40 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import CustomButton from '../../components/commons/Button/CustomButton';
+import { useHistory } from 'react-router-dom';
+import CustomButton from '../commons/Button/CustomButton';
 import { AiOutlineSearch, HiOutlineTrash } from 'react-icons/all';
-import { ComplaintStatus } from '../../views/complaints/Complaints';
+import { ClaimStatus } from '../../reducers/claims';
 
-interface IComplaintProps {
+interface IClaimProps {
+    id?: string;
     icon: React.ReactNode;
     title: string;
     category: string;
     date: string;
     status: string;
+    deleteClaim: Function;
 }
 
-const Complaint = ({
+const Claim = ({
+    id,
     icon = <></>,
     title,
     category,
     date,
-    status = ComplaintStatus.addressed,
-}: IComplaintProps) => {
+    status = ClaimStatus.addressed,
+    deleteClaim,
+}: IClaimProps) => {
     const [statusColor, setStatusColor] = useState('green-300');
+    const history = useHistory();
     useEffect(() => {
         switch (status) {
-            case ComplaintStatus.addressed:
+            case ClaimStatus.addressed:
                 setStatusColor('green-300');
                 break;
-            case ComplaintStatus.inProgress:
+            case ClaimStatus.inProgress:
                 setStatusColor('yellow-300');
                 break;
-            case ComplaintStatus.cancelled:
+            case ClaimStatus.cancelled:
                 setStatusColor('red-500');
                 break;
         }
     }, [status]);
 
     return (
-        <div className="flex flex-col md:flex-row bg-blue-500 rounded-lg">
+        <div className="flex flex-col md:flex-row bg-blue-500 rounded-lg cursor-pointer hover:scale-125">
             <div className="flex w-full md:w-3/12 bg-alt rounded-lg items-center justify-center p-8">
                 {icon}
             </div>
@@ -51,14 +57,19 @@ const Complaint = ({
                 <div className="flex flex-col sm:flex-row sm:space-x-5">
                     <CustomButton
                         text="Detalles"
-                        callback={() => {}}
                         color="alt"
+                        callback={() => {
+                            history.push(`claim/${id}`);
+                        }}
                     >
                         <AiOutlineSearch />
                     </CustomButton>
+
                     <CustomButton
                         text="Eliminar"
-                        callback={() => {}}
+                        callback={() => {
+                            deleteClaim(id);
+                        }}
                         color="alt"
                     >
                         <HiOutlineTrash />
@@ -69,4 +80,4 @@ const Complaint = ({
     );
 };
 
-export default Complaint;
+export default Claim;

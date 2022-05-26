@@ -58,18 +58,21 @@ const RequestForm = ({ createRentalRequest, isLoading }: IRequestFormProps) => {
 
     const handleDataChange = (e: any) => {
         if (e.target.files) {
-            setData({
-                ...data,
-                [e.target.name]:
-                    // @ts-ignore
-                    data[e.target.name]
-                        ? [
-                              // @ts-ignore
-                              ...data[e.target.name],
-                              e.target.files[0],
-                          ]
-                        : [e.target.files[0]],
-            });
+            if (e.target.files.length !== 0) {
+                //fixs error of cancelling when a file has already been attached
+                setData({
+                    ...data,
+                    [e.target.name]:
+                        // @ts-ignore
+                        data[e.target.name]
+                            ? [
+                                  // @ts-ignore
+                                  ...data[e.target.name],
+                                  e.target.files[0],
+                              ]
+                            : [e.target.files[0]],
+                });
+            }
         } else {
             setData({
                 ...data,
