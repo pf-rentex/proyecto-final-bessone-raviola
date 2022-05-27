@@ -15,14 +15,15 @@ import {
 interface IAttachmentProps {
   name: string;
   size: string;
+  date?: string;
   handleDelete: Function;
 }
 
-const Attachment = ({name, size, handleDelete}: IAttachmentProps) => {
+const Attachment = ({name, size, date, handleDelete}: IAttachmentProps) => {
   const styles = StyleSheet.create({
     container: {
       backgroundColor: '#1E4663',
-      height: hp('10%'),
+      height: hp('8%'),
       borderRadius: 6,
       flex: 1,
       shadowColor: '#000',
@@ -38,16 +39,29 @@ const Attachment = ({name, size, handleDelete}: IAttachmentProps) => {
       alignItems: 'center',
       marginVertical: hp('2%'),
     },
-    circle: {
+    deleteButton: {
       borderRadius:
         Math.round(
           Dimensions.get('window').width + Dimensions.get('window').height,
         ) / 2,
-      width: Dimensions.get('window').width * 0.1,
-      height: Dimensions.get('window').width * 0.1,
+      width: wp(8),
+      height: wp(8),
       backgroundColor: '#EA4D4D',
       justifyContent: 'center',
       alignItems: 'center',
+      marginHorizontal: wp(1),
+    },
+    downloadButton: {
+      borderRadius:
+        Math.round(
+          Dimensions.get('window').width + Dimensions.get('window').height,
+        ) / 2,
+      width: wp(8),
+      height: wp(8),
+      backgroundColor: '#6DE4FE',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginHorizontal: wp(1),
     },
   });
   return (
@@ -55,14 +69,21 @@ const Attachment = ({name, size, handleDelete}: IAttachmentProps) => {
       <View style={{flex: 1}}>
         <View style={{flexDirection: 'column'}}>
           <Text style={{color: 'white', fontWeight: 'bold'}}>{name}</Text>
-          <Text style={{color: '#6DE4FE'}}>{size}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{color: '#6DE4FE', marginRight: wp(5)}}>{size}</Text>
+            <Text style={{color: '#6DE4FE'}}>{date}</Text>
+          </View>
         </View>
       </View>
       <View
         style={{
           alignSelf: 'center',
+          flexDirection: 'row',
         }}>
-        <TouchableHighlight style={styles.circle} onPress={handleDelete}>
+        <TouchableHighlight style={styles.downloadButton} onPress={() => {}}>
+          <Icon name='download' size={20} color='white' />
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.deleteButton} onPress={handleDelete}>
           <Icon name='close' size={20} color='white' />
         </TouchableHighlight>
       </View>
