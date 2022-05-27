@@ -4,7 +4,8 @@ import { ReactComponent as OnboardingImage } from '../../assets/onboardingOwner.
 import { FaCircleNotch, FaTimesCircle, GoVerified } from 'react-icons/all';
 import { checkContributor } from '../../api';
 import { connect } from 'react-redux';
-import { updateUser } from '../../actions/auth';
+import { loadUser, updateUser } from '../../actions/auth';
+import { useNavigate } from 'react-router-dom';
 
 export interface IOnboardingBoxData {
     name: string;
@@ -23,13 +24,18 @@ const initialFormData: IOnboardingBoxData = {
     phone: '',
     cuit: '',
 };
-const OwnerOnboardingBox = ({ updateUser }: { updateUser: Function }) => {
+const OwnerOnboardingBox = ({
+    updateUser,
+    loadUser,
+}: {
+    updateUser: (data: IOnboardingBoxData) => void;
+    loadUser: () => void;
+}) => {
     const [form, setForm] = useState<IOnboardingBoxData>(initialFormData);
     const [verified, setVerified] = useState<boolean>(false);
     const [verifying, setVerifying] = useState<boolean>(false);
-    const [verificationStatus, setVerificationStatus] = useState<string | null>(
-        null,
-    );
+    const [verificationStatus, setVerificationStatus] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     const onFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         // clearErrors();
@@ -52,6 +58,8 @@ const OwnerOnboardingBox = ({ updateUser }: { updateUser: Function }) => {
 
     const onSubmit = async () => {
         await updateUser(form);
+        await loadUser();
+        navigate('/profile');
     };
 
     return (
@@ -148,43 +156,28 @@ const OwnerOnboardingBox = ({ updateUser }: { updateUser: Function }) => {
                                 )}
                                 {!verifying && verified && !verificationStatus && (
                                     <div className="mx-4">
-                                        <FaTimesCircle
-                                            className="opacity-75 text-2xl"
-                                            style={{ color: 'red' }}
-                                        />
+                                        <FaTimesCircle className="opacity-75 text-2xl" style={{ color: 'red' }} />
                                     </div>
                                 )}
                             </div>
                             {!verifying && verified && verificationStatus && (
                                 <div className="relative w-full">
-                                    <p className="text-blue-500 text-xs text-left">
-                                        Te encuentras registrado en AFIP!
-                                    </p>
+                                    <p className="text-blue-500 text-xs text-left">Te encuentras registrado en AFIP!</p>
                                     <p className="text-xs text-left">
-                                        Tu perfil se contará con la insignia de
-                                        verifición exitosa.
+                                        Tu perfil se contará con la insignia de verifición exitosa.
                                     </p>
                                 </div>
                             )}
                             {!verifying && verified && !verificationStatus && (
                                 <div className="relative w-full">
                                     <p className="text-red-500 text-xs text-left">
-                                        Al parecer, no se encuentra registrado
-                                        como persona habilitada para alquilar
-                                        propiedades en el padrón de AFIP. Tu
-                                        perfil no será{' '}
-                                        <span className="font-bold underline">
-                                            verificado
-                                        </span>{' '}
-                                        hasta que podamos validar esta
-                                        información
+                                        Al parecer, no se encuentra registrado como persona habilitada para alquilar
+                                        propiedades en el padrón de AFIP. Tu perfil no será{' '}
+                                        <span className="font-bold underline">verificado</span> hasta que podamos
+                                        validar esta información
                                     </p>
                                     <p className="text-blue-600 text-xs text-left">
-                                        No te preocupes,{' '}
-                                        <b>
-                                            podrás utilizar la plataforma de
-                                            todas formas.
-                                        </b>
+                                        No te preocupes, <b>podrás utilizar la plataforma de todas formas.</b>
                                     </p>
                                 </div>
                             )}
@@ -212,4 +205,5 @@ const mapStateToProps = (state: any) => ({
 
 export default connect(mapStateToProps, {
     updateUser,
+    loadUser,
 })(OwnerOnboardingBox);

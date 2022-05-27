@@ -65,7 +65,7 @@ const Contracts = () => {
             ],
         },
         {
-            number: '3355189541',
+            number: '33553541',
             address: 'Panamericana (N) 618',
             tenant: 'Julio César Ramane',
             phone: '3564-567895',
@@ -78,7 +78,7 @@ const Contracts = () => {
             expirationDate: '15/01/2022',
         },
         {
-            number: '3355189541',
+            number: '3352541',
             address: 'Quilmes (N) 618',
             tenant: 'Juan José Pérez',
             phone: '3564-567895',
@@ -121,7 +121,7 @@ const Contracts = () => {
             expirationDate: '15/01/2022',
         },
         {
-            number: '3355189541',
+            number: '33519541',
             address: 'Entre Ríos (N) 618',
             tenant: 'Claudio Hernán Bessone',
             phone: '3564-567895',
@@ -134,7 +134,7 @@ const Contracts = () => {
             expirationDate: '15/01/2022',
         },
         {
-            number: '3355189541',
+            number: '3359541',
             address: 'Entre Ríos (N) 618',
             tenant: 'Claudio Hernán Bessone',
             phone: '3564-567895',
@@ -177,7 +177,7 @@ const Contracts = () => {
             expirationDate: '15/01/2022',
         },
         {
-            number: '3355189541',
+            number: '33515189541',
             address: 'Entre Ríos (N) 618',
             tenant: 'Claudio Hernán Bessone',
             phone: '3564-567895',
@@ -190,7 +190,7 @@ const Contracts = () => {
             expirationDate: '15/01/2022',
         },
         {
-            number: '3355189541',
+            number: '31241',
             address: 'Entre Ríos (N) 618',
             tenant: 'Claudio Hernán Bessone',
             phone: '3564-567895',

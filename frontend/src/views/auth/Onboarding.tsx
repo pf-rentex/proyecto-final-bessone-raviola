@@ -12,7 +12,7 @@ import { IAuthState } from '../../reducers/auth';
 
 const Onboarding = (): JSX.Element => {
     const auth = useSelector((state: { auth: IAuthState }) => state.auth);
-    const [userType] = useState(auth.profile?.userType ?? 'owner');
+    const [userType] = useState(auth.profile?.userType ?? 'Owner');
     const dispatch = useDispatch();
 
     const logout = () => {
@@ -21,11 +21,11 @@ const Onboarding = (): JSX.Element => {
 
     const renderLogo = (userType: string) => {
         switch (userType) {
-            case 'realEstate':
+            case 'RealEstate':
                 return <RealEstateLogo className="w-14 h-14 lg:w-20 lg:h-20" />;
-            case 'owner':
+            case 'Owner':
                 return <OwnerLogo className="w-14 h-14 lg:w-20 lg:h-20" />;
-            case 'tenant':
+            case 'Tenant':
                 return <TenantLogo className="w-14 h-14 lg:w-20 lg:h-20" />;
             default:
                 return <TenantLogo className="w-14 h-14 lg:w-20 lg:h-20" />;
@@ -70,11 +70,11 @@ const Onboarding = (): JSX.Element => {
 
     const renderBox = (userType: string) => {
         switch (userType) {
-            case 'realEstate':
+            case 'RealEstate':
                 return <RealEstateOnboardingBox />;
-            case 'owner':
+            case 'Owner':
                 return <OwnerOnboardingBox />;
-            case 'tenant':
+            case 'Tenant':
                 return <TenantOnboardingBox />;
             default:
                 return <RealEstateOnboardingBox />;

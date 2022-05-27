@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { ReactComponent as LogoHeader } from '../../../assets/logo_header.svg';
 import { ReactComponent as LogoHeaderMbl } from '../../../assets/favicon.svg';
 import CustomButton from '../Button/CustomButton';
 import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logout } from '../../../actions/auth';
 
 interface IHeaderProps {
+    isAuthenticated: boolean;
     setIsOpenSidebar: Function;
+    logout: () => void;
 }
 
-const Header = (
-    {
-        //buttonRegistrer: boolean,
-        setIsOpenSidebar,
-    }: IHeaderProps,
-    history: History,
-) => {
-    const [logged] = useState<boolean>(false);
+const Header = ({ isAuthenticated, setIsOpenSidebar, logout }: IHeaderProps, history: History) => {
     const navigate = useNavigate();
 
     return (
@@ -25,15 +22,15 @@ const Header = (
             className="flex flex-row sticky top-0 z-20 w-full items-center h-20 overflow-hidden"
         >
             <div className="flex flex-shrink items-center">
-                {/* {logged && ( */}
-                <div className="ml-5">
-                    <GiHamburgerMenu
-                        data-testid="sidebar-toggle"
-                        className="text-white text-3xl cursor-pointer"
-                        onClick={() => setIsOpenSidebar(true)}
-                    />
-                </div>
-                {/* )} */}
+                {isAuthenticated && (
+                    <div className="ml-5">
+                        <GiHamburgerMenu
+                            data-testid="sidebar-toggle"
+                            className="text-white text-3xl cursor-pointer"
+                            onClick={() => setIsOpenSidebar(true)}
+                        />
+                    </div>
+                )}
                 <div className="ml-6 cursor-pointer" onClick={() => navigate('/')}>
                     <LogoHeader className="w-40 mx-4 md:flex hidden" data-testid="logo" />
                     <LogoHeaderMbl className="visible flex md:hidden w-10 mx-4" />
@@ -41,7 +38,7 @@ const Header = (
             </div>
 
             <div className="flex flex-1 justify-end items-center">
-                {!logged && (
+                {!isAuthenticated && (
                     <>
                         <div className="mr-4">
                             <button className="text-xs md:text-base text-white">
@@ -55,15 +52,21 @@ const Header = (
                 )}
 
                 <div className="mr-5">
-                    {logged && (
-                        <button>
-                            {/* Se reemplazaria por la foto de perfil del usuario*/}
-                            <img
-                                src="https://creazilla-store.fra1.digitaloceanspaces.com/emojis/43191/blue-circle-emoji-clipart-md.png"
-                                width="65px"
-                                alt="Profile"
-                            />
-                        </button>
+                    {isAuthenticated && (
+                        <div className="flex">
+                            <button onClick={() => navigate('/profile')}>
+                                {/* Se reemplazaria por la foto de perfil del usuario*/}
+                                <img
+                                    src="https://creazilla-store.fra1.digitaloceanspaces.com/emojis/43191/blue-circle-emoji-clipart-md.png"
+                                    width="50px"
+                                    alt="Profile"
+                                />
+                            </button>
+                            {/*    TODO: Dropdown ? */}
+                            <button className="text-white " onClick={logout}>
+                                Cerrar sesión
+                            </button>
+                        </div>
                     )}
                 </div>
             </div>
@@ -71,4 +74,10 @@ const Header = (
     );
 };
 
-export default Header;
+const mapStateToProps = (state: any) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, {
+    logout,
+})(Header);

@@ -2,7 +2,8 @@ import CustomButton from '../commons/Button/CustomButton';
 import { ReactComponent as OnboardingImage } from '../../assets/onboardingTenant.svg';
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import { updateUser } from '../../actions/auth';
+import { loadUser, updateUser } from '../../actions/auth';
+import { useNavigate } from 'react-router-dom';
 
 export interface IOnboardingTenantData {
     name: string;
@@ -20,8 +21,15 @@ const initialFormData: IOnboardingTenantData = {
     phone: 0,
 };
 
-const TenantOnboardingBox = ({ updateUser }: { updateUser: Function }) => {
+const TenantOnboardingBox = ({
+    updateUser,
+    loadUser,
+}: {
+    updateUser: (data: IOnboardingTenantData) => void;
+    loadUser: () => void;
+}) => {
     const [form, setForm] = useState<IOnboardingTenantData>(initialFormData);
+    const navigate = useNavigate();
 
     const onFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         // clearErrors();
@@ -30,6 +38,8 @@ const TenantOnboardingBox = ({ updateUser }: { updateUser: Function }) => {
 
     const onSubmit = async () => {
         await updateUser(form);
+        await loadUser();
+        navigate('/profile');
     };
     return (
         <div className="flex flex-row p-5 w-full xl:w-6/12 break-words mb-3 mx-4 shadow-2xl rounded-xl bg-white border-0 text-center content-center">
@@ -120,4 +130,5 @@ const mapStateToProps = (state: any) => ({
 
 export default connect(mapStateToProps, {
     updateUser,
+    loadUser,
 })(TenantOnboardingBox);
