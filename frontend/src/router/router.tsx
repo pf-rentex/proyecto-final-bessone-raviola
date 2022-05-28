@@ -8,9 +8,9 @@ import UserProfile from '../views/profile/UserProfile';
 import Search from '../views/properties/Search';
 import RequestForm from '../views/rent/request/RequestForm';
 import Publication from '../views/publications/Publication';
-import Complaints from '../views/complaints/Complaints';
-import ComplaintDetails from '../views/complaints/ComplaintDetails';
-import CreateComplaint from '../views/complaints/CreateComplaint';
+import Claims from '../views/claims/Claims';
+import ClaimDetails from '../views/claims/ClaimDetails';
+import CreateClaim from '../views/claims/CreateClaim';
 import Contracts from '../views/contracts/Contracts';
 import RentRequests from '../views/rent/request/Requests';
 import ContractDetails from '../views/contracts/ContractDetails';
@@ -32,9 +32,9 @@ export default function Router() {
                 <Route path="/search" element={<Search />} />
                 <Route path="/rent/request" element={<RequestForm />} />
                 <Route path="/publication/:id" element={<Publication />} />
-                <Route path="/complaints" element={<Complaints />} />
-                <Route path="/complaint/create" element={<CreateComplaint />} />
-                <Route path="/complaint/:id" element={<ComplaintDetails />} />
+                <Route path="/claims" element={<Claims />} />
+                <Route path="/claim/create" element={<CreateClaim />} />
+                <Route path="/claim/:id" element={<ClaimDetails />} />
                 <Route path="/contracts" element={<Contracts />} />
                 <Route path="/rent/requests" element={<RentRequests />} />
                 <Route path="/contracts/:id" element={<ContractDetails />} />
