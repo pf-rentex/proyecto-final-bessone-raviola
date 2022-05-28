@@ -44,18 +44,21 @@ const RequestForm = ({ createRentalRequest, isLoading }: IRequestFormProps) => {
 
     const handleDataChange = (e: any) => {
         if (e.target.files) {
-            setData({
-                ...data,
-                [e.target.name]:
-                    // @ts-ignore
-                    data[e.target.name]
-                        ? [
-                              // @ts-ignore
-                              ...data[e.target.name],
-                              e.target.files[0],
-                          ]
-                        : [e.target.files[0]],
-            });
+            if (e.target.files.length !== 0) {
+                //fixs error of cancelling when a file has already been attached
+                setData({
+                    ...data,
+                    [e.target.name]:
+                        // @ts-ignore
+                        data[e.target.name]
+                            ? [
+                                  // @ts-ignore
+                                  ...data[e.target.name],
+                                  e.target.files[0],
+                              ]
+                            : [e.target.files[0]],
+                });
+            }
         } else {
             setData({
                 ...data,
@@ -119,7 +122,7 @@ const RequestForm = ({ createRentalRequest, isLoading }: IRequestFormProps) => {
                 {/* Actions */}
                 <div className="flex flex-col-reverse lg:flex-row justify-center lg:justify-end lg:space-x-5 items-center my-10">
                     <div className="w-full lg:w-2/12 mt-2 lg:mt-0 text-center lg:text-left">
-                        {activeStep === 0 ? (
+                    {activeStep === 0 ? (
                             <button className="text-white underline">Volver atrás</button>
                         ) : (
                             <CustomButton text="Anterior" color="alt" callback={handleBack}>
