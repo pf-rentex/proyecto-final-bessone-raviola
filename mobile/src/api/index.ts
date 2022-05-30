@@ -25,6 +25,10 @@ export const getProperties = (query: string) => {
   return API.get(`/api/properties?${query}`);
 };
 
+export const getClaims = () => {
+  return API.get('/api/claims');
+};
+
 export const checkContributor = (cuit: string) =>
   API.post('/api/afip/check_contributor', {cuit});
 

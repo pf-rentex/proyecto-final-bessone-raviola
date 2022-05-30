@@ -17,7 +17,7 @@ import {
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
 
-const CreateComplaint = () => {
+const CreateClaim = () => {
   const styles = StyleSheet.create({
     container: {
       padding: 20,
@@ -129,7 +129,7 @@ const CreateComplaint = () => {
               name='arrow-left'
               size={wp(5)}
               color='white'
-              onPress={() => navigation.navigate('Complaints')}
+              onPress={() => navigation.navigate('Claims')}
             />
           </View>
           <View style={{marginBottom: hp(3)}}>
@@ -210,4 +210,4 @@ const CreateComplaint = () => {
   );
 };
 
-export default CreateComplaint;
+export default CreateClaim;

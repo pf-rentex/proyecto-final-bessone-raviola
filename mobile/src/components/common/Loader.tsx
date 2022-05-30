@@ -1,9 +1,10 @@
 import React from 'react';
 import {ActivityIndicator, StyleSheet, View, Text} from 'react-native';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 
-const Loader = ({size}: any) => (
+const Loader = ({size, color}: any) => (
   <View style={[styles.container, styles.horizontal]}>
-    <ActivityIndicator size={size} color='#20323A' />
+    <ActivityIndicator size={size} color={color} />
   </View>
 );
 

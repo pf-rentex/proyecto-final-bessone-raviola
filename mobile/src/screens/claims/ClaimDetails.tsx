@@ -15,18 +15,16 @@ import {
 } from 'react-native-responsive-screen';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export enum ComplaintStatus {
+export enum ClaimStatus {
   addressed = 'Atendido',
   inProgress = 'En curso',
   cancelled = 'Cancelado',
 }
 
-const ComplaintDetails = ({route}: any) => {
+const ClaimDetails = ({route}: any) => {
   const {icon, title, category, date, status} = route.params
     ? route.params
     : '';
-
-  console.log(status);
 
   const styles = StyleSheet.create({
     container: {
@@ -224,4 +222,4 @@ const ComplaintDetails = ({route}: any) => {
   );
 };
 
-export default ComplaintDetails;
+export default ClaimDetails;

@@ -9,7 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
 import DocumentViewer from '../screens/DocumentViewer';
 import Publication from '../screens/publication/Publication';
-import Complaints from '../screens/complaints/Complaints';
+import Claims from '../screens/claims/Claims';
 import Contracts from '../screens/rent/Contracts';
 import ContractDetails from '../screens/rent/ContractDetails';
 
@@ -105,9 +105,9 @@ const DrawerNavigator = ({isAuthenticated}: IDrawerProps) => {
           }}
         />
         <Drawer.Screen
-          key='Complaints'
+          key='Claims'
           name='Reclamos'
-          component={Complaints}
+          component={Claims}
           options={{
             drawerIcon: ({focused}) => (
               <Ionicons
