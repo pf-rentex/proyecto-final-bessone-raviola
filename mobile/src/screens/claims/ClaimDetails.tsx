@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
+  TextInput,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
@@ -14,28 +15,132 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {connect} from 'react-redux';
+import {getClaim, updateClaim} from '../../actions/claims';
+import {IClaim, ClaimCategory, ClaimStatus} from '../../reducers/claims';
+import Dropdown from '../../components/common/Dropdown';
 
-export enum ClaimStatus {
-  addressed = 'Atendido',
-  inProgress = 'En curso',
-  cancelled = 'Cancelado',
+interface IClaimDetailsProps {
+  route: any;
+  getClaim: Function;
+  updateClaim: Function;
+  claim: IClaim;
+  isLoading: boolean;
+  isUpdating: boolean;
 }
 
-const ClaimDetails = ({route}: any) => {
-  const {icon, title, category, date, status} = route.params
-    ? route.params
-    : '';
+const ClaimDetails = ({
+  route,
+  getClaim,
+  updateClaim,
+  claim,
+  isLoading,
+  isUpdating,
+}: IClaimDetailsProps) => {
+  const params = route.params;
+  useEffect(() => {
+    getClaim(params.id);
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading) setClaimData(claim);
+  }, [isLoading]);
+
+  const formatDate = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return [year, month, day].join('-');
+  };
+
+  const dropdownCategoryOptions = [
+    {label: ClaimCategory.plumbing, value: ClaimCategory.plumbing},
+    {label: ClaimCategory.electricity, value: ClaimCategory.electricity},
+    {label: ClaimCategory.infrastructure, value: ClaimCategory.infrastructure},
+  ];
+
+  const handleCategoryChange = (category: any) => {
+    setClaimData({...claimData, category: category.value});
+  };
+
+  const dropdownStatusOptions = [
+    {label: ClaimStatus.addressed, value: ClaimStatus.addressed},
+    {label: ClaimStatus.pending, value: ClaimStatus.pending},
+    {label: ClaimStatus.cancelled, value: ClaimStatus.cancelled},
+  ];
+
+  const handleStatusChange = (status: any) => {
+    setClaimData({...claimData, status: status.value});
+  };
+
+  const getIcon = (category: string) => {
+    switch (category) {
+      case ClaimCategory.electricity:
+        return 'lightning-bolt';
+      case ClaimCategory.plumbing:
+        return 'water';
+      case ClaimCategory.infrastructure:
+        return 'tools';
+      default:
+        return 'lightning-bolt';
+    }
+  };
+
+  const [statusColor, setStatusColor] = useState('green');
+  useEffect(() => {
+    switch (claim.status) {
+      case ClaimStatus.addressed:
+        setStatusColor('lightgreen');
+        break;
+      case ClaimStatus.inProgress:
+        setStatusColor('yellow');
+        break;
+      case ClaimStatus.cancelled:
+        setStatusColor('red');
+        break;
+      case ClaimStatus.pending:
+        setStatusColor('yellow');
+        break;
+    }
+  }, [claim.status]);
+
+  const handleChange = (e: any, name: string) => {
+    setClaimData({...claimData, [name]: e.nativeEvent.text});
+    console.log(claimData);
+  };
+
+  const [editing, setEditing] = useState<boolean>(false);
+  const [claimData, setClaimData] = useState<IClaim>(claim);
+
+  let [inputBG, setInputBG] = useState<Object>({
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    borderRadius: 3,
+    padding: 5,
+  });
+
+  useEffect(() => {
+    setInputBG(
+      editing
+        ? {
+            backgroundColor: 'rgba(255, 255, 255, 0.5)',
+            borderRadius: 3,
+            padding: 5,
+          }
+        : {},
+    );
+  }, [editing]);
 
   const styles = StyleSheet.create({
     container: {
-      padding: 20,
+      padding: wp(5),
       flex: 1,
       height: hp(100),
     },
     title: {
       fontWeight: 'bold',
       color: 'white',
-      fontSize: wp(7),
+      fontSize: wp(5),
     },
     titleContainer: {
       // flex: 1,
@@ -57,15 +162,19 @@ const ClaimDetails = ({route}: any) => {
     },
     infoContainer: {
       flex: 1,
-      paddingLeft: wp(10),
+      paddingLeft: wp(8),
     },
-    infoText: {color: 'white', marginBottom: hp(1), fontSize: wp(4)},
+    infoText: {
+      color: 'white',
+      marginBottom: hp(1),
+      fontSize: wp(4),
+    },
     button: {
       backgroundColor: '#20323A',
       justifyContent: 'center',
       alignItems: 'center',
-      padding: 5,
-      width: wp(40),
+      padding: wp(3),
+      width: wp(45),
       marginVertical: hp(1),
       marginHorizontal: wp(1),
       height: hp(5),
@@ -109,27 +218,91 @@ const ClaimDetails = ({route}: any) => {
           style={styles.container}>
           <View style={styles.titleContainer}>
             <View style={styles.iconContainer}>
-              <MCIcon name={icon} size={wp(8)} color='white' />
+              <MCIcon
+                name={
+                  editing
+                    ? getIcon(claimData.category)
+                    : getIcon(claim.category)
+                }
+                size={wp(8)}
+                color='white'
+              />
             </View>
-            <Text style={styles.title}>{title}</Text>
-            <MCIcon
-              name='pencil-circle'
-              style={{color: '#57A6ED', marginHorizontal: wp(3)}}
-              size={wp(8)}
-              color='white'
-            />
+            <TextInput
+              style={[styles.title, inputBG]}
+              editable={editing}
+              value={!editing ? claim.title : claimData.title}
+              onChange={e => handleChange(e, 'title')}></TextInput>
+            {!editing ? (
+              <MCIcon
+                name='pencil-circle'
+                style={{color: '#57A6ED', marginHorizontal: wp(3)}}
+                size={wp(8)}
+                onPress={() => {
+                  setEditing(true);
+                }}
+              />
+            ) : (
+              <View style={{flexDirection: 'row'}}>
+                <MCIcon
+                  name='check-circle'
+                  style={{color: '#56CD70', marginHorizontal: wp(1)}}
+                  size={wp(7)}
+                  onPress={() => {
+                    setEditing(false);
+                  }}
+                />
+                <MCIcon
+                  name='close-circle'
+                  style={{color: '#FF5353'}}
+                  size={wp(7)}
+                  onPress={() => {
+                    setEditing(false);
+                  }}
+                />
+              </View>
+            )}
           </View>
           <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>Categoria: {category}</Text>
+            <Text style={styles.infoText}>
+              Categoria:{' '}
+              {!editing ? (
+                <Text>{claim.category}</Text>
+              ) : (
+                <Dropdown
+                  label='Categoría'
+                  data={dropdownCategoryOptions}
+                  onSelect={handleCategoryChange}
+                  width={30}
+                />
+              )}
+            </Text>
             <Text style={styles.infoText}>
               Estado:{' '}
-              <Text style={{color: 'yellow', fontWeight: 'bold'}}>
-                {status}
-              </Text>
+              {!editing ? (
+                <Text style={{color: statusColor, fontWeight: 'bold'}}>
+                  {claim.status}
+                </Text>
+              ) : (
+                <Dropdown
+                  label='Estado'
+                  data={dropdownStatusOptions}
+                  onSelect={handleStatusChange}
+                  width={30}
+                />
+              )}
             </Text>
-            <Text style={styles.infoText}>Fecha de carga: {date}</Text>
             <Text style={styles.infoText}>
-              Fecha de visita programada: 13/01/2022
+              Fecha de carga:{' '}
+              {formatDate(
+                new Date(!editing ? claim.createdAt : claimData.createdAt),
+              )}
+            </Text>
+            <Text style={styles.infoText}>
+              Fecha de visita programada:{' '}
+              {formatDate(
+                new Date(!editing ? claim.dateVisit : claimData.dateVisit),
+              )}
             </Text>
             <TouchableOpacity style={styles.button}>
               <MCIcon name='calendar-edit' size={20} color='white' />
@@ -139,34 +312,27 @@ const ClaimDetails = ({route}: any) => {
                   fontWeight: 'bold',
                   paddingLeft: 5,
                 }}>
-                REPROGRAMAR VISITA
+                REPROGRAMAR
               </Text>
             </TouchableOpacity>
-            <Text style={styles.infoText}>
-              Domicilio propiedad: Belgrano 2624
-            </Text>
-            <Text style={styles.infoText}>
-              Técnico responsable: Claudio Hernán Bessone
-            </Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={styles.infoText}>Domicilio propiedad: </Text>
+              <TextInput style={[styles.infoText, inputBG]}>
+                {!editing ? claim.address : claimData.address}
+              </TextInput>
+            </View>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={styles.infoText}>Técnico responsable: </Text>
+              <TextInput style={[styles.infoText, inputBG]}>
+                {!editing ? claim.technician : claimData.technician}
+              </TextInput>
+            </View>
           </View>
           <View style={styles.descriptionContainer}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.title}>Descripción</Text>
-              <MCIcon
-                name='pencil-circle'
-                style={{color: '#57A6ED', marginHorizontal: wp(3)}}
-                size={wp(8)}
-                color='white'
-              />
-            </View>
-            <Text style={{color: 'white', fontSize: wp(4)}}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-              volutpat lacinia dui, id porta tortor. Praesent eu faucibus odio,
-              ut tempus dui. Suspendisse vehicula, erat eleifend finibus
-              tristique, est lacus placerat ante, sed tempor erat metus a
-              tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Nunc ullamcorper neque sit.
-            </Text>
+            <Text style={styles.title}>Descripción</Text>
+            <TextInput style={[{color: 'white', fontSize: wp(4)}, inputBG]}>
+              {!editing ? claim.description : claimData.description}
+            </TextInput>
           </View>
           <View style={styles.actionsContainer}>
             <TouchableOpacity style={styles.actionButton}>
@@ -194,22 +360,24 @@ const ClaimDetails = ({route}: any) => {
           </View>
           <View style={styles.navigationContainer}>
             <TouchableOpacity style={styles.button}>
-              <MCIcon name='arrow-left-bold' size={20} color='white' />
+              <MCIcon name='arrow-left-bold' size={15} color='white' />
               <Text
                 style={{
                   color: 'white',
                   fontWeight: 'bold',
+                  fontSize: wp(3),
                   paddingLeft: 5,
                 }}>
                 RECLAMO ANTERIOR
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
-              <MCIcon name='arrow-right-bold' size={20} color='white' />
+              <MCIcon name='arrow-right-bold' size={15} color='white' />
               <Text
                 style={{
                   color: 'white',
                   fontWeight: 'bold',
+                  fontSize: wp(3),
                   paddingLeft: 5,
                 }}>
                 SIGUIENTE RECLAMO
@@ -222,4 +390,10 @@ const ClaimDetails = ({route}: any) => {
   );
 };
 
-export default ClaimDetails;
+const mapStateToProps = (state: any) => ({
+  claim: state.claims.claim,
+  isLoading: state.claims.isLoading,
+  isUpdating: state.claims.isUpdating,
+});
+
+export default connect(mapStateToProps, {getClaim, updateClaim})(ClaimDetails);

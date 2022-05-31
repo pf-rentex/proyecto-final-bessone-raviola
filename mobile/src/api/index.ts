@@ -28,6 +28,22 @@ export const getProperties = (query: string) => {
 export const getClaims = () => {
   return API.get('/api/claims');
 };
+export const getClaim = (id: string) => {
+  return API.get(`/api/claims/${id}`);
+};
+export const deleteClaim = (id: string) => {
+  return API.delete(`/api/claims/${id}`);
+};
+export const createClaim = (formData: any) => {
+  return API.post('/api/claims', formData, {
+    headers: {'Content-Type': 'multipart/form-data'},
+  });
+};
+export const updateClaim = (formData: any) => {
+  return API.put('/api/claims', formData, {
+    headers: {'Content-Type': 'multipart/form-data'},
+  });
+};
 
 export const checkContributor = (cuit: string) =>
   API.post('/api/afip/check_contributor', {cuit});

@@ -73,6 +73,7 @@ const Claims = ({getClaims, claims, isLoading}: IClaimsProps) => {
               return (
                 <Claim
                   key={index}
+                  id={claim._id}
                   icon={getIcon(claim.category)}
                   title={claim.title}
                   category={claim.category}

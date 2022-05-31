@@ -9,6 +9,7 @@ import {ClaimStatus} from '../../reducers/claims';
 import {useNavigation} from '@react-navigation/native';
 
 interface IClaimProps {
+  id?: string;
   icon: string;
   title: string;
   category: string;
@@ -16,7 +17,7 @@ interface IClaimProps {
   status: string;
 }
 
-const Claim = ({icon, title, category, date, status}: IClaimProps) => {
+const Claim = ({id, icon, title, category, date, status}: IClaimProps) => {
   const styles = StyleSheet.create({
     listing: {
       backgroundColor: '#2685D0',
@@ -100,11 +101,7 @@ const Claim = ({icon, title, category, date, status}: IClaimProps) => {
             style={styles.button}
             onPress={() => {
               navigation.navigate('ClaimDetails', {
-                icon,
-                title,
-                category,
-                date,
-                status,
+                id,
               });
             }}>
             <MCIcon name='magnify' size={15} color='white' />
