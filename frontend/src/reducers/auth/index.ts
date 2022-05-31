@@ -18,7 +18,7 @@ export interface IProfileData {
     };
     email: string;
     id: string;
-    type: string;
+    userType: string;
 }
 
 export interface IAuthState {
@@ -33,10 +33,7 @@ const initialState: IAuthState = {
     isLoading: true,
 };
 
-const authReducer = (
-    state: IAuthState = initialState,
-    action: { type: string; data: IProfileData },
-) => {
+const authReducer = (state: IAuthState = initialState, action: { type: string; data: IProfileData }) => {
     switch (action.type) {
         case USER_LOADING:
             return {
@@ -45,11 +42,12 @@ const authReducer = (
             };
 
         case USER_LOADED:
+            setProfileToStorage({ ...action?.data });
             return {
                 ...state,
                 isAuthenticated: true,
                 isLoading: false,
-                profile: action.data,
+                profile: action.data.user,
             };
 
         case LOGIN_SUCCESS:
@@ -59,6 +57,7 @@ const authReducer = (
                 ...state,
                 ...action.data,
                 isAuthenticated: true,
+                profile: action.data.user,
                 isLoading: false,
             };
 

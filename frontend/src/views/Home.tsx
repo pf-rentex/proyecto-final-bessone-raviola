@@ -15,6 +15,7 @@ import InfoSection from '../components/home/InfoSection';
 import FeatureSection from '../components/home/FeatureSection';
 import { AiOutlineSearch, AiFillHome, HiDownload } from 'react-icons/all';
 import Footer from '../components/commons/Footer';
+import { useNavigate } from 'react-router-dom';
 
 const tenantFeatures = [
     {
@@ -53,46 +54,38 @@ const ownerFeatures = [
 ];
 
 const Home = () => {
+    const navigate = useNavigate();
+
     return (
         <>
             {/* Section 1 */}
-            <section className="w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 overflow-hidden">
-                <div className="container mx-auto px-5 xl:px-10 mt-16 xl:my-40">
+            <section className="w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 overflow-hidden ">
+                <div className="container mx-auto px-5 xl:px-2 mt-16 xl:my-40">
                     <InfoSection
                         logo={<RealtorLogo className="h-80 z-10 xl:h-auto" />}
                         title={
-                            <div>
-                                Gestionar tu alquiler nunca fue
-                                <span className="font-bold text-blue-400">
-                                    {' '}
-                                    tan fácil
-                                </span>
+                            <div className="font-secondary leading-relaxed">
+                                <p className="text-4xl">Gestionar tu alquiler nunca fue</p>
+                                <span className="font-bold text-5xl text-blue-400">tan fácil</span>
                             </div>
                         }
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sagittis eros sit amet nulla tempus semper. Nullam tincidunt nulla ut faucibus tempor. Sed quis rutrum ex. Maecenas quis lectus id libero efficitur luctus."
+                        text="Administra la renta de inmuebles, controla y realiza los pagos, recibe notificaciones de pagos, carga tus reclamos y mucho más. RentX provee un portal de comunicación unificado y seguro para facilitar todos los trámites relacionados a tu contrato de alquiler."
                         reverse={true}
                     >
                         <div className="w-6/12 mx-auto">
-                            <CustomButton
-                                text="COMENZÁ AHORA"
-                                callback={() =>
-                                    window.location.replace('/login')
-                                }
-                            />
+                            <CustomButton text="COMENZÁ AHORA" callback={() => navigate('login')} />
                         </div>
                     </InfoSection>
                 </div>
 
-                <Wave fromColor="#12498A" toColor="#76BBFF" />
+                <Wave fromColor="#00A3FF" toColor="#76BBFF" />
             </section>
 
             {/* Section 2 */}
             <section className="w-full bg-gradient-to-b from-bg-gradient-5 to-bg-gradient-6 overflow-hidden">
                 <div className="container mx-auto px-5 xl:px-10 mt-16 xl:my-40 space-y-32 xl:space-y-60">
                     <InfoSection
-                        logo={
-                            <HomeSearchLogo className="h-60 z-10 xl:h-auto" />
-                        }
+                        logo={<HomeSearchLogo className="h-60 z-10 xl:h-auto" />}
                         reverse={false}
                         text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
             sagittis eros sit amet nulla tempus semper. Nullam tincidunt
@@ -101,27 +94,18 @@ const Home = () => {
                         title={
                             <div>
                                 Encuentra tu
-                                <span className="font-bold text-blue-800">
-                                    {' '}
-                                    hogar ideal
-                                </span>
+                                <span className="font-bold text-blue-800"> hogar ideal</span>
                             </div>
                         }
                     >
                         <div className="xl:flex justify-evenly">
                             <div className="w-100 xl:w-4/12">
-                                <CustomButton
-                                    text="Publicar mi propiedad"
-                                    color="alt"
-                                >
+                                <CustomButton text="Publicar mi propiedad" color="alt">
                                     <AiFillHome className="text-white" />
                                 </CustomButton>
                             </div>
                             <div className="w-100 xl:w-4/12">
-                                <CustomButton
-                                    text="Buscar inmuebles"
-                                    color="alt"
-                                >
+                                <CustomButton text="Buscar inmuebles" color="alt">
                                     <AiOutlineSearch className="text-white" />
                                 </CustomButton>
                             </div>
@@ -136,28 +120,19 @@ const Home = () => {
             lectus id libero efficitur luctus."
                         title={
                             <div>
-                                La{' '}
-                                <span className="font-bold text-blue-800">
-                                    seguridad
-                                </span>{' '}
-                                de tus datos es nuestra prioridad
+                                La <span className="font-bold text-blue-800">seguridad</span> de tus datos es nuestra
+                                prioridad
                             </div>
                         }
                     >
                         <div className="xl:flex justify-evenly">
                             <div className="w-100 xl:w-4/12">
-                                <CustomButton
-                                    text="Publicar mi propiedad"
-                                    color="alt"
-                                >
+                                <CustomButton text="Publicar mi propiedad" color="alt">
                                     <AiFillHome className="text-white" />
                                 </CustomButton>
                             </div>
                             <div className="w-100 xl:w-4/12">
-                                <CustomButton
-                                    text="Buscar inmuebles"
-                                    color="alt"
-                                >
+                                <CustomButton text="Buscar inmuebles" color="alt">
                                     <AiOutlineSearch className="text-white" />
                                 </CustomButton>
                             </div>
@@ -170,14 +145,8 @@ const Home = () => {
             {/* Section 3 */}
             <section className="w-full bg-gradient-to-b from-bg-gradient-7 to-bg-gradient-8 overflow-hidden">
                 <div className="container mx-auto px-5 xl:px-10 mt-16 xl:my-40">
-                    <FeatureSection
-                        title="INQUILINO"
-                        features={tenantFeatures}
-                    />
-                    <FeatureSection
-                        title="INMOBILIARIA/PROPIETARIO"
-                        features={ownerFeatures}
-                    />
+                    <FeatureSection title="INQUILINO" features={tenantFeatures} />
+                    <FeatureSection title="INMOBILIARIA/PROPIETARIO" features={ownerFeatures} />
                 </div>
                 <Wave fromColor="#12498A" toColor="#70C6FF" />
             </section>
@@ -189,12 +158,8 @@ const Home = () => {
                         <AppDownload className="h-96 xl:h-full" />
                         <div className="flex flex-col items-center xl:w-6/12 divide-y-2 divide-blue-900 divide-solid">
                             <h1 className="text-center text-2xl xl:text-4xl text-blue-900 mb-10">
-                                Descargá nuestra{' '}
-                                <span className="font-bold">APP</span> mobile y
-                                comenzá a disfrutar de una{' '}
-                                <span className="font-bold">
-                                    experiencia de alquiler diferente
-                                </span>
+                                Descargá nuestra <span className="font-bold">APP</span> mobile y comenzá a disfrutar de
+                                una <span className="font-bold">experiencia de alquiler diferente</span>
                             </h1>
                             <div className="w-full py-5 xl:px-40 xl:py-10">
                                 <CustomButton text="DESCARGAR" color="alt">

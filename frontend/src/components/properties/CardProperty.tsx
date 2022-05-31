@@ -1,16 +1,16 @@
 import CustomButton from '../commons/Button/CustomButton';
 import { BiTrash, TiEye, MdEdit, BiSearch } from 'react-icons/all';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const CardProperty = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const redirectEditProperty = () => {
-        history.push('/templateProperty');
+        navigate('/template/properties');
     };
 
     const pushPublication = () => {
-        history.push('/publication/:id');
+        navigate('/publication/:id');
     };
 
     return (

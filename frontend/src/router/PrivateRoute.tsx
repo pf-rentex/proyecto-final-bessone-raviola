@@ -1,20 +1,26 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { IProfileData } from '../reducers/auth';
 import { FaCircleNotch } from 'react-icons/all';
+import { loadUser } from '../actions/auth';
 
 interface IPrivateRouteProps {
     exact?: boolean;
-    path: string;
-    component: () => JSX.Element;
+    component: JSX.Element;
+    loadUser: () => void;
     profile: null | IProfileData;
     isAuthenticated: boolean;
     isLoading: boolean;
 }
 
 const PrivateRoute = (props: IPrivateRouteProps) => {
-    const { component, profile, isAuthenticated, isLoading, ...rest } = props;
+    const { component, isAuthenticated, isLoading, loadUser } = props;
+    useEffect(() => {
+        if (!isAuthenticated && isLoading) {
+            loadUser();
+        }
+    }, [isAuthenticated, isLoading, loadUser]);
 
     if (isLoading) {
         return (
@@ -25,9 +31,9 @@ const PrivateRoute = (props: IPrivateRouteProps) => {
     }
 
     if (isAuthenticated) {
-        return <Route {...rest} component={component} />;
+        return component;
     }
-    return <Redirect to="/" />;
+    return <Navigate to="/" />;
 };
 
 const mapStateToProps = (state: any) => ({
@@ -36,4 +42,6 @@ const mapStateToProps = (state: any) => ({
     isLoading: state.auth.isLoading,
 });
 
-export default connect(mapStateToProps, {})(PrivateRoute);
+export default connect(mapStateToProps, {
+    loadUser,
+})(PrivateRoute);

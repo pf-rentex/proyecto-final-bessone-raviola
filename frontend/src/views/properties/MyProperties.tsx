@@ -1,13 +1,13 @@
 import { BiSearch, BiPlus } from 'react-icons/bi';
 import CustomButton from '../../components/commons/Button/CustomButton';
 import CardProperty from '../../components/properties/CardProperty';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const MyProperties = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const redirectCreateProperty = () => {
-        history.push('/templateProperty');
+        navigate('/template/properties');
     };
 
     return (

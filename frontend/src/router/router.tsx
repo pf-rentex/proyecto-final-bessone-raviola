@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Auth from '../views/auth/Auth';
 import Onboarding from '../views/auth/Onboarding';
 import PrivateRoute from './PrivateRoute';
@@ -8,49 +8,42 @@ import UserProfile from '../views/profile/UserProfile';
 import Search from '../views/properties/Search';
 import RequestForm from '../views/rent/request/RequestForm';
 import MyProperties from '../views/properties/MyProperties';
-import Publication from '../views/publications/Publication';
-<<<<<<< HEAD
 import TemplateProperty from '../components/properties/TemplateProperty';
-=======
-import Complaints from '../views/complaints/Complaints';
-import ComplaintDetails from '../views/complaints/ComplaintDetails';
-import CreateComplaint from '../views/complaints/CreateComplaint';
-import Contracts from '../views/rent/Contracts';
->>>>>>> main
+import Publication from '../views/publications/Publication';
+import Claims from '../views/claims/Claims';
+import ClaimDetails from '../views/claims/ClaimDetails';
+import CreateClaim from '../views/claims/CreateClaim';
+import Contracts from '../views/contracts/Contracts';
+import RentRequests from '../views/rent/request/Requests';
+import ContractDetails from '../views/contracts/ContractDetails';
+import Header from '../components/commons/header/Header';
+import Sidebar from '../components/commons/Sidebar/Sidebar';
 
-export default function router() {
+export default function Router() {
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
     return (
         <BrowserRouter>
-            <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/login" component={Auth} />
-                <PrivateRoute exact path="/onboarding" component={Onboarding} />
-                <PrivateRoute exact path="/profile" component={UserProfile} />
-                <Route exact path="/search" component={Search} />
-                <Route exact path="/rent/request" component={RequestForm} />
-                <Route exact path="/MyProperties" component={MyProperties} />
-                <Route exact path="/publication/:id" component={Publication} />
-<<<<<<< HEAD
-                <Route
-                    exact
-                    path="/templateProperty"
-                    component={TemplateProperty}
-                />
-=======
-                <Route exact path="/complaints" component={Complaints} />
-                <Route
-                    exact
-                    path="/complaint/create"
-                    component={CreateComplaint}
-                />
-                <Route
-                    exact
-                    path="/complaint/:id"
-                    component={ComplaintDetails}
-                />
-                <Route exact path="/contracts" component={Contracts} />
->>>>>>> main
-            </Switch>
+            <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+            <Header setIsOpenSidebar={setIsOpen} />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Auth />} />
+                <Route path="/onboarding" element={<PrivateRoute component={<Onboarding />} />} />
+                <Route path="/profile" element={<PrivateRoute component={<UserProfile />} />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/rent/request" element={<RequestForm />} />
+                <Route path="/publication/:id" element={<Publication />} />
+                <Route path="/claims" element={<Claims />} />
+                <Route path="/claim/create" element={<CreateClaim />} />
+                <Route path="/claim/:id" element={<ClaimDetails />} />
+                <Route path="/contracts" element={<Contracts />} />
+                <Route path="/rent/requests" element={<RentRequests />} />
+                <Route path="/contracts/:id" element={<ContractDetails />} />
+                <Route path="/contracts" element={<Contracts />} />
+                <Route path="properties" element={<MyProperties />} />
+                <Route path="/template/properties" element={<TemplateProperty /> } />
+            </Routes>
         </BrowserRouter>
     );
 }

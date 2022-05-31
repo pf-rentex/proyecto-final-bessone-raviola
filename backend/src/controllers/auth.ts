@@ -5,39 +5,39 @@ import User from '../models/user';
 import { getUserRequest } from '../middlewares/auth';
 
 const authenticateUser = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+    const { email, password } = req.body;
 
-  //Simple validation
-  if (!email || !password) {
-    return res.status(400).json({ msg: 'Please enter all fields' });
-  }
+    // Simple validation
+    if (!email || !password) {
+        return res.status(400).json({ msg: 'Please enter all fields' });
+    }
 
-  //Check for existing user
-  const user = await User.findOne({ email: email });
-  if (!user) return res.status(400).json({ msg: 'User does not exist' });
+    // Check for existing user
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ msg: 'User does not exist' });
 
-  //Validate password
-  const isMatch = await bcryptjs.compare(password, user.password);
-  if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials' });
+    // Validate password
+    const isMatch = await bcryptjs.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials' });
 
-  const token = jsonwebtoken.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: 3600 });
+    const token = jsonwebtoken.sign({ id: user.id }, process.env.JWT_SECRET, {
+        expiresIn: 3600,
+    });
 
-  if (!token) return res.status(400).json({ msg: 'Error generating token' });
+    if (!token) return res.status(400).json({ msg: 'Error generating token' });
 
-  res.json({
-    token,
-    user: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-    },
-  });
+    return res.json({
+        token,
+        user: {
+            ...user.toJSON(),
+        },
+    });
 };
 
 const getUser = (req: getUserRequest, res: Response) => {
-  User.findById(req.user.id)
-      .select('-password')
-      .then((user) => res.json(user));
+    User.findById(req.user.id)
+        .select('-password')
+        .then((user) => res.json(user));
 };
 
 export { authenticateUser, getUser };
