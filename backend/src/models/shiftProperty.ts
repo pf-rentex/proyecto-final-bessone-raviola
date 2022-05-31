@@ -6,13 +6,12 @@ const shiftPropertySchema = new mongoose.Schema(
             type: Schema.Types.ObjectId,
             required: true,
         },
-        // Ver como hacer lo de la hora mas que todo
-        Date: {
+        date: {
             type: Date,
             required: true,
         },
-        Time: {
-            type: Date,
+        time: {
+            type: String,
             required: true,
         },
         comments: {

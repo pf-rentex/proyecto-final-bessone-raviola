@@ -12,6 +12,7 @@ import publications from './api/publications';
 import rentalRequests from './api/rentalRequests';
 import claims from './api/claims';
 import contracts from './api/contract';
+import shiftProperties from './api/shiftProperties';
 
 const router = express.Router();
 
@@ -27,5 +28,6 @@ router.use('/api/publications', publications);
 router.use('/api/rentalRequests', rentalRequests);
 router.use('/api/claims', claims);
 router.use('/api/contracts', contracts);
+router.use('/api/shiftProperties', shiftProperties);
 
 export default router;
