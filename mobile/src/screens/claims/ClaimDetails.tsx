@@ -19,6 +19,7 @@ import {connect} from 'react-redux';
 import {getClaim, updateClaim} from '../../actions/claims';
 import {IClaim, ClaimCategory, ClaimStatus} from '../../reducers/claims';
 import Dropdown from '../../components/common/Dropdown';
+import Loader from '../../components/common/Loader';
 
 interface IClaimDetailsProps {
   route: any;
@@ -107,7 +108,6 @@ const ClaimDetails = ({
 
   const handleChange = (e: any, name: string) => {
     setClaimData({...claimData, [name]: e.nativeEvent.text});
-    console.log(claimData);
   };
 
   const [editing, setEditing] = useState<boolean>(false);
@@ -125,7 +125,8 @@ const ClaimDetails = ({
         ? {
             backgroundColor: 'rgba(255, 255, 255, 0.5)',
             borderRadius: 3,
-            padding: 5,
+            padding: wp(2),
+            margin: wp(2),
           }
         : {},
     );
@@ -133,8 +134,7 @@ const ClaimDetails = ({
 
   const styles = StyleSheet.create({
     container: {
-      padding: wp(5),
-      flex: 1,
+      padding: wp(3),
       height: hp(100),
     },
     title: {
@@ -143,9 +143,9 @@ const ClaimDetails = ({
       fontSize: wp(5),
     },
     titleContainer: {
-      // flex: 1,
-      flexDirection: 'row',
+      // flexDirection: 'row',
       alignItems: 'center',
+      justifyContent: 'center',
       height: hp(15),
     },
     iconContainer: {
@@ -161,12 +161,12 @@ const ClaimDetails = ({
       marginHorizontal: wp(3),
     },
     infoContainer: {
-      flex: 1,
+      flex: 2,
       paddingLeft: wp(8),
     },
     infoText: {
       color: 'white',
-      marginBottom: hp(1),
+      margin: hp(1),
       fontSize: wp(4),
     },
     button: {
@@ -193,13 +193,12 @@ const ClaimDetails = ({
       flexDirection: 'row',
     },
     descriptionContainer: {
-      // flex: 1,
       paddingLeft: wp(10),
       height: hp(30),
+      flex: 1,
     },
 
     actionsContainer: {
-      // flex: 1,
       justifyContent: 'center',
       flexDirection: 'row',
       height: hp(8),
@@ -213,177 +212,220 @@ const ClaimDetails = ({
   return (
     <View>
       <ScrollView>
-        <LinearGradient
-          colors={['#325A77', '#03253E']}
-          style={styles.container}>
-          <View style={styles.titleContainer}>
-            <View style={styles.iconContainer}>
-              <MCIcon
-                name={
-                  editing
-                    ? getIcon(claimData.category)
-                    : getIcon(claim.category)
-                }
-                size={wp(8)}
-                color='white'
-              />
-            </View>
-            <TextInput
-              style={[styles.title, inputBG]}
-              editable={editing}
-              value={!editing ? claim.title : claimData.title}
-              onChange={e => handleChange(e, 'title')}></TextInput>
-            {!editing ? (
-              <MCIcon
-                name='pencil-circle'
-                style={{color: '#57A6ED', marginHorizontal: wp(3)}}
-                size={wp(8)}
-                onPress={() => {
-                  setEditing(true);
-                }}
-              />
-            ) : (
-              <View style={{flexDirection: 'row'}}>
-                <MCIcon
-                  name='check-circle'
-                  style={{color: '#56CD70', marginHorizontal: wp(1)}}
-                  size={wp(7)}
-                  onPress={() => {
-                    setEditing(false);
-                  }}
-                />
-                <MCIcon
-                  name='close-circle'
-                  style={{color: '#FF5353'}}
-                  size={wp(7)}
-                  onPress={() => {
-                    setEditing(false);
-                  }}
+        <LinearGradient colors={['#325A77', '#03253E']}>
+          {isLoading ? (
+            <Loader size={80} color='#5CB9FF' />
+          ) : (
+            <View style={styles.container}>
+              <View style={{justifyContent: 'flex-end', flexDirection: 'row'}}>
+                {!isUpdating ? (
+                  !editing ? (
+                    <MCIcon
+                      name='pencil-circle'
+                      style={{color: '#57A6ED', marginHorizontal: wp(3)}}
+                      size={wp(8)}
+                      onPress={() => {
+                        setEditing(true);
+                      }}
+                    />
+                  ) : (
+                    <View style={{flexDirection: 'row'}}>
+                      <MCIcon
+                        name='check-circle'
+                        style={{color: '#56CD70', marginHorizontal: wp(1)}}
+                        size={wp(7)}
+                        onPress={() => {
+                          updateClaim(claimData);
+                          setEditing(false);
+                        }}
+                      />
+                      <MCIcon
+                        name='close-circle'
+                        style={{color: '#FF5353'}}
+                        size={wp(7)}
+                        onPress={() => {
+                          setEditing(false);
+                          setClaimData(claim);
+                        }}
+                      />
+                    </View>
+                  )
+                ) : (
+                  <Loader size={30} color='#5CB9FF' />
+                )}
+              </View>
+              <View style={styles.titleContainer}>
+                <View style={styles.iconContainer}>
+                  <MCIcon
+                    name={
+                      editing
+                        ? getIcon(claimData.category)
+                        : getIcon(claim.category)
+                    }
+                    size={wp(8)}
+                    color='white'
+                  />
+                </View>
+                <TextInput
+                  style={[styles.title, inputBG]}
+                  editable={editing}
+                  value={!editing ? claim.title : claimData.title}
+                  onChange={e => handleChange(e, 'title')}
                 />
               </View>
-            )}
-          </View>
-          <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>
-              Categoria:{' '}
-              {!editing ? (
-                <Text>{claim.category}</Text>
-              ) : (
-                <Dropdown
-                  label='Categoría'
-                  data={dropdownCategoryOptions}
-                  onSelect={handleCategoryChange}
-                  width={30}
-                />
-              )}
-            </Text>
-            <Text style={styles.infoText}>
-              Estado:{' '}
-              {!editing ? (
-                <Text style={{color: statusColor, fontWeight: 'bold'}}>
-                  {claim.status}
+              <View style={styles.infoContainer}>
+                {!editing ? (
+                  <Text style={styles.infoText}>
+                    Categoría: {claim.category}
+                  </Text>
+                ) : (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}>
+                    <Text style={styles.infoText}>Categoría:</Text>
+                    <Dropdown
+                      label='Categoría'
+                      defaultValue={{
+                        label: claimData.category,
+                        value: claimData.category,
+                      }}
+                      data={dropdownCategoryOptions}
+                      onSelect={handleCategoryChange}
+                      width={30}
+                    />
+                  </View>
+                )}
+                {!editing ? (
+                  <Text style={styles.infoText}>
+                    Estado:{' '}
+                    <Text style={{color: statusColor, fontWeight: 'bold'}}>
+                      {claim.status}
+                    </Text>
+                  </Text>
+                ) : (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}>
+                    <Text style={styles.infoText}>Estado:</Text>
+                    <Dropdown
+                      label='Estado'
+                      defaultValue={{
+                        label: claimData.status,
+                        value: claimData.status,
+                      }}
+                      data={dropdownStatusOptions}
+                      onSelect={handleStatusChange}
+                      width={30}
+                    />
+                  </View>
+                )}
+                <Text style={styles.infoText}>
+                  Fecha de carga:{' '}
+                  {formatDate(
+                    new Date(!editing ? claim.createdAt : claimData.createdAt),
+                  )}
                 </Text>
-              ) : (
-                <Dropdown
-                  label='Estado'
-                  data={dropdownStatusOptions}
-                  onSelect={handleStatusChange}
-                  width={30}
+                <Text style={styles.infoText}>
+                  Fecha de visita programada:{' '}
+                  {formatDate(
+                    new Date(!editing ? claim.dateVisit : claimData.dateVisit),
+                  )}
+                </Text>
+                <TouchableOpacity style={styles.button}>
+                  <MCIcon name='calendar-edit' size={20} color='white' />
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      paddingLeft: 5,
+                    }}>
+                    REPROGRAMAR
+                  </Text>
+                </TouchableOpacity>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Text style={styles.infoText}>Domicilio propiedad: </Text>
+                  <TextInput
+                    style={[styles.infoText, inputBG]}
+                    editable={editing}
+                    value={!editing ? claim.address : claimData.address}
+                    onChange={e => handleChange(e, 'address')}
+                  />
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Text style={styles.infoText}>Técnico responsable: </Text>
+                  <TextInput
+                    style={[styles.infoText, inputBG]}
+                    editable={editing}
+                    value={!editing ? claim.technician : claimData.technician}
+                    onChange={e => handleChange(e, 'technician')}
+                  />
+                </View>
+              </View>
+              <View style={styles.descriptionContainer}>
+                <Text style={styles.title}>Descripción</Text>
+                <TextInput
+                  style={[{color: 'white', fontSize: wp(4)}, inputBG]}
+                  editable={editing}
+                  value={!editing ? claim.description : claimData.description}
+                  onChange={e => handleChange(e, 'description')}
                 />
-              )}
-            </Text>
-            <Text style={styles.infoText}>
-              Fecha de carga:{' '}
-              {formatDate(
-                new Date(!editing ? claim.createdAt : claimData.createdAt),
-              )}
-            </Text>
-            <Text style={styles.infoText}>
-              Fecha de visita programada:{' '}
-              {formatDate(
-                new Date(!editing ? claim.dateVisit : claimData.dateVisit),
-              )}
-            </Text>
-            <TouchableOpacity style={styles.button}>
-              <MCIcon name='calendar-edit' size={20} color='white' />
-              <Text
-                style={{
-                  color: 'white',
-                  fontWeight: 'bold',
-                  paddingLeft: 5,
-                }}>
-                REPROGRAMAR
-              </Text>
-            </TouchableOpacity>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={styles.infoText}>Domicilio propiedad: </Text>
-              <TextInput style={[styles.infoText, inputBG]}>
-                {!editing ? claim.address : claimData.address}
-              </TextInput>
+              </View>
+              <View style={styles.actionsContainer}>
+                <TouchableOpacity style={styles.actionButton}>
+                  <MCIcon name='check-circle' size={20} color='#56CD70' />
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      paddingLeft: 5,
+                    }}>
+                    RESOLVER
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.actionButton}>
+                  <MCIcon name='close-circle' size={20} color='#FF5353' />
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      paddingLeft: 5,
+                    }}>
+                    CANCELAR
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.navigationContainer}>
+                <TouchableOpacity style={styles.button}>
+                  <MCIcon name='arrow-left-bold' size={15} color='white' />
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      fontSize: wp(3),
+                      paddingLeft: 5,
+                    }}>
+                    RECLAMO ANTERIOR
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button}>
+                  <MCIcon name='arrow-right-bold' size={15} color='white' />
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      fontSize: wp(3),
+                      paddingLeft: 5,
+                    }}>
+                    SIGUIENTE RECLAMO
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={styles.infoText}>Técnico responsable: </Text>
-              <TextInput style={[styles.infoText, inputBG]}>
-                {!editing ? claim.technician : claimData.technician}
-              </TextInput>
-            </View>
-          </View>
-          <View style={styles.descriptionContainer}>
-            <Text style={styles.title}>Descripción</Text>
-            <TextInput style={[{color: 'white', fontSize: wp(4)}, inputBG]}>
-              {!editing ? claim.description : claimData.description}
-            </TextInput>
-          </View>
-          <View style={styles.actionsContainer}>
-            <TouchableOpacity style={styles.actionButton}>
-              <MCIcon name='check-circle' size={20} color='#56CD70' />
-              <Text
-                style={{
-                  color: 'white',
-                  fontWeight: 'bold',
-                  paddingLeft: 5,
-                }}>
-                RESOLVER
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton}>
-              <MCIcon name='close-circle' size={20} color='#FF5353' />
-              <Text
-                style={{
-                  color: 'white',
-                  fontWeight: 'bold',
-                  paddingLeft: 5,
-                }}>
-                CANCELAR
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.navigationContainer}>
-            <TouchableOpacity style={styles.button}>
-              <MCIcon name='arrow-left-bold' size={15} color='white' />
-              <Text
-                style={{
-                  color: 'white',
-                  fontWeight: 'bold',
-                  fontSize: wp(3),
-                  paddingLeft: 5,
-                }}>
-                RECLAMO ANTERIOR
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <MCIcon name='arrow-right-bold' size={15} color='white' />
-              <Text
-                style={{
-                  color: 'white',
-                  fontWeight: 'bold',
-                  fontSize: wp(3),
-                  paddingLeft: 5,
-                }}>
-                SIGUIENTE RECLAMO
-              </Text>
-            </TouchableOpacity>
-          </View>
+          )}
         </LinearGradient>
       </ScrollView>
     </View>

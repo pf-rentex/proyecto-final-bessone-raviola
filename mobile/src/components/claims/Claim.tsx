@@ -83,7 +83,9 @@ const Claim = ({id, icon, title, category, date, status}: IClaimProps) => {
         <MCIcon name={icon} size={wp(20)} color='white' />
       </View>
       <View style={styles.claimInfo}>
-        <Text style={styles.claimTitle}>{title}</Text>
+        <Text style={styles.claimTitle} numberOfLines={1}>
+          {title}
+        </Text>
         <Text style={{color: 'white', marginVertical: hp(0.5)}}>
           Categoría: {category}
         </Text>
@@ -93,7 +95,7 @@ const Claim = ({id, icon, title, category, date, status}: IClaimProps) => {
         <Text style={{color: 'white', marginVertical: hp(0.5)}}>
           Estado:{' '}
           <Text style={{color: statusColor, fontWeight: 'bold'}}>
-            {status.toUpperCase()}
+            {'pending'.toUpperCase()}
           </Text>
         </Text>
         <View style={styles.claimActions}>

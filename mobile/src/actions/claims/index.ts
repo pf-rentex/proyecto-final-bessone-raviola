@@ -12,6 +12,7 @@ import {
   UPDATE_CLAIM,
 } from '../types';
 import {getErrors} from '../error';
+import {IClaim} from '../../reducers/claims';
 
 export const getClaims = () => async (dispatch: Dispatch<any>) => {
   try {
