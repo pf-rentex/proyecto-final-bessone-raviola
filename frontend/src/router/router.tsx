@@ -40,9 +40,8 @@ export default function Router() {
                 <Route path="/contracts" element={<Contracts />} />
                 <Route path="/rent/requests" element={<RentRequests />} />
                 <Route path="/contracts/:id" element={<ContractDetails />} />
-                <Route path="/contracts" element={<Contracts />} />
                 <Route path="properties" element={<MyProperties />} />
-                <Route path="/template/properties" element={<TemplateProperty /> } />
+                <Route path="/template/properties" element={<TemplateProperty />} />
             </Routes>
         </BrowserRouter>
     );
