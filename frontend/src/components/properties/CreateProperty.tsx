@@ -3,7 +3,7 @@ import { GiCancel, AiFillCheckCircle, TiEye, MdEdit, BiSearch } from 'react-icon
 import InputForms from '../commons/input/InputForms';
 import { BsInfoCircleFill, AiOutlineFileText } from 'react-icons/all';
 
-const TemplateProperty = () => {
+const CreateProperty = () => {
     return (
         <section className="w-full min-h-screen flex flex-col bg-gradient-to-b from-bg-gradient-8 to-bg-gradient-9 overflow-hidden p-5 sm:p-10 md:p-20">
             <div className="container">
@@ -117,4 +117,4 @@ const TemplateProperty = () => {
     );
 };
 
-export default TemplateProperty;
+export default CreateProperty;

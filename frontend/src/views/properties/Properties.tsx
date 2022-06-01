@@ -4,11 +4,11 @@ import CustomButton from '../../components/commons/Button/CustomButton';
 import CardProperty from '../../components/properties/CardProperty';
 import { useNavigate } from 'react-router-dom';
 
-const MyProperties = () => {
+const Properties = () => {
     const navigate = useNavigate();
 
     const redirectCreateProperty = () => {
-        navigate('/template/properties');
+        navigate('/create');
     };
 
     return (
@@ -45,4 +45,4 @@ const MyProperties = () => {
     );
 };
 
-export default MyProperties;
+export default Properties;
