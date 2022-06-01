@@ -14,7 +14,7 @@ const Publication = () => {
     };
 
     return (
-        <section className="w-full h-full bg-gradient-to-b from-bg-gradient-5 to-bg-gradient-6 overflow-hidden">
+        <section className="w-full min-h-screen flex flex-col bg-gradient-to-b from-bg-gradient-5 to-bg-gradient-6 overflow-hidden p-5 sm:p-10 md:p-20">
             <div className="flex flex-col lg:flex-row lg:space-x-20 py-20 container p-15 mx-auto lg: p-8">
                 <div className="flex flex-col lg:w-6/12">
                     <div className="flex flex-col">

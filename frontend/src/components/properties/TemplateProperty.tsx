@@ -1,17 +1,11 @@
 import CustomButton from '../commons/Button/CustomButton';
-import {
-    GiCancel,
-    AiFillCheckCircle,
-    TiEye,
-    MdEdit,
-    BiSearch,
-} from 'react-icons/all';
+import { GiCancel, AiFillCheckCircle, TiEye, MdEdit, BiSearch } from 'react-icons/all';
 import InputForms from '../commons/input/InputForms';
 import { BsInfoCircleFill, AiOutlineFileText } from 'react-icons/all';
 
 const TemplateProperty = () => {
     return (
-        <section className="flex flex-col h-full w-full bg-gradient-to-b from-bg-gradient-8 to-bg-gradient-9 p-4 md:px-20 md:py-10">
+        <section className="w-full min-h-screen flex flex-col bg-gradient-to-b from-bg-gradient-8 to-bg-gradient-9 overflow-hidden p-5 sm:p-10 md:p-20">
             <div className="container">
                 <div className="flex flex-col container">
                     <h1 className="text-4xl mb-4 text-blue-900 font-secondary uppercase font-semibold tracking-wide text-center md:text-left">
@@ -21,9 +15,7 @@ const TemplateProperty = () => {
                 <span className="flex items-center justify-center space-x-3 my-5">
                     <span className="h-px bg-gray-200 flex-1"></span>
                     <div className="bg-alt rounded px-4">
-                        <span className="font-normal text-xl text-gray-100 font-secondary">
-                            Información General
-                        </span>
+                        <span className="font-normal text-xl text-gray-100 font-secondary">Información General</span>
                     </div>
                     <span className="h-px bg-gray-200 flex-1"></span>
                 </span>
@@ -92,28 +84,16 @@ const TemplateProperty = () => {
                                 Comodidades:
                             </p>
                             <label className="text-xl items-center">
-                                <input
-                                    type="checkbox"
-                                    id="cbox1"
-                                    className="rounded w-6 h-6 bg-gray-200"
-                                />
+                                <input type="checkbox" id="cbox1" className="rounded w-6 h-6 bg-gray-200" />
                                 {'  '}
                                 Acepta mascotas
                             </label>
                             <label className="text-xl items-center">
-                                <input
-                                    type="checkbox"
-                                    id="cbox1"
-                                    className="rounded w-6 h-6 bg-gray-200"
-                                />
+                                <input type="checkbox" id="cbox1" className="rounded w-6 h-6 bg-gray-200" />
                                 {'  '}1 baño
                             </label>
                             <label className="text-xl items-center">
-                                <input
-                                    type="checkbox"
-                                    id="cbox1"
-                                    className="rounded w-6 h-6 bg-gray-200"
-                                />
+                                <input type="checkbox" id="cbox1" className="rounded w-6 h-6 bg-gray-200" />
                                 {'  '}2 Dormitorios
                             </label>
                         </div>
@@ -122,19 +102,13 @@ const TemplateProperty = () => {
                 <div className="flex flex-col xl:flex-row xl:space-x-52 w-full justify-center">
                     <div className="xl:justify-start">
                         <CustomButton text="Cancelar" color="alt">
-                            <GiCancel
-                                className="w-6 h-6"
-                                fill="#ef4444"
-                            ></GiCancel>
+                            <GiCancel className="w-6 h-6" fill="#ef4444"></GiCancel>
                         </CustomButton>
                     </div>
 
                     <div className="xl:justify-end">
                         <CustomButton text="Guardar" color="alt">
-                            <AiFillCheckCircle
-                                className="w-6 h-6"
-                                fill="#84cc16"
-                            ></AiFillCheckCircle>
+                            <AiFillCheckCircle className="w-6 h-6" fill="#84cc16"></AiFillCheckCircle>
                         </CustomButton>
                     </div>
                 </div>
