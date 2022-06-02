@@ -14,26 +14,26 @@ const Publication = () => {
     };
 
     return (
-        <section className="w-full h-full bg-gradient-to-b from-bg-gradient-5 to-bg-gradient-6 overflow-hidden">
-            <div className="flex flex-col lg:flex-row lg:space-x-20 py-20 container p-15 mx-auto lg: p-8">
+        <section className="w-full min-h-screen flex flex-col bg-gradient-to-b from-bg-gradient-5 to-bg-gradient-6 overflow-hidden p-4 md:p-20">
+            <div className="flex flex-col lg:flex-row lg:space-x-20 container mx-auto p-2 lg:p-8">
                 <div className="flex flex-col lg:w-6/12">
                     <div className="flex flex-col">
                         <h1 className="text-blue-900 text-3xl font-semibold mb-3 text-center lg:text-left">
                             Hermoso Chalet en barrio Los Palmares
                         </h1>
-                        <p className="text-white text-justify lg:text-left">
+                        <p className="text-white text-justify lg:text-left line-clamp-2">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                             laboris nisi ut aliquip ex ea commodo consequat.
                         </p>
                         <br></br>
-                        <p className="text-white text-justify lg:text-left">
+                        <p className="text-white text-justify lg:text-left line-clamp-2">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                             laboris nisi ut aliquip ex ea commodo consequat.
                         </p>
 
-                        <div className="flex my-10  lg:space-x-20 justify-between lg:justify-start">
+                        <div className="flex my-10 lg:space-x-20  justify-evenly">
                             <div className="flex flex-col items-center space-y-2">
                                 <Dimensions className="w-8 h-8" />
                                 <p className="text-white">45m2</p>
@@ -44,7 +44,7 @@ const Publication = () => {
                             </div>
                             <div className="flex flex-col items-center space-y-2">
                                 <Bedrooms className="w-8 h-8" />
-                                <p className="text-white">2 Dormitorios</p>
+                                <p className="text-white">2 Dorms</p>
                             </div>
                         </div>
                         <div className="flex flex-col space-y-10">
@@ -82,7 +82,7 @@ const Publication = () => {
                         />
                     </div>
                     <div className="space-y-5">
-                        <h5 className="text-white">Galería de fotos</h5>
+                        <h5 className="text-white font-semibold">Galería de fotos</h5>
                         <img
                             className="h-56 w-full"
                             src="https://www.rocketmortgage.com/resources-cmsassets/RocketMortgage.com/Article_Images/Large_Images/TypesOfHomes/types-of-homes-hero.jpg"
@@ -91,7 +91,7 @@ const Publication = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex xl:flex-row xl:space-x-52 w-full justify-center lg:space-x-36 md:space-x-8 sm:space-x-4">
+            <div className="flex flex-col xl:flex-row xl:space-x-52 w-full justify-center lg:space-x-36 md:space-x-8 sm:space-x-4">
                 <div className="xl:justify-start">
                     <CustomButton text="Visitar Propiedad" color="alt">
                         <BiCalendar className="w-5 h-5" fill="#7ED1FF" />

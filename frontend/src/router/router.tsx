@@ -7,6 +7,8 @@ import Home from '../views/Home';
 import UserProfile from '../views/profile/UserProfile';
 import Search from '../views/properties/Search';
 import RequestForm from '../views/rent/request/RequestForm';
+import Properties from '../views/properties/Properties';
+import CreateProperty from '../views/properties/CreateProperty';
 import Publication from '../views/publications/Publication';
 import Claims from '../views/claims/Claims';
 import ClaimDetails from '../views/claims/ClaimDetails';
@@ -38,7 +40,8 @@ export default function Router() {
                 <Route path="/contracts" element={<Contracts />} />
                 <Route path="/rent/requests" element={<RentRequests />} />
                 <Route path="/contracts/:id" element={<ContractDetails />} />
-                <Route path="/contracts" element={<Contracts />} />
+                <Route path="properties" element={<PrivateRoute component={<Properties />} />} />
+                <Route path="/properties/create" element={<PrivateRoute component={<CreateProperty />} />} />
             </Routes>
         </BrowserRouter>
     );

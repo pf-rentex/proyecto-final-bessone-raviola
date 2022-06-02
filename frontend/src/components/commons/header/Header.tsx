@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { ReactComponent as LogoHeader } from '../../../assets/logo_header.svg';
 import { ReactComponent as LogoHeaderMbl } from '../../../assets/favicon.svg';
 import CustomButton from '../Button/CustomButton';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from '../../../actions/auth';
+import { loadUser, logout } from '../../../actions/auth';
 
 interface IHeaderProps {
+    loadUser: () => void;
     isAuthenticated: boolean;
     setIsOpenSidebar: Function;
     logout: () => void;
 }
 
-const Header = ({ isAuthenticated, setIsOpenSidebar, logout }: IHeaderProps, history: History) => {
+const Header = ({ loadUser, isAuthenticated, setIsOpenSidebar, logout }: IHeaderProps, history: History) => {
     const navigate = useNavigate();
+    useEffect(() => {
+        loadUser();
+    }, [loadUser]);
 
     return (
         <div
@@ -79,5 +83,6 @@ const mapStateToProps = (state: any) => ({
 });
 
 export default connect(mapStateToProps, {
+    loadUser,
     logout,
 })(Header);
