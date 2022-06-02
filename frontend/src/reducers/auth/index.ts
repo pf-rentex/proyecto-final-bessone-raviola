@@ -66,6 +66,7 @@ const authReducer = (state: IAuthState = initialState, action: { type: string; d
         case LOGOUT_SUCCESS:
         case REGISTER_FAIL:
             localStorage.removeItem('profile');
+            localStorage.removeItem('token');
             return {
                 ...state,
                 profile: null,
@@ -79,7 +80,11 @@ const authReducer = (state: IAuthState = initialState, action: { type: string; d
 };
 
 const setProfileToStorage = (data: IProfileData) => {
+    const { token } = data;
     try {
+        if (token) {
+            localStorage.setItem('token', JSON.stringify(token));
+        }
         localStorage.setItem('profile', JSON.stringify(data));
     } catch (e) {
         console.warn('Error saving profile data to LocalStorage', e);

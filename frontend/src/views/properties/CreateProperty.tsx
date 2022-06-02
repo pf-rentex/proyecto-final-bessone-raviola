@@ -1,7 +1,5 @@
-import CustomButton from '../commons/Button/CustomButton';
-import { GiCancel, AiFillCheckCircle, TiEye, MdEdit, BiSearch } from 'react-icons/all';
-import InputForms from '../commons/input/InputForms';
-import { BsInfoCircleFill, AiOutlineFileText } from 'react-icons/all';
+import CustomButton from '../../components/commons/Button/CustomButton';
+import { GiCancel, AiFillCheckCircle } from 'react-icons/all';
 
 const CreateProperty = () => {
     return (
