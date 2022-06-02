@@ -14,9 +14,9 @@ import {
 } from 'react-native-responsive-screen';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Claim from '../../components/claims/Claim';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {connect} from 'react-redux';
-import {getClaims} from '../../actions/claims';
+import {getClaims, deleteClaim} from '../../actions/claims';
 import {IClaim, ClaimCategory, ClaimStatus} from '../../reducers/claims';
 import Loader from '../../components/common/Loader';
 
@@ -24,12 +24,15 @@ interface IClaimsProps {
   getClaims: Function;
   claims: Array<IClaim>;
   isLoading: boolean;
+  deleteClaim: Function;
 }
 
-const Claims = ({getClaims, claims, isLoading}: IClaimsProps) => {
-  useEffect(() => {
-    getClaims();
-  }, []);
+const Claims = ({getClaims, claims, isLoading, deleteClaim}: IClaimsProps) => {
+  useFocusEffect(
+    React.useCallback(() => {
+      getClaims();
+    }, []),
+  );
 
   const getIcon = (category: string) => {
     switch (category) {
@@ -70,6 +73,7 @@ const Claims = ({getClaims, claims, isLoading}: IClaimsProps) => {
             <Loader size={80} color='#5CB9FF' />
           ) : (
             claims.map((claim, index) => {
+              console.log(claim.title);
               return (
                 <Claim
                   key={index}
@@ -79,6 +83,7 @@ const Claims = ({getClaims, claims, isLoading}: IClaimsProps) => {
                   category={claim.category}
                   date={new Date(claim.createdAt).toLocaleDateString()}
                   status={claim.status}
+                  deleteClaim={deleteClaim}
                 />
               );
             })
@@ -111,4 +116,4 @@ const mapStateToProps = (state: any) => ({
   isLoading: state.claims.isLoading,
 });
 
-export default connect(mapStateToProps, {getClaims})(Claims);
+export default connect(mapStateToProps, {getClaims, deleteClaim})(Claims);

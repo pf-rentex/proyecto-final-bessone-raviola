@@ -15,9 +15,18 @@ interface IClaimProps {
   category: string;
   date: string;
   status: string;
+  deleteClaim: Function;
 }
 
-const Claim = ({id, icon, title, category, date, status}: IClaimProps) => {
+const Claim = ({
+  id,
+  icon,
+  title,
+  category,
+  date,
+  status,
+  deleteClaim,
+}: IClaimProps) => {
   const styles = StyleSheet.create({
     listing: {
       backgroundColor: '#2685D0',
@@ -117,7 +126,11 @@ const Claim = ({id, icon, title, category, date, status}: IClaimProps) => {
               DETALLES
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              deleteClaim(id);
+            }}>
             <MCIcon name='delete' size={15} color='white' />
             <Text
               style={{

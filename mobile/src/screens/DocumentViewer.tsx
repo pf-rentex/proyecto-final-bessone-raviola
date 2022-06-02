@@ -24,7 +24,7 @@ import ScannerComponent from '../components/Scanner';
 import {useNavigation} from '@react-navigation/native';
 
 const DocumentViewer = ({route}: any) => {
-  const {fileType} = route.params ? route.params : '';
+  const {fileType, redirectView} = route.params ? route.params : '';
   const navigation = useNavigation();
   const [documents, setDocuments] = useState<any[]>([]);
   const [addModal, setAddModal] = useState<boolean>(false);
@@ -61,7 +61,7 @@ const DocumentViewer = ({route}: any) => {
   };
 
   const onConfirm = () => {
-    navigation.navigate('RequestForm', {
+    navigation.navigate(redirectView, {
       [fileType]: documents ? documents : [],
     });
   };
