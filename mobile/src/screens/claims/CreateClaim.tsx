@@ -33,8 +33,7 @@ interface ICreateClaimProps {
 const CreateClaim = ({createClaim, isLoading, route}: ICreateClaimProps) => {
   const styles = StyleSheet.create({
     container: {
-      padding: 20,
-      flex: 1,
+      padding: hp(3),
       minHeight: hp('100%'),
     },
     title: {
@@ -105,12 +104,10 @@ const CreateClaim = ({createClaim, isLoading, route}: ICreateClaimProps) => {
     },
     descriptionInput: {
       backgroundColor: '#f5f5f5',
-      paddingVertical: hp('1.4%'),
-      paddingHorizontal: wp('2%'),
+      paddingHorizontal: wp('3%'),
       color: 'black',
-      width: wp('80%'),
-      fontSize: hp('2.3%'),
-      margin: hp('1%'),
+      fontSize: hp('2%'),
+      marginVertical: hp('1%'),
       borderRadius: 6,
     },
     actionsContainer: {
@@ -211,7 +208,7 @@ const CreateClaim = ({createClaim, isLoading, route}: ICreateClaimProps) => {
             <View
               style={{
                 flexDirection: 'row',
-                paddingVertical: hp(3),
+                padding: hp(3),
                 justifyContent: 'space-between',
               }}>
               <View style={{alignItems: 'center'}}>
@@ -334,11 +331,11 @@ const CreateClaim = ({createClaim, isLoading, route}: ICreateClaimProps) => {
           </View>
           <View>
             <Text style={styles.title}>Descripción</Text>
-            <View style={styles.dateInputContainer}>
+            <View>
               <TextInput
                 style={styles.descriptionInput}
                 multiline
-                numberOfLines={4}
+                numberOfLines={3}
                 onChange={e => handleChange(e, 'description')}
               />
             </View>

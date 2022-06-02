@@ -34,6 +34,7 @@ const Claim = ({
       borderRadius: 10,
       flexDirection: 'row',
       marginVertical: hp(1),
+      elevation: 1,
     },
     claimIcon: {
       backgroundColor: '#20323A',
@@ -69,6 +70,8 @@ const Claim = ({
 
   const navigation = useNavigation();
   const [statusColor, setStatusColor] = useState('green');
+
+  console.log(status);
   useEffect(() => {
     switch (status) {
       case ClaimStatus.addressed:
@@ -87,7 +90,13 @@ const Claim = ({
   }, [status]);
 
   return (
-    <View style={styles.listing}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('ClaimDetails', {
+          id,
+        });
+      }}
+      style={styles.listing}>
       <View style={styles.claimIcon}>
         <MCIcon name={icon} size={wp(20)} color='white' />
       </View>
@@ -102,9 +111,9 @@ const Claim = ({
           Fecha de carga: {date}
         </Text>
         <Text style={{color: 'white', marginVertical: hp(0.5)}}>
-          Estado:{' '}
+          Estado:
           <Text style={{color: statusColor, fontWeight: 'bold'}}>
-            {'pending'.toUpperCase()}
+            {status?.toUpperCase()}
           </Text>
         </Text>
         <View style={styles.claimActions}>
@@ -144,7 +153,7 @@ const Claim = ({
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

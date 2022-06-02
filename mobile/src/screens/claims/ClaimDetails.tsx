@@ -222,7 +222,11 @@ const ClaimDetails = ({
                   !editing ? (
                     <MCIcon
                       name='pencil-circle'
-                      style={{color: '#57A6ED', marginHorizontal: wp(3)}}
+                      style={{
+                        color: '#57A6ED',
+                        marginHorizontal: wp(3),
+                        elevation: 1,
+                      }}
                       size={wp(8)}
                       onPress={() => {
                         setEditing(true);
@@ -301,7 +305,7 @@ const ClaimDetails = ({
                   <Text style={styles.infoText}>
                     Estado:{' '}
                     <Text style={{color: statusColor, fontWeight: 'bold'}}>
-                      {claim.status}
+                      {claim.status?.toUpperCase()}
                     </Text>
                   </Text>
                 ) : (
@@ -370,6 +374,8 @@ const ClaimDetails = ({
                 <TextInput
                   style={[{color: 'white', fontSize: wp(4)}, inputBG]}
                   editable={editing}
+                  multiline
+                  numberOfLines={3}
                   value={!editing ? claim.description : claimData.description}
                   onChange={e => handleChange(e, 'description')}
                 />

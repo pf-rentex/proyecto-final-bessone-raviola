@@ -51,7 +51,7 @@ const Claims = ({getClaims, claims, isLoading, deleteClaim}: IClaimsProps) => {
     container: {
       padding: 20,
       flex: 1,
-      height: hp(100),
+      minHeight: hp(100),
     },
     title: {
       fontWeight: 'bold',
@@ -73,7 +73,6 @@ const Claims = ({getClaims, claims, isLoading, deleteClaim}: IClaimsProps) => {
             <Loader size={80} color='#5CB9FF' />
           ) : (
             claims.map((claim, index) => {
-              console.log(claim.title);
               return (
                 <Claim
                   key={index}
@@ -89,7 +88,12 @@ const Claims = ({getClaims, claims, isLoading, deleteClaim}: IClaimsProps) => {
             })
           )}
 
-          <View style={{alignItems: 'flex-end', marginVertical: hp(6)}}>
+          <View
+            style={{
+              alignItems: 'flex-end',
+              marginVertical: hp(6),
+              top: hp(40),
+            }}>
             <TouchableOpacity
               onPress={() => navigation.navigate('CreateClaim')}
               style={{
@@ -101,6 +105,7 @@ const Claims = ({getClaims, claims, isLoading, deleteClaim}: IClaimsProps) => {
                 height: 70,
                 backgroundColor: '#5CB9FF',
                 borderRadius: 100,
+                elevation: 1,
               }}>
               <MCIcon name='plus' size={30} color='white' />
             </TouchableOpacity>
