@@ -71,7 +71,6 @@ const Claim = ({
   const navigation = useNavigation();
   const [statusColor, setStatusColor] = useState('green');
 
-  console.log(status);
   useEffect(() => {
     switch (status) {
       case ClaimStatus.addressed:

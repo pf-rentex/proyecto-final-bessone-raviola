@@ -13,7 +13,6 @@ import {
 } from '../types';
 import { getErrors } from '../error';
 import { IClaim } from '../../reducers/claims';
-import { ClaimStatus } from '../../reducers/claims';
 
 export const getClaims = (filters?: any) => async (dispatch: Dispatch<any>) => {
     try {
@@ -69,47 +68,45 @@ export const deleteClaim = (id: string) => async (dispatch: Dispatch<any>) => {
     }
 };
 
-export const createClaim =
-    (formData: IClaim) => async (dispatch: Dispatch<any>) => {
-        try {
-            const requestData = formatData(formData);
-            dispatch({ type: CLAIMS_LOADING });
-            const { data } = await api.createClaim(requestData);
-            dispatch({ type: CREATE_CLAIM, data: data });
-            dispatch({ type: CLEAR_ERRORS });
-        } catch (error: any) {
-            console.log('error', error);
-            const { msg, status } = error.response.data;
+export const createClaim = (formData: IClaim) => async (dispatch: Dispatch<any>) => {
+    try {
+        const requestData = formatData(formData);
+        dispatch({ type: CLAIMS_LOADING });
+        const { data } = await api.createClaim(requestData);
+        dispatch({ type: CREATE_CLAIM, data: data });
+        dispatch({ type: CLEAR_ERRORS });
+    } catch (error: any) {
+        console.log('error', error);
+        const { msg, status } = error.response.data;
 
-            if (msg) {
-                dispatch(getErrors(msg, status, GET_CLAIMS_ERROR));
-            }
-            dispatch({
-                type: GET_CLAIMS_ERROR,
-            });
+        if (msg) {
+            dispatch(getErrors(msg, status, GET_CLAIMS_ERROR));
         }
-    };
+        dispatch({
+            type: GET_CLAIMS_ERROR,
+        });
+    }
+};
 
-export const updateClaim =
-    (formData: IClaim) => async (dispatch: Dispatch<any>) => {
-        try {
-            const requestData = formatData(formData);
-            dispatch({ type: CLAIMS_UPDATING });
-            const { data } = await api.updateClaim(requestData);
-            dispatch({ type: UPDATE_CLAIM, data: data });
-            dispatch({ type: CLEAR_ERRORS });
-        } catch (error: any) {
-            console.log('error', error);
-            const { msg, status } = error.response.data;
+export const updateClaim = (formData: IClaim) => async (dispatch: Dispatch<any>) => {
+    try {
+        const requestData = formatData(formData);
+        dispatch({ type: CLAIMS_UPDATING });
+        const { data } = await api.updateClaim(requestData);
+        dispatch({ type: UPDATE_CLAIM, data: data });
+        dispatch({ type: CLEAR_ERRORS });
+    } catch (error: any) {
+        console.log('error', error);
+        const { msg, status } = error.response.data;
 
-            if (msg) {
-                dispatch(getErrors(msg, status, GET_CLAIMS_ERROR));
-            }
-            dispatch({
-                type: GET_CLAIMS_ERROR,
-            });
+        if (msg) {
+            dispatch(getErrors(msg, status, GET_CLAIMS_ERROR));
         }
-    };
+        dispatch({
+            type: GET_CLAIMS_ERROR,
+        });
+    }
+};
 
 const formatData = (requestData: any) => {
     const formData = new FormData();

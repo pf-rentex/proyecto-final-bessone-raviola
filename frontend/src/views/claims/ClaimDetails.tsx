@@ -26,9 +26,6 @@ interface IClaimDetailsProps {
     isLoading: boolean;
     isUpdating: boolean;
 }
-interface IRouteParams {
-    id: string;
-}
 
 const ClaimDetails = ({ getClaim, updateClaim, claim, isLoading, isUpdating }: IClaimDetailsProps) => {
     const params = useParams();
