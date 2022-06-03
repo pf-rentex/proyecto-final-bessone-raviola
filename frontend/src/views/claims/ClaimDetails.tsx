@@ -15,9 +15,10 @@ import {
     BsFillGearFill,
 } from 'react-icons/all';
 import CustomButton from '../../components/commons/Button/CustomButton';
-import { getClaim, updateClaim } from '../../actions/claims';
+import { getClaim, updateClaim, getClaims } from '../../actions/claims';
 import { IClaim, ClaimCategory, ClaimStatus } from '../../reducers/claims';
 import Loader from '../../components/commons/Loader';
+import { useNavigate } from 'react-router-dom';
 
 interface IClaimDetailsProps {
     getClaim: Function;
@@ -25,13 +26,25 @@ interface IClaimDetailsProps {
     claim: IClaim;
     isLoading: boolean;
     isUpdating: boolean;
+    claims: Array<IClaim>;
+    getClaims: Function;
 }
 
-const ClaimDetails = ({ getClaim, updateClaim, claim, isLoading, isUpdating }: IClaimDetailsProps) => {
+const ClaimDetails = ({
+    getClaim,
+    updateClaim,
+    claim,
+    isLoading,
+    isUpdating,
+    claims,
+    getClaims,
+}: IClaimDetailsProps) => {
     const params = useParams();
+    const navigate = useNavigate();
     useEffect(() => {
         getClaim(params.id);
-    }, []);
+        if (!claims.length) getClaims();
+    }, [params.id]);
 
     useEffect(() => {
         if (!isLoading) setClaimData(claim);
@@ -58,8 +71,12 @@ const ClaimDetails = ({ getClaim, updateClaim, claim, isLoading, isUpdating }: I
 
     const handleChange = (e: any) => {
         setClaimData({ ...claimData, [e.target.name]: e.target.value });
-        console.log(claimData);
     };
+
+    //@ts-ignorets-ignore
+    const nextClaimId = claims[claims.indexOf(claims.find((x) => x._id === claim._id)) + 1]?._id;
+    //@ts-ignorets-ignore
+    const previousClaimId = claims[claims.indexOf(claims.find((x) => x._id === claim._id)) - 1]?._id;
 
     const [editing, setEditing] = useState<boolean>(false);
     const [claimData, setClaimData] = useState<IClaim>(claim);
@@ -259,10 +276,24 @@ const ClaimDetails = ({ getClaim, updateClaim, claim, isLoading, isUpdating }: I
 
             <div className="flex w-full justify-end my-5">
                 <div className="flex flex-col lg:flex-row w-full lg:w-4/12 lg:space-x-3">
-                    <CustomButton text="Reclamo anterior" callback={() => {}} color="alt">
+                    <CustomButton
+                        text="Reclamo anterior"
+                        callback={() => {
+                            navigate(`../claims/${previousClaimId}`);
+                        }}
+                        color="alt"
+                        disabled={!previousClaimId}
+                    >
                         <IoArrowBack className="text-white" />
                     </CustomButton>
-                    <CustomButton text="Siguiente reclamo" callback={() => {}} color="alt">
+                    <CustomButton
+                        text="Siguiente reclamo"
+                        callback={() => {
+                            navigate(`../claims/${nextClaimId}`);
+                        }}
+                        color="alt"
+                        disabled={!nextClaimId}
+                    >
                         <IoArrowForward className="text-white" />
                     </CustomButton>
                 </div>
@@ -275,6 +306,7 @@ const mapStateToProps = (state: any) => ({
     claim: state.claims.claim,
     isLoading: state.claims.isLoading,
     isUpdating: state.claims.isUpdating,
+    claims: state.claims.claims,
 });
 
-export default connect(mapStateToProps, { getClaim, updateClaim })(ClaimDetails);
+export default connect(mapStateToProps, { getClaim, updateClaim, getClaims })(ClaimDetails);
