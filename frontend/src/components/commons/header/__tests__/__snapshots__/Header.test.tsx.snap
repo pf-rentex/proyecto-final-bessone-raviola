@@ -48,36 +48,25 @@ exports[`Header test cases renders component 1`] = `
       class="flex flex-1 justify-end items-center"
     >
       <div
-        class="mr-4"
-      >
-        <a
-          class="text-xs md:text-base text-white"
-          href="#"
-        >
-          <u>
-            Sobre nosotros
-          </u>
-        </a>
-      </div>
-      <div
-        class="ml-6 mr-7"
-      >
-        <button
-          class="bg-primary  shadow-lg w-full rounded-md px-5 py-2 flex content-center my-1 focus:shadow-sm font-secondary font-semibold outline-none align-items-center justify-center content-center align-middle justify-items-center items-center "
-        >
-          <span
-            class="text-2xl "
-          />
-          <span
-            class="text-sm font-sm  text-white flex-1"
-          >
-            Registrarse
-          </span>
-        </button>
-      </div>
-      <div
         class="mr-5"
-      />
+      >
+        <div
+          class="flex"
+        >
+          <button>
+            <img
+              alt="Profile"
+              src="https://creazilla-store.fra1.digitaloceanspaces.com/emojis/43191/blue-circle-emoji-clipart-md.png"
+              width="50px"
+            />
+          </button>
+          <button
+            class="text-white "
+          >
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
