@@ -21,7 +21,8 @@ export const getClaims = (filters?: any) => async (dispatch: Dispatch<any>) => {
         dispatch({ type: GET_CLAIMS, data: data });
         dispatch({ type: CLEAR_ERRORS });
     } catch (error: any) {
-        const { msg, status } = error.response.data;
+        const { msg } = error.response.data;
+        const { status } = error.response;
 
         if (msg) {
             dispatch(getErrors(msg, status, GET_CLAIMS_ERROR));
@@ -39,7 +40,8 @@ export const getClaim = (id: string) => async (dispatch: Dispatch<any>) => {
         dispatch({ type: GET_CLAIM, data: data });
         dispatch({ type: CLEAR_ERRORS });
     } catch (error: any) {
-        const { msg, status } = error.response.data;
+        const { msg } = error.response.data;
+        const { status } = error.response;
 
         if (msg) {
             dispatch(getErrors(msg, status, GET_CLAIMS_ERROR));
@@ -57,7 +59,8 @@ export const deleteClaim = (id: string) => async (dispatch: Dispatch<any>) => {
         dispatch({ type: DELETE_CLAIM, data: id });
         dispatch({ type: CLEAR_ERRORS });
     } catch (error: any) {
-        const { msg, status } = error.response.data;
+        const { msg } = error.response.data;
+        const { status } = error.response;
 
         if (msg) {
             dispatch(getErrors(msg, status, GET_CLAIMS_ERROR));
@@ -77,8 +80,8 @@ export const createClaim = (formData: IClaim) => async (dispatch: Dispatch<any>)
         dispatch({ type: CLEAR_ERRORS });
     } catch (error: any) {
         console.log('error', error);
-        const { msg, status } = error.response.data;
-
+        const { msg } = error.response.data;
+        const { status } = error.response;
         if (msg) {
             dispatch(getErrors(msg, status, GET_CLAIMS_ERROR));
         }
@@ -97,7 +100,8 @@ export const updateClaim = (formData: IClaim) => async (dispatch: Dispatch<any>)
         dispatch({ type: CLEAR_ERRORS });
     } catch (error: any) {
         console.log('error', error);
-        const { msg, status } = error.response.data;
+        const { msg } = error.response.data;
+        const { status } = error.response;
 
         if (msg) {
             dispatch(getErrors(msg, status, GET_CLAIMS_ERROR));

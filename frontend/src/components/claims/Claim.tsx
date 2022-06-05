@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { NavigateFunction } from 'react-router-dom';
 import CustomButton from '../commons/Button/CustomButton';
-import { AiOutlineSearch, HiOutlineTrash } from 'react-icons/all';
+import {
+    AiFillCheckCircle,
+    AiOutlineSearch,
+    HiOutlineTrash,
+    BsFillDropletFill,
+    BsFillGearFill,
+    BsLightningFill,
+    BsFillTrashFill,
+} from 'react-icons/all';
 import { ClaimStatus, IClaim, ClaimCategory } from '../../reducers/claims';
-import { BsFillDropletFill, BsFillGearFill, BsLightningFill } from 'react-icons/all';
+import Modal from '../../components/commons/Modal/Modal';
 
 interface IClaimProps {
     claim: IClaim;
     deleteClaim: Function;
     navigateTo: Function;
+    setShowToast: Function;
+    setToastMessage: Function;
+    setToastIcon: Function;
 }
 
-const Claim = ({ claim, deleteClaim, navigateTo }: IClaimProps) => {
+const Claim = ({ claim, deleteClaim, navigateTo, setShowToast, setToastMessage, setToastIcon }: IClaimProps) => {
     const { _id, title, category, createdAt, status } = claim;
     const [statusColor, setStatusColor] = useState('green-300');
     useEffect(() => {
@@ -39,6 +50,11 @@ const Claim = ({ claim, deleteClaim, navigateTo }: IClaimProps) => {
         }
     };
 
+    const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
+    const toggleDeleteDialog = () => {
+        setShowDeleteDialog(!showDeleteDialog);
+    };
+
     return (
         <div className="flex flex-col md:flex-row bg-blue-500 rounded-lg cursor-pointer hover:scale-125">
             <div className="flex w-full md:w-3/12 bg-alt rounded-lg items-center justify-center p-8">
@@ -50,7 +66,7 @@ const Claim = ({ claim, deleteClaim, navigateTo }: IClaimProps) => {
                 <p>Fecha de carga: {createdAt}</p>
                 <p>
                     Estado:
-                    <span className={`px-2 font-bold text-${statusColor}`}>{status.toUpperCase()}</span>
+                    <span className={`px-2 font-bold text-${statusColor}`}>{status?.toUpperCase()}</span>
                 </p>
                 <div className="flex flex-col sm:flex-row sm:space-x-5">
                     <CustomButton
@@ -66,7 +82,7 @@ const Claim = ({ claim, deleteClaim, navigateTo }: IClaimProps) => {
                     <CustomButton
                         text="Eliminar"
                         callback={() => {
-                            deleteClaim(_id);
+                            setShowDeleteDialog(true);
                         }}
                         color="alt"
                     >
@@ -74,6 +90,30 @@ const Claim = ({ claim, deleteClaim, navigateTo }: IClaimProps) => {
                     </CustomButton>
                 </div>
             </div>
+
+            {showDeleteDialog && (
+                <Modal
+                    title="Eliminar Reclamo"
+                    action={{
+                        text: 'Eliminar',
+                        callback: async () => {
+                            await deleteClaim(_id);
+                            setToastMessage('El reclamo fue eliminado exitosamente');
+                            setToastIcon(<AiFillCheckCircle color="green" size={30} />);
+                            setShowToast(true);
+                        },
+                        icon: <BsFillTrashFill className="text-alt" color={'#7bf3ff'} />,
+                    }}
+                    onClose={toggleDeleteDialog}
+                    content={
+                        <>
+                            <div className="flex justify-center p-10">
+                                <h1 className="font-bold text-2xl">¿Está seguro que desea eliminar este reclamo?</h1>
+                            </div>
+                        </>
+                    }
+                />
+            )}
         </div>
     );
 };

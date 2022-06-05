@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import {
-    BiPencil,
-    BiCalendarEdit,
     FaCheckCircle,
     RiCloseCircleFill,
     IoArrowBackCircle,
-    IoArrowBack,
-    IoArrowForward,
     BsFillDropletFill,
     BsFillGearFill,
     BsLightningFill,
@@ -23,9 +19,10 @@ import { useNavigate } from 'react-router-dom';
 interface ICreateClaimProps {
     createClaim: Function;
     isLoading: boolean;
+    error: any;
 }
 
-const CreateClaim = ({ createClaim, isLoading }: ICreateClaimProps) => {
+const CreateClaim = ({ createClaim, isLoading, error }: ICreateClaimProps) => {
     const navigate = useNavigate();
     const [claimData, setClaimData] = useState<IClaim>({
         title: '',
@@ -215,8 +212,13 @@ const CreateClaim = ({ createClaim, isLoading }: ICreateClaimProps) => {
                             ) : (
                                 <CustomButton
                                     text="Confirmar"
-                                    callback={() => {
-                                        createClaim(claimData);
+                                    callback={async () => {
+                                        await createClaim(claimData);
+                                        navigate('../claims', {
+                                            state: {
+                                                toastMessage: 'El reclamo fue creado exitosamente',
+                                            },
+                                        });
                                     }}
                                     color="alt"
                                 >
@@ -237,6 +239,7 @@ const CreateClaim = ({ createClaim, isLoading }: ICreateClaimProps) => {
 const mapStateToProps = (state: any) => ({
     claims: state.claims.claims,
     isLoading: state.claims.isLoading,
+    error: state.error.status,
 });
 
 export default connect(mapStateToProps, { createClaim })(CreateClaim);
