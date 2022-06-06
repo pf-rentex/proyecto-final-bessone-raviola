@@ -3,7 +3,7 @@ import { SHOW_TOAST, CLEAR_TOAST } from '../actions/types';
 
 export interface IToast {
     msg: string | null;
-    icon: React.ReactNode | null | string;
+    icon: string | null; //Tried using react node, but could not send React node on dispatch.
 }
 
 const initialState: IToast = {
