@@ -73,10 +73,16 @@ const ClaimDetails = ({
         setClaimData({ ...claimData, [e.target.name]: e.target.value });
     };
 
-    //@ts-ignorets-ignore
-    const nextClaimId = claims[claims.indexOf(claims.find((x) => x._id === claim._id)) + 1]?._id;
-    //@ts-ignorets-ignore
-    const previousClaimId = claims[claims.indexOf(claims.find((x) => x._id === claim._id)) - 1]?._id;
+    const [nextClaimId, setNextClaimId] = useState<string | undefined>('');
+
+    const [previousClaimId, setPreviousClaimId] = useState<string | undefined>('');
+
+    useEffect(() => {
+        //@ts-ignorets-ignore
+        setNextClaimId(claims[claims.indexOf(claims.find((x) => x._id === claim._id)) + 1]?._id);
+        //@ts-ignorets-ignore
+        setPreviousClaimId(claims[claims.indexOf(claims.find((x) => x._id === claim._id)) - 1]?._id);
+    }, [claims, claim]);
 
     const [editing, setEditing] = useState<boolean>(false);
     const [claimData, setClaimData] = useState<IClaim>(claim);
@@ -119,9 +125,10 @@ const ClaimDetails = ({
                                             <div className="flex space-x-3">
                                                 <FaCheckCircle
                                                     className="text-green-500 w-5 h-5"
-                                                    onClick={() => {
-                                                        updateClaim(claimData);
+                                                    onClick={async () => {
+                                                        await updateClaim(claimData);
                                                         setEditing(false);
+                                                        navigate('../claims');
                                                     }}
                                                 />
 

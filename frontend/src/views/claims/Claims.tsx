@@ -4,34 +4,21 @@ import { connect } from 'react-redux';
 import { getClaims, deleteClaim } from '../../actions/claims';
 import { IClaim } from '../../reducers/claims';
 import Loader from '../../components/commons/Loader';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Toast from '../../components/commons/Toast/Toast';
-import { AiFillCheckCircle, AiFillCloseCircle } from 'react-icons/all';
 import CustomButton from '../../components/commons/Button/CustomButton';
+import { AiFillCheckCircle, AiFillCloseCircle } from 'react-icons/ai';
 
 interface IClaimsProps {
     getClaims: Function;
     deleteClaim: Function;
     claims: Array<IClaim>;
     isLoading: boolean;
-    error: any;
+    toast: any;
 }
 
-const Claims = ({ getClaims, deleteClaim, claims, isLoading, error }: IClaimsProps) => {
-    const { state }: any = useLocation();
+const Claims = ({ getClaims, deleteClaim, claims, isLoading, toast }: IClaimsProps) => {
     useEffect(() => {
-        if (error) {
-            setToastMessage('Ocurrió un error, intenta nuevamente');
-            setToastIcon(<AiFillCloseCircle color="red" size={30} />);
-            setShowToast(true);
-        } else {
-            if (state) {
-                setToastMessage(state.toastMessage);
-                setToastIcon(<AiFillCheckCircle color="green" size={30} />);
-                setShowToast(true);
-            }
-        }
-        window.history.replaceState(null, '');
         getClaims();
     }, []);
 
@@ -40,24 +27,24 @@ const Claims = ({ getClaims, deleteClaim, claims, isLoading, error }: IClaimsPro
     const navigateTo = (route: string, state?: object) => {
         navigate(route, state);
     };
-    const [showToast, setShowToast] = useState<boolean>(false);
-    const [toastMessage, setToastMessage] = useState<string>('');
-    const [toastIcon, setToastIcon] = useState<React.ReactNode>(<></>);
-
-    useEffect(() => {
-        showToast &&
-            setTimeout(() => {
-                setShowToast(false);
-            }, 2500);
-    }, [showToast]);
 
     return (
         <section className="flex flex-col h-full min-h-screen w-full bg-gradient-to-b from-bg-gradient-3 to-bg-gradient-4 px-5 lg:px-20 py-10">
             <div className="flex w-full justify-between">
                 <h1 className="text-white text-4xl font-bold mb-10">Reclamos</h1>
-                <div className="w-full md:w-3/12">
-                    {showToast && <Toast icon={toastIcon} message={toastMessage} duration={2000} />}
-                </div>
+                {toast.msg && (
+                    <Toast
+                        icon={
+                            toast.icon === 'success' ? (
+                                <AiFillCheckCircle size={30} color="green" />
+                            ) : (
+                                <AiFillCloseCircle size={30} color="red" />
+                            )
+                        }
+                        message={toast.msg}
+                        duration={3000}
+                    />
+                )}
             </div>
 
             {isLoading ? (
@@ -77,15 +64,7 @@ const Claims = ({ getClaims, deleteClaim, claims, isLoading, error }: IClaimsPro
                     </div>
                     <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
                         {claims.map((claim, index) => (
-                            <Claim
-                                key={index}
-                                claim={claim}
-                                deleteClaim={deleteClaim}
-                                navigateTo={navigateTo}
-                                setShowToast={setShowToast}
-                                setToastMessage={setToastMessage}
-                                setToastIcon={setToastIcon}
-                            />
+                            <Claim key={index} claim={claim} deleteClaim={deleteClaim} navigateTo={navigateTo} />
                         ))}
                     </div>
                 </div>
@@ -97,7 +76,7 @@ const Claims = ({ getClaims, deleteClaim, claims, isLoading, error }: IClaimsPro
 const mapStateToProps = (state: any) => ({
     claims: state.claims.claims,
     isLoading: state.claims.isLoading,
-    error: state.error.status,
+    toast: state.toast,
 });
 
 export default connect(mapStateToProps, { getClaims, deleteClaim })(Claims);

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { NavigateFunction } from 'react-router-dom';
 import CustomButton from '../commons/Button/CustomButton';
 import {
     AiFillCheckCircle,
@@ -17,12 +16,9 @@ interface IClaimProps {
     claim: IClaim;
     deleteClaim: Function;
     navigateTo: Function;
-    setShowToast: Function;
-    setToastMessage: Function;
-    setToastIcon: Function;
 }
 
-const Claim = ({ claim, deleteClaim, navigateTo, setShowToast, setToastMessage, setToastIcon }: IClaimProps) => {
+const Claim = ({ claim, deleteClaim, navigateTo }: IClaimProps) => {
     const { _id, title, category, createdAt, status } = claim;
     const [statusColor, setStatusColor] = useState('green-300');
     useEffect(() => {
@@ -96,11 +92,8 @@ const Claim = ({ claim, deleteClaim, navigateTo, setShowToast, setToastMessage, 
                     title="Eliminar Reclamo"
                     action={{
                         text: 'Eliminar',
-                        callback: async () => {
-                            await deleteClaim(_id);
-                            setToastMessage('El reclamo fue eliminado exitosamente');
-                            setToastIcon(<AiFillCheckCircle color="green" size={30} />);
-                            setShowToast(true);
+                        callback: () => {
+                            deleteClaim(_id);
                         },
                         icon: <BsFillTrashFill className="text-alt" color={'#7bf3ff'} />,
                     }}
