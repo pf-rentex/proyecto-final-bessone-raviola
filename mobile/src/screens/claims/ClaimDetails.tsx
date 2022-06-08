@@ -20,6 +20,7 @@ import {getClaim, updateClaim} from '../../actions/claims';
 import {IClaim, ClaimCategory, ClaimStatus} from '../../reducers/claims';
 import Dropdown from '../../components/common/Dropdown';
 import Loader from '../../components/common/Loader';
+import {useNavigation} from '@react-navigation/native';
 
 interface IClaimDetailsProps {
   route: any;
@@ -28,6 +29,7 @@ interface IClaimDetailsProps {
   claim: IClaim;
   isLoading: boolean;
   isUpdating: boolean;
+  claims: Array<IClaim>;
 }
 
 const ClaimDetails = ({
@@ -37,11 +39,13 @@ const ClaimDetails = ({
   claim,
   isLoading,
   isUpdating,
+  claims,
 }: IClaimDetailsProps) => {
   const params = route.params;
+  const navigation = useNavigation();
   useEffect(() => {
     getClaim(params.id);
-  }, []);
+  }, [params.id]);
 
   useEffect(() => {
     if (!isLoading) setClaimData(claim);
@@ -105,6 +109,23 @@ const ClaimDetails = ({
         break;
     }
   }, [claim.status]);
+
+  const [nextClaimId, setNextClaimId] = useState<string | undefined>('');
+
+  const [previousClaimId, setPreviousClaimId] = useState<string | undefined>(
+    '',
+  );
+
+  useEffect(() => {
+    //@ts-ignorets-ignore
+    setNextClaimId(
+      claims[claims.indexOf(claims.find(x => x._id === claim._id)) + 1]?._id,
+    );
+    //@ts-ignorets-ignore
+    setPreviousClaimId(
+      claims[claims.indexOf(claims.find(x => x._id === claim._id)) - 1]?._id,
+    );
+  }, [claims, claim]);
 
   const handleChange = (e: any, name: string) => {
     setClaimData({...claimData, [name]: e.nativeEvent.text});
@@ -405,7 +426,12 @@ const ClaimDetails = ({
                 </TouchableOpacity>
               </View>
               <View style={styles.navigationContainer}>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity
+                  style={[styles.button, !previousClaimId && {opacity: 0.5}]}
+                  onPress={() => {
+                    navigation.navigate('ClaimDetails', {id: previousClaimId});
+                  }}
+                  disabled={!previousClaimId}>
                   <MCIcon name='arrow-left-bold' size={15} color='white' />
                   <Text
                     style={{
@@ -417,7 +443,12 @@ const ClaimDetails = ({
                     RECLAMO ANTERIOR
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity
+                  style={[styles.button, !nextClaimId && {opacity: 0.5}]}
+                  onPress={() => {
+                    navigation.navigate('ClaimDetails', {id: nextClaimId});
+                  }}
+                  disabled={!nextClaimId}>
                   <MCIcon name='arrow-right-bold' size={15} color='white' />
                   <Text
                     style={{
@@ -440,6 +471,7 @@ const ClaimDetails = ({
 
 const mapStateToProps = (state: any) => ({
   claim: state.claims.claim,
+  claims: state.claims.claims,
   isLoading: state.claims.isLoading,
   isUpdating: state.claims.isUpdating,
 });

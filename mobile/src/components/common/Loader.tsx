@@ -1,6 +1,7 @@
 import React from 'react';
 import {ActivityIndicator, StyleSheet, View, Text} from 'react-native';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const Loader = ({size, color}: any) => (
   <View style={[styles.container, styles.horizontal]}>
@@ -12,6 +13,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    minHeight: hp(100),
   },
   horizontal: {
     flexDirection: 'row',
