@@ -88,6 +88,7 @@ const getProperties = async (req: Request, res: Response) => {
             ...(limit ? [{ $limit: limit }] : []),
         ];
 
+        // @ts-ignore
         const properties = await Property.aggregate(query).exec();
 
         return res.status(200).json({ properties });
@@ -97,28 +98,39 @@ const getProperties = async (req: Request, res: Response) => {
 };
 
 const getProperty = async (req: Request, res: Response) => {
-    const {id} = req.params;
-  
+    const { id } = req.params;
+
     //Check for existing property
-    const property = await Property.findOne({_id: id});
+    const property = await Property.findOne({ _id: id });
     if (!property) {
-      return res.status(400).json({msg: "The Property does not exist"});
+        return res.status(400).json({ msg: 'The Property does not exist' });
     } else {
-      res.json(property);
+        res.json(property);
     }
-  };
+};
 
 const createProperty = async (req: Request, res: Response) => {
-    const { address, description, price, province, city, expensesPrice, ownerId, features, amenities } = req.body;
+    const {
+        address,
+        description,
+        price,
+        province,
+        city,
+        expensesPrice,
+        ownerId,
+        features,
+        amenities,
+    } = req.body;
 
     //Simple validation
     if (!fieldsAreValid(req.body)) {
-        return res.status(400).json({msg: "Please enter all fields"});
+        return res.status(400).json({ msg: 'Please enter all fields' });
     }
 
     //Check for existing property
-    const existingProperty = await Property.findOne({address: address});
-    if (existingProperty) return res.status(400).json({msg: "Property Already exists"});
+    const existingProperty = await Property.findOne({ address: address });
+    if (existingProperty)
+        return res.status(400).json({ msg: 'Property Already exists' });
 
     const property = new Property({
         address,
@@ -140,53 +152,91 @@ const createProperty = async (req: Request, res: Response) => {
 };
 
 const updateProperty = async (req: Request, res: Response) => {
-    const { id, address, description, price, province, city, expensesPrice, ownerId, features, amenities } = req.body;
-  
+    const {
+        id,
+        address,
+        description,
+        price,
+        province,
+        city,
+        expensesPrice,
+        ownerId,
+        features,
+        amenities,
+    } = req.body;
+
     //Simple validation
     if (!fieldsAreValid(req.body)) {
-      return res.status(400).json({msg: "Please enter all fields"});
+        return res.status(400).json({ msg: 'Please enter all fields' });
     }
-  
+
     //Check for existing property
-    const existingProperty = await Property.findOne({_id: id});
+    const existingProperty = await Property.findOne({ _id: id });
     if (!existingProperty) {
-      return res.status(400).json({msg: "The Property does not exist"});
+        return res.status(400).json({ msg: 'The Property does not exist' });
     } else {
-      try {
-        await Property.updateOne({_id: id}, {
-            address: address,
-            description: description,
-            price: price,
-            province: province,
-            city: city,
-            expensesPrice: expensesPrice,
-            ownerId: ownerId,
-            features: features,
-            amenities: amenities
-        });
-  
-        return res.status(200).json({msg: "Property updated"});
-      } catch (error) {
-        return res.status(400).json({msg: `Error registering property: ${error}`});
-      }
-    }
-  };
+        try {
+            await Property.updateOne(
+                { _id: id },
+                {
+                    address: address,
+                    description: description,
+                    price: price,
+                    province: province,
+                    city: city,
+                    expensesPrice: expensesPrice,
+                    ownerId: ownerId,
+                    features: features,
+                    amenities: amenities,
+                },
+            );
 
-const deleteProperty = async (req: Request, res: Response) => {
-    const {id} = req.params;
-  
-    const existingProperty = await Property.findOne({_id: id});
-    if (existingProperty) {
-      await existingProperty.remove();
-      return res.status(200).json({msg: "Property removed"});
-    } else {
-      return res.status(400).json({msg: "The property does not exist"});
+            return res.status(200).json({ msg: 'Property updated' });
+        } catch (error) {
+            return res
+                .status(400)
+                .json({ msg: `Error registering property: ${error}` });
+        }
     }
-  };
-
-const fieldsAreValid = (body): boolean => {
-    const { address, description, price, province, city, expensesPrice, ownerId} = body;
-    return !!address && !!description && !!price && !!province && !!city && !!expensesPrice && !!ownerId;
 };
 
-export { getProperties, getProperty, createProperty, updateProperty, deleteProperty };
+const deleteProperty = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const existingProperty = await Property.findOne({ _id: id });
+    if (existingProperty) {
+        await existingProperty.remove();
+        return res.status(200).json({ msg: 'Property removed' });
+    } else {
+        return res.status(400).json({ msg: 'The property does not exist' });
+    }
+};
+
+const fieldsAreValid = (body): boolean => {
+    const {
+        address,
+        description,
+        price,
+        province,
+        city,
+        expensesPrice,
+        ownerId,
+    } = body;
+    return (
+        !!address &&
+        !!description &&
+        !!price &&
+        !!province &&
+        !!city &&
+        !!expensesPrice &&
+        !!ownerId
+    );
+};
+
+export {
+    getProperties,
+    getProperty,
+    createProperty,
+    updateProperty,
+    deleteProperty,
+};
