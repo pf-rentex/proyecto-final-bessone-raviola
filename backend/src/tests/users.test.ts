@@ -1,7 +1,16 @@
-import { expect } from 'chai';
+import supertest from 'supertest';
+import app from '../config/app';
 
-describe('Test mocked', () => {
-    it('should be mocked', () => {
-        expect(1).equal(1);
+const api = supertest(app);
+
+describe('user tests', () => {
+    it('tenants return as json', async () => {
+        expect(1).toBe(1);
+    });
+    it('owners return as json', () => {
+        expect(1).toBe(1);
+    });
+    it('real estates return as json', () => {
+        expect(1).toBe(1);
     });
 });

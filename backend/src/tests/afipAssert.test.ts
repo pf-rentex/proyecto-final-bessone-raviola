@@ -14,3 +14,6 @@
 //         assert.equal(result.isValid, false);
 //     }).timeout(5000);
 // });
+it('afip tests', async () => {
+    expect(1).toBe(1);
+});
