@@ -1,5 +1,6 @@
 import React from 'react';
-import { HiDownload, IoClose } from 'react-icons/all';
+import { HiDownload } from 'react-icons/hi';
+import { IoClose } from 'react-icons/io5';
 
 interface IAttachmentProps {
     name: string;
@@ -8,12 +9,7 @@ interface IAttachmentProps {
     handleDelete: Function;
 }
 
-const Attachment = ({
-    name,
-    size,
-    attachedDate,
-    handleDelete,
-}: IAttachmentProps) => {
+const Attachment = ({ name, size, attachedDate, handleDelete }: IAttachmentProps) => {
     return (
         <div className="bg-blue-900 py-5 md:py-2 px-10 rounded shadow-xl">
             <div className="flex flex-col space-y-3 md:space-y-0 md:flex-row items-center w-full space-x-5">
@@ -21,9 +17,7 @@ const Attachment = ({
                     <p className="text-white">{name}</p>
                     <div className="flex space-x-5 md:space-x-10 justify-center md:justify-start">
                         <p className="text-blue-300 font-thin">{size}</p>
-                        <p className="text-blue-300 font-thin">
-                            {attachedDate}
-                        </p>
+                        <p className="text-blue-300 font-thin">{attachedDate}</p>
                     </div>
                 </div>
                 <div className="flex w-full space-x-5 justify-center md:justify-end">

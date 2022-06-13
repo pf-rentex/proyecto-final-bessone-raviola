@@ -6,10 +6,10 @@ import { ILoginFormData } from '../components/auth/LoginBox';
 const API = axios.create({ baseURL: 'http://localhost:3001' });
 
 API.interceptors.request.use((req) => {
-    const profile = localStorage.getItem('profile');
+    const token = localStorage.getItem('token');
 
-    if (profile) {
-        req.headers.Authorization = JSON.parse(profile).token;
+    if (token) {
+        req.headers.Authorization = JSON.parse(token);
     }
     return req;
 });
