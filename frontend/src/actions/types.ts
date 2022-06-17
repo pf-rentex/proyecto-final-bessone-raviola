@@ -33,3 +33,6 @@ export const UPDATE_CLAIM = 'CLAIM/UPDATE';
 export const GET_CLAIMS_ERROR = 'CLAIMS/GET_ERROR';
 export const CLAIMS_LOADING = 'CLAIMS/LOADING';
 export const CLAIMS_UPDATING = 'CLAIMS/UPDATING';
+
+export const SHOW_TOAST = 'TOAST/SHOW';
+export const CLEAR_TOAST = 'TOAST/CLEAR';

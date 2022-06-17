@@ -180,7 +180,7 @@ const RequestForm = ({
                 alignItems: 'center',
               }}>
               {isLoading ? (
-                <Loader size={30} />
+                <Loader size={30} color='#20323A' />
               ) : (
                 <>
                   <Ionicons

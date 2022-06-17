@@ -1,12 +1,12 @@
 import React from 'react';
 import CustomButton from '../Button/CustomButton';
-import { RiSendPlane2Fill } from 'react-icons/all';
 
 interface IModal {
     title: string;
     action: {
         text: string;
         callback: () => void;
+        icon: React.ReactNode;
     };
     onClose: () => void;
     content: React.ReactNode;
@@ -31,9 +31,7 @@ const Modal = ({ title, content, action, onClose }: IModal) => (
                     <div className="bg-white rounded-lg shadow p-4 relative dark:bg-gray-700">
                         {/* Header */}
                         <div className="flex items-start sticky top-0 bg-white justify-between p-3 border-b rounded-t dark:border-gray-600">
-                            <h3 className="text-gray-900 text-xl lg:text-2xl font-semibold dark:text-white">
-                                {title}
-                            </h3>
+                            <h3 className="text-gray-900 text-xl lg:text-2xl font-semibold dark:text-white">{title}</h3>
                             <button
                                 type="button"
                                 onClick={onClose}
@@ -59,22 +57,16 @@ const Modal = ({ title, content, action, onClose }: IModal) => (
 
                         {/*Footer*/}
                         <div className="flex flex-col md:flex-row sticky bottom-0 bg-white border-t space-x-2 justify-end content-center items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-600">
-                            <span
-                                className="text-red-600 cursor-pointer mx-4"
-                                onClick={onClose}
-                            >
+                            <span className="text-red-600 cursor-pointer mx-4" onClick={onClose}>
                                 Cancelar
                             </span>
                             <div className="w-full md:w-auto">
-                                <CustomButton
-                                    text={action.text}
-                                    color="alt"
-                                    callback={action.callback}
-                                >
-                                    <RiSendPlane2Fill
+                                <CustomButton text={action.text} color="alt" callback={action.callback}>
+                                    {action.icon}
+                                    {/* <RiSendPlane2Fill
                                         className="text-alt"
                                         color={'#7bf3ff'}
-                                    />
+                                    /> */}
                                 </CustomButton>
                             </div>
                         </div>

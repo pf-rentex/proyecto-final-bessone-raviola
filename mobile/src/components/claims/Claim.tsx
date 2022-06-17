@@ -5,18 +5,28 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {ComplaintStatus} from '../../screens/complaints/Complaints';
+import {ClaimStatus} from '../../reducers/claims';
 import {useNavigation} from '@react-navigation/native';
 
-interface IComplaintProps {
+interface IClaimProps {
+  id?: string;
   icon: string;
   title: string;
   category: string;
   date: string;
   status: string;
+  deleteClaim: Function;
 }
 
-const Complaint = ({icon, title, category, date, status}: IComplaintProps) => {
+const Claim = ({
+  id,
+  icon,
+  title,
+  category,
+  date,
+  status,
+  deleteClaim,
+}: IClaimProps) => {
   const styles = StyleSheet.create({
     listing: {
       backgroundColor: '#2685D0',
@@ -24,6 +34,7 @@ const Complaint = ({icon, title, category, date, status}: IComplaintProps) => {
       borderRadius: 10,
       flexDirection: 'row',
       marginVertical: hp(1),
+      elevation: 1,
     },
     claimIcon: {
       backgroundColor: '#20323A',
@@ -43,7 +54,7 @@ const Complaint = ({icon, title, category, date, status}: IComplaintProps) => {
     },
     claimActions: {
       flexDirection: 'row',
-      marginVertical: hp(0.8),
+      marginVertical: hp(1),
     },
     button: {
       backgroundColor: '#20323A',
@@ -59,67 +70,81 @@ const Complaint = ({icon, title, category, date, status}: IComplaintProps) => {
 
   const navigation = useNavigation();
   const [statusColor, setStatusColor] = useState('green');
+
   useEffect(() => {
     switch (status) {
-      case ComplaintStatus.addressed:
+      case ClaimStatus.addressed:
         setStatusColor('lightgreen');
         break;
-      case ComplaintStatus.inProgress:
+      case ClaimStatus.inProgress:
         setStatusColor('yellow');
         break;
-      case ComplaintStatus.cancelled:
+      case ClaimStatus.cancelled:
         setStatusColor('red');
+        break;
+      case ClaimStatus.pending:
+        setStatusColor('yellow');
         break;
     }
   }, [status]);
 
   return (
-    <View style={styles.listing}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('ClaimDetails', {
+          id,
+        });
+      }}
+      style={styles.listing}>
       <View style={styles.claimIcon}>
         <MCIcon name={icon} size={wp(20)} color='white' />
       </View>
       <View style={styles.claimInfo}>
-        <Text style={styles.claimTitle}>{title}</Text>
-        <Text style={{color: 'white', marginVertical: hp(0.8)}}>
+        <Text style={styles.claimTitle} numberOfLines={1}>
+          {title}
+        </Text>
+        <Text style={{color: 'white', marginVertical: hp(0.5)}}>
           Categoría: {category}
         </Text>
-        <Text style={{color: 'white', marginVertical: hp(0.8)}}>
+        <Text style={{color: 'white', marginVertical: hp(0.5)}}>
           Fecha de carga: {date}
         </Text>
-        <Text style={{color: 'white', marginVertical: hp(0.8)}}>
-          Estado:{' '}
+        <Text style={{color: 'white', marginVertical: hp(0.5)}}>
+          Estado:
           <Text style={{color: statusColor, fontWeight: 'bold'}}>
-            {status.toUpperCase()}
+            {status?.toUpperCase()}
           </Text>
         </Text>
         <View style={styles.claimActions}>
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              navigation.navigate('ComplaintDetails', {
-                icon,
-                title,
-                category,
-                date,
-                status,
+              navigation.navigate('ClaimDetails', {
+                id,
               });
             }}>
-            <MCIcon name='magnify' size={20} color='white' />
+            <MCIcon name='magnify' size={15} color='white' />
             <Text
               style={{
                 color: 'white',
                 fontWeight: 'bold',
+                fontSize: 12,
                 paddingLeft: 5,
               }}>
               DETALLES
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <MCIcon name='delete' size={20} color='white' />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              deleteClaim(id);
+            }}>
+            <MCIcon name='delete' size={15} color='white' />
             <Text
               style={{
                 color: 'white',
                 fontWeight: 'bold',
+                fontSize: 12,
                 paddingLeft: 5,
               }}>
               ELIMINAR
@@ -127,8 +152,8 @@ const Complaint = ({icon, title, category, date, status}: IComplaintProps) => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
-export default Complaint;
+export default Claim;

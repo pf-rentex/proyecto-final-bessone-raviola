@@ -19,12 +19,14 @@ interface Props {
   label: string;
   data: Array<{label: string; value: string}>;
   onSelect: (item: {label: string; value: string}) => void;
+  width: number;
+  defaultValue?: object;
 }
 
-const Dropdown: FC<Props> = ({label, data, onSelect}) => {
+const Dropdown: FC<Props> = ({label, data, onSelect, width, defaultValue}) => {
   const DropdownButton = useRef();
   const [visible, setVisible] = useState(false);
-  const [selected, setSelected] = useState(undefined);
+  const [selected, setSelected] = useState(defaultValue);
   const [dropdownTop, setDropdownTop] = useState(0);
 
   const toggleDropdown = (): void => {
@@ -71,7 +73,7 @@ const Dropdown: FC<Props> = ({label, data, onSelect}) => {
   return (
     <TouchableOpacity
       ref={DropdownButton}
-      style={styles.button}
+      style={[styles.button, {width: wp(width)}]}
       onPress={toggleDropdown}>
       {renderDropdown()}
       <Text style={styles.buttonText}>
@@ -88,7 +90,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#efefef',
     height: hp(4),
-    width: '60%',
     zIndex: 1,
     borderRadius: 5,
   },
