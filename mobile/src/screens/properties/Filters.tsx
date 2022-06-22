@@ -62,6 +62,7 @@ const Filters = ({filtersVisible, setFiltersVisible}: IFiltersProps) => {
                 label='Cantidad de habitaciones'
                 data={data}
                 onSelect={setSelected}
+                width={55}
               />
 
               <View style={{marginVertical: 25}}>
@@ -223,6 +224,7 @@ const Filters = ({filtersVisible, setFiltersVisible}: IFiltersProps) => {
                   label='Cantidad de personas'
                   data={data}
                   onSelect={setSelected}
+                  width={55}
                 />
               </View>
               <View
