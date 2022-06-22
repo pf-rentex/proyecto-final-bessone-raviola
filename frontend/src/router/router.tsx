@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Auth from '../views/auth/Auth';
 import Onboarding from '../views/auth/Onboarding';
@@ -18,14 +18,29 @@ import RentRequests from '../views/rent/request/Requests';
 import ContractDetails from '../views/contracts/ContractDetails';
 import Header from '../components/commons/header/Header';
 import Sidebar from '../components/commons/Sidebar/Sidebar';
+import Notifications from '../components/notifications/Notifications';
+import { useClickedOutside } from '../utils';
 
 export default function Router() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [showNotifications, setShowNotifications] = useState<boolean>(false);
+
+    const notificationsRef = useRef(null);
+
+    const toggleNotifications = () => setShowNotifications(!showNotifications);
+
+    useClickedOutside(notificationsRef, toggleNotifications);
 
     return (
         <BrowserRouter>
             <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
-            <Header setIsOpenSidebar={setIsOpen} />
+            <Header setIsOpenSidebar={setIsOpen} toggleNotifications={toggleNotifications} />
+            {showNotifications && (
+                <div ref={notificationsRef}>
+                    {' '}
+                    <Notifications />{' '}
+                </div>
+            )}
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Auth />} />

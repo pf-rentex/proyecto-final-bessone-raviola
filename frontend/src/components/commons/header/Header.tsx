@@ -6,15 +6,20 @@ import CustomButton from '../Button/CustomButton';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loadUser, logout } from '../../../actions/auth';
+import { FaBell } from 'react-icons/all';
 
 interface IHeaderProps {
     loadUser: () => void;
     isAuthenticated: boolean;
     setIsOpenSidebar: Function;
+    toggleNotifications: Function;
     logout: () => void;
 }
 
-const Header = ({ loadUser, isAuthenticated, setIsOpenSidebar, logout }: IHeaderProps, history: History) => {
+const Header = (
+    { loadUser, isAuthenticated, setIsOpenSidebar, toggleNotifications, logout }: IHeaderProps,
+    history: History,
+) => {
     const navigate = useNavigate();
     useEffect(() => {
         loadUser();
@@ -54,25 +59,25 @@ const Header = ({ loadUser, isAuthenticated, setIsOpenSidebar, logout }: IHeader
                         </div>
                     </>
                 )}
-
-                <div className="mr-5">
-                    {isAuthenticated && (
-                        <div className="flex">
-                            <button onClick={() => navigate('/profile')}>
-                                {/* Se reemplazaria por la foto de perfil del usuario*/}
-                                <img
-                                    src="https://creazilla-store.fra1.digitaloceanspaces.com/emojis/43191/blue-circle-emoji-clipart-md.png"
-                                    width="50px"
-                                    alt="Profile"
-                                />
-                            </button>
-                            {/*    TODO: Dropdown ? */}
-                            <button className="text-white " onClick={logout}>
-                                Cerrar sesión
-                            </button>
-                        </div>
-                    )}
-                </div>
+                {isAuthenticated && (
+                    <div className="flex flex-1 justify-end">
+                        <button className="mx-3" onClick={() => toggleNotifications()}>
+                            <FaBell color="white" size={25} />
+                        </button>
+                        <button className="mx-3" onClick={() => navigate('/profile')}>
+                            {/* Se reemplazaria por la foto de perfil del usuario*/}
+                            <img
+                                src="https://creazilla-store.fra1.digitaloceanspaces.com/emojis/43191/blue-circle-emoji-clipart-md.png"
+                                width="50px"
+                                alt="Profile"
+                            />
+                        </button>
+                        {/*    TODO: Dropdown ? */}
+                        <button className="text-white mx-3" onClick={logout}>
+                            Cerrar sesión
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );
