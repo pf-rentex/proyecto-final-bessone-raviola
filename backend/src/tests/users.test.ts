@@ -1,7 +1,9 @@
 import { expect } from 'chai';
 
-describe('Test mocked', () => {
-    it('should be mocked', () => {
-        expect(1).equal(1);
+describe('Options tests', () => {
+    // the tests container
+    it('checking default options', () => {
+        // the single test
+        expect(1).to.equal(1);
     });
 });

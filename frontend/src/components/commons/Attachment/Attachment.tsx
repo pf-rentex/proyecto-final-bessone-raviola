@@ -1,5 +1,6 @@
 import React from 'react';
-import { HiDownload, IoClose } from 'react-icons/all';
+import { HiDownload } from 'react-icons/hi';
+import { IoClose } from 'react-icons/io5';
 
 interface IAttachmentProps {
     name: string;

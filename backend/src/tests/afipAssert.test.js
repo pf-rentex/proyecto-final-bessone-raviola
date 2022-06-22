@@ -14,3 +14,8 @@
 //         assert.equal(result.isValid, false);
 //     }).timeout(5000);
 // });
+import { expect } from 'chai';
+
+it('afip tests', async () => {
+    expect(1).to.equal(1);
+});
