@@ -50,8 +50,8 @@ export default function Router() {
                 <Route path="/rent/request" element={<RequestForm />} />
                 <Route path="/publication/:id" element={<Publication />} />
                 <Route path="/claims" element={<Claims />} />
-                <Route path="/claim/create" element={<CreateClaim />} />
-                <Route path="/claim/:id" element={<ClaimDetails />} />
+                <Route path="/claims/create" element={<CreateClaim />} />
+                <Route path="/claims/:id" element={<ClaimDetails />} />
                 <Route path="/contracts" element={<Contracts />} />
                 <Route path="/rent/requests" element={<RentRequests />} />
                 <Route path="/contracts/:id" element={<ContractDetails />} />

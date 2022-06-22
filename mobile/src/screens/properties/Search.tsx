@@ -52,7 +52,7 @@ const Search = ({getProperties, properties, isLoading}: ISearchProps) => {
         </View>
         {isLoading ? (
           <View style={styles.loader}>
-            <Loader size={80} />
+            <Loader size={80} color='#20323A' />
           </View>
         ) : (
           <View>

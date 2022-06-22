@@ -141,7 +141,10 @@ const SecondStep = ({data, onChange, handleFileDelete}: ISecondStepProps) => {
               );
             })}
           {/* <Attachment name='garante_perez_12052021.pdf' size='216.32kb' /> */}
-          <AttachmentRequest fileType='guarantorFiles' />
+          <AttachmentRequest
+            fileType='guarantorFiles'
+            redirectView='RequestForm'
+          />
         </View>
       </View>
       <View style={{marginTop: hp('3%')}}>
@@ -161,7 +164,7 @@ const SecondStep = ({data, onChange, handleFileDelete}: ISecondStepProps) => {
               );
             })}
           {/* <Attachment name='garante_perez_12052021.pdf' size='216.32kb' /> */}
-          <AttachmentRequest fileType='dniFiles' />
+          <AttachmentRequest fileType='dniFiles' redirectView='RequestForm' />
         </View>
       </View>
       <View style={{marginTop: hp('3%')}}>
@@ -181,7 +184,10 @@ const SecondStep = ({data, onChange, handleFileDelete}: ISecondStepProps) => {
               );
             })}
           {/* <Attachment name='garante_perez_12052021.pdf' size='216.32kb' /> */}
-          <AttachmentRequest fileType='receiptFiles' />
+          <AttachmentRequest
+            fileType='receiptFiles'
+            redirectView='RequestForm'
+          />
         </View>
       </View>
     </View>

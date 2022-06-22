@@ -64,10 +64,7 @@ const initialState: IClaimsState = {
     isUpdating: false,
 };
 
-const claimsReducer = (
-    state: IClaimsState = initialState,
-    action: { type: string; data: any },
-) => {
+const claimsReducer = (state: IClaimsState = initialState, action: { type: string; data: any }) => {
     switch (action.type) {
         case CLAIMS_LOADING:
             return {
@@ -91,9 +88,7 @@ const claimsReducer = (
         case DELETE_CLAIM:
             return {
                 ...state,
-                claims: state.claims.filter(
-                    (claim) => claim._id !== action.data,
-                ),
+                claims: state.claims.filter((claim) => claim._id !== action.data),
                 isLoading: false,
             };
         case CREATE_CLAIM:
@@ -110,9 +105,7 @@ const claimsReducer = (
         case UPDATE_CLAIM:
             return {
                 ...state,
-                claims: state.claims.map((claim) =>
-                    claim._id === action.data.claim._id ? action.data : claim,
-                ),
+                claims: state.claims.map((claim) => (claim._id === action.data.claim._id ? action.data.claim : claim)),
                 claim: action.data.claim,
                 isUpdating: false,
             };

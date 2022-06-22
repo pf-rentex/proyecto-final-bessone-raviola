@@ -15,9 +15,9 @@ import Loader from '../components/common/Loader';
 import ScannerComponent from '../components/Scanner';
 import DocumentViewer from '../screens/DocumentViewer';
 import Publication from '../screens/publication/Publication';
-import ComplaintDetails from '../screens/complaints/ComplaintDetails';
-import CreateComplaint from '../screens/complaints/CreateComplaint';
-import Complaints from '../screens/complaints/Complaints';
+import ClaimDetails from '../screens/claims/ClaimDetails';
+import CreateClaim from '../screens/claims/CreateClaim';
+import Claims from '../screens/claims/Claims';
 import RequestForm from '../screens/rent/RequestForm';
 import VisitProperty from '../screens/visit/VisitProperty';
 
@@ -40,7 +40,7 @@ const headerConfig: NativeStackNavigationOptions = {
 
 const Navigator = ({isAuthenticated, isLoading}: INavigatorProps) => {
   if (isLoading) {
-    return <Loader size={80} />;
+    return <Loader size={80} color='#20323A' />;
   }
 
   if (isAuthenticated) {
@@ -102,18 +102,18 @@ const Navigator = ({isAuthenticated, isLoading}: INavigatorProps) => {
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name='Complaints'
-            component={Complaints}
+            name='Claims'
+            component={Claims}
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name='ComplaintDetails'
-            component={ComplaintDetails}
+            name='ClaimDetails'
+            component={ClaimDetails}
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name='CreateComplaint'
-            component={CreateComplaint}
+            name='CreateClaim'
+            component={CreateClaim}
             options={{headerShown: false}}
           />
           <Stack.Screen

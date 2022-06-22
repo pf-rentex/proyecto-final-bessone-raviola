@@ -6,7 +6,7 @@ import {
 } from 'react-native-responsive-screen';
 import {useNavigation} from '@react-navigation/native';
 
-const AttachmentRequest = ({fileType}: any) => {
+const AttachmentRequest = ({fileType, redirectView}: any) => {
   const navigation = useNavigation();
   const styles = StyleSheet.create({
     container: {
@@ -31,7 +31,7 @@ const AttachmentRequest = ({fileType}: any) => {
   return (
     <TouchableHighlight
       onPress={() => {
-        navigation.navigate('DocumentViewer', {fileType});
+        navigation.navigate('DocumentViewer', {fileType, redirectView});
       }}>
       <View style={styles.container}>
         <Text style={{color: 'white', fontWeight: 'bold'}}>
