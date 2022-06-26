@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CustomButton from '../commons/Button/CustomButton';
 import {
-    AiFillCheckCircle,
     AiOutlineSearch,
     HiOutlineTrash,
     BsFillDropletFill,

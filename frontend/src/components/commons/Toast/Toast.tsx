@@ -15,12 +15,12 @@ const Toast = ({ icon, message, duration }: IToastProps) => {
         setTimeout(() => {
             setTranslate('translate-x-full scale-0');
         }, duration);
-    }, []);
+    }, [duration]);
 
     return (
         <div
             id="toast-simple"
-            className={`flex items-center w-4/12 absolute ${translate} right-10 p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 transform transition ease-in-out duration-500`}
+            className={`flex items-center w-4/12 fixed ${translate} right-10 p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 transform transition ease-in-out duration-500`}
             role="alert"
         >
             {icon}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Claim from '../../components/claims/Claim';
 import { connect } from 'react-redux';
 import { getClaims, deleteClaim } from '../../actions/claims';
@@ -20,7 +20,7 @@ interface IClaimsProps {
 const Claims = ({ getClaims, deleteClaim, claims, isLoading, toast }: IClaimsProps) => {
     useEffect(() => {
         getClaims();
-    }, []);
+    }, [getClaims]);
 
     const navigate = useNavigate();
 
