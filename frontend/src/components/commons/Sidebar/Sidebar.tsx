@@ -1,32 +1,84 @@
 import React, { useEffect, useRef } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { BsPlusCircleFill } from 'react-icons/bs';
-import { Accordion } from '../Accordion/Accordion';
 import { Badge } from '../Badge/Badge';
+import { useClickedOutside } from '../../../utils';
+import SidebarItem from './SidebarItem';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 
 interface ISidebarProps {
     isOpen: boolean;
     setIsOpen: Function;
 }
 
+export interface ISidebarItem {
+    title: string;
+    icon?: React.ReactNode;
+    callback?: () => void;
+    children?: { title: string; callback?: () => void; icon: React.ReactNode }[];
+}
+
 const Sidebar = ({ isOpen, setIsOpen }: ISidebarProps) => {
     const wrapperRef = useRef(null);
+    useClickedOutside(wrapperRef, () => isOpen && setIsOpen(false));
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        const handleClickOutside = (event: Event) => {
-            //@ts-ignore
-            if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+    const items: ISidebarItem[] = [
+        {
+            title: 'Solicitudes',
+            callback: () => {
+                navigate('/rent/requests');
                 setIsOpen(false);
-            }
-        };
-
-        // Bind the event listener
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            // Unbind the event listener on clean up
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [wrapperRef, setIsOpen]);
+            },
+            icon: <Badge>4</Badge>,
+        },
+        {
+            title: 'Publicaciones',
+            callback: () => {
+                navigate('/properties/search');
+                setIsOpen(false);
+            },
+            icon: <BsPlusCircleFill />,
+        },
+        {
+            title: 'Reclamos',
+            callback: () => {
+                navigate('/claims');
+                setIsOpen(false);
+            },
+            icon: <Badge>4</Badge>,
+        },
+        {
+            title: 'Contratos',
+            children: [
+                {
+                    title: 'Crear',
+                    callback: () => {
+                        navigate('/contracts/create');
+                        setIsOpen(false);
+                    },
+                    icon: <AiOutlinePlus className="w-5 h-5" />,
+                },
+                {
+                    title: 'Ver todos',
+                    callback: () => {
+                        navigate('/contracts');
+                        setIsOpen(false);
+                    },
+                    icon: <BiSearch className=" w-5 h-5" />,
+                },
+            ],
+        },
+        {
+            title: 'Propiedades',
+            callback: () => {
+                navigate('/properties');
+                setIsOpen(false);
+            },
+            icon: <BsPlusCircleFill />,
+        },
+    ];
 
     return (
         <div
@@ -41,35 +93,9 @@ const Sidebar = ({ isOpen, setIsOpen }: ISidebarProps) => {
             </div>
             <div className={`p-4 ${!isOpen ? 'translate-x-0 ' : '-translate-x-full'}`}>
                 <ul className="divide-y text-xl">
-                    <li className="px-3 py-5">
-                        <div className="flex justify-between items-center cursor-pointer select-none">
-                            Solicitudes
-                            <Badge>4</Badge>
-                        </div>
-                    </li>
-                    <li className="px-3 py-5">
-                        <Accordion title="Mis inmuebles">
-                            <ul className="font-thin space-y-5">
-                                <li className="flex justify-between">Opción 1</li>
-                                <li className="flex justify-between">Opción 2</li>
-                            </ul>
-                        </Accordion>
-                    </li>
-
-                    <li className="px-3 py-5">
-                        <Accordion title="Contratos">
-                            <ul className="font-thin space-y-5">
-                                <li className="flex justify-between">
-                                    Ver contratos
-                                    <BiSearch className="text-alt w-7 h-7" />
-                                </li>{' '}
-                                <li className="flex justify-between">
-                                    Crear nuevo <BsPlusCircleFill className="text-alt w-7 h-7" />
-                                </li>
-                            </ul>
-                        </Accordion>
-                    </li>
-                    <li className="px-3 py-5">Reclamos</li>
+                    {items.map((item: ISidebarItem, index) => (
+                        <SidebarItem key={index} item={item}></SidebarItem>
+                    ))}
                 </ul>
             </div>
         </div>
