@@ -2,6 +2,7 @@ import React from 'react';
 import { ReactComponent as Dimensions } from '../../../assets/amenities_dimensions.svg';
 import { ReactComponent as Bedrooms } from '../../../assets/amenities_bedrooms.svg';
 import { ReactComponent as Bathrooms } from '../../../assets/amenities_bathrooms.svg';
+import Map from '../../commons/Maps/Map';
 
 const FirstStep = () => {
     return (
@@ -52,11 +53,7 @@ const FirstStep = () => {
             <div className="flex flex-col mt-10 lg:mt-0 lg:w-6/12">
                 <div className="space-y-2 mb-10">
                     <h5 className="text-white">Ubicación: Av. Rivadavia 1492</h5>
-                    <img
-                        className="h-56 w-full"
-                        alt="map"
-                        src="https://depor.com/resizer/tWkgaFkRSfQvJrxQJP3zxVe35K4=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/DOSTJYG5PVBK3ELX3UXALXJYPQ.jpg"
-                    />
+                    <Map address="Av. Rivadavia 1492" />
                 </div>
                 <div className="space-y-2">
                     <h5 className="text-white">Galería de fotos</h5>
