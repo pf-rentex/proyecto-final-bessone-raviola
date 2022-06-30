@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-const shiftPropertySchema = new mongoose.Schema(
+const scheduleSchema = new mongoose.Schema(
     {
         propertyId: {
             type: Schema.Types.ObjectId,
@@ -32,5 +32,5 @@ const shiftPropertySchema = new mongoose.Schema(
     },
 );
 
-const shiftProperty = mongoose.model('ShiftProperty', shiftPropertySchema);
-export default shiftProperty;
+const schedule = mongoose.model('ShiftProperty', scheduleSchema);
+export default schedule;
