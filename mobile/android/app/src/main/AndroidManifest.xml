@@ -17,6 +17,9 @@
       android:usesCleartextTraffic="true"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+      <meta-data
+  android:name="com.google.android.geo.API_KEY"
+  android:value="@string/REACT_APP_GOOGLE_MAPS_API_KEY"/>
         <provider
                 android:name="com.vinzscam.reactnativefileviewer.FileProvider"
                 android:authorities="${applicationId}.provider"

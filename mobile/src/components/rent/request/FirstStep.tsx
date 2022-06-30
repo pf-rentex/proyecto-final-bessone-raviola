@@ -6,6 +6,7 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Map from '../../common/Maps/Map';
 
 const FirstStep = () => {
   const styles = StyleSheet.create({
@@ -50,8 +51,15 @@ const FirstStep = () => {
       marginVertical: 15,
     },
   });
+
+  const [mapVisible, setMapVisible] = useState(false);
   return (
     <View>
+      <Map
+        address='Capitan Giachino 1472, San Francisco, Córdoba'
+        mapVisible={mapVisible}
+        setMapVisible={setMapVisible}
+      />
       <View>
         <Text style={styles.title}>Hermoso Chalet</Text>
         <Text style={styles.description}>
@@ -103,7 +111,11 @@ const FirstStep = () => {
         <Text style={styles.title}>Ubicación</Text>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <Text style={{color: 'white'}}>San Francisco, Córdoba</Text>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              setMapVisible(true);
+            }}>
             <Icon
               style={{marginRight: 5, flex: 1}}
               name='location-pin'
