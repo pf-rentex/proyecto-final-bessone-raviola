@@ -14,6 +14,7 @@ interface IMapProps {
 
 const Map = ({address, mapVisible, setMapVisible}: IMapProps) => {
   const [center, setCenter] = useState({latitude: 0, longitude: 0});
+  const [zoom, setZoom] = useState({latitude: 0, longitude: 0});
 
   useEffect(() => {
     const getCoordinates = async () => {
@@ -21,8 +22,10 @@ const Map = ({address, mapVisible, setMapVisible}: IMapProps) => {
         const {lat, lng} = (await Geocode.fromAddress(address)).results[0]
           .geometry.location;
         setCenter({latitude: lat, longitude: lng});
+        setZoom({latitude: 0, longitude: 0});
       } catch {
         setCenter({latitude: 0, longitude: 0});
+        setZoom({latitude: 50, longitude: 50});
       }
     };
 
@@ -51,15 +54,15 @@ const Map = ({address, mapVisible, setMapVisible}: IMapProps) => {
           region={{
             latitude: center.latitude,
             longitude: center.longitude,
-            latitudeDelta: 0,
-            longitudeDelta: 0,
+            latitudeDelta: zoom.latitude,
+            longitudeDelta: zoom.longitude,
           }}>
           <Marker
             coordinate={{
               latitude: center.latitude,
               longitude: center.longitude,
             }}
-            title={'Test Marker'}
+            title={'Location'}
             description={address}
           />
         </MapView>
