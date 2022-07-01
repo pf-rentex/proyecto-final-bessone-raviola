@@ -51,7 +51,7 @@ const Header = ({ loadUser, isAuthenticated, setIsOpenSidebar, logout }: IHeader
                     </div>
                 </div>
 
-                <div className="flex flex-1 justify-end">
+                <div className="flex flex-1 justify-end items-center">
                     {!isAuthenticated && (
                         <>
                             <div className="mr-4">
