@@ -12,6 +12,7 @@ import Publication from '../screens/publication/Publication';
 import Claims from '../screens/claims/Claims';
 import Contracts from '../screens/rent/Contracts';
 import ContractDetails from '../screens/rent/ContractDetails';
+import Notifications from '../screens/notifications/Notifications';
 
 const Drawer = createDrawerNavigator();
 
@@ -34,13 +35,13 @@ const DrawerNavigator = ({isAuthenticated}: IDrawerProps) => {
           },
         }}>
         <Drawer.Screen
-          key='Login'
-          name='Login'
-          component={Login}
+          key='Onboarding'
+          name='Onboarding'
+          component={Onboarding}
           options={{
             drawerIcon: ({focused}) => (
-              <MaterialCommunityIcons
-                name='face'
+              <Ionicons
+                name='notifications'
                 size={24}
                 color={focused ? '#5FACF2' : 'white'}
               />
@@ -48,9 +49,9 @@ const DrawerNavigator = ({isAuthenticated}: IDrawerProps) => {
           }}
         />
         <Drawer.Screen
-          key='Onboarding'
-          name='Onboarding'
-          component={Onboarding}
+          key='Notifications'
+          name='Notifications'
+          component={Notifications}
           options={{
             drawerIcon: ({focused}) => (
               <Ionicons
