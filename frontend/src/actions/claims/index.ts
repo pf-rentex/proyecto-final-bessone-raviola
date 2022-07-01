@@ -15,13 +15,12 @@ import {
 } from '../types';
 import { getErrors } from '../error';
 import { IClaim } from '../../reducers/claims';
-import { AiFillCheckCircle, AiFillCloseCircle } from 'react-icons/all';
 
 export const getClaims = (filters?: any) => async (dispatch: Dispatch<any>) => {
     try {
         dispatch({ type: CLAIMS_LOADING });
         const { data } = await api.getClaims();
-        dispatch({ type: GET_CLAIMS, data: data });
+        dispatch({ type: GET_CLAIMS, data });
         dispatch({ type: CLEAR_ERRORS });
     } catch (error: any) {
         const { msg } = error.response.data;
@@ -41,7 +40,7 @@ export const getClaim = (id: string) => async (dispatch: Dispatch<any>) => {
         dispatch({ type: CLEAR_TOAST });
         dispatch({ type: CLAIMS_LOADING });
         const { data } = await api.getClaim(id);
-        dispatch({ type: GET_CLAIM, data: data });
+        dispatch({ type: GET_CLAIM, data });
         dispatch({ type: CLEAR_ERRORS });
     } catch (error: any) {
         const { msg } = error.response.data;
@@ -59,7 +58,7 @@ export const getClaim = (id: string) => async (dispatch: Dispatch<any>) => {
 export const deleteClaim = (id: string) => async (dispatch: Dispatch<any>) => {
     try {
         dispatch({ type: CLAIMS_LOADING });
-        const { data } = await api.deleteClaim(id);
+        await api.deleteClaim(id);
         dispatch({ type: DELETE_CLAIM, data: id });
         dispatch({ type: CLEAR_ERRORS });
         dispatch({ type: CLEAR_TOAST });
@@ -148,11 +147,11 @@ const formatData = (requestData: any) => {
 
     formData.append('bucketName', 'uploads-claim');
 
-    Object.keys(requestData).map((key) => {
+    Object.keys(requestData).forEach((key) => {
         if (!Array.isArray(requestData[key])) {
             formData.append(key, requestData[key]);
         } else {
-            requestData[key].map((file: any) => {
+            requestData[key].forEach((file: any) => {
                 formData.append(key, file);
             });
         }
