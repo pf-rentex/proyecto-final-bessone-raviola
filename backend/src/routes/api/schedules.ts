@@ -4,6 +4,7 @@ import {
     createSchedule,
     getSchedules,
     getSchedule,
+    updateSchedule,
     deleteSchedule,
 } from '../../controllers/schedules';
 import upload from '../../middlewares/upload';
@@ -35,6 +36,15 @@ router.get(
     '/:id',
     // auth,
     getSchedule,
+);
+
+//@route    Put api/schedules
+//@desc     Update Schedule
+//@access   Private
+router.put(
+    '/',
+    // auth,
+    updateSchedule,
 );
 
 //@route    Delete api/schedules/:id

@@ -56,6 +56,42 @@ const getSchedule = async (req: Request, res: Response) => {
     }
 };
 
+const updateSchedule = async (req: Request, res: Response) => {
+    const { id, propertyId, date, time, comments, status, userId } = req.body;
+
+    //Simple validation
+    if (!fieldsAreValid(req.body)) {
+        return res.status(400).json({ msg: 'Please enter all fields' });
+    }
+
+    //Check for existing Schedule
+    const existingSchedule = await Schedule.findOne({ _id: id });
+
+    if (!existingSchedule) {
+        return res.status(400).json({ msg: 'The Schedule does not exist' });
+    } else {
+        try {
+            await Schedule.updateOne(
+                { _id: id },
+                {
+                    propertyId: propertyId,
+                    date: date,
+                    time: time,
+                    comments: comments,
+                    status: status,
+                    userId: userId,
+                },
+            );
+
+            return res.status(200).json({ msg: 'Schedule updated' });
+        } catch (error) {
+            return res
+                .status(400)
+                .json({ msg: `Error registering schedule: ${error}` });
+        }
+    }
+};
+
 const deleteSchedule = async (req: Request, res: Response) => {
     const { id } = req.params;
 
@@ -75,4 +111,10 @@ const fieldsAreValid = (req): boolean => {
     );
 };
 
-export { createSchedule, getSchedules, getSchedule, deleteSchedule };
+export {
+    createSchedule,
+    getSchedules,
+    getSchedule,
+    updateSchedule,
+    deleteSchedule,
+};
