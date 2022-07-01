@@ -14,8 +14,10 @@ const Notification = (props: INotificationItem) => {
     container: {
       flexDirection: 'row',
       alignItems: 'center',
-      borderBottomWidth: wp(0.2),
-      borderColor: '#efefef',
+      backgroundColor: '#2d5578',
+      borderRadius: wp(2),
+      paddingHorizontal: wp(3),
+      marginVertical: hp(0.5),
     },
     dataContainer: {
       flex: 1,
@@ -24,7 +26,7 @@ const Notification = (props: INotificationItem) => {
     time: {
       fontSize: hp(1.3),
       fontWeight: 'bold',
-      color: '#2e2e2e',
+      color: '#e8e8e8',
       marginVertical: hp(1),
     },
     title: {
@@ -35,7 +37,7 @@ const Notification = (props: INotificationItem) => {
     },
     description: {
       fontSize: hp(1.6),
-      color: '#111',
+      color: '#93eff8',
     },
   });
 
