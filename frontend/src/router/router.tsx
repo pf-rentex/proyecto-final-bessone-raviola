@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Auth from '../views/auth/Auth';
 import Onboarding from '../views/auth/Onboarding';

@@ -91,7 +91,7 @@ const Publication = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col xl:flex-row xl:space-x-52 w-full justify-center lg:space-x-36 md:space-x-8 sm:space-x-4">
+            <div className="flex flex-col xl:flex-row xl:space-x-52 w-full justify-center">
                 <div className="xl:justify-start">
                     <CustomButton text="Visitar Propiedad" color="alt">
                         <BiCalendar className="w-5 h-5" fill="#7ED1FF" />
