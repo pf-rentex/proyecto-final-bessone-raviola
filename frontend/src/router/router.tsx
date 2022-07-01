@@ -18,29 +18,14 @@ import RentRequests from '../views/rent/request/Requests';
 import ContractDetails from '../views/contracts/ContractDetails';
 import Header from '../components/commons/header/Header';
 import Sidebar from '../components/commons/Sidebar/Sidebar';
-import Notifications from '../components/notifications/Notifications';
-import { useClickedOutside } from '../utils';
 
 export default function Router() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [showNotifications, setShowNotifications] = useState<boolean>(false);
-
-    const notificationsRef = useRef(null);
-
-    const toggleNotifications = () => setShowNotifications(!showNotifications);
-
-    useClickedOutside(notificationsRef, toggleNotifications);
 
     return (
         <BrowserRouter>
             <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
-            <Header setIsOpenSidebar={setIsOpen} toggleNotifications={toggleNotifications} />
-            {showNotifications && (
-                <div ref={notificationsRef}>
-                    {' '}
-                    <Notifications />{' '}
-                </div>
-            )}
+            <Header setIsOpenSidebar={setIsOpen} />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Auth />} />
