@@ -44,11 +44,11 @@ const ClaimDetails = ({
     useEffect(() => {
         getClaim(params.id);
         if (!claims.length) getClaims();
-    }, [params.id]);
+    }, [claims.length, getClaim, getClaims, params.id]);
 
     useEffect(() => {
         if (!isLoading) setClaimData(claim);
-    }, [isLoading]);
+    }, [claim, isLoading]);
 
     const formatDate = (date: Date) => {
         const year = date.getFullYear();
