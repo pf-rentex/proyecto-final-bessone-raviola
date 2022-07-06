@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Auth from '../views/auth/Auth';
 import Onboarding from '../views/auth/Onboarding';
 import PrivateRoute from './PrivateRoute';
@@ -18,6 +18,7 @@ import RentRequests from '../views/rent/request/Requests';
 import ContractDetails from '../views/contracts/ContractDetails';
 import Header from '../components/commons/header/Header';
 import Sidebar from '../components/commons/Sidebar/Sidebar';
+import NotFound from '../views/NotFound';
 
 export default function Router() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -42,6 +43,9 @@ export default function Router() {
                 <Route path="/contracts/:id" element={<ContractDetails />} />
                 <Route path="properties" element={<PrivateRoute component={<Properties />} />} />
                 <Route path="/properties/create" element={<PrivateRoute component={<CreateProperty />} />} />
+
+                <Route path="/404" element={<NotFound />} />
+                <Route path="*" element={<Navigate to="/404" />} />
             </Routes>
         </BrowserRouter>
     );
