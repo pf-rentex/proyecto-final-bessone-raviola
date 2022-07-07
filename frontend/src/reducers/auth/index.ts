@@ -83,7 +83,7 @@ const setProfileToStorage = (data: IProfileData) => {
     const { token } = data;
     try {
         if (token) {
-            localStorage.setItem('token', JSON.stringify(token));
+            localStorage.setItem('token', token);
         }
         localStorage.setItem('profile', JSON.stringify(data));
     } catch (e) {

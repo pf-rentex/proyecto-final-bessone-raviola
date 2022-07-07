@@ -17,20 +17,20 @@ const Map = ({address, mapVisible, setMapVisible}: IMapProps) => {
   const [zoom, setZoom] = useState({latitude: 0, longitude: 0});
 
   useEffect(() => {
-    const getCoordinates = async () => {
-      try {
-        const {lat, lng} = (await Geocode.fromAddress(address)).results[0]
-          .geometry.location;
-        setCenter({latitude: lat, longitude: lng});
-        setZoom({latitude: 0, longitude: 0});
-      } catch {
-        setCenter({latitude: 0, longitude: 0});
-        setZoom({latitude: 50, longitude: 50});
-      }
-    };
-
     getCoordinates();
   }, [address]);
+
+  const getCoordinates = async () => {
+    try {
+      const {lat, lng} = (await Geocode.fromAddress(address)).results[0]
+        .geometry.location;
+      setCenter({latitude: lat, longitude: lng});
+      setZoom({latitude: 0, longitude: 0});
+    } catch {
+      setCenter({latitude: 0, longitude: 0});
+      setZoom({latitude: 50, longitude: 50});
+    }
+  };
 
   const styles = StyleSheet.create({
     map: {
@@ -45,7 +45,7 @@ const Map = ({address, mapVisible, setMapVisible}: IMapProps) => {
         transparent={true}
         visible={mapVisible}
         onRequestClose={() => {
-          setMapVisible(!setMapVisible);
+          setMapVisible(!mapVisible);
         }}>
         <MapView
           style={styles.map}

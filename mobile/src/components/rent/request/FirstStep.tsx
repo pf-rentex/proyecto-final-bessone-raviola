@@ -53,6 +53,8 @@ const FirstStep = () => {
   });
 
   const [mapVisible, setMapVisible] = useState(false);
+
+  const toggleMapState = () => setMapVisible(!mapVisible);
   return (
     <View>
       <Map
@@ -111,11 +113,7 @@ const FirstStep = () => {
         <Text style={styles.title}>Ubicación</Text>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <Text style={{color: 'white'}}>San Francisco, Córdoba</Text>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              setMapVisible(true);
-            }}>
+          <TouchableOpacity style={styles.button} onPress={toggleMapState}>
             <Icon
               style={{marginRight: 5, flex: 1}}
               name='location-pin'
