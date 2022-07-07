@@ -26,19 +26,19 @@ const Map = ({ address }: IMapProps) => {
     }, []);
 
     useEffect(() => {
-        const getCoordinates = async () => {
-            try {
-                const { lat, lng } = (await Geocode.fromAddress(address)).results[0].geometry.location;
-                setCenter({ lat, lng });
-                setZoom(18);
-            } catch {
-                setCenter({ lat: 0, lng: 0 });
-                setZoom(0);
-            }
-        };
-
         getCoordinates();
     }, [address]);
+
+    const getCoordinates = async () => {
+        try {
+            const { lat, lng } = (await Geocode.fromAddress(address)).results[0].geometry.location;
+            setCenter({ lat, lng });
+            setZoom(18);
+        } catch {
+            setCenter({ lat: 0, lng: 0 });
+            setZoom(0);
+        }
+    };
 
     if (!isLoaded) return <div>Loading...</div>;
 
