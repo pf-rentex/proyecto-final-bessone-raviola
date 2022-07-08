@@ -32,5 +32,5 @@ const scheduleSchema = new mongoose.Schema(
     },
 );
 
-const schedule = mongoose.model('ShiftProperty', scheduleSchema);
+const schedule = mongoose.model('Schedule', scheduleSchema);
 export default schedule;

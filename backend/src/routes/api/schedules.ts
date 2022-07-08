@@ -7,7 +7,6 @@ import {
     updateSchedule,
     deleteSchedule,
 } from '../../controllers/schedules';
-import upload from '../../middlewares/upload';
 
 const router = express.Router();
 

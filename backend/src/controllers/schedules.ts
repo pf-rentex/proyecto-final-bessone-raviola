@@ -60,7 +60,7 @@ const updateSchedule = async (req: Request, res: Response) => {
     const { id, propertyId, date, time, comments, status, userId } = req.body;
 
     //Simple validation
-    if (!fieldsAreValid(req.body)) {
+    if (!fieldsAreValid(req)) {
         return res.status(400).json({ msg: 'Please enter all fields' });
     }
 
