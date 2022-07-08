@@ -6,12 +6,7 @@ import SimplexNoise from 'simplex-noise';
 
 type Size = 'small' | 'medium' | 'large' | 'x-large';
 
-const Blob = (props: {
-    size: Size;
-    color: string;
-    class: string;
-    opacity: string;
-}) => {
+const Blob = (props: { size: Size; color: string; class: string; opacity: string }) => {
     // used to set our custom property values
     const id = new Date().getUTCMilliseconds();
     let noiseStep = 0.002;
@@ -81,13 +76,7 @@ const Blob = (props: {
         requestAnimationFrame(animate);
     };
 
-    const map = (
-        n: number,
-        start1: number,
-        end1: number,
-        start2: number,
-        end2: number,
-    ) => {
+    const map = (n: number, start1: number, end1: number, start2: number, end2: number) => {
         return ((n - start1) / (end1 - start1)) * (end2 - start2) + start2;
     };
 
@@ -110,19 +99,13 @@ const Blob = (props: {
             case 'x-large':
                 return 800;
             default:
-                return;
+                return 500;
         }
     };
 
     return (
         <div className={'absolute z-0 ' + props.class}>
-            <svg
-                width={getSize()}
-                height={getSize()}
-                viewBox="0 0 200 200"
-                fill="none"
-                preserveAspectRatio="none"
-            >
+            <svg width={getSize()} height={getSize()} viewBox="0 0 200 200" fill="none" preserveAspectRatio="none">
                 <path
                     id={'blob-' + id}
                     fillRule="evenodd"
