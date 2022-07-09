@@ -2,6 +2,7 @@ import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import Geocode from 'react-geocode';
 import { useEffect, useState } from 'react';
 import React from 'react';
+import Loader from '../Loader';
 
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '');
 
@@ -16,7 +17,7 @@ const Map = ({ address }: IMapProps) => {
     const [map, setMap] = React.useState(null);
 
     const onLoad = React.useCallback(
-        function callback(map) {
+        (map) => {
             const bounds = new window.google.maps.LatLngBounds(center);
             map.fitBounds(bounds);
             setMap(map);
@@ -24,7 +25,7 @@ const Map = ({ address }: IMapProps) => {
         [center],
     );
 
-    const onUnmount = React.useCallback(function callback(map) {
+    const onUnmount = React.useCallback((map) => {
         setMap(null);
     }, []);
 
@@ -43,7 +44,7 @@ const Map = ({ address }: IMapProps) => {
         getCoordinates();
     }, [address]);
 
-    if (!isLoaded) return <div>Loading...</div>;
+    if (!isLoaded && !map) return <Loader />;
 
     return (
         <GoogleMap
