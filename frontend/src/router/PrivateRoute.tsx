@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { IProfileData } from '../reducers/auth';
 import { FaCircleNotch } from 'react-icons/all';
 import { loadUser } from '../actions/auth';
@@ -12,10 +12,12 @@ interface IPrivateRouteProps {
     profile: null | IProfileData;
     isAuthenticated: boolean;
     isLoading: boolean;
+    redirect?: string;
 }
 
 const PrivateRoute = (props: IPrivateRouteProps) => {
-    const { component, isAuthenticated, isLoading, loadUser } = props;
+    const { component, isAuthenticated, isLoading, loadUser, redirect } = props;
+    const navigate = useNavigate();
     useEffect(() => {
         if (!isAuthenticated && isLoading) {
             loadUser();
@@ -33,7 +35,8 @@ const PrivateRoute = (props: IPrivateRouteProps) => {
     if (isAuthenticated) {
         return component;
     }
-    return <Navigate to="/" />;
+    navigate('/login', { state: { redirect } });
+    return <></>;
 };
 
 const mapStateToProps = (state: any) => ({

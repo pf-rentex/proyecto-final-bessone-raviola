@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ReactComponent as LoginLogo } from '../../assets/realtor.svg';
 import { ReactComponent as SignupLogo } from '../../assets/SignupBkg.svg';
 import { ReactComponent as Footer } from '../../assets/waves.svg';
@@ -6,17 +6,19 @@ import Blob from '../../components/commons/Blob';
 import LoginBox from '../../components/auth/LoginBox';
 import SignupBox from '../../components/auth/SignupBox';
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const Auth = ({ profile }: { profile: string }) => {
     const [isSignup, setIsSignup] = useState<boolean>(false);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    useEffect(() => {
-        if (profile) {
-            navigate('/onboarding');
-        }
-    }, [profile, navigate]);
+    //Implementar una vez que contemos con booleano isOnboarded
+
+    // useEffect(() => {
+    //     if (profile) {
+    //         navigate('/onboarding');
+    //     }
+    // }, [profile, navigate]);
 
     const toggleMode = () => {
         setIsSignup(!isSignup);

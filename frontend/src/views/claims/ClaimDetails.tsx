@@ -19,6 +19,7 @@ import { getClaim, updateClaim, getClaims } from '../../actions/claims';
 import { IClaim, ClaimCategory, ClaimStatus } from '../../reducers/claims';
 import Loader from '../../components/commons/Loader';
 import { useNavigate } from 'react-router-dom';
+import { IError } from '../../reducers/error';
 
 interface IClaimDetailsProps {
     getClaim: Function;
@@ -28,6 +29,7 @@ interface IClaimDetailsProps {
     isUpdating: boolean;
     claims: Array<IClaim>;
     getClaims: Function;
+    error?: IError;
 }
 
 const ClaimDetails = ({
@@ -38,6 +40,7 @@ const ClaimDetails = ({
     isUpdating,
     claims,
     getClaims,
+    error,
 }: IClaimDetailsProps) => {
     const params = useParams();
     const navigate = useNavigate();
@@ -49,6 +52,11 @@ const ClaimDetails = ({
     useEffect(() => {
         if (!isLoading) setClaimData(claim);
     }, [claim, isLoading]);
+
+    //Usar history.push en Claim Action no funcionó, tampoco usar try catch en el useEffect de arriba donde llama a getClaim *shrug*
+    useEffect(() => {
+        if (error?.status) navigate('/404');
+    }, [error, navigate]);
 
     const formatDate = (date: Date) => {
         const year = date.getFullYear();
@@ -314,6 +322,7 @@ const mapStateToProps = (state: any) => ({
     isLoading: state.claims.isLoading,
     isUpdating: state.claims.isUpdating,
     claims: state.claims.claims,
+    error: state.error,
 });
 
 export default connect(mapStateToProps, { getClaim, updateClaim, getClaims })(ClaimDetails);

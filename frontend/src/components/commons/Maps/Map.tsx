@@ -15,30 +15,33 @@ const Map = ({ address }: IMapProps) => {
     const [zoom, setZoom] = useState(0);
     const [map, setMap] = React.useState(null);
 
-    const onLoad = React.useCallback(function callback(map) {
-        const bounds = new window.google.maps.LatLngBounds(center);
-        map.fitBounds(bounds);
-        setMap(map);
-    }, []);
+    const onLoad = React.useCallback(
+        function callback(map) {
+            const bounds = new window.google.maps.LatLngBounds(center);
+            map.fitBounds(bounds);
+            setMap(map);
+        },
+        [center],
+    );
 
     const onUnmount = React.useCallback(function callback(map) {
         setMap(null);
     }, []);
 
     useEffect(() => {
+        const getCoordinates = async () => {
+            try {
+                const { lat, lng } = (await Geocode.fromAddress(address)).results[0].geometry.location;
+                setCenter({ lat, lng });
+                setZoom(18);
+            } catch {
+                setCenter({ lat: 0, lng: 0 });
+                setZoom(0);
+            }
+        };
+
         getCoordinates();
     }, [address]);
-
-    const getCoordinates = async () => {
-        try {
-            const { lat, lng } = (await Geocode.fromAddress(address)).results[0].geometry.location;
-            setCenter({ lat, lng });
-            setZoom(18);
-        } catch {
-            setCenter({ lat: 0, lng: 0 });
-            setZoom(0);
-        }
-    };
 
     if (!isLoaded) return <div>Loading...</div>;
 

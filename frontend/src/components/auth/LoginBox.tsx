@@ -8,7 +8,7 @@ import { loadUser, login } from '../../actions/auth';
 import { LOGIN_FAIL } from '../../actions/types';
 import { clearErrors, getErrors } from '../../actions/error';
 import { IError } from '../../reducers/error';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface ILoginBoxProps {
     onToggleMode: Function;
@@ -43,6 +43,8 @@ const LoginBox = ({
 }: ILoginBoxProps) => {
     const [form, setForm] = useState<ILoginFormData>(initialFormData);
     const navigate = useNavigate();
+    const { state } = useLocation();
+    const { redirect }: any = state || '';
 
     const onFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         clearErrors();
@@ -56,14 +58,13 @@ const LoginBox = ({
 
     useEffect(() => {
         if (isAuthenticated) {
-            navigate('/onboarding');
+            navigate(`/${redirect}`);
         }
-    }, [isAuthenticated, navigate]);
+    }, [isAuthenticated, navigate, redirect]);
 
     const onSubmit = () => {
         if (isValid()) {
             login(form);
-            navigate('/onboarding');
         } else {
             getErrors('Rellena todos los campos', 400, LOGIN_FAIL);
         }
@@ -86,10 +87,7 @@ const LoginBox = ({
                     <CustomButton color="secondary" text="Sign in with Google">
                         <AiFillGoogleCircle />
                     </CustomButton>
-                    <CustomButton
-                        color="secondary"
-                        text="Sign in with Facebook"
-                    >
+                    <CustomButton color="secondary" text="Sign in with Facebook">
                         <FaFacebook />
                     </CustomButton>
                 </div>
@@ -97,9 +95,7 @@ const LoginBox = ({
             <div className="flex-auto px-4 lg:px-10 pt-0">
                 <span className="flex items-center justify-center space-x-3">
                     <span className="h-px bg-gray-400 flex-1"></span>
-                    <span className="font-normal text-sm text-gray-600">
-                        Or sign in with credentials
-                    </span>
+                    <span className="font-normal text-sm text-gray-600">Or sign in with credentials</span>
                     <span className="h-px bg-gray-400 flex-1"></span>
                 </span>
                 <form>
@@ -125,23 +121,16 @@ const LoginBox = ({
                     </div>
                     {error.msg.length > 0 && (
                         <div className="w-full text-left">
-                            <span className="text-red-700 font-semibold text-xs text-left">
-                                {error.msg}
-                            </span>
+                            <span className="text-red-700 font-semibold text-xs text-left">{error.msg}</span>
                         </div>
                     )}
                     <div className="text-center mt-10">
                         <CustomButton
                             text="Sign in"
                             callback={onSubmit}
-                            disabled={
-                                isLoading && (!error || error.msg.length === 0)
-                            }
+                            disabled={isLoading && (!error || error.msg.length === 0)}
                         >
-                            {isLoading &&
-                                (!error || error.msg.length === 0) && (
-                                    <Spinner />
-                                )}
+                            {isLoading && (!error || error.msg.length === 0) && <Spinner />}
                         </CustomButton>
                         <p className="text-sm text-gray-700">
                             Don't have an account?

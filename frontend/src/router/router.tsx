@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Auth from '../views/auth/Auth';
 import Onboarding from '../views/auth/Onboarding';
@@ -30,19 +30,34 @@ export default function Router() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Auth />} />
-                <Route path="/onboarding" element={<PrivateRoute component={<Onboarding />} />} />
-                <Route path="/profile" element={<PrivateRoute component={<UserProfile />} />} />
+                <Route path="/onboarding" element={<PrivateRoute redirect="onboarding" component={<Onboarding />} />} />
+                <Route path="/profile" element={<PrivateRoute redirect="profile" component={<UserProfile />} />} />
                 <Route path="/search" element={<Search />} />
-                <Route path="/rent/request" element={<RequestForm />} />
+                <Route
+                    path="/rent/request"
+                    element={<PrivateRoute redirect="rent/request" component={<RequestForm />} />}
+                />
                 <Route path="/publication/:id" element={<Publication />} />
-                <Route path="/claims" element={<Claims />} />
-                <Route path="/claims/create" element={<CreateClaim />} />
-                <Route path="/claims/:id" element={<ClaimDetails />} />
-                <Route path="/contracts" element={<Contracts />} />
-                <Route path="/rent/requests" element={<RentRequests />} />
-                <Route path="/contracts/:id" element={<ContractDetails />} />
-                <Route path="properties" element={<PrivateRoute component={<Properties />} />} />
-                <Route path="/properties/create" element={<PrivateRoute component={<CreateProperty />} />} />
+                <Route path="/claims" element={<PrivateRoute redirect="claims" component={<Claims />} />} />
+                <Route
+                    path="/claims/create"
+                    element={<PrivateRoute redirect="claims/create" component={<CreateClaim />} />}
+                />
+                <Route path="/claims/:id" element={<PrivateRoute redirect="claims" component={<ClaimDetails />} />} />
+                <Route path="/contracts" element={<PrivateRoute redirect="contracts" component={<Contracts />} />} />
+                <Route
+                    path="/rent/requests"
+                    element={<PrivateRoute redirect="rent/requests" component={<RentRequests />} />}
+                />
+                <Route
+                    path="/contracts/:id"
+                    element={<PrivateRoute redirect="contracts" component={<ContractDetails />} />}
+                />
+                <Route path="/properties" element={<PrivateRoute redirect="properties" component={<Properties />} />} />
+                <Route
+                    path="/properties/create"
+                    element={<PrivateRoute redirect="properties/create" component={<CreateProperty />} />}
+                />
 
                 <Route path="/404" element={<NotFound />} />
                 <Route path="*" element={<Navigate to="/404" />} />
