@@ -20,7 +20,13 @@ export default function Router() {
                         <Route
                             key={index}
                             path={route.path}
-                            element={route.isPrivate ? <PrivateRoute component={route.component} /> : route.component}
+                            element={
+                                route.isPrivate ? (
+                                    <PrivateRoute component={route.component} redirect={route.path} />
+                                ) : (
+                                    route.component
+                                )
+                            }
                         />
                     );
                 })}

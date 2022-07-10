@@ -58,7 +58,7 @@ const LoginBox = ({
 
     useEffect(() => {
         if (isAuthenticated) {
-            navigate(`/${redirect}`);
+            navigate(redirect);
         }
     }, [isAuthenticated, navigate, redirect]);
 
