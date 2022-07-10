@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import Header from '../components/commons/header/Header';
 import Sidebar from '../components/commons/Sidebar/Sidebar';
+import NotFound from '../views/NotFound';
 
 import routes from './routes';
 
@@ -23,6 +24,8 @@ export default function Router() {
                         />
                     );
                 })}
+                <Route path="/404" element={<NotFound />} />
+                <Route path="*" element={<Navigate to="/404" />} />
             </Routes>
         </BrowserRouter>
     );

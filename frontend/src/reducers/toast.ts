@@ -1,4 +1,3 @@
-import React from 'react';
 import { SHOW_TOAST, CLEAR_TOAST } from '../actions/types';
 
 export interface IToast {
