@@ -3,57 +3,78 @@
 exports[`Header test cases renders component 1`] = `
 <div>
   <div
-    class="flex flex-row sticky top-0 z-20 w-full items-center h-20 overflow-hidden"
+    class="fixed sticky top-0 z-20 w-full items-center h-20 overflow-hidden"
     style="background-color: rgb(32, 50, 58);"
   >
     <div
-      class="flex flex-shrink items-center"
+      class="flex h-full items-center"
     >
       <div
-        class="ml-5"
-      >
-        <svg
-          class="text-white text-3xl cursor-pointer"
-          data-testid="sidebar-toggle"
-          fill="currentColor"
-          height="1em"
-          stroke="currentColor"
-          stroke-width="0"
-          viewBox="0 0 512 512"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z"
-          />
-        </svg>
-      </div>
-      <div
-        class="ml-6 cursor-pointer"
-      >
-        <svg
-          class="w-40 mx-4 md:flex hidden"
-          data-testid="logo"
-        >
-          logo_header.svg
-        </svg>
-        <svg
-          class="visible flex md:hidden w-10 mx-4"
-        >
-          favicon.svg
-        </svg>
-      </div>
-    </div>
-    <div
-      class="flex flex-1 justify-end items-center"
-    >
-      <div
-        class="mr-5"
+        class="flex items-center"
       >
         <div
-          class="flex"
+          class="ml-5"
         >
-          <button>
+          <svg
+            class="text-white text-3xl cursor-pointer"
+            data-testid="sidebar-toggle"
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 512 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z"
+            />
+          </svg>
+        </div>
+        <div
+          class="ml-6 cursor-pointer"
+        >
+          <svg
+            class="w-40 mx-4 md:flex hidden"
+            data-testid="logo"
+          >
+            logo_header.svg
+          </svg>
+          <svg
+            class="visible flex md:hidden w-10 mx-4"
+          >
+            favicon.svg
+          </svg>
+        </div>
+      </div>
+      <div
+        class="flex flex-1 justify-end items-center"
+      >
+        <div
+          class="flex flex-1 justify-end"
+        >
+          <button
+            class="mx-3"
+          >
+            <svg
+              color="white"
+              fill="currentColor"
+              height="25"
+              stroke="currentColor"
+              stroke-width="0"
+              style="color: white;"
+              viewBox="0 0 448 512"
+              width="25"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z"
+              />
+            </svg>
+          </button>
+          <button
+            class="mx-3"
+          >
             <img
               alt="Profile"
               src="https://creazilla-store.fra1.digitaloceanspaces.com/emojis/43191/blue-circle-emoji-clipart-md.png"
@@ -61,7 +82,7 @@ exports[`Header test cases renders component 1`] = `
             />
           </button>
           <button
-            class="text-white "
+            class="text-white mx-3"
           >
             Cerrar sesión
           </button>
