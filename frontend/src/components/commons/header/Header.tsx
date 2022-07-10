@@ -6,7 +6,7 @@ import CustomButton from '../Button/CustomButton';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loadUser, logout } from '../../../actions/auth';
-import { FaBell } from 'react-icons/all';
+import { FaBell } from 'react-icons/fa';
 import { useClickedOutside } from '../../../utils';
 import Notifications from '../../notifications/Notifications';
 

@@ -39,55 +39,38 @@ exports[`Sidebar renders component 1`] = `
           class="px-3 py-5"
         >
           <div
-            class="flex flex-col"
+            class="flex justify-between items-center cursor-pointer select-none"
           >
-            <button
-              class="box-border appearance-none cursor-pointer focus:outline-none flex items-center justify-between"
-              data-testid="button"
+            Publicaciones
+            <svg
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 16 16"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <p
-                class="inline-block text-footnote light"
-              >
-                Mis inmuebles
-              </p>
-              <svg
-                class="transform duration-300 ease inline-block text-alt w-7 h-7"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                stroke-width="0"
-                viewBox="0 0 512 512"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zM273 369.9l135.5-135.5c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L256 285.1 154.4 183.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L239 369.9c9.4 9.4 24.6 9.4 34 0z"
-                />
-              </svg>
-            </button>
-            <div
-              class="overflow-hidden transition-max-height duration-300 ease-in-out"
-              style="max-height: 0px;"
+              <path
+                clip-rule="evenodd"
+                d="M16 8A8 8 0 110 8a8 8 0 0116 0zM8.5 4a.5.5 0 00-1 0v3.5H4a.5.5 0 000 1h3.5V12a.5.5 0 001 0V8.5H12a.5.5 0 000-1H8.5V4z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </li>
+        <li
+          class="px-3 py-5"
+        >
+          <div
+            class="flex justify-between items-center cursor-pointer select-none"
+          >
+            Reclamos
+            <span
+              class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none bg-red-500 rounded-full"
             >
-              <div
-                class="pt-5"
-              >
-                <ul
-                  class="font-thin space-y-5"
-                >
-                  <li
-                    class="flex justify-between"
-                  >
-                    Opción 1
-                  </li>
-                  <li
-                    class="flex justify-between"
-                  >
-                    Opción 2
-                  </li>
-                </ul>
-              </div>
-            </div>
+              4
+            </span>
           </div>
         </li>
         <li
@@ -128,14 +111,39 @@ exports[`Sidebar renders component 1`] = `
                 class="pt-5"
               >
                 <ul
-                  class="font-thin space-y-5"
+                  class="font-thin space-y-5 pl-3 pr-1"
                 >
                   <li
-                    class="flex justify-between"
+                    class="flex justify-between cursor-pointer select-none"
                   >
-                    Ver contratos
+                    Crear
                     <svg
-                      class="text-alt w-7 h-7"
+                      class="w-5 h-5"
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      t="1551322312294"
+                      version="1.1"
+                      viewBox="0 0 1024 1024"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <defs />
+                      <path
+                        d="M474 152m8 0l60 0q8 0 8 8l0 704q0 8-8 8l-60 0q-8 0-8-8l0-704q0-8 8-8Z"
+                      />
+                      <path
+                        d="M168 474m8 0l672 0q8 0 8 8l0 60q0 8-8 8l-672 0q-8 0-8-8l0-60q0-8 8-8Z"
+                      />
+                    </svg>
+                  </li>
+                  <li
+                    class="flex justify-between cursor-pointer select-none"
+                  >
+                    Ver todos
+                    <svg
+                      class=" w-5 h-5"
                       fill="currentColor"
                       height="1em"
                       stroke="currentColor"
@@ -149,28 +157,6 @@ exports[`Sidebar renders component 1`] = `
                       />
                     </svg>
                   </li>
-                   
-                  <li
-                    class="flex justify-between"
-                  >
-                    Crear nuevo 
-                    <svg
-                      class="text-alt w-7 h-7"
-                      fill="currentColor"
-                      height="1em"
-                      stroke="currentColor"
-                      stroke-width="0"
-                      viewBox="0 0 16 16"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clip-rule="evenodd"
-                        d="M16 8A8 8 0 110 8a8 8 0 0116 0zM8.5 4a.5.5 0 00-1 0v3.5H4a.5.5 0 000 1h3.5V12a.5.5 0 001 0V8.5H12a.5.5 0 000-1H8.5V4z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </li>
                 </ul>
               </div>
             </div>
@@ -179,7 +165,26 @@ exports[`Sidebar renders component 1`] = `
         <li
           class="px-3 py-5"
         >
-          Reclamos
+          <div
+            class="flex justify-between items-center cursor-pointer select-none"
+          >
+            Propiedades
+            <svg
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 16 16"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M16 8A8 8 0 110 8a8 8 0 0116 0zM8.5 4a.5.5 0 00-1 0v3.5H4a.5.5 0 000 1h3.5V12a.5.5 0 001 0V8.5H12a.5.5 0 000-1H8.5V4z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
         </li>
       </ul>
     </div>
