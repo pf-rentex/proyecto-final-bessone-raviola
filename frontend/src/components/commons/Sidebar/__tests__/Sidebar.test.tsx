@@ -1,33 +1,39 @@
-import React from "react";
-import {fireEvent, render} from "@testing-library/react";
-import Sidebar from "../Sidebar";
+import React from 'react';
+import { fireEvent, render } from '@testing-library/react';
+import Sidebar from '../Sidebar';
 
-describe("Sidebar", () => {
+const mockedUsedNavigate = jest.fn();
 
-  test("renders component", () => {
-    const wrapper = render(<Sidebar isOpen={false} setIsOpen={() => {}}/>);
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => mockedUsedNavigate,
+}));
 
-    expect(wrapper.container).toBeInTheDocument();
-    expect(wrapper.container).toMatchSnapshot();
-  });
+describe('Sidebar', () => {
+    test('renders component', () => {
+        const wrapper = render(<Sidebar isOpen={false} setIsOpen={() => {}} />);
 
-  test("Sidebar has corresponding classes when closed and open", () => {
-    const wrapper = render(<Sidebar isOpen={false} setIsOpen={() => {}}/>);
+        expect(wrapper.container).toBeInTheDocument();
+        expect(wrapper.container).toMatchSnapshot();
+    });
 
-    expect(wrapper.getByTestId('sidebar')).toHaveClass('-translate-x-full');
+    test('Sidebar has corresponding classes when closed and open', () => {
+        const wrapper = render(<Sidebar isOpen={false} setIsOpen={() => {}} />);
 
-    wrapper.rerender(<Sidebar isOpen={true} setIsOpen={() => {}}/>);
+        expect(wrapper.getByTestId('sidebar')).toHaveClass('-translate-x-full');
 
-    expect(wrapper.getByTestId('sidebar')).toHaveClass('translate-x-0');
-  });
+        wrapper.rerender(<Sidebar isOpen={true} setIsOpen={() => {}} />);
 
-  test('Sidebar initially open is closed by clicking outside', () => {
-    const setIsOpen = jest.fn();
-    const wrapper = render(<Sidebar isOpen={true} setIsOpen={setIsOpen}/>);
+        expect(wrapper.getByTestId('sidebar')).toHaveClass('translate-x-0');
+    });
 
-    expect(wrapper.getByTestId('sidebar')).toHaveClass('translate-x-0');
-    fireEvent.mouseDown(document);
+    test('Sidebar initially open is closed by clicking outside', () => {
+        const setIsOpen = jest.fn();
+        const wrapper = render(<Sidebar isOpen={true} setIsOpen={setIsOpen} />);
 
-    expect(setIsOpen).toHaveBeenCalledWith(false);
-  });
+        expect(wrapper.getByTestId('sidebar')).toHaveClass('translate-x-0');
+        fireEvent.mouseDown(document);
+
+        expect(setIsOpen).toHaveBeenCalledWith(false);
+    });
 });
