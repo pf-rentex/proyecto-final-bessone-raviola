@@ -24,6 +24,12 @@ export const getProperties = (query: string) => {
     return API.get(`/api/properties?${query}`);
 };
 
+export const createSchedule = (formData: any) => {
+    return API.post(`/api/schedules`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
+};
+
 export const checkContributor = (cuit: string) => API.post('/api/afip/check_contributor', { cuit });
 
 export const createRentalRequest = (formData: any) =>

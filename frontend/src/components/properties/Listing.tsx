@@ -6,7 +6,7 @@ import { MdLocationOn, FaSign } from 'react-icons/all';
 
 const Listing = ({ onOpenVisitDialog }: { onOpenVisitDialog: () => void }) => {
     return (
-        <section className="bg-white m-5 rounded cursor-pointer">
+        <section className="bg-white m-5 rounded cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out">
             <div className="flex flex-col xl:flex-row">
                 <div className="w-full xl:w-4/12 2xl:w-3/12">
                     <img
