@@ -10,13 +10,13 @@ const createSchedule = async (req: Request, res: Response) => {
     }
 
     //Check existing Schedule
-    const existingShift = await Schedule.findOne({
+    const existingSchedule = await Schedule.findOne({
         propertyId: propertyId,
         date: date,
         time: time,
     });
 
-    if (existingShift)
+    if (existingSchedule)
         return res.status(400).json({ msg: 'Schedule Already exists' });
 
     const newSchedule = new Schedule({

@@ -4,10 +4,21 @@ import { ReactComponent as Bathrooms } from '../../assets/amenities_bathrooms.sv
 import CustomButton from '../commons/Button/CustomButton';
 import Modal from '../commons/Modal/Modal';
 import { RiSendPlane2Fill } from 'react-icons/all';
+import { createSchedule } from '../../actions/schedules';
+import { connect } from 'react-redux';
+import Loader from '../../components/commons/Loader';
+import { ISchedule } from '../../reducers/schedules';
 import React, { useState } from 'react';
 
-const Visit = ({ onClose }: { onClose: () => void }) => {
-    const schedules: { time: string; period: string }[] = [
+interface IVisitProps {
+    createSchedule: Function;
+    onClose: () => void;
+    // schedules: Array<ISchedule>;
+    // isLoading: boolean;
+}
+
+const Visit = ({ createSchedule, onClose }: IVisitProps) => {
+    const scheduleTimes: { time: string; period: string }[] = [
         { time: '09:00', period: 'AM' },
         {
             time: '10:30',
@@ -17,10 +28,10 @@ const Visit = ({ onClose }: { onClose: () => void }) => {
         { time: '17:30', period: 'PM' },
     ];
 
-    const [selectedSchedule, setSelectedSchedule] = useState(schedules[0]);
+    const [selectedSchedule, setSelectedSchedule] = useState(scheduleTimes[0]);
 
-    const selectSchedule = (schedule: { time: string; period: string }) => {
-        setSelectedSchedule(schedule);
+    const selectSchedule = (scheduleTime: { time: string; period: string }) => {
+        setSelectedSchedule(scheduleTime);
     };
 
     return (
@@ -92,8 +103,8 @@ const Visit = ({ onClose }: { onClose: () => void }) => {
                         <div className="flex flex-col mx-3">
                             <h3 className="font-semibold">Horarios disponibles</h3>
                             <div className="my-6 px-3">
-                                {schedules.map((schedule, index) => {
-                                    const { time, period } = schedule;
+                                {scheduleTimes.map((scheduleTime, index) => {
+                                    const { time, period } = scheduleTime;
                                     const isSelected = selectedSchedule.time === time;
                                     const classes = `rounded px-3 py-1 m-2 cursor-pointer ${
                                         isSelected ? 'bg-blue-800 shadow-inner-xl' : 'bg-gray-200 shadow-md'
@@ -103,7 +114,7 @@ const Visit = ({ onClose }: { onClose: () => void }) => {
                                         <div
                                             key={index + time}
                                             className={classes}
-                                            onClick={() => selectSchedule(schedule)}
+                                            onClick={() => selectSchedule(scheduleTime)}
                                         >
                                             <div className={`text-lg text-center ${isSelected ? 'text-gray-100' : ''}`}>
                                                 {time}
@@ -129,4 +140,9 @@ const Visit = ({ onClose }: { onClose: () => void }) => {
     );
 };
 
-export default Visit;
+const mapStateToProps = (state: any) => ({
+    // schedules: state.schedules.schedules,
+    // isLoading: state.schedules.isLoading,
+});
+
+export default connect(mapStateToProps, { createSchedule })(Visit);
