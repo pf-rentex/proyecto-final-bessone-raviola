@@ -5,6 +5,7 @@ import { getErrors } from '../error';
 import { ISchedule } from '../../reducers/schedules/index';
 
 export const createSchedule = (formData?: ISchedule) => async (dispatch: Dispatch<any>) => {
+    console.log(formData);
     try {
         dispatch({ type: SCHEDULES_LOADING });
         const { data } = await api.createSchedule(formData);

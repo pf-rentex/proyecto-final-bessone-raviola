@@ -6,18 +6,17 @@ import Modal from '../commons/Modal/Modal';
 import { RiSendPlane2Fill } from 'react-icons/all';
 import { createSchedule } from '../../actions/schedules';
 import { connect } from 'react-redux';
-import Loader from '../../components/commons/Loader';
-import { ISchedule } from '../../reducers/schedules';
+import { ISchedule, ScheduleStatus } from '../../reducers/schedules';
 import React, { useState } from 'react';
 
 interface IVisitProps {
     createSchedule: Function;
     onClose: () => void;
     // schedules: Array<ISchedule>;
-    // isLoading: boolean;
+    isLoading: boolean;
 }
 
-const Visit = ({ createSchedule, onClose }: IVisitProps) => {
+const Visit = ({ createSchedule, onClose, isLoading }: IVisitProps) => {
     const scheduleTimes: { time: string; period: string }[] = [
         { time: '09:00', period: 'AM' },
         {
@@ -30,8 +29,30 @@ const Visit = ({ createSchedule, onClose }: IVisitProps) => {
 
     const [selectedSchedule, setSelectedSchedule] = useState(scheduleTimes[0]);
 
+    const [visitData, setVisitData] = useState<ISchedule>({
+        propertyId: '619947dd6f77679edc5bd7ec', // Change later
+        date: new Date(),
+        time: '',
+        comments: '',
+        status: ScheduleStatus.Pending,
+        userId: '6158ee0fbee2d07b0bcdb2f4', // Change later
+    });
+
+    const handleChange = (e: any) => {
+        setVisitData({ ...visitData, [e.target.name]: e.target.value });
+        console.log(visitData);
+    };
+
     const selectSchedule = (scheduleTime: { time: string; period: string }) => {
         setSelectedSchedule(scheduleTime);
+        setVisitData({
+            ...visitData,
+            time: scheduleTime.time,
+            date: new Date(
+                0,
+                //scheduleTime.period -> when datepicker library work properly, remove zero above
+            ),
+        });
     };
 
     return (
@@ -39,9 +60,12 @@ const Visit = ({ createSchedule, onClose }: IVisitProps) => {
             title="Organizar visita"
             action={{
                 text: 'Enviar solicitud',
-                callback: () => {},
+                callback: () => {
+                    createSchedule(visitData);
+                },
                 icon: <RiSendPlane2Fill className="text-alt" color={'#7bf3ff'} />,
             }}
+            loading={isLoading}
             onClose={onClose}
             content={
                 <>
@@ -127,10 +151,14 @@ const Visit = ({ createSchedule, onClose }: IVisitProps) => {
                         </div>
                         <div className="flex-1 mx-3 ">
                             <textarea
-                                name=""
+                                name="comments"
                                 id=""
+                                value={visitData.comments}
                                 className="bg-gray-200 p-4 rounded w-full h-3/6 max-h-48	"
                                 placeholder="Aclaración"
+                                onChange={(e) => {
+                                    handleChange(e);
+                                }}
                             ></textarea>
                         </div>
                     </div>
@@ -142,7 +170,7 @@ const Visit = ({ createSchedule, onClose }: IVisitProps) => {
 
 const mapStateToProps = (state: any) => ({
     // schedules: state.schedules.schedules,
-    // isLoading: state.schedules.isLoading,
+    isLoading: state.schedules.isLoading,
 });
 
 export default connect(mapStateToProps, { createSchedule })(Visit);

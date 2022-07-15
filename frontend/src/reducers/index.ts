@@ -6,6 +6,7 @@ import properties from './properties';
 import rent from './rent';
 import claims from './claims';
 import toast from './toast';
+import schedules from './schedules';
 
 export default combineReducers({
     auth,
@@ -14,4 +15,5 @@ export default combineReducers({
     rent,
     claims,
     toast,
+    schedules,
 });

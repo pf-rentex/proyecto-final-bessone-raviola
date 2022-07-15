@@ -25,9 +25,7 @@ export const getProperties = (query: string) => {
 };
 
 export const createSchedule = (formData: any) => {
-    return API.post(`/api/schedules`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    return API.post(`/api/schedules`, formData);
 };
 
 export const checkContributor = (cuit: string) => API.post('/api/afip/check_contributor', { cuit });

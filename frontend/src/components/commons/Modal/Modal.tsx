@@ -1,5 +1,6 @@
 import React from 'react';
 import CustomButton from '../Button/CustomButton';
+import Loader from '../Loader';
 
 interface IModal {
     title: string;
@@ -10,9 +11,10 @@ interface IModal {
     };
     onClose: () => void;
     content: React.ReactNode;
+    loading?: boolean;
 }
 
-const Modal = ({ title, content, action, onClose }: IModal) => (
+const Modal = ({ title, content, action, onClose, loading = false }: IModal) => (
     <>
         {/* Overlay blur */}
         <div
@@ -61,12 +63,13 @@ const Modal = ({ title, content, action, onClose }: IModal) => (
                                 Cancelar
                             </span>
                             <div className="w-full md:w-auto">
-                                <CustomButton text={action.text} color="alt" callback={action.callback}>
-                                    {action.icon}
-                                    {/* <RiSendPlane2Fill
-                                        className="text-alt"
-                                        color={'#7bf3ff'}
-                                    /> */}
+                                <CustomButton
+                                    text={action.text}
+                                    color="alt"
+                                    callback={action.callback}
+                                    disabled={loading}
+                                >
+                                    {loading ? <Loader /> : action.icon}
                                 </CustomButton>
                             </div>
                         </div>

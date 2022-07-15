@@ -19,7 +19,7 @@ const scheduleSchema = new mongoose.Schema(
         },
         status: {
             type: String,
-            enum: ['approved', 'pending', 'cancelled'],
+            enum: ['Approved', 'Pending', 'Cancelled'],
             default: 'pending',
         },
         userId: {

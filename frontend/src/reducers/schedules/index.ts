@@ -10,9 +10,9 @@ import {
 } from '../../actions/types';
 
 export enum ScheduleStatus {
-    approved = 'Approved',
-    cancelled = 'Cancelled',
-    pending = 'Pending',
+    Approved = 'Approved',
+    Cancelled = 'Cancelled',
+    Pending = 'Pending',
 }
 
 export interface ISchedule {
@@ -40,7 +40,7 @@ const initialState: ISchedulesState = {
         date: new Date(),
         time: '',
         comments: '',
-        status: ScheduleStatus.pending,
+        status: ScheduleStatus.Pending,
         userId: '',
     },
     isLoading: false,
