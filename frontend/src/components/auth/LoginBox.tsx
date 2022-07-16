@@ -46,8 +46,6 @@ const LoginBox = ({
     const { state } = useLocation();
     const { redirect }: any = state || '';
 
-    console.log(redirect);
-
     const onFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         clearErrors();
         setForm({ ...form, [e.target.name]: e.target.value });
