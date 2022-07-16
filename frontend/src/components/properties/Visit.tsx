@@ -7,6 +7,7 @@ import { RiSendPlane2Fill } from 'react-icons/all';
 import { createSchedule } from '../../actions/schedules';
 import { connect } from 'react-redux';
 import { ISchedule, ScheduleStatus } from '../../reducers/schedules';
+import Map from '../commons/Maps/Map';
 import React, { useState } from 'react';
 
 interface IVisitProps {
@@ -40,17 +41,16 @@ const Visit = ({ createSchedule, onClose, isLoading }: IVisitProps) => {
 
     const handleChange = (e: any) => {
         setVisitData({ ...visitData, [e.target.name]: e.target.value });
-        console.log(visitData);
     };
 
     const selectSchedule = (scheduleTime: { time: string; period: string }) => {
         setSelectedSchedule(scheduleTime);
         setVisitData({
             ...visitData,
-            time: scheduleTime.time,
+            time: `${scheduleTime.time} ${scheduleTime.period}`,
             date: new Date(
                 0,
-                //scheduleTime.period -> when datepicker library work properly, remove zero above
+                //date selected from datepicker -> when datepicker library work properly, remove zero above
             ),
         });
     };
@@ -96,11 +96,7 @@ const Visit = ({ createSchedule, onClose, isLoading }: IVisitProps) => {
                             </div>
                         </div>
                         <div className="hidden md:block flex-1 border-2 mx-2 space-y-6">
-                            <img
-                                className="h-56 w-full"
-                                alt="map"
-                                src="https://depor.com/resizer/tWkgaFkRSfQvJrxQJP3zxVe35K4=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/DOSTJYG5PVBK3ELX3UXALXJYPQ.jpg"
-                            />
+                            <Map address="Av. Rivadavia 1456" />
                         </div>
                     </div>
 
