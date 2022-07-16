@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Claim from '../models/claim';
+import mongoose from 'mongoose';
 
 const createClaim = async (req: Request, res: Response) => {
     const {
@@ -54,6 +55,10 @@ const getclaims = async (req: Request, res: Response) => {
 
 const getClaim = async (req: Request, res: Response) => {
     const { id } = req.params;
+
+    const isValid = mongoose.Types.ObjectId.isValid(id);
+
+    if (!isValid) return res.status(400).json({ msg: 'Invalid claim id' });
 
     //Check for existing claim
     const claim = await Claim.findOne({ _id: id });

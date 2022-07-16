@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import { Badge } from '../Badge/Badge';
