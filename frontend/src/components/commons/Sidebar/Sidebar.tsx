@@ -4,7 +4,7 @@ import { BsPlusCircleFill } from 'react-icons/bs';
 import { Badge } from '../Badge/Badge';
 import { useClickedOutside } from '../../../utils';
 import SidebarItem from './SidebarItem';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlinePlus, AiOutlineSchedule } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
 interface ISidebarProps {
@@ -77,6 +77,14 @@ const Sidebar = ({ isOpen, setIsOpen }: ISidebarProps) => {
                 setIsOpen(false);
             },
             icon: <BsPlusCircleFill />,
+        },
+        {
+            title: 'Turnos de visita',
+            callback: () => {
+                navigate('/schedules');
+                setIsOpen(false);
+            },
+            icon: <AiOutlineSchedule />,
         },
     ];
 

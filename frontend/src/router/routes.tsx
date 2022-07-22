@@ -6,6 +6,7 @@ import ClaimsRoutes from '../views/claims/routes';
 import ContractsRoutes from '../views/contracts/routes';
 import PublicationsRoutes from '../views/publications/routes';
 import RentRoutes from '../views/rent/routes';
+import SchedulesRoutes from '../views/schedules/routes';
 
 const routes = [
     {
@@ -20,6 +21,7 @@ const routes = [
     ...ContractsRoutes,
     ...PublicationsRoutes,
     ...RentRoutes,
+    ...SchedulesRoutes,
 ];
 
 export default routes;
